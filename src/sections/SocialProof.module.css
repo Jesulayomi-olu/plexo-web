@@ -1,0 +1,196 @@
+/* Figma "Social proof" (234:2016): 1440×791, padding 100/80, white.
+   Stack: heading block 92 → 64 → card row 331 → 64 → button 40. */
+.section {
+  --edge: max(var(--gutter), calc((100% - var(--content-max)) / 2));
+  background: var(--white);
+  padding-block: 100px;
+}
+
+/* Frame 13: heading (53) + 16 + lead (23 fixed). */
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  max-width: 804px;
+  min-height: 53px; /* Figma rounds the 52.8 text box up to 53 */
+}
+
+.lead {
+  max-width: 888px;
+  height: 23px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--ink-700);
+}
+
+/* Full-bleed horizontal scroller: cards start at the column edge and bleed off the right.
+   32px of vertical padding (cancelled by the margins) leaves room for the hover lift + shadow. */
+.scroller {
+  margin-block: 32px;
+  padding-block: 32px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--edge);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.scroller:focus-visible {
+  border-radius: 0;
+  box-shadow: inset 0 0 0 2px var(--lime-pressed);
+}
+
+@media (pointer: fine) {
+  .scroller {
+    cursor: grab;
+  }
+}
+
+.scroller[data-dragging] {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+
+/* Frame 23: row, gap 32. Inline padding = column edge on both sides. */
+.track {
+  display: flex;
+  gap: 32px;
+  width: max-content;
+  padding-inline: var(--edge);
+}
+
+.slide {
+  flex: none;
+  scroll-snap-align: start;
+}
+
+.slideInner {
+  height: 100%;
+}
+
+/* Frame 18: 548×331, column, justify centre, gap 25, padding 16/12, 1px #d7d8d3 stroke included
+   in layout, radius 12. Content (314) overflows the padding box and is centred like Figma. */
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 25px;
+  width: 548px;
+  height: 331px;
+  padding: 16px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--white);
+  overflow: hidden;
+  transition: box-shadow 200ms ease;
+}
+
+.card > * {
+  flex-shrink: 0;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card);
+}
+
+.prompt {
+  min-height: 39px; /* Figma rounds the 2 × 19.2 text box up to 39 */
+  font-size: 16px;
+  line-height: 19.2px;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: -0.24px;
+  color: var(--ink-800);
+}
+
+.preview {
+  height: 176px;
+  background: #d9d9d9;
+}
+
+/* Frame 19: column, gap 4. */
+.caption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.quote {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+  color: var(--ink-600);
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 24px;
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #989898;
+}
+
+.name {
+  display: block;
+  height: 16px;
+  font-size: 12px;
+  line-height: 15.6px;
+  font-weight: 400;
+  color: var(--ink-800);
+}
+
+.cta {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: 64px;
+  }
+
+  .title,
+  .prompt {
+    min-height: 0;
+  }
+
+  .lead {
+    height: auto;
+  }
+
+  .scroller {
+    margin-block: 8px;
+  }
+
+  .track {
+    gap: 16px;
+  }
+
+  .card {
+    width: calc(100vw - var(--gutter) * 2 - 32px);
+    height: auto;
+  }
+
+  .preview {
+    height: auto;
+    aspect-ratio: 522 / 176;
+  }
+}

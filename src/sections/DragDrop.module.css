@@ -1,0 +1,358 @@
+/* Figma "Drag and drop" (234:1218): 1440×885, padding 100/80, white. */
+.section {
+  background: var(--white);
+  padding-block: 100px;
+  overflow: hidden;
+}
+
+/* "Frame 57": column, gap 78, centred (button centred under the cards). */
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 78px;
+}
+
+/* "Frame 56": column, gap 80, left-aligned. */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  width: 100%;
+}
+
+/* "Frame 13": 888 wide, column gap 16. */
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 888px;
+  max-width: 100%;
+}
+
+/* 234:1224: fixed 804px wide text box. */
+.heading {
+  position: relative;
+  top: 1px; /* Figma sets this baseline 1px lower than Chrome */
+  max-width: 804px;
+  min-height: 53px; /* Figma rounds the 52.8px line box up to 53 */
+}
+
+/* 234:1225: fixed 23px text box with a 24px line. */
+.lead {
+  position: relative;
+  top: 1px; /* Figma sets this baseline 1px lower than Chrome */
+  height: 23px;
+}
+
+/* ---------- Desktop row ("Frame 23": row, gap 32, centred) ---------- */
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  height: 395px;
+}
+
+/*
+ * Widths follow Figma's 260 / 696 split of the 1280 column (1216 + 2×32 gaps) and narrow
+ * proportionally below 1440. A real 1px border keeps children inside it (Figma draws the
+ * stroke above the content); child coordinates are Figma's minus 1px.
+ */
+.card {
+  position: relative;
+  flex: 0 0 auto;
+  width: calc((100% - 64px) * 260 / 1216);
+  min-width: 0;
+  height: 395px;
+  border: 1px solid #e2e1e1;
+  border-radius: 12px;
+  background: var(--cream);
+  overflow: hidden;
+}
+
+.expanded {
+  width: calc((100% - 64px) * 696 / 1216);
+  background: var(--white);
+  border-color: var(--line);
+}
+
+/* "Frame 2147239066": 260×391, #f0f6df, no radius, no stroke. */
+.tint {
+  height: 391px;
+  border-color: var(--green-tint);
+  border-radius: 0;
+  background: var(--green-tint);
+}
+
+/* "Frame 2147239067"/"Frame 24": 260×395, #f5f7ed, 1px #e2e1e1, r12. */
+.cream {
+  background: var(--cream);
+  border-color: var(--line-soft);
+}
+
+/* In the default variant the blocks list is ABS in the row and overflows its panel (only where the
+   row has Figma's full width; narrower cards clip it so it never runs into the next card). */
+@media (min-width: 1440px) {
+  .overflowVisible {
+    overflow: visible;
+  }
+}
+
+/* "Rectangle 1": x=308 of 696 → 388×395, #f0f6df, LAYER_BLUR(4). */
+.panel {
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: calc(44.2529% - 0.115px);
+  right: -1px;
+  background: var(--green-tint);
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.illus {
+  position: absolute;
+  pointer-events: none;
+}
+
+.artImg {
+  display: block;
+  max-width: none;
+}
+
+/* "Frame 2147239069": 260.91×233 — desktop window at y=11, phone at x=151. */
+.artLive {
+  position: relative;
+  display: block;
+  width: 261px;
+  height: 233px;
+}
+
+.liveBrowser {
+  position: absolute;
+  left: 0;
+  top: 11px;
+  max-width: none;
+}
+
+.livePhone {
+  position: absolute;
+  left: 151px;
+  top: 0;
+  max-width: none;
+}
+
+/* "Frame 17": @16,157, 259 wide, column gap 16. */
+.copy {
+  position: absolute;
+  left: 15px;
+  top: 156px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 259px;
+  max-width: calc(44.25% - 32px);
+}
+
+/* 500 24/24, ls -0.29, #333332 */
+.title {
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: -0.29px;
+  color: var(--ink-700);
+}
+
+/* 400 14/21, #000, 226px text box */
+.text {
+  width: 226px;
+  max-width: 100%;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+  color: #000000;
+  white-space: pre-wrap;
+}
+
+/* Below 1440 the expanded text column narrows; use the design's 20/24 card title (hidden "Frame 17" style). */
+@media (max-width: 1439px) {
+  .copy .title {
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.24px;
+  }
+}
+
+/* "Plus": 24×24 at (12,359). */
+.plus {
+  position: absolute;
+  left: 11px;
+  top: 358px;
+  display: block;
+  width: 24px;
+  height: 24px;
+  color: #000000;
+  pointer-events: none;
+}
+
+.plus svg {
+  display: block;
+}
+
+/* Invisible hit area: hover, click and keyboard focus expand the card. */
+.hit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  cursor: pointer;
+}
+
+.expanded .hit {
+  cursor: default;
+}
+
+.hit:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--lime-pressed);
+  border-radius: inherit;
+}
+
+/* ---------- Tablet / mobile stack (<1200) ---------- */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Each card uses the expanded design: text on the left, blurred #f0f6df panel on the right. */
+.stackCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 395px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.stackCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 0 0 44.25%;
+  padding: 24px 15px;
+}
+
+.stackPanel {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 32px 16px;
+}
+
+.stackPanel::before {
+  content: '';
+  position: absolute;
+  inset: -1px -1px -1px 0;
+  background: var(--green-tint);
+  filter: blur(2px);
+}
+
+.stackArt {
+  position: relative;
+  display: block;
+}
+
+/* Shift the shadow-padded exports so the visible artwork is centred. */
+.stackArt_blocks {
+  margin-right: -33.5px;
+}
+
+.stackArt_mix {
+  margin-right: -28.7px;
+  margin-left: -1.3px;
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-top: 64px;
+    padding-bottom: 56px;
+  }
+
+  .inner {
+    gap: 40px;
+  }
+
+  .main {
+    gap: 40px;
+  }
+
+  .heading {
+    min-height: 0;
+  }
+
+  .lead {
+    height: auto;
+  }
+
+  .stack {
+    gap: 16px;
+  }
+
+  .stackCard {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+  }
+
+  .stackCopy {
+    flex: none;
+    padding: 24px 16px;
+  }
+
+  .text {
+    width: auto;
+  }
+
+  .stackPanel {
+    padding: 24px 16px 32px;
+  }
+
+  .stackPanel::before {
+    inset: 0 -1px -1px;
+  }
+
+  .stackArt {
+    max-width: 100%;
+  }
+}
+
+/* Preview: blocks list + separate dragged chip ("Dragging / Testimonials" at 26, 85.62; r10). */
+.artBlocks {
+  position: relative;
+  display: block;
+  width: 260px;
+  height: 230px;
+}
+
+.blocksList {
+  display: block;
+  max-width: none;
+}
+
+.blocksChip {
+  position: absolute;
+  top: 85.62px;
+  left: 26px;
+  max-width: none;
+  border-radius: 10px;
+}

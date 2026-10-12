@@ -1,0 +1,15 @@
+/* Each character sits in its own clipped slot, so it rolls in and out of view like an odometer. */
+.roll {
+  display: inline-flex;
+  white-space: pre;
+}
+
+.slot {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.char {
+  display: inline-block;
+}

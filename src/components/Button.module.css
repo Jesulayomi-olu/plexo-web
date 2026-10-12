@@ -1,0 +1,90 @@
+/* Figma: Button / Size=Medium — 40px tall, 0 16px padding, pill radius, 600 14/15.4 label. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 9999px;
+  border: 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 15.4px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.button:focus-visible {
+  box-shadow: var(--focus-ring);
+  border-radius: 9999px;
+}
+
+.label {
+  display: block;
+}
+
+.fullWidth {
+  display: flex;
+  width: 100%;
+}
+
+/* Variant=Primary */
+.primary {
+  background: var(--lime);
+  color: var(--ink);
+}
+.primary:hover {
+  background: var(--lime-hover);
+}
+.primary:active {
+  background: var(--lime-pressed);
+}
+
+/* Variant=Secondary */
+.secondary {
+  background: var(--forest);
+  color: var(--white);
+}
+.secondary:hover {
+  background: var(--forest-hover);
+}
+.secondary:active {
+  background: var(--forest-pressed);
+}
+
+/* Variant=Outline (1px inside border) */
+.outline {
+  background: var(--white);
+  color: var(--ink-800);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.outline:hover {
+  background: var(--surface-100);
+}
+.outline:active {
+  background: var(--surface-200);
+}
+.outline:focus-visible {
+  box-shadow: inset 0 0 0 1px var(--line), var(--focus-ring);
+}
+
+/* Variant=Contrast */
+.contrast {
+  background: var(--ink);
+  color: var(--white);
+}
+.contrast:hover {
+  background: var(--ink-700);
+}
+.contrast:active {
+  background: var(--ink-600);
+}

@@ -1,0 +1,172 @@
+/*
+ * Figma "Footer" (234:2094): 1440×482, white, clipped, so the wordmark is cut at y=482.
+ * (The Figma page frame has empty canvas below the footer; the page ends here.)
+ */
+.footer {
+  background: var(--white);
+  overflow: hidden;
+  container-type: inline-size;
+}
+
+.frame {
+  position: relative;
+  height: 482px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* "Frame 75": at (117,120), 1179×151, space-between, items centred (117 / 144 of 1440 → 8.125% / 10%). */
+.row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 120px 10% 0 8.125%;
+}
+
+/* "Frame 72": fixed 110×95.43, column, gap 4. */
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 110px;
+  height: 95.43px;
+}
+
+/* 600 24/30, −0.48, #1e1e1e. */
+.logo {
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 600;
+  letter-spacing: -0.48px;
+  color: var(--ink-900);
+}
+
+/* 400 12/13.2, #000. */
+.tagline {
+  font-size: 12px;
+  line-height: 13.2px;
+  font-weight: 400;
+  color: #000000;
+}
+
+/* "Frame 77": 404 wide; three FILL columns of 134.67px each (they use all the width, so no gaps). */
+.columns {
+  display: flex;
+  justify-content: space-between;
+  width: 404px;
+}
+
+/* Column: fills 1/3 of the group, column gap 24. */
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* 600 14/15.4, #0e1828 (Figma box 15px tall). */
+.heading {
+  display: block;
+  height: 15px;
+  font-size: 14px;
+  line-height: 15.4px;
+  font-weight: 600;
+  color: #0e1828;
+  transition: color 160ms ease;
+}
+
+/* "Frame 73": column, gap 16; items 400 12/15.6 #0e1828 (Figma rounds each box to 16/32px). */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.link {
+  display: block;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  color: #0e1828;
+  transition: color 160ms ease;
+}
+
+.heading:hover,
+.link:hover {
+  color: var(--green-text);
+}
+
+/*
+ * "Plexo" wordmark: at (410,233), 600 240/normal (302px box), −4.8, #1e1e1e,
+ * opacity 50% + difference blend (renders #f0f0f0 on white). The box is cut at the frame bottom:
+ * 482 − 233 = 249px = 1.0375em.
+ */
+.wordmark {
+  position: absolute;
+  left: 28.4722%;
+  top: 233px;
+  height: 1.0375em;
+  overflow: hidden;
+  font-size: 240px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.wordmarkText {
+  display: block;
+  font-size: 1em;
+  line-height: 1.25833em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink-900);
+  white-space: nowrap;
+  opacity: 0.5;
+  mix-blend-mode: difference;
+}
+
+@media (max-width: 1199px) {
+  .frame {
+    height: auto;
+  }
+
+  .row {
+    padding: 80px var(--gutter) 0;
+  }
+
+  .wordmark {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: fit-content;
+    margin: 48px auto 0;
+    font-size: min(240px, calc((100cqw - var(--gutter) * 2) / 2.6));
+  }
+}
+
+@media (max-width: 767px) {
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+    padding-top: 56px;
+  }
+
+  .brand {
+    height: auto;
+  }
+
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
+  }
+
+
+  .wordmark {
+    margin-top: 32px;
+  }
+}

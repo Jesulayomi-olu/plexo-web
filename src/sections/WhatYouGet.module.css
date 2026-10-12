@@ -1,0 +1,143 @@
+/* Figma "What you get" (234:943): 1440×538, padding 100/80, bg #f5f7ed. */
+.section {
+  background: var(--cream);
+  padding-block: 100px;
+  overflow: hidden;
+}
+
+/* "Frame 56": column, gap 80. */
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.heading {
+  max-width: 804px;
+  min-height: 53px; /* Figma rounds the 52.8px line box up to 53 */
+  position: relative;
+  top: 1px; /* Figma snaps this baseline 1px lower than Chrome does */
+  font-size: 48px;
+  line-height: 52.8px;
+  font-weight: 700;
+  letter-spacing: -1.2px;
+  color: var(--moss);
+}
+
+/* "Frame 23": row of four FILL cards, gap 32. */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cardItem {
+  display: flex;
+  min-width: 0;
+}
+
+/* Card: 205 tall, white, 1px #d7d8d3 inside border, r12, padding 16 (inside the stroke), column gap 24, centred vertically. */
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  min-height: 205px;
+  padding: 16px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 220ms var(--ease-out);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card);
+}
+
+/* "Icon well": 40×40 #365811 circle with a 19×19 white icon. */
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--forest-hover);
+}
+
+.icon {
+  width: 19px;
+  height: 19px;
+}
+
+/* Text block: column gap 16. */
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 100%;
+}
+
+.text250 {
+  width: 250px;
+}
+
+.text270 {
+  width: 270px;
+}
+
+.title {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: var(--ink-700);
+}
+
+.body {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+  color: var(--ink-600);
+}
+
+@media (max-width: 1199px) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: 64px;
+  }
+
+  .inner {
+    gap: 40px;
+  }
+
+  .heading {
+    top: 0;
+    min-height: 0;
+    font-size: 32px;
+    line-height: 36px;
+    letter-spacing: -0.8px;
+  }
+
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .card {
+    min-height: 0;
+  }
+}

@@ -1,0 +1,210 @@
+/* Figma "Mcp" (234:1228): 1440×1051, padding 100/80, bg #fcfcfa. */
+.section {
+  background: var(--surface-50);
+  padding-block: 100px;
+  overflow: hidden;
+}
+
+/* "Frame 32": column, gap 80. */
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+/* "Frame 82": column gap 8 (pill → text block); "Frame 81": text block → button gap 40. */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* "Frame 7": pad 8/12, bg #e8e8e4, r100; label 600 12/13.2 ls 0.24 #333332. */
+.pill {
+  display: flex;
+  align-items: center;
+  height: 29px;
+  padding: 0 12px;
+  border-radius: 100px;
+  background: var(--surface-200);
+  font-size: 12px;
+  line-height: 13.2px;
+  font-weight: 600;
+  letter-spacing: 0.24px;
+  color: var(--ink-700);
+  white-space: nowrap;
+}
+
+/* "Frame 13": 888 wide, column gap 16, centred text. */
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 888px;
+  max-width: 100%;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.heading {
+  position: relative;
+  top: 1px; /* Figma sets this baseline 1px lower than Chrome */
+  min-height: 53px; /* Figma rounds the 52.8px line box up to 53 */
+  padding-right: 1.2px; /* Figma ignores the last glyph's -1.2px tracking when centring */
+}
+
+/* 234:1244 keeps a leading space on both lines. */
+.lead {
+  position: relative;
+  top: 1px; /* Figma sets this baseline 1px lower than Chrome */
+  white-space: pre-wrap;
+}
+
+.cta {
+  margin-top: 40px;
+}
+
+/* "Frame 29" / "Frame 52": row, gap 20, centred, clipped. */
+.body {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* "Frame 28": 630×508 (fill), clipped; diagram 234:1263 at (11.9, 85.12). */
+.diagram {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 508px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.diagram img {
+  /* Exported at 2× (1213×678) → 606.5×339; margins land the box on Figma's (11.9, 85.12). */
+  width: min(606.5px, calc(100% - 23.8px));
+  height: auto;
+  margin-top: 1.24px;
+  margin-left: 0.3px;
+}
+
+/* Animated diagram (preview): same box and offset as the exported image. */
+.flow {
+  width: min(606.2px, calc(100% - 23.8px));
+  margin-top: 1.24px;
+  margin-left: 0.3px;
+}
+
+/* "Frame 53": column, gap 32, padding 40/0, centred. */
+.cards {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-block: 40px;
+}
+
+/* "Frame 42/43/44": pad 32/24, bg #f4f5f0, 3px #517a12 inside left stroke (counted in layout). */
+.card {
+  padding: 32px 24px;
+  border-left: 3px solid var(--moss);
+  background: var(--surface-100);
+  transition:
+    background-color 240ms ease,
+    border-color 240ms ease;
+}
+
+@media (hover: hover) {
+  .card:hover {
+    background: var(--green-tint);
+    border-left-color: var(--lime-pressed);
+  }
+}
+
+/* 700 24/30, ls -0.48, #333332 */
+.title {
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+  letter-spacing: -0.48px;
+  color: var(--ink-700);
+}
+
+/* 400 14/21, #333332 */
+.text {
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+  color: var(--ink-700);
+  white-space: pre-wrap;
+}
+
+/* Tablet: diagram above the cards. */
+@media (max-width: 1199px) {
+  .body {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 40px;
+  }
+
+  .diagram {
+    flex: none;
+    height: auto;
+  }
+
+  .diagram img {
+    width: min(606.5px, 100%);
+    margin: 0;
+  }
+
+  .cards {
+    flex: none;
+    padding-block: 0;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-top: 64px;
+    padding-bottom: 56px;
+  }
+
+  .inner {
+    gap: 48px;
+  }
+
+  .heading {
+    min-height: 0;
+  }
+
+  .cta {
+    margin-top: 32px;
+  }
+
+  .body {
+    gap: 32px;
+  }
+
+  .cards {
+    gap: 16px;
+  }
+
+  .card {
+    padding: 24px 20px;
+  }
+
+  .title {
+    font-size: 20px;
+    line-height: 26px;
+    letter-spacing: -0.4px;
+  }
+
+  .text {
+    margin-top: 12px;
+  }
+}

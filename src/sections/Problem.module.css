@@ -1,0 +1,159 @@
+/* Figma "Problem" (234:865): 1440×787, bg #fcfcfa, padding 80, column gap 72. */
+.problem {
+  padding: 80px 0;
+  background: var(--surface-50);
+  overflow: hidden;
+}
+
+/* "Frame 13": column, gap 16. */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Heading box is 804px wide → wraps after "you" (2 lines, Figma box 106px). */
+.title {
+  max-width: 804px;
+  min-height: 106px;
+}
+
+/* Lead: whole string overridden to 500 16/24 #454543; fixed 23px box in Figma. */
+.lead {
+  height: 23px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--ink-600);
+}
+
+/* "Frame 24": 2 rows × 2 cards, gap 32 both ways. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  margin-top: 72px;
+}
+
+.cell {
+  display: block;
+}
+
+/* Card: 624×189, 1px #e2e1e1 inside stroke (drawn above the illustration, as in Figma), r12, clipped. */
+.card {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  height: 189px;
+  padding: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 320ms var(--ease-out);
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--line-soft);
+  border-radius: inherit;
+  pointer-events: none;
+  transition: border-color 240ms ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.card:hover::after {
+  border-color: var(--line);
+}
+
+/* "Frame 25": 217×293 at the card's top-right (x 407 of 624). */
+.illustration {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 217px;
+  height: 293px;
+  max-width: none;
+}
+
+/* "Frame 17" / "Frame 27": column, gap 4, 285 or 334 wide, bottom-left (16px inset). */
+.text {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: min(285px, calc(100% - 249px));
+}
+
+.textWide {
+  width: min(334px, calc(100% - 249px));
+}
+
+/* 600 20/26, −0.4, #454543. */
+.cardTitle {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: var(--ink-600);
+}
+
+/* 400 14/21, #454543. */
+.cardBody {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+  color: var(--ink-600);
+}
+
+@media (max-width: 1199px) {
+  .grid {
+    gap: 24px;
+    margin-top: 56px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .problem {
+    padding: 64px 0 56px;
+  }
+
+  .title {
+    min-height: 0;
+  }
+
+  .lead {
+    height: auto;
+  }
+
+  .grid {
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  /* Illustration stays in the top-right corner (cropped to 160px); copy sits below it. */
+  .card {
+    height: auto;
+    padding: 176px 16px 16px;
+  }
+
+  .illustration {
+    height: 160px;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .text,
+  .textWide {
+    width: 100%;
+  }
+}

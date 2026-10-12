@@ -1,0 +1,134 @@
+/* Figma "FAQ" (234:2070): 1440×860 with item 1 open, padding 100/80, white. */
+.section {
+  background: var(--white);
+  padding-block: 100px;
+}
+
+/* Frame 70: row, gap 120, centred both ways. Heading 408 + 120 + accordion 752 = 1280. */
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(64px, calc(100% - 1160px), 120px);
+}
+
+.headCol {
+  flex: 0 0 408px;
+  min-width: 0;
+}
+
+.title {
+  min-height: 106px; /* Figma rounds the 2 × 52.8 text box up to 106 */
+}
+
+/* "Plexo / FAQ Accordion": column, gap 24. */
+.list {
+  flex: 0 1 752px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Row: #f4f5f0, radius 12, padding 12. Closed = 48 tall; open = header 24 + 12 + answer. */
+.item {
+  border-radius: 12px;
+  background: var(--surface-100);
+}
+
+.heading {
+  font: inherit;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  text-align: left;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--ink-700);
+  transition: color 160ms ease;
+}
+
+.trigger:hover {
+  color: var(--ink-800);
+}
+
+.trigger:focus-visible {
+  border-radius: 12px;
+}
+
+.icon {
+  display: block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  fill: var(--ink-700);
+}
+
+/* The vertical bar collapses to turn the plus into a minus when the item is open. */
+.iconBar {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 300ms var(--ease-out);
+}
+
+.iconOpen .iconBar {
+  transform: scaleY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iconBar {
+    transition: none;
+  }
+}
+
+.panel {
+  overflow: hidden;
+}
+
+.answer {
+  padding: 0 12px 12px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--ink-700);
+}
+
+/* Tablet and mobile: heading above the list. */
+@media (max-width: 1199px) {
+  .inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 40px;
+  }
+
+  .headCol,
+  .list {
+    flex: none;
+  }
+
+  .title {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: 64px;
+  }
+
+  .inner {
+    gap: 32px;
+  }
+
+  .list {
+    gap: 16px;
+  }
+}

@@ -1,0 +1,252 @@
+/*
+ * Figma "Platform" (241:4025): 1440×924, white, clipped. Centred heading with nine absolutely
+ * positioned feature cards around it.
+ */
+.section {
+  background: var(--white);
+  overflow: hidden;
+}
+
+/* Desktop: a 1440×924 canvas, centred, scaled by --scale (1 at ≥1440, width/1440 at 1200–1439). */
+.stage {
+  position: relative;
+  height: calc(924px * var(--scale, 1));
+}
+
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1440px;
+  height: 924px;
+  transform: translateX(-50%) scale(var(--scale, 1));
+  transform-origin: top center;
+}
+
+/* "Frame 15": 888 box at (276,436); the 838px heading is centred inside it.
+   Layered above the cards so they emerge from behind it during the orbit-in. */
+.headingWrap {
+  position: absolute;
+  z-index: 1;
+  top: 436px;
+  left: 276px;
+  width: 888px;
+}
+
+.heading {
+  height: 53px;
+  padding-right: 1.2px; /* Figma ignores the last glyph's -1.2px tracking when centring */
+  text-align: center;
+  white-space: nowrap;
+}
+
+.cards {
+  position: absolute;
+  inset: 0;
+}
+
+.slot {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+}
+
+.reveal,
+.drift {
+  width: 100%;
+}
+
+/* Preview idle motion: float (bob ±6px, per-card rhythm set inline) and the bounce wave's lift shadow. */
+.float {
+  width: 100%;
+  animation: platform-float var(--float-duration, 5s) ease-in-out var(--float-delay, 0s) infinite;
+}
+
+.canvas[data-idle='off'] .float {
+  animation-play-state: paused;
+}
+
+@keyframes platform-float {
+  0%,
+  100% {
+    transform: translateY(6px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.hop {
+  position: relative;
+  width: 100%;
+}
+
+.hopShadow {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  box-shadow: 0 16px 28px -12px rgb(35 35 35 / 0.22);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/*
+ * Card ("Frame 46" etc.): 60px tall, white, 1px #e8e8e4 stroke (included in layout, so content
+ * starts at 17,9), r16, padding 8/16, column gap 4.
+ */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  height: 60px;
+  padding: 8px 16px;
+  border: 1px solid #e8e8e4;
+  border-radius: 16px;
+  background: var(--white);
+  white-space: nowrap;
+  transition:
+    transform 280ms var(--ease-out),
+    box-shadow 280ms var(--ease-out),
+    border-color 280ms var(--ease-out);
+}
+
+/* Blog: stroke not included in layout (content at 16,8). */
+.cardFlush {
+  border: 0;
+  box-shadow: inset 0 0 0 1px #e8e8e4;
+}
+
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--line);
+    box-shadow: var(--shadow-card);
+  }
+
+  .cardFlush:hover {
+    box-shadow:
+      inset 0 0 0 1px var(--line),
+      var(--shadow-card);
+  }
+}
+
+/* "Frame 55": row, gap 16, 24px tall. */
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  height: 24px;
+}
+
+/* "Icon accent": 24×24, r6; the 14.4px icon sits at (4.8, 4.8). The SVG export is 15px (rounded up). */
+.iconTile {
+  position: relative;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+}
+
+.iconTile img {
+  position: absolute;
+  top: 4.8px;
+  left: 4.8px;
+  width: 15px;
+  height: 15px;
+  max-width: none;
+}
+
+/* 500 14/21, #232323. */
+.title {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+  color: var(--ink-800);
+}
+
+/* 400 12/15.6, #232323 (16px box). */
+.body {
+  height: 16px;
+  font-size: 12px;
+  line-height: 15.6px;
+  font-weight: 400;
+  color: var(--ink-800);
+}
+
+/* Tablet and mobile: heading on top, cards in a grid (the floating composition needs 1200px). */
+@media (max-width: 1199px) {
+  .section {
+    padding-block: 80px;
+  }
+
+  .stage {
+    height: auto;
+  }
+
+  .canvas {
+    position: static;
+    width: auto;
+    height: auto;
+    max-width: calc(var(--content-max) + var(--gutter) * 2);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    transform: none;
+  }
+
+  .headingWrap {
+    position: static;
+    width: auto;
+    margin-bottom: 40px;
+  }
+
+  .heading {
+    height: auto;
+    white-space: normal;
+  }
+
+  .cards {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .slot {
+    position: static;
+    width: auto;
+  }
+
+  .card {
+    height: auto;
+    min-height: 60px;
+    white-space: normal;
+  }
+
+  .body {
+    height: auto;
+  }
+}
+
+@media (max-width: 899px) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-top: 64px;
+    padding-bottom: 56px;
+  }
+
+  .headingWrap {
+    margin-bottom: 32px;
+  }
+
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+}

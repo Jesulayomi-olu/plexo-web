@@ -1,0 +1,214 @@
+/* Figma "How it works" (234:934): 1440×857, padding 100/80, bg #fcfcfa. */
+.section {
+  background: var(--surface-50);
+  padding-block: 100px;
+  overflow: hidden;
+}
+
+/* "Frame 32": column, gap 64. */
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+/* "Frame 16": row, space-between, centred; 32px bottom padding + 1px #d7d8d3 bottom border (125 tall). */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* "Frame 13": 888 wide, column gap 16. */
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 888px;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.heading {
+  max-width: 804px;
+  min-height: 53px; /* Figma rounds the 52.8px line box up to 53 */
+  position: relative;
+  top: 1px; /* Figma snaps this baseline 1px lower than Chrome does */
+  font-size: 48px;
+  line-height: 52.8px;
+  font-weight: 700;
+  letter-spacing: -1.2px;
+  color: var(--ink-800);
+}
+
+/* Fixed 23px text box with a 24px line (Figma 234:940). */
+.lead {
+  position: relative;
+  top: 1px; /* baseline snap, see .heading */
+  margin-bottom: -1px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--ink-600);
+}
+
+.cta {
+  flex-shrink: 0;
+}
+
+/* "Component 1": fixed 1280×468 frame — steps at x 0, browser (728 wide) at x 552. */
+.body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.stepsWrap {
+  flex: 0 0 359px;
+  min-width: 0;
+}
+
+/* "Frame 31": column, gap 24. */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+}
+
+.stepHeading {
+  margin: 0;
+  font: inherit;
+}
+
+/* Step title: 700 20/26, -0.4; ordered-list marker as in Figma. */
+.stepButton {
+  display: flex;
+  align-items: baseline;
+  width: 100%;
+  min-height: 26px;
+  text-align: left;
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: var(--ink-500);
+  transition: color 180ms ease;
+}
+
+.stepButton:hover {
+  color: var(--ink-800);
+}
+
+.stepButtonActive {
+  color: var(--ink-800);
+  cursor: default;
+}
+
+.stepNum {
+  flex: 0 0 30px;
+  padding-left: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.stepTitle {
+  min-width: 0;
+}
+
+.descWrap {
+  overflow: hidden;
+}
+
+/* Description: 400 16/24, fixed 359 wide. */
+.desc {
+  position: relative;
+  top: 1px; /* baseline snap, see .heading */
+  max-width: 359px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.bodyMuted {
+  color: var(--ink-600);
+}
+
+.bodyStrong {
+  color: var(--ink-900);
+}
+
+/* Browser window, 728×478.38, clipped by the 468px-tall component frame. */
+.browserWrap {
+  flex: 0 1 728px;
+  min-width: 0;
+}
+
+.browser {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 728 / 468;
+  overflow: hidden;
+}
+
+.shot {
+  position: absolute;
+  inset: 0 0 auto 0;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  user-select: none;
+}
+
+/* Tablet: steps above the screenshot. */
+@media (max-width: 899px) {
+  .body {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .stepsWrap,
+  .browserWrap {
+    flex: none;
+    width: 100%;
+  }
+
+  .browserWrap {
+    max-width: 728px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: 64px;
+  }
+
+  .inner {
+    gap: 40px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    padding-bottom: 24px;
+  }
+
+  .heading {
+    top: 0;
+    min-height: 0;
+    font-size: 32px;
+    line-height: 36px;
+    letter-spacing: -0.8px;
+  }
+}

@@ -1,0 +1,192 @@
+/*
+ * Figma "Desktop navigation" (234:2134): 1440×72, white, no stroke, padding 16/80
+ * (content row starts at 80,16).
+ * Content row "Frame 4" hugs: logo · 412 · links · 412 · button, leaving 11px free on the right.
+ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--nav-height);
+  background: var(--white);
+  transition: box-shadow 240ms var(--ease-out);
+}
+
+/* Capture mode: keep the bar in the document flow without sticking, so section screenshots stay clean. */
+.static {
+  position: relative;
+}
+
+.scrolled {
+  box-shadow: var(--shadow-card);
+}
+
+/*
+ * Grid with proportional gap tracks (412fr · 412fr · 11fr) — at 1440 the free space is exactly
+ * 835px, so the gaps resolve to the Figma 412/412/11; narrower viewports shrink them evenly.
+ */
+.inner {
+  display: grid;
+  grid-template-columns: auto 412fr auto 412fr auto 11fr;
+  align-items: center;
+  height: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* "Plexo": 600 24/30, −0.48 letter spacing, #1e1e1e. */
+.logo {
+  grid-column: 1;
+  min-width: 63px;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 600;
+  letter-spacing: -0.48px;
+  color: var(--ink-900);
+}
+
+.links {
+  grid-column: 3;
+}
+
+/* "Frame 1": row, gap 24. */
+.list {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Links: 400 14/21, #6e6e6e → darken to #1e1e1e on hover. */
+.link {
+  display: block;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+  color: var(--ink-400);
+  white-space: nowrap;
+  transition: color 160ms ease;
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--ink-900);
+}
+
+.cta {
+  grid-column: 5;
+  min-width: 96px;
+}
+
+.menuButton {
+  display: none;
+}
+
+.panel {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .inner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .links,
+  .cta {
+    display: none;
+  }
+
+  /* Compact menu button: Outline button look (white, 1px #d7d8d3, pill). */
+  .menuButton {
+    grid-column: 2;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    background: var(--white);
+    box-shadow: inset 0 0 0 1px var(--line);
+    color: var(--ink-900);
+    transition: background-color 160ms ease;
+  }
+
+  .menuButton:hover {
+    background: var(--surface-100);
+  }
+
+  .menuButton:focus-visible {
+    border-radius: 9999px;
+    box-shadow: inset 0 0 0 1px var(--line), var(--focus-ring);
+  }
+
+  .menuIcon {
+    position: relative;
+    display: block;
+    width: 16px;
+    height: 10px;
+  }
+
+  .menuIcon span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    border-radius: 2px;
+    background: currentColor;
+    transition:
+      transform 300ms var(--ease-out),
+      top 300ms var(--ease-out);
+  }
+
+  .menuIcon span:first-child {
+    top: 0;
+  }
+
+  .menuIcon span:last-child {
+    top: calc(100% - 1.5px);
+  }
+
+  .open .menuIcon span:first-child {
+    top: calc(50% - 0.75px);
+    transform: rotate(45deg);
+  }
+
+  .open .menuIcon span:last-child {
+    top: calc(50% - 0.75px);
+    transform: rotate(-45deg);
+  }
+
+  .panel {
+    position: absolute;
+    top: 100%;
+    left: -1px;
+    right: -1px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 4px var(--gutter) 20px;
+    background: var(--white);
+    border: 1px solid #bebeba;
+    border-top: 0;
+    box-shadow: var(--shadow-card);
+  }
+
+  .panelList li + li {
+    border-top: 1px solid var(--surface-200);
+  }
+
+  .panelLink {
+    display: block;
+    padding: 12px 0;
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: 400;
+    color: var(--ink-400);
+    transition: color 160ms ease;
+  }
+
+  .panelLink:hover,
+  .panelLink:focus-visible {
+    color: var(--ink-900);
+  }
+}

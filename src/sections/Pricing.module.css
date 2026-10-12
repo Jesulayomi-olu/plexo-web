@@ -1,0 +1,397 @@
+/* Figma "Pricing" (234:1817): 1440×1614, padding 100/80, white. */
+.section {
+  background: var(--white);
+  padding-block: 100px;
+}
+
+/* Frame 32: column, gap 40, centred. */
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Heading block: heading (106) + 16 + lead (24) = 146. */
+.head {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+}
+
+.title {
+  max-width: 888px;
+  min-height: 106px; /* Figma rounds the 2 × 52.8 text box up to 106 */
+  margin-inline: auto;
+  text-align: center;
+}
+
+.lead {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--ink-600);
+  text-align: center;
+}
+
+/* Monthly / Yearly toggle (234:1844): 286.5×33 frame, "2 months free" note overlaps the switch at x=176.5. */
+.toggleWrap {
+  width: 286.5px;
+  height: 33px;
+}
+
+.toggle {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  background: var(--white);
+  border-radius: 10px;
+}
+
+.switchItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 29px;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+  color: #7a7b77;
+  transition: color 160ms ease;
+}
+
+.switchItem:hover,
+.switchItemActive {
+  color: var(--ink-600);
+}
+
+.switchItem:focus-visible {
+  border-radius: 8px;
+}
+
+.pill {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: var(--surface-100);
+}
+
+.switchLabel {
+  position: relative;
+  white-space: nowrap;
+}
+
+.note {
+  position: absolute;
+  top: 0;
+  left: 176.5px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  height: 16px;
+  font-size: 12px;
+  line-height: 15.6px;
+  font-weight: 600;
+  color: var(--moss);
+  white-space: nowrap;
+}
+
+/* Figma text box is 16 tall (15.6 line height, top aligned). */
+.noteText {
+  display: block;
+  height: 16px;
+}
+
+/* 20×10 arrow slot (1.5px #74a418 stroke); the SVG is exported at render bounds, so it overflows the box. */
+.arrow {
+  position: relative;
+  flex-shrink: 0;
+  width: 20px;
+  height: 10px;
+}
+
+.arrow img {
+  position: absolute;
+  top: -5.885px;
+  left: -0.767px;
+  width: 22px;
+  height: 17px;
+  max-width: none;
+}
+
+/* "card holder": fixed 1155 tall, two rows of 569.5 with a 16px gap. */
+.cards {
+  width: 100%;
+  height: 1155px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.row {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+  gap: 44px;
+}
+
+.slot {
+  flex: 0 1 343px;
+  min-width: 0;
+  display: flex;
+}
+
+.slotNarrow {
+  flex-basis: 335px;
+}
+
+.card {
+  container: plan / inline-size;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 28px;
+  background: var(--white);
+  border-radius: 24px;
+  box-shadow: inset 0 0 0 1px var(--line);
+  overflow: hidden;
+  transition: box-shadow 200ms ease;
+}
+
+.card:hover {
+  box-shadow: inset 0 0 0 1px var(--line), var(--shadow-card);
+}
+
+/* Pro: 1px #517a12 stroke included in layout (content inset 29), Figma shadow stack. */
+.cardPopular {
+  border: 1px solid var(--moss);
+  box-shadow:
+    0 0 0 1px rgba(23, 23, 23, 0.02),
+    0 1px 1px -0.5px rgba(23, 23, 23, 0.06),
+    0 3px 3px -1.5px rgba(23, 23, 23, 0.06);
+}
+
+.cardPopular:hover {
+  box-shadow:
+    0 0 0 1px rgba(23, 23, 23, 0.02),
+    0 1px 1px -0.5px rgba(23, 23, 23, 0.06),
+    0 3px 3px -1.5px rgba(23, 23, 23, 0.06),
+    var(--shadow-card);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Free Trial: content frame fixed at 204 with space-between (button 19px below the tagline). */
+.contentFixed {
+  height: 204px;
+  justify-content: space-between;
+  gap: 0;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.name {
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: 500;
+  color: var(--ink-800);
+}
+
+.pricing {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.priceRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 64px;
+}
+
+.priceRow > * {
+  flex-shrink: 0;
+}
+
+/* Yearly variant: the price block hugs to 62px (46px price line + 16px "Billed annually" line). */
+.priceRowYearly {
+  height: 62px;
+}
+
+/* Preview: persistent price block (column, top-aligned) so the digits can roll between periods. */
+.priceRollStack {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  overflow: hidden;
+}
+
+/* Wrapper that crossfades when the billing period changes. */
+.priceSwap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.priceStack {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.priceLine {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.priceAlt {
+  display: flex;
+  flex-direction: column;
+  height: 64px;
+}
+
+.priceLineAlt {
+  height: 48px;
+}
+
+.amount {
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: var(--ink-800);
+  white-space: nowrap;
+}
+
+.unit {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+  color: var(--ink-500);
+  white-space: nowrap;
+}
+
+.billed {
+  display: block;
+  height: 16px;
+  font-size: 12px;
+  line-height: 15.6px;
+  font-weight: 400;
+  color: #7a7b77;
+  white-space: nowrap;
+}
+
+.tagline {
+  height: 18px;
+  font-size: 16px;
+  line-height: 17.6px;
+  font-weight: 500;
+  color: var(--ink-500);
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+  color: var(--ink-600);
+}
+
+.check {
+  flex-shrink: 0;
+  width: 13px;
+  height: 13px;
+}
+
+/* Tablet: same 2×2 arrangement, cards hug their content, price pairs may wrap. */
+@media (max-width: 1199px) {
+  .cards {
+    height: auto;
+  }
+
+  .row {
+    flex: none;
+    gap: 24px;
+  }
+
+  .tagline {
+    height: auto;
+  }
+}
+
+/* Narrow cards (content box < 281px, small tablets): let the two-price pair wrap instead of running past the padding.
+   At its designed 343px the Pro pair overflows the content box by 6px, exactly as in Figma. */
+@container plan (max-width: 280px) {
+  .priceRow {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 64px;
+    row-gap: 4px;
+  }
+}
+
+/* Mobile: single column. */
+@media (max-width: 767px) {
+  .section {
+    padding-block: 64px;
+  }
+
+  .inner {
+    gap: 32px;
+  }
+
+  .title {
+    min-height: 0;
+  }
+
+  .cards {
+    gap: 16px;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .slot,
+  .slotNarrow {
+    flex: none;
+    width: 100%;
+    max-width: 480px;
+    margin-inline: auto;
+  }
+}

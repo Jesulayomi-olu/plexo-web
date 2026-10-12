@@ -1,0 +1,235 @@
+/* Figma "Frame 11": column, gap 8, 792 wide. */
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 792px;
+}
+
+/* Figma "Frame 5": 89px tall, 0 12px padding (+1px inside stroke), white, 1px #e2e1e1, r16. */
+.box {
+  display: flex;
+  align-items: center;
+  height: 89px;
+  padding: 0 12px;
+  background: var(--white);
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  transition:
+    border-color 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out);
+}
+
+.box:hover {
+  border-color: var(--line);
+}
+
+.box:focus-within {
+  border-color: var(--lime-pressed);
+  box-shadow: 0 0 0 4px rgb(184 243 74 / 0.24);
+}
+
+/* Figma "Attach": 36×36, #f5f5f5, fully rounded, 17px plus icon (#1e1e1e, 1.7 stroke). */
+.attach {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: #f5f5f5;
+  color: var(--ink-900);
+  transition: background-color 160ms ease;
+}
+
+.attach:hover {
+  background: var(--surface-200);
+}
+
+.attach:focus-visible {
+  border-radius: 999px;
+}
+
+/* Placeholder: 400 14/21, #979797 — starts 12px after the attach button. */
+.field {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  min-width: 0;
+  height: 36px;
+  margin: 0 16px 0 12px;
+}
+
+.input {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+  color: var(--ink-900);
+  text-overflow: ellipsis;
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--ink-300);
+  opacity: 1;
+}
+
+/*
+ * Typewriter placeholder: same type as the placeholder, with a thin caret that blinks while it waits.
+ * Short text sits at the start (auto margin); text wider than the field aligns to the end so the
+ * caret stays visible, and the start fades out (data-overflow is set from PromptBox).
+ */
+.typing {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+  color: var(--ink-300);
+  white-space: pre;
+  pointer-events: none;
+}
+
+.typing[data-overflow='true'] {
+  mask-image: linear-gradient(to right, transparent, #000 20px);
+}
+
+.typingText {
+  display: flex;
+  flex: none;
+  align-items: center;
+  margin-right: auto;
+}
+
+.caret {
+  flex: none;
+  width: 1px;
+  height: 17px;
+  margin-left: 1px;
+  background: var(--ink-500);
+}
+
+.caretBlink {
+  animation: caret-blink 1.05s steps(1, end) infinite;
+}
+
+@keyframes caret-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* The whole box shows the focus state instead. */
+.input:focus-visible {
+  box-shadow: none;
+}
+
+/* Figma "Button / Build it" hugs to 78px. */
+.submit {
+  flex: none;
+  min-width: 78px;
+}
+
+/* Figma "Frame 12": space-between, items centred, 26px tall. */
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.hint {
+  font-size: 12px;
+  line-height: 13.2px;
+  font-weight: 400;
+  color: var(--ink-700);
+  white-space: nowrap;
+}
+
+.hintLink {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 2px;
+  transition:
+    color 160ms ease,
+    text-decoration-color 160ms ease;
+}
+
+.hintLink:hover {
+  color: var(--green-text);
+  text-decoration-color: currentColor;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.arrow {
+  display: inline-block;
+  width: 8.9px;
+  height: 13px;
+  vertical-align: top;
+  transition: transform 200ms var(--ease-out);
+}
+
+.hintLink:hover .arrow {
+  transform: translateX(2px);
+}
+
+/* Figma: fixed 149px box, text " Free for 14 days. No card.⏎" (leading space, empty 2nd line → 26px). */
+.trial {
+  flex: none;
+  width: 149px;
+  height: 26px;
+  font-size: 12px;
+  line-height: 13.2px;
+  font-weight: 500;
+  color: var(--green-text);
+  white-space: pre;
+}
+
+@media (max-width: 767px) {
+  .box {
+    height: 72px;
+    padding: 0 10px;
+  }
+
+  .field {
+    margin: 0 10px;
+  }
+
+  .meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .hint {
+    white-space: normal;
+    line-height: 16px;
+  }
+
+  .trial {
+    width: auto;
+    height: auto;
+    white-space: normal;
+  }
+}

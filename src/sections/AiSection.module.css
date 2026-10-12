@@ -1,0 +1,341 @@
+/* Figma "AI" (234:1014): 1440×960, padding 100/80, fills #1d3509 + #000000 @ 20%. */
+.section {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    var(--forest);
+  padding-block: 100px;
+  overflow: hidden;
+}
+
+/* "Frame 32": column, gap 80. */
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+/* "Frame 54": column, gap 40, centred. */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+/* "Frame 13": 888 wide, column gap 16. */
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 888px;
+  max-width: 100%;
+  text-align: center;
+}
+
+.heading {
+  position: relative;
+  top: 1px; /* Figma sets this baseline 1px lower than Chrome */
+  min-height: 53px; /* Figma rounds the 52.8px line box up to 53 */
+  padding-right: 1.2px; /* Figma ignores the last glyph's -1.2px tracking when centring */
+  font-size: 48px;
+  line-height: 52.8px;
+  font-weight: 700;
+  letter-spacing: -1.2px;
+  color: var(--surface-50);
+}
+
+/* 234:1021 — fixed 23px box, text colour override #d7d8d3. */
+.lead {
+  position: relative;
+  top: 1px; /* Figma sets this baseline 1px lower than Chrome */
+  height: 23px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--line);
+}
+
+/*
+ * Desktop (≥1200): the panel is laid out at its Figma size (1280×508) and scaled uniformly to the
+ * column width (--s = width / 1280, 1 at ≥1440), so mockup, cards, text and illustrations keep the
+ * design's proportions on every desktop width.
+ */
+.panelFit {
+  height: calc(508px * var(--s, 1));
+}
+
+.panelScale {
+  width: 1280px;
+  transform: scale(var(--s, 1));
+  transform-origin: top left;
+}
+
+/* "Frame 55": 1280×508, #bebeba. App mockup 724 wide on the left, cards column (458) at x=756. */
+.panel {
+  display: grid;
+  grid-template-columns: minmax(0, 724fr) minmax(0, 458fr);
+  column-gap: 32px;
+  align-items: center;
+  padding-right: 66px;
+  background: #bebeba;
+}
+
+.app {
+  align-self: stretch;
+}
+
+.app img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 724 / 508;
+}
+
+/* "Frame 53": column, gap 16 (vertically centred: @38.56). */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* "Frame 42/43/44": 458×133, white, clipped. Text block at x=12.5. */
+.card {
+  position: relative;
+  height: 133px;
+  padding-left: 12.5px;
+  background: var(--white);
+  overflow: hidden;
+  perspective: 500px;
+  transition:
+    transform 280ms var(--ease-out),
+    box-shadow 280ms var(--ease-out);
+}
+
+/* Card rotator: one card at a time (crossfading in the same grid cell), progress bars underneath. */
+.rotator {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rotatorStage {
+  display: grid;
+  min-height: 133px;
+}
+
+.rotatorItem {
+  grid-area: 1 / 1;
+}
+
+.progress {
+  display: flex;
+  gap: 6px;
+}
+
+.segment {
+  width: 44px;
+  padding: 8px 0;
+}
+
+.segment:focus-visible {
+  border-radius: 4px;
+}
+
+.track {
+  display: block;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgb(255 255 255 / 0.6);
+}
+
+.fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--forest);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.fillDone {
+  transform: scaleX(1);
+}
+
+.fillRunning {
+  animation: ai-progress var(--show, 3s) linear forwards;
+}
+
+@keyframes ai-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+  }
+}
+
+.titleSmall,
+.titleLarge {
+  font-weight: 700;
+  color: var(--ink-700);
+  white-space: nowrap;
+}
+
+/* 234:1055: 700 20/26, ls -0.4 */
+.titleSmall {
+  font-size: 20px;
+  line-height: 26px;
+  letter-spacing: -0.4px;
+}
+
+/* 234:1086 / 234:1113: 700 24/30, ls -0.48 */
+.titleLarge {
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: -0.48px;
+}
+
+.text {
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+  color: var(--ink-700);
+  white-space: nowrap;
+}
+
+/* The illustration floats on the lit card and tilts toward the cursor on hover (Framer Motion). */
+.illus {
+  position: absolute;
+  max-width: none;
+  pointer-events: none;
+}
+
+.illus svg {
+  display: block;
+  overflow: visible;
+}
+
+/*
+ * Draw-on: each time a card appears, its icon's lines draw themselves (staggered by --k) and the
+ * pale green / white faces fade in once the outlines are mostly drawn.
+ */
+.illusDrawing path {
+  stroke-dasharray: 1;
+  animation:
+    ai-icon-draw 1.3s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--k, 0) * 70ms) both,
+    ai-icon-fill 0.7s ease-out calc(0.8s + var(--k, 0) * 40ms) both;
+}
+
+@keyframes ai-icon-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes ai-icon-fill {
+  from {
+    fill-opacity: 0;
+  }
+  to {
+    fill-opacity: 1;
+  }
+}
+
+/* Tablet: stack the app mockup above the cards (no scaling). */
+@media (max-width: 1199px) {
+  .panelFit {
+    height: auto;
+  }
+
+  .panelScale {
+    width: auto;
+    transform: none;
+  }
+
+  .panel {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 32px;
+    padding: 0 0 32px;
+  }
+
+  .cards,
+  .rotator {
+    padding-inline: 32px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-top: 64px;
+    padding-bottom: 56px;
+  }
+
+  .inner {
+    gap: 48px;
+  }
+
+  .header {
+    gap: 32px;
+  }
+
+  .heading {
+    min-height: 0;
+    font-size: 32px;
+    line-height: 36px;
+    letter-spacing: -0.8px;
+  }
+
+  .lead {
+    height: auto;
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .panel {
+    row-gap: 16px;
+    padding-bottom: 16px;
+  }
+
+  .cards {
+    padding-inline: 16px;
+    gap: 12px;
+  }
+
+  .rotator {
+    padding-inline: 16px;
+  }
+
+  .card {
+    height: auto;
+    min-height: 133px;
+    padding-right: 72px;
+    padding-bottom: 22px;
+  }
+
+  .titleSmall,
+  .titleLarge {
+    font-size: 20px;
+    line-height: 26px;
+    letter-spacing: -0.4px;
+    white-space: normal;
+  }
+
+  .text {
+    white-space: normal;
+  }
+
+  .desktopBreak {
+    display: none;
+  }
+}
