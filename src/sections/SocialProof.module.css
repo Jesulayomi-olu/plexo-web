@@ -209,3 +209,17 @@
     aspect-ratio: 598 / 389;
   }
 }
+
+/* Mobile type scale — design system "mobile/*" text styles, which apply below 768px. */
+@media (max-width: 767px) {
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  /* body/sm → 12/18 */
+  .quote {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}

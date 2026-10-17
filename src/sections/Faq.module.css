@@ -132,3 +132,18 @@
     gap: 16px;
   }
 }
+
+/* Mobile type scale — design system "mobile/*" text styles, which apply below 768px. */
+@media (max-width: 767px) {
+  /* body/md → 14/21 */
+  .trigger {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  /* body/sm → 12/18 */
+  .answer {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}

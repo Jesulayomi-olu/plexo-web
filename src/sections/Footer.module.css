@@ -203,3 +203,19 @@
     height: 120px;
   }
 }
+
+/* Mobile type scale — design system "mobile/*" text styles, which apply below 768px. */
+@media (max-width: 767px) {
+  /* label/md → 12/13.2 */
+  .heading {
+    height: auto;
+    font-size: 12px;
+    line-height: 13.2px;
+  }
+
+  /* label/sm → 10/11 */
+  .tagline {
+    font-size: 10px;
+    line-height: 11px;
+  }
+}

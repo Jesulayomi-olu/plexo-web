@@ -288,3 +288,31 @@
     line-height: 22px;
   }
 }
+
+/* Mobile type scale — design system "mobile/*" text styles, which apply below 768px. */
+@media (max-width: 767px) {
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  /* label/md → 12/13.2 */
+  .label {
+    font-size: 12px;
+    line-height: 13.2px;
+    letter-spacing: -0.3px;
+  }
+
+  /* heading/h6 → 18/23.4 */
+  .title {
+    font-size: 18px;
+    line-height: 23.4px;
+    letter-spacing: -0.27px;
+  }
+
+  /* body/md → 14/21 */
+  .body {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}

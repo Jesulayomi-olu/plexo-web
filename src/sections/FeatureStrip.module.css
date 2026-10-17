@@ -139,3 +139,13 @@
     mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 20px), transparent);
   }
 }
+
+/* Mobile type scale — design system "mobile/*" text styles, which apply below 768px. */
+@media (max-width: 767px) {
+  /* body/sm → 12/18; the desktop's pinned item widths give way to the smaller text. */
+  .item {
+    width: auto !important;
+    font-size: 12px;
+    line-height: 18px;
+  }
+}

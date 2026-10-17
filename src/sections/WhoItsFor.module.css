@@ -285,3 +285,42 @@
   max-width: none;
   object-fit: cover;
 }
+
+/* Mobile type scale — design system "mobile/*" text styles, which apply below 768px. */
+@media (max-width: 767px) {
+  .heading {
+    font-size: 32px;
+    line-height: 36.8px;
+    letter-spacing: -0.7px;
+  }
+
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  /* body/sm → 12/18 */
+  .tab {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  /* heading/h5 → 20/26 */
+  .title {
+    font-size: 20px;
+    line-height: 26px;
+    letter-spacing: -0.4px;
+  }
+
+  .body {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  /* label/md → 12/13.2 */
+  .bullet {
+    height: auto;
+    font-size: 12px;
+    line-height: 13.2px;
+  }
+}

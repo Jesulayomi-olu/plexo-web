@@ -32,7 +32,7 @@ The file has no mobile design, so the smaller layouts are derived from the deskt
 
 - **1200px and wider:** the desktop layout. The content column is 1280px at most, centred, with 80px side margins. Fixed compositions (the AI panel, the MCP diagram) scale down uniformly below 1440.
 - **768–1199px:** 40px side margins; grids drop to two columns or stack; the step cards are listed instead of stacked.
-- **Under 768px:** 20px side margins; one column; headings at 32px (40px in the hero); the MCP diagram becomes a vertical flow; tab rows scroll sideways.
+- **Under 768px:** 20px side margins; one column (two plans per row in Pricing); the MCP diagram becomes a vertical flow; tab rows scroll sideways. Type follows the design system's *mobile/** text styles (Figma page "Design system" → Typography): section headings 32/36.8 (heading/h2), body 14/21 (body/md), card text 12/18 (body/sm) and so on; the hero heading uses heading/h2 (32px) rather than h1. Buttons use Size=Large (48px), as the system specifies for main actions on mobile.
 
 ## Interactions
 

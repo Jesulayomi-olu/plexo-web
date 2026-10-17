@@ -269,3 +269,25 @@
     opacity: 0.7;
   }
 }
+
+/* Mobile type scale — design system "mobile/*" text styles, which apply below 768px. */
+@media (max-width: 767px) {
+  /* Hero heading: one step down from mobile H1 — heading/h2 (32/36.8, −2.2%). */
+  .title {
+    font-size: 32px;
+    line-height: 36.8px;
+    letter-spacing: -0.7px;
+  }
+
+  /* body/md → 14/21 */
+  .subtitle {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  /* label/sm → 10/11 */
+  .newTag {
+    font-size: 10px;
+    line-height: 11px;
+  }
+}

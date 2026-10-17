@@ -369,3 +369,14 @@
     display: block;
   }
 }
+
+/* Mobile: the Large (48px) "Build it" — centre the attach button and the prompt line on it. */
+@media (max-width: 767px) {
+  .hero .attach {
+    margin-top: 6px;
+  }
+
+  .hero .field {
+    height: 48px;
+  }
+}

@@ -265,3 +265,32 @@
     letter-spacing: -0.4px;
   }
 }
+
+/* Mobile type scale — design system "mobile/*" text styles, which apply below 768px. */
+@media (max-width: 767px) {
+  /* label/sm → 10/11 */
+  .pill span {
+    height: 25px;
+    padding: 0 10px;
+    font-size: 10px;
+    line-height: 11px;
+  }
+
+  /* body/sm → 12/18 */
+  .link {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  /* heading/h5 → 20/26 */
+  .title {
+    font-size: 20px;
+    line-height: 26px;
+    letter-spacing: -0.4px;
+  }
+
+  .text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}

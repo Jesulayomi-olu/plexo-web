@@ -132,3 +132,11 @@
     flex: none;
   }
 }
+
+/* Mobile type scale — design system "mobile/*" text styles, which apply below 768px. */
+@media (max-width: 767px) {
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}

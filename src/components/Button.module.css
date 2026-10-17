@@ -100,3 +100,14 @@
 .contrast:active {
   background: var(--ink-600);
 }
+
+/* Mobile type scale — design system "mobile/*" text styles, which apply below 768px. */
+@media (max-width: 767px) {
+  /* Size=Large: website CTAs and main actions on mobile — 48px, padding 0 24, label 600 16/17.6. */
+  .button {
+    height: 48px;
+    padding: 0 24px;
+    font-size: 16px;
+    line-height: 17.6px;
+  }
+}
