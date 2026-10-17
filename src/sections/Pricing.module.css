@@ -336,6 +336,8 @@
 }
 
 .tagline {
+  position: relative;
+  top: 1px; /* Figma baseline snap */
   height: 18px;
   font-size: 16px;
   line-height: 17.6px;
@@ -394,6 +396,10 @@
   }
 }
 
+/*
+ * Phones: two plans per row (about 170px each at 390), so the type and spacing step down:
+ * 30px prices, 15px plan names, 13px taglines, 12px features, 36px buttons.
+ */
 @media (max-width: 767px) {
   .section {
     padding-block: 64px;
@@ -408,18 +414,148 @@
   }
 
   .cards {
-    flex-direction: column;
-    gap: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+    height: auto;
   }
 
   .slot {
-    flex: none;
-    width: 100%;
-    max-width: 480px;
-    margin-inline: auto;
+    flex: 1 1 calc(50% - 6px);
+    min-width: 0;
   }
 
   .card {
     min-height: 0;
+    gap: 18px;
+    padding: 6px 6px 18px;
+    border-radius: 18px;
+  }
+
+  .panel {
+    padding: 8px;
+    border-radius: 12px;
+  }
+
+  .column,
+  .trialColumn {
+    gap: 16px;
+  }
+
+  .trialColumn {
+    justify-content: flex-start;
+    width: 100%;
+    height: auto;
+  }
+
+  .summary {
+    gap: 14px;
+  }
+
+  .pricing {
+    gap: 8px;
+  }
+
+  .titleRow {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+
+  .name {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .badge {
+    padding: 3px 6px;
+    font-size: 10px;
+    line-height: 11px;
+  }
+
+  .priceRow,
+  .priceRowYearly,
+  .priceAlt {
+    height: auto;
+    min-height: 40px;
+  }
+
+  .priceRow {
+    flex-wrap: wrap;
+    gap: 6px;
+    row-gap: 2px;
+  }
+
+  .priceLine,
+  .priceSwap {
+    gap: 6px;
+  }
+
+  .priceLineAlt {
+    height: 40px;
+  }
+
+  /* The desktop text-box widths are pinned inline; let the smaller type size itself. */
+  .amount {
+    width: auto !important;
+    font-size: 30px;
+    line-height: 36px;
+    letter-spacing: -0.75px;
+  }
+
+  .unit {
+    width: auto !important;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .billed {
+    height: auto;
+    font-size: 10px;
+    line-height: 13px;
+    white-space: normal;
+  }
+
+  .tagline {
+    height: auto;
+    font-size: 13px;
+    line-height: 17px;
+  }
+
+  .panel a,
+  .panel button {
+    height: 36px;
+    padding: 0 10px;
+    font-size: 13px;
+  }
+
+  .features {
+    gap: 8px;
+    padding: 0 2px;
+  }
+
+  .feature {
+    align-items: flex-start;
+    gap: 7px;
+    font-size: 12px;
+    line-height: 17px;
+  }
+
+  .check {
+    width: 12px;
+    height: 12px;
+    margin-top: 2.5px;
+  }
+}
+
+/* Narrow phones: a slightly smaller price keeps "From $99 /month" on one line. */
+@media (max-width: 379px) {
+  .amount {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  .priceRow,
+  .priceLine,
+  .priceSwap {
+    gap: 5px;
   }
 }
