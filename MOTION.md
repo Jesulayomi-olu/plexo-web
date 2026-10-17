@@ -55,8 +55,7 @@ Home page V2 (Figma 532:23980).
 | Hero: eyebrow, heading, subtitle | Blur-to-focus entrance, staggered | Starts at 0.45s, 0.65s and 1.05s; 10px, 16px and 8px blur; ease `focusEase` (0.33, 1, 0.68, 1); `BlurIn` component |
 | Hero: prompt box | Fade-up | Starts at 1.3s |
 | Feature strip | Ticker (idle loop) | The feature list glides left, one full loop every 32s, with soft fading edges; pauses on hover |
-| Steps (desktop) | Scroll stack | The three step cards pin in the viewport; steps 2 and 3 rise from below into their places over 520px of scroll each (spring-smoothed), ending on the Figma layout |
-| Steps (tablet, phone) | Fade-up | The cards are listed one after another |
+| Steps | Scroll stack, with holds | The step cards pin in the viewport (scaled down to fit short windows). Each card holds, fully readable, before the next rises from below to stack on it: hold step 1 → step 2 rises → hold → step 3 rises → hold on the Figma stack (1500px of scroll on desktop, 1300 on phones; spring-smoothed). Phones stack a column version of the cards, 52px apart, step number on top. Reduced motion lists the three cards in full |
 | Start with a template | Ticker (idle loop) | The template row glides left, one loop every 70s; pauses on hover |
 | Section headings, cards, rows | Fade-up entrances (stagger), hover lift | `Reveal` component |
 | Plexo is for everyone | Tab underline morph; panel crossfade | Keyboard-accessible tabs |
@@ -88,7 +87,6 @@ Retired with the redesign (their sections are gone or changed): the Problem coun
 
 | Section | Adaptation |
 |---|---|
-| Steps | No pinning: the three cards are listed one after another |
 | MCP | Below 768px the diagram becomes a vertical flow (labels on top, junction, Plexo, live site) with the same flowing dashes |
 | AI cards | Cursor tilt is mouse-only |
 | Hero prompt | The typed prompt wraps inside the box |

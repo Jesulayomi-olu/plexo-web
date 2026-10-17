@@ -54,29 +54,38 @@
   flex: none;
 }
 
-/* "Frame 2147239165": 886×642, centred at x 197 of the content column; cards at y 0 / 86 / 155. */
+/*
+ * "Frame 2147239165": 886×642, centred at x 197 of the content column; cards at y 0 / 86 / 155.
+ * The cards share one grid cell (later ones on top), offset by their top margins, so the stack sizes
+ * itself. While pinned it is scaled by --fit to fit short windows.
+ */
 .stack,
 .track {
   position: relative;
   width: 884px;
   margin-left: calc(50% - 443px);
-  margin-bottom: 20px;
 }
 
 .stack {
-  height: 642px;
+  display: grid;
+  align-items: start;
+}
+
+.track .stack {
+  margin: 0;
+  transform: scale(var(--fit, 1));
+  transform-origin: top center;
 }
 
 .pin {
   position: sticky;
-  top: max(96px, calc((100vh - 642px + var(--nav-height)) / 2));
-  height: 642px;
 }
 
 /* Card: 507 tall, 1px #d7d8d3 inside stroke, r16, padding 24 (content at 25,25), clipped. */
+/* Positioned so later cards always paint over earlier ones (the screens are positioned too). */
 .card {
-  position: absolute;
-  left: 0;
+  position: relative;
+  grid-area: 1 / 1;
   display: flex;
   height: 507px;
   padding: 24px;
@@ -87,22 +96,33 @@
 }
 
 .card1 {
-  top: 0;
   width: 882px;
   gap: 40px;
   background: var(--surface-50);
 }
 
 .card2 {
-  top: 86px;
+  margin-top: 86px;
   width: 884px;
   gap: 42px;
 }
 
 .card3 {
-  top: 155px;
+  margin-top: 155px;
   width: 884px;
   gap: 42px;
+}
+
+/* Reduced motion: the three cards one after another, nothing covered. */
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.list .card {
+  margin-top: 0;
 }
 
 /* "Screen": 433×457. Step 2's is a 10% #1e1e1e wash with the AI dialogs over it (at 85,112 of the card). */
@@ -174,7 +194,10 @@
   color: var(--ink-600);
 }
 
-/* Tablet and phone: the three cards one after another, screen on top. */
+/*
+ * Tablet and phone: the stack becomes a column of cards (step number, screen, then title and text),
+ * up to 560 wide, stacked 52px apart so each step number shows in the stack.
+ */
 @media (max-width: 1023px) {
   .head {
     flex-direction: column;
@@ -188,23 +211,35 @@
     padding-top: 0;
   }
 
-  .stack {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  .stack,
+  .track {
     width: 100%;
-    max-width: 640px;
-    height: auto;
+    max-width: 560px;
     margin: 0 auto;
   }
 
-  .card {
-    position: static;
+  .card,
+  .card1,
+  .card2,
+  .card3 {
     flex-direction: column;
-    gap: 24px;
-    width: auto;
+    gap: 20px;
+    width: 100%;
     height: auto;
     padding: 16px;
+  }
+
+  .card2 {
+    margin-top: 52px;
+  }
+
+  .card3 {
+    margin-top: 104px;
+  }
+
+  .list .card2,
+  .list .card3 {
+    margin-top: 0;
   }
 
   .screen {
@@ -222,10 +257,18 @@
     height: auto;
   }
 
+  /* The text column dissolves so the step number can sit above the screen. */
   .text {
-    gap: 24px;
-    width: auto;
-    padding: 0 8px 8px;
+    display: contents;
+  }
+
+  .label {
+    order: -1;
+    padding: 0 4px;
+  }
+
+  .copy {
+    padding: 0 4px 4px;
   }
 }
 
