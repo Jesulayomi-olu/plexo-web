@@ -54,6 +54,7 @@ Home page V2 (Figma 532:23980).
 |---|---|---|
 | Hero: eyebrow, heading, subtitle | Blur-to-focus entrance, staggered | Starts at 0.45s, 0.65s and 1.05s; 10px, 16px and 8px blur; ease `focusEase` (0.33, 1, 0.68, 1); `BlurIn` component |
 | Hero: prompt box | Fade-up | Starts at 1.3s |
+| Hero: prompt text | Typewriter placeholder (idle loop) | Types "A store for my skincare brand...", "A sales funnel for my coaching program...", "A landing page for my product launch..." in turn: types, holds 1.9s, deletes, next. Stops while the field is focused or filled; reduced motion shows the Figma placeholder. On phones it stays on one line: long text slides left, its start fading, so the caret stays in view |
 | Feature strip | Ticker (idle loop) | The feature list glides left, one full loop every 32s, with soft fading edges; pauses on hover |
 | Steps | Scroll stack, with holds | The step cards pin in the viewport (scaled down to fit short windows). Each card holds, fully readable, before the next rises from below to stack on it: hold step 1 → step 2 rises → hold → step 3 rises → hold on the Figma stack (1500px of scroll on desktop, 1300 on phones; spring-smoothed). Phones stack a column version of the cards, 52px apart, step number on top. Reduced motion lists the three cards in full |
 | Start with a template | Ticker (idle loop) | The template row glides left, one loop every 70s; pauses on hover |
@@ -73,7 +74,6 @@ Open the site with `?preview` to see these. They are not live on the normal URL 
 
 | Section | Motion | Details |
 |---|---|---|
-| Hero: prompt box | Typewriter placeholder | Types, holds 1.9s, deletes, then the next of three prompts; stops while the field is focused or filled; wraps inside the tall hero box |
 | Plexo is for everyone | Crossfade + settle zoom | The new photo fades in at 106% and settles to 100% over 2.4s |
 | Drag and drop | Pick-up (triggered) | When "Start with ready made blocks" opens, the Testimonials chip dips into its slot and lifts back out |
 | Pricing | Number roll (odometer) | Only the changed digits roll; the "Billed annually" line folds open |
@@ -89,7 +89,7 @@ Retired with the redesign (their sections are gone or changed): the Problem coun
 |---|---|
 | MCP | Below 768px the diagram becomes a vertical flow (labels on top, junction, Plexo, live site) with the same flowing dashes |
 | AI cards | Cursor tilt is mouse-only |
-| Hero prompt | The typed prompt wraps inside the box |
+| Hero prompt | One line (an input instead of the multi-line area); the helper row keeps only "Start with a template" and the trial note, side by side |
 
 parallax are mouse-only; on touch, cards stay still apart from their loops |
 | Platform | Below 1200px the orbit layout becomes a grid; see the Platform (tablet, phone) row |

@@ -2,7 +2,6 @@ import { BlurIn } from '../components/BlurIn'
 import { Divider } from '../components/Divider'
 import { PromptBox } from '../components/PromptBox'
 import { Reveal } from '../components/Reveal'
-import { isPreviewMode } from '../lib/motion'
 import styles from './Hero.module.css'
 
 /**
@@ -23,7 +22,7 @@ const ENTRANCE = {
   prompt: 1.3,
 } as const
 
-/** Typewriter prompts for the hero prompt box (preview). */
+/** Typewriter prompts for the hero prompt box (live everywhere except reduced motion). */
 const HERO_PROMPTS = [
   'A store for my skincare brand...',
   'A sales funnel for my coaching program...',
@@ -55,7 +54,7 @@ export default function Hero() {
           <Reveal delay={ENTRANCE.prompt} className={styles.promptWrap}>
             <PromptBox
               variant="hero"
-              typingPrompts={isPreviewMode ? HERO_PROMPTS : undefined}
+              typingPrompts={HERO_PROMPTS}
               typingDelay={(ENTRANCE.prompt + 0.9) * 1000}
             />
           </Reveal>

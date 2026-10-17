@@ -1,6 +1,7 @@
 import { useId, useLayoutEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react'
 import { useInView } from 'framer-motion'
 import { useStaticMotion } from '../lib/motion'
+import { useMediaQuery } from '../lib/useMediaQuery'
 import { useTypewriter } from '../motion/useTypewriter'
 import { Button } from './Button'
 import styles from './PromptBox.module.css'
@@ -9,7 +10,8 @@ import styles from './PromptBox.module.css'
  * Prompt box (Home page V2).
  * - "default": final CTA "Frame 71" (532:25042) — the 792×89 one-line box ("Frame 5") + helper row.
  * - "hero": hero "Frame 2147239234" (532:24028) — the 993×238 box on the dark hero, a multi-line
- *   prompt area, with a light helper row.
+ *   prompt area (one line on phones), with a light helper row.
+ * Phones: the helper row keeps only "Start with a template →" and the trial note, side by side.
  */
 type PromptBoxProps = {
   className?: string
@@ -54,6 +56,9 @@ export function PromptBox({ className, variant = 'default', typingPrompts, typin
   })
   const showTyping = typing && !focused && value === ''
   const hero = variant === 'hero'
+  const phone = useMediaQuery('(max-width: 767px)')
+  // The hero prompt is a multi-line area on larger screens and a single line on phones.
+  const multiline = hero && !phone
 
   // When the typed text is wider than the field (phones), flag it so the overlay fades its start.
   const typingRef = useRef<HTMLSpanElement>(null)
@@ -100,7 +105,7 @@ export function PromptBox({ className, variant = 'default', typingPrompts, typin
           Describe the site you want to build
         </label>
         <span className={styles.field}>
-          {hero ? (
+          {multiline ? (
             <textarea
               {...fieldProps}
               rows={1}
@@ -125,7 +130,7 @@ export function PromptBox({ className, variant = 'default', typingPrompts, typin
       </form>
       <div className={styles.meta}>
         <p className={styles.hint}>
-          Prefer to design with existing templates?{' '}
+          <span className={styles.hintLead}>Prefer to design with existing templates? </span>
           <a href="#templates" className={styles.hintLink}>
             Start with a{' '}
             <span className={styles.nowrap}>
