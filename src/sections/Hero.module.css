@@ -1,343 +1,252 @@
 /*
- * Figma "Herosection" (234:674): 1440×1270, bg #f5f7ed, padding-top 100.
- * "Frame 16" (fixed 1070 tall) = intro 333 + gap 88 + mockup 627, leaving 22px of its own
- * height plus the 100px bottom padding → 122px below the mockup.
+ * Figma "Hero section" (532:23982): 1440×807, #0d1a03, clipped. Positions below are relative to the
+ * section top (Figma page y 73) and the 1280 content frame (page x 80).
  */
 .hero {
   position: relative;
+  height: 807px;
   overflow: hidden;
-  padding: 100px 0 122px;
-  background: var(--cream);
+  background: var(--night);
 }
 
-.inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: calc(var(--content-max) + var(--gutter) * 2);
+/* Nav divider (page y 72, i.e. 1px above the hero): line on hero row 2; the nav bar covers the
+   stars' upper half and the group clips them at hero y 5, leaving a thin sliver of each. */
+.dividerTop {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  clip-path: inset(1px -20px 0 -20px);
+}
+
+/* Hero divider "Divider 1 " at (1, 745). */
+.dividerBottom {
+  position: absolute;
+  top: 745px;
+  left: 1px;
+  right: -1px;
+  z-index: 1;
+}
+
+/*
+ * "Hero content": the 1280 column with 1px dashed (#7a7b77) left and right borders. The frame is
+ * 1070 tall, so Figma spreads the 8/8 dashes evenly over it (67 repeats → 15.97px), starting 4px
+ * above the hero top.
+ */
+.frame {
+  position: relative;
+  height: 100%;
+  max-width: var(--content-max);
   margin: 0 auto;
-  padding: 0 var(--gutter);
 }
 
-/* "Frame 15": column, gap 32, 888 wide. */
-.intro {
+.frame::before,
+.frame::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: repeating-linear-gradient(to bottom, var(--dash) 0 7.985px, transparent 7.985px 15.97px);
+  background-position: 0 -3.97px;
+}
+
+.frame::before {
+  left: 0;
+}
+
+.frame::after {
+  right: 0;
+}
+
+@media (max-width: 1439px) {
+  .frame {
+    margin-inline: var(--gutter);
+  }
+}
+
+/* "Ellipse 3": 1062×572 at (110, 397), #194211, LAYER_BLUR 386.3 → Gaussian σ ≈ 193. */
+.glow {
+  position: absolute;
+  top: 397px;
+  left: 110px;
+  width: 1062px;
+  height: 572px;
+  border-radius: 50%;
+  background: var(--night-glow);
+  filter: blur(185px);
+  pointer-events: none;
+}
+
+/* "Frame 2147239143": 993×544 at (144, 125), column, space-between, centred. */
+.content {
+  position: absolute;
+  top: 125px;
+  left: 144px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 993px;
+  height: 544px;
+}
+
+/* "Frame 13": 888 wide; badge · 8 · heading (591×140), then 24 · subtitle. */
+.copy {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
-  width: 100%;
-  max-width: 888px;
-}
-
-/* "Frame 14": column, gap 8. */
-.headingGroup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
+  width: 888px;
 }
 
 .badgeWrap {
   display: flex;
-  justify-content: center;
 }
 
-/* "Frame 7": row, gap 4, padding 8/12, #b8f34a @ 12%, r100. */
+/* "Frame 7": #d7d8d3, pill, padding 6/12, gap 4. */
 .badge {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 4px;
-  padding: 8px 12px;
+  padding: 6px 12px;
   border-radius: 100px;
-  background: rgb(184 243 74 / 0.12);
+  background: var(--line);
 }
 
-/* "Frame 71": padding 2, #406006, r4 — "New" 400 12/13.2 white. */
-.badgeTag {
-  display: inline-flex;
-  min-width: 30px;
-  height: 17px;
+/* "Frame 71": #406006, r4, padding 2; "New" 400 12/13.2 white. */
+.newTag {
   padding: 2px;
   border-radius: 4px;
-  background: #406006;
-  color: var(--white);
+  background: var(--olive);
   font-size: 12px;
   line-height: 13.2px;
   font-weight: 400;
+  color: var(--white);
 }
 
-/* 400 10/12, −0.05 letter spacing, #000. */
+/* 400 10/12, −0.05 tracking, black. */
 .badgeText {
-  min-width: 207px;
   font-size: 10px;
   line-height: 12px;
   font-weight: 400;
   letter-spacing: -0.05px;
   color: #000000;
-}
-
-/* "Frame 13": column, gap 24. */
-.titleGroup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  width: 100%;
-}
-
-/* 600 64/70.4, −1.6, #1e1e1e — left-aligned inside the 888px box (fixed 65px tall box in Figma). */
-.title {
-  width: 100%;
-  height: 65px;
-  font-size: 64px;
-  line-height: 70.4px;
-  font-weight: 600;
-  letter-spacing: -1.6px;
-  color: var(--ink-900);
-  text-align: left;
-}
-
-/* 400 16/24 #1e1e1e, centred; Figma text ends with a newline → 48px tall. */
-.subtitle {
-  width: 100%;
-  min-height: 48px;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-  color: var(--ink-900);
-  text-align: center;
-}
-
-.promptWrap {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-/* ---------- Mockup ("Frame 2147239049") ---------- */
-
-.mockupWrap {
-  width: 100%;
-  max-width: var(--content-max);
-  margin-top: 88px;
-  container-type: inline-size;
-}
-
-/*
- * --u = one Figma pixel at the current column width (1px at 1280).
- * --cu = the floating cards' scale; never below 0.8 so their copy stays legible.
- */
-.mockup {
-  --u: calc(100cqw / 1280);
-  --cu: max(var(--u), 0.8px);
-  position: relative;
-  width: 100%;
-  height: calc(627 * var(--u));
-  overflow: hidden;
-  isolation: isolate;
-  border-radius: calc(40 * var(--u));
-  background: var(--surface-100);
-}
-
-.blob {
-  position: absolute;
-  width: calc(1886 * var(--u));
-  height: calc(543 * var(--u));
-  max-width: none;
-  overflow: visible;
-  pointer-events: none;
-}
-
-/* Figma positions (updated): Vector 2 at (-42, -180), Vector 4 at (-543, 291). */
-.blobTop {
-  left: calc(-42 * var(--u));
-  top: calc(-180 * var(--u));
-}
-
-.blobBottom {
-  left: calc(-543 * var(--u));
-  top: calc(291 * var(--u));
-}
-
-/* "Browser window": 1042×775 at (122,21), r11.01, shadow 0 13.77 34.42 #1c360a @ 12%. */
-.browser {
-  position: absolute;
-  left: calc(122 * var(--u));
-  top: calc(21 * var(--u));
-  width: calc(1042 * var(--u));
-  height: calc(775 * var(--u));
-  border-radius: calc(11.01 * var(--u));
-  box-shadow: 0 calc(13.77 * var(--u)) calc(34.42 * var(--u)) 0 rgb(28 54 10 / 0.12);
-}
-
-.browserImg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-}
-
-/* "Rectangle 7": 1042×608 gradient, transparent → #060d01 @ 8% (62% stop on a −13.5%→100% axis). */
-.overlay {
-  position: absolute;
-  left: calc(122 * var(--u));
-  top: calc(21 * var(--u));
-  width: calc(1042 * var(--u));
-  height: calc(608 * var(--u));
-  border-radius: calc(11.01 * var(--u));
-  background: linear-gradient(180deg, rgb(0 0 0 / 0) -13.51%, rgb(6 13 1 / 0.08) 56.87%);
-  pointer-events: none;
-}
-
-/* Positioned wrapper for each badge (handles the entrance); the card inside handles the float. */
-.cardSlot {
-  position: absolute;
-}
-
-/* "Card / …": white, 1px #e8e8e4, r16, padding 12 16 12 14 (+stroke), gap 10, shadow 0 8 24 #000 @ 8%. */
-.card {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: calc(10 * var(--cu));
-  padding: calc(12 * var(--cu)) calc(16 * var(--cu)) calc(12 * var(--cu)) calc(14 * var(--cu));
-  background: var(--white);
-  border: 1px solid var(--surface-200);
-  border-radius: calc(16 * var(--cu));
-  box-shadow: 0 calc(8 * var(--cu)) calc(24 * var(--cu)) 0 rgb(0 0 0 / 0.08);
   white-space: nowrap;
 }
 
-.cardDomain {
-  left: calc(752 * var(--u));
-  top: calc(97 * var(--u));
-}
-
-.cardLive {
-  left: calc(194 * var(--u));
-  top: calc(535 * var(--u));
-}
-
-.cardTools {
-  left: calc(783 * var(--u));
-  top: calc(446 * var(--u));
-}
-
-/* "Icon tile": 38×38, #f0f6df, r10. */
-.iconTile {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: calc(38 * var(--cu));
-  height: calc(38 * var(--cu));
-  border-radius: calc(10 * var(--cu));
-  background: var(--green-tint);
-}
-
-.bag {
-  width: calc(20 * var(--cu));
-  height: calc(20 * var(--cu));
-}
-
-.bolt {
-  flex: none;
-  width: calc(18 * var(--cu));
-  height: calc(18 * var(--cu));
-}
-
-/* 600 14/15.4 #232323; white-space: pre keeps Figma's double spaces in "Live  in  minutes". */
-.cardText {
-  font-size: calc(14 * var(--cu));
-  line-height: calc(15.4 * var(--cu));
+/* 600 64/70.4, −3.2 tracking, #e8e8e4, centred. */
+.title {
+  margin-top: 8px;
+  font-size: 64px;
+  line-height: 70.4px;
   font-weight: 600;
-  color: var(--ink-800);
+  letter-spacing: -3.2px;
+  color: var(--surface-200);
+  text-align: center;
   white-space: pre;
+  /* CSS adds the −3.2 tracking after the last glyph too; Figma doesn't, so re-centre by half of it. */
+  padding-right: 3.2px;
 }
 
-/* Figma text box widths (Chrome measures these copy runs ~0.5px narrower). */
-.cardDomain .cardText {
-  min-width: calc(200 * var(--cu));
+/* 400 16/24, #fcfcfa, centred; the second line keeps its leading space. */
+.subtitle {
+  width: 100%;
+  margin-top: 24px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--surface-50);
+  text-align: center;
+  white-space: pre-wrap;
+  position: relative;
+  top: 1px; /* Figma baseline snap */
 }
 
-.cardLive .cardText {
-  min-width: calc(103 * var(--cu));
+.promptWrap {
+  width: 100%;
 }
 
-.cardTools .cardText {
-  min-width: calc(156 * var(--cu));
-  color: #000000;
-}
-
-/* ---------- Tablet ---------- */
-@media (max-width: 1199px) {
-  .hero {
-    padding: 88px 0 80px;
+/* 1200–1439: the 993 composition fits inside the narrower column; centre it. */
+@media (max-width: 1439px) {
+  .content {
+    left: 50%;
+    width: min(993px, calc(100% - 48px));
+    transform: translateX(-50%);
   }
 
-  .title {
+  .glow {
+    left: calc(50% - 531px);
+  }
+}
+
+@media (max-width: 1023px) {
+  .hero {
     height: auto;
-    text-align: center;
   }
 
-  .mockupWrap {
-    margin-top: 64px;
+  .frame {
+    height: auto;
+    padding: 96px 0 104px;
+  }
+
+  .content {
+    position: static;
+    gap: 48px;
+    width: auto;
+    height: auto;
+    margin: 0 24px;
+    transform: none;
+  }
+
+  .copy {
+    width: 100%;
+    max-width: 888px;
+  }
+
+  .glow {
+    top: auto;
+    bottom: -330px;
+  }
+
+  .dividerBottom {
+    top: auto;
+    bottom: 58px;
+  }
+
+  .subtitle {
+    white-space: normal;
   }
 }
 
-/* ---------- Mobile ---------- */
 @media (max-width: 767px) {
-  .hero {
-    padding: 64px 0 56px;
+  .frame {
+    padding: 72px 0 88px;
   }
 
-  .intro {
-    gap: 28px;
+  .content {
+    gap: 40px;
+    margin: 0 16px;
   }
 
   .title {
     font-size: 40px;
     line-height: 44px;
-    letter-spacing: -1px;
+    letter-spacing: -2px;
+    white-space: pre-line;
   }
 
   .subtitle {
-    min-height: 0;
+    margin-top: 16px;
+    font-size: 15px;
+    line-height: 22px;
   }
 
-  .mockupWrap {
-    margin-top: 40px;
+  .badgeText {
+    white-space: normal;
   }
 
-  /* The store is shown cropped at a larger scale so it stays readable; cards sit on the edges. */
-  .mockup {
-    --u: calc(100cqw / 700);
-    --cu: max(var(--u), 0.72px);
-    height: calc(600 * var(--u));
-  }
-
-  .browser,
-  .overlay {
-    left: calc(40 * var(--u));
-    top: calc(40 * var(--u));
-  }
-
-  .cardDomain {
-    left: auto;
-    right: calc(24 * var(--u));
-    top: calc(40 * var(--u));
-  }
-
-  .cardTools {
-    left: auto;
-    right: calc(24 * var(--u));
-    top: auto;
-    bottom: calc(170 * var(--u));
-  }
-
-  .cardLive {
-    left: calc(40 * var(--u));
-    top: auto;
-    bottom: calc(40 * var(--u));
+  .dividerBottom {
+    bottom: 40px;
   }
 }

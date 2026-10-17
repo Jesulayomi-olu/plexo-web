@@ -1,70 +1,154 @@
+import { useInView } from 'framer-motion'
+import { useRef, type CSSProperties } from 'react'
 import { Button } from '../components/Button'
 import { Reveal } from '../components/Reveal'
-import { isPreviewMode } from '../lib/motion'
-import { McpFlow } from '../motion/McpFlow'
+import { useStaticMotion } from '../lib/motion'
+import { useFitScale } from '../lib/useFitScale'
+import claudeLabel from '../assets/v2/mcp-claude.svg'
+import chatgptLabel from '../assets/v2/mcp-chatgpt.svg'
+import cursorLabel from '../assets/v2/mcp-cursor.svg'
+import liveLabel from '../assets/v2/mcp-livesite.svg'
+import dots from '../assets/v2/mcp-dots.svg'
 import styles from './Mcp.module.css'
 
 /**
- * Figma "Mcp" (234:1228): 1440×1051 on #fcfcfa.
- * The "Chat bubble" (234:1249) sits outside its clipped frame and is not rendered; the hidden
- * illustrations and check lists inside the cards are omitted.
+ * Figma "Mcp" (532:24572): 1440×1035, padding 80, #fcfcfa. Header (pill, heading, lead, "Connect
+ * your AI"), then the 1280×508 diagram "Frame 28": Claude, ChatGPT and Cursor connect through a
+ * junction into Plexo, which feeds the live site. The (invisible) prompt cards and the hidden chat
+ * bubble are not rendered.
+ *
+ * Motion: the dashes flow along the connectors toward Plexo and on to the live site, and the
+ * output dot sends out a soft ping; both pause off screen. Reduced motion / capture mode: static.
  */
-const cards = [
-  { title: 'No new tab.', text: 'Build, edit and publish from your chat' },
-  { title: 'Works with your AI', text: 'Claude, ChatGPT, Cursor and more' },
-  // Figma keeps a leading space in this description (234:1389).
-  { title: 'You stay in charge', text: ' Every change shows up on your canvas.' },
+const LABEL = 'Diagram: Claude, ChatGPT and Cursor connect to Plexo, which publishes your live site.'
+
+/*
+ * Connector centrelines in "Integration" coordinates (1184.1×661.7), from the Figma export. Figma
+ * stretches each line's 8/8-ish dashes to fit, starting and ending on half a dash: `dash` is the
+ * fitted length, `offset` puts the path start halfway through one.
+ */
+const lines = [
+  { d: 'M215.157 80.8634H471.156V340.771', dash: 7.111, color: '#bebeba' },
+  { d: 'M215.097 474.213H470.211V341.153', dash: 7.087, color: '#bebeba' },
+  { d: 'M216.597 273.513H624.78', dash: 7.037, color: '#bebeba' },
+  { d: 'M757.34 273.123H1027.46', dash: 7.109, color: '#74a418' },
 ] as const
 
+function Connectors({ moving }: { moving: boolean }) {
+  return (
+    <svg className={`${styles.connectors} ${moving ? styles.moving : ''}`} viewBox="0 0 1184.1 661.7" aria-hidden="true">
+      {lines.map((l) => (
+        <path
+          key={l.d}
+          className={styles.line}
+          d={l.d}
+          stroke={l.color}
+          strokeWidth={2.61316}
+          strokeDasharray={`${l.dash} ${l.dash}`}
+          strokeDashoffset={l.dash / 2}
+          style={{ '--o': `${l.dash / 2}px`, '--p': `${l.dash * 2}px` } as CSSProperties}
+        />
+      ))}
+      {/* "Junction": 13.93 circle, white, 2.61 #74a418 inside stroke. */}
+      <circle cx={470.369} cy={273.422} r={5.662} fill="#ffffff" stroke="#74a418" strokeWidth={2.61316} />
+      {/* "Output dot" and its ping. */}
+      {moving && <circle className={styles.ping} cx={1020.42} cy={274.088} r={6.96842} fill="#74a418" />}
+      <circle cx={1020.42} cy={274.088} r={6.96842} fill="#74a418" />
+    </svg>
+  )
+}
+
+/** Desktop / tablet: the Figma composition at 1280×508, scaled to fit below 1440. */
+function DesktopDiagram({ moving }: { moving: boolean }) {
+  return (
+    <div className={styles.frame}>
+      <div className={styles.integration}>
+        <img className={styles.dots} src={dots} width={1280} height={711} alt="" />
+        <Connectors moving={moving} />
+        <img className={styles.logo} src="/assets/v2/icons/logo-dark.svg" width={124} height={32} alt="" />
+        <img className={styles.claude} src={claudeLabel} width={164} height={56} alt="" />
+        <img className={styles.chatgpt} src={chatgptLabel} width={165} height={52} alt="" />
+        <img className={styles.cursor} src={cursorLabel} width={170} height={56} alt="" />
+        <img className={styles.live} src={liveLabel} width={159} height={46} alt="" />
+      </div>
+    </div>
+  )
+}
+
+/** Phones: the same parts as a vertical flow (labels on top → junction → Plexo → live site), 320 wide. */
+function MobileDiagram({ moving }: { moving: boolean }) {
+  return (
+    <div className={styles.mobile}>
+      <img className={styles.mClaude} src={claudeLabel} width={164} height={56} alt="" />
+      <img className={styles.mChatgpt} src={chatgptLabel} width={165} height={52} alt="" />
+      <img className={styles.mCursor} src={cursorLabel} width={170} height={56} alt="" />
+      <svg className={`${styles.mLines} ${moving ? styles.moving : ''}`} viewBox="0 0 320 210" aria-hidden="true">
+        {[
+          { d: 'M50 34V60H158', color: '#bebeba' },
+          { d: 'M268 34V60H158', color: '#bebeba' },
+          { d: 'M158 33V96', color: '#bebeba' },
+          { d: 'M158 126V162', color: '#74a418' },
+        ].map((l) => (
+          <path
+            key={l.d}
+            className={styles.line}
+            d={l.d}
+            stroke={l.color}
+            strokeWidth={1.6}
+            strokeDasharray="4.3 4.3"
+            strokeDashoffset={2.15}
+            style={{ '--o': '2.15px', '--p': '8.6px' } as CSSProperties}
+          />
+        ))}
+        <circle cx={158} cy={60} r={3.5} fill="#ffffff" stroke="#74a418" strokeWidth={1.6} />
+        {moving && <circle className={styles.ping} cx={158} cy={162} r={4.2} fill="#74a418" />}
+        <circle cx={158} cy={162} r={4.2} fill="#74a418" />
+      </svg>
+      <img className={styles.mLogo} src="/assets/v2/icons/logo-dark.svg" width={124} height={32} alt="" />
+      <img className={styles.mLive} src={liveLabel} width={159} height={46} alt="" />
+    </div>
+  )
+}
+
 export default function Mcp() {
+  const isStatic = useStaticMotion()
+  const { ref: fitRef, scale, fitted } = useFitScale<HTMLDivElement>(1280, 768)
+  const flowRef = useRef<HTMLDivElement>(null)
+  const onScreen = useInView(flowRef)
+  const moving = !isStatic && onScreen
+
   return (
     <section id="mcp" data-section="mcp" className={styles.section}>
       <div className="container">
-        <div className={styles.inner}>
-          <div className={styles.header}>
-            <Reveal className={styles.pill}>
-              <span>Plexo Mcp</span>
-            </Reveal>
-            <Reveal delay={0.06} className={styles.intro}>
-              <h2 className={`h2 ${styles.heading}`}>Ask Claude. Plexo ships.</h2>
-              <p className={`lead ${styles.lead}`}>
-                {' Already living in Claude, ChatGPT or Cursor?\n Build your site from there'}
-              </p>
-            </Reveal>
-            <Reveal delay={0.12} className={styles.cta}>
-              <Button variant="primary" href="#mcp-connect">
-                Connect your AI
-              </Button>
-            </Reveal>
-          </div>
-
-          <div className={styles.body}>
-            <Reveal delay={0.06} className={styles.diagram}>
-              {isPreviewMode ? (
-                <div className={styles.flow} role="img" aria-label="Diagram: prompts from Claude, ChatGPT and Cursor flow into Plexo, which publishes a live site at glowbyamy.com.">
-                  <McpFlow />
-                </div>
-              ) : (
-                <img
-                  src="/assets/mcp-diagram.webp"
-                  width={606.5}
-                  height={339}
-                  alt="Diagram: prompts from Claude, ChatGPT and Cursor flow into Plexo, which publishes a live site at glowbyamy.com."
-                  loading="lazy"
-                  decoding="async"
-                />
-              )}
-            </Reveal>
-            <ul className={styles.cards}>
-              {cards.map((card, i) => (
-                <Reveal as="li" key={card.title} delay={0.12 + i * 0.06} className={styles.card}>
-                  <h3 className={styles.title}>{card.title}</h3>
-                  <p className={styles.text}>{card.text}</p>
-                </Reveal>
-              ))}
-            </ul>
-          </div>
+        <div className={styles.header}>
+          <Reveal className={styles.pill}>
+            <span>Plexo Mcp</span>
+          </Reveal>
+          <Reveal delay={0.06} className={styles.intro}>
+            <h2 className={`h2 ${styles.heading}`}>{'Plexo now works in Claude, chatgpt\n and Cursor'}</h2>
+            <p className={`lead ${styles.lead}`}>{' Already living in Claude, ChatGPT or Cursor?\n Build your site from there'}</p>
+          </Reveal>
+          <Reveal delay={0.12} className={styles.cta}>
+            <Button variant="primary" href="#mcp">
+              Connect your AI
+            </Button>
+          </Reveal>
         </div>
+
+        <Reveal delay={0.08}>
+          <div ref={flowRef} role="img" aria-label={LABEL}>
+            <div
+              ref={fitRef}
+              className={styles.fit}
+              style={{ '--s': scale, display: fitted ? undefined : 'none' } as CSSProperties}
+            >
+              <div className={styles.scale}>
+                <DesktopDiagram moving={moving && fitted} />
+              </div>
+            </div>
+            {!fitted && <MobileDiagram moving={moving} />}
+          </div>
+        </Reveal>
       </div>
     </section>
   )

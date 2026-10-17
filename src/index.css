@@ -13,6 +13,13 @@
   --moss: #517a12;
   --green-text: #365811;
   --green-tint: #f0f6df;
+  --olive: #406006;
+  --lime-soft: #d5f490;
+
+  /* Dark band (hero, nav, footer base) — Home page V2 */
+  --night: #0d1a03;
+  --night-glow: #194211;
+  --dash: #7a7b77;
 
   /* Neutrals */
   --white: #ffffff;
@@ -161,6 +168,12 @@ a {
   font-weight: 700;
   letter-spacing: -1.2px;
   color: var(--ink-800);
+}
+
+/* Figma snaps text baselines 1px lower than Chrome for these sizes; shift the glyphs, not the layout. */
+.baseline-fix {
+  position: relative;
+  top: 1px;
 }
 
 .lead {

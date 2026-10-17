@@ -4,15 +4,28 @@ import { Button } from '../components/Button'
 import { durations, ease, isCaptureMode, useStaticMotion } from '../lib/motion'
 import styles from './Nav.module.css'
 
-/** Figma "Desktop navigation" (234:2134). `width` = Figma text box width (min-width keeps the 1440 layout exact). */
+/**
+ * Figma "Desktop navigation" (532:25146): 1440×72, #0d1a03, padding 16/80; content row (1280)
+ * space-between: logo (123×32) · links (gap 24) · "Start free" (174×40).
+ * "Features" and "For You" carry a chevron in Figma; no menus are designed, so they link to their sections.
+ */
 const links = [
-  { label: 'Products', href: '#products', width: 62 },
-  { label: 'Developers', href: '#developers', width: 77 },
-  { label: 'FAQ', href: '#faq', width: 29 },
-  { label: 'Pricing', href: '#pricing', width: 46 },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'Features', href: '#features', chevron: true },
+  { label: 'For You', href: '#for-you', chevron: true },
+  { label: 'Resources', href: '#developers' },
 ] as const
 
 const PANEL_ID = 'nav-mobile-panel'
+
+/* "chevron-up" (191:3635) rotated 180°: 16×16, white 1px stroke. */
+function Chevron() {
+  return (
+    <svg className={styles.chevron} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M4 6L8 10L12 6" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
 
 export default function Nav() {
   const [open, setOpen] = useState(false)
@@ -55,15 +68,16 @@ export default function Nav() {
     <header id="nav" data-section="nav" className={classes}>
       <div className={styles.inner}>
         <a href="#top" className={styles.logo} aria-label="Plexo, back to top">
-          Plexo
+          <img src="/assets/v2/icons/logo-light.svg" width={123.26} height={32} alt="" />
         </a>
 
         <nav className={styles.links} aria-label="Primary">
           <ul className={styles.list}>
             {links.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className={styles.link} style={{ minWidth: link.width }}>
+                <a href={link.href} className={styles.link}>
                   {link.label}
+                  {'chevron' in link && <Chevron />}
                 </a>
               </li>
             ))}

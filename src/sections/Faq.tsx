@@ -5,9 +5,9 @@ import { durations, ease, isPreviewMode, useStaticMotion } from '../lib/motion'
 import styles from './Faq.module.css'
 
 /**
- * Figma "FAQ" (234:2070) using the component set "Plexo / FAQ Accordion" (238:2338).
- * Default = "Open item=1" (the page instance). One item open at a time; clicking the open
- * item closes it ("Open item=None"). Answers come from the matching "Open item=N" variants.
+ * Figma "FAQ" (532:25034) using the component set "Plexo / FAQ Accordion" (238:2338).
+ * Default = "Open item=None" (the page instance: all closed). One item open at a time; clicking the
+ * open item closes it. Answers and the open style come from the "Open item=N" variants.
  */
 const faqs = [
   { q: 'Do I need to code or design?', a: 'Nope. If you can type it, Plexo can build it.' },
@@ -36,7 +36,7 @@ function ToggleIcon({ open }: { open: boolean }) {
 }
 
 export default function Faq() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
   const isStatic = useStaticMotion()
   const baseId = useId()
 
@@ -45,9 +45,7 @@ export default function Faq() {
       <div className={`container ${styles.inner}`}>
         <Reveal className={styles.headCol}>
           <h2 id="faq-title" className={`h2 ${styles.title}`}>
-            You asked.
-            <br />
-            We answered.
+            Frequently Asked Questions
           </h2>
         </Reveal>
 

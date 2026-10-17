@@ -1,12 +1,10 @@
-/* Figma "Social proof" (234:2016): 1440×791, padding 100/80, white.
-   Stack: heading block 92 → 64 → card row 331 → 64 → button 40. */
+/* Figma "Social proof" (532:24979): 1440×953, padding 80, white. Heading (92) · 64 · cards (533) · 64 · buttons (40). */
 .section {
-  --edge: max(var(--gutter), calc((100% - var(--content-max)) / 2));
   background: var(--white);
-  padding-block: 100px;
+  padding-block: 80px;
 }
 
-/* Frame 13: heading (53) + 16 + lead (23 fixed). */
+/* "Frame 13": heading (53) + 16 + lead (23 fixed). */
 .head {
   display: flex;
   flex-direction: column;
@@ -14,11 +12,15 @@
 }
 
 .title {
+  position: relative;
+  top: 1px; /* Figma baseline snap */
   max-width: 804px;
-  min-height: 53px; /* Figma rounds the 52.8 text box up to 53 */
+  min-height: 53px;
 }
 
 .lead {
+  position: relative;
+  top: 1px; /* Figma baseline snap */
   max-width: 888px;
   height: 23px;
   font-size: 16px;
@@ -27,67 +29,37 @@
   color: var(--ink-700);
 }
 
-/* Full-bleed horizontal scroller: cards start at the column edge and bleed off the right.
-   32px of vertical padding (cancelled by the margins) leaves room for the hover lift + shadow. */
+/* "Frame 23": row, gap 32; a scroller so more stories (and phones) can swipe. Vertical padding
+   (cancelled by margins) leaves room for the hover lift. */
 .scroller {
-  margin-block: 32px;
-  padding-block: 32px;
+  display: flex;
+  gap: 32px;
+  margin: 32px 0;
+  padding: 32px 0;
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-x: contain;
-  scroll-snap-type: x proximity;
-  scroll-padding-inline: var(--edge);
+  scroll-snap-type: x mandatory;
   scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
 }
 
 .scroller::-webkit-scrollbar {
   display: none;
 }
 
-.scroller:focus-visible {
-  border-radius: 0;
-  box-shadow: inset 0 0 0 2px var(--lime-pressed);
-}
-
-@media (pointer: fine) {
-  .scroller {
-    cursor: grab;
-  }
-}
-
-.scroller[data-dragging] {
-  cursor: grabbing;
-  scroll-snap-type: none;
-  user-select: none;
-}
-
-/* Frame 23: row, gap 32. Inline padding = column edge on both sides. */
-.track {
-  display: flex;
-  gap: 32px;
-  width: max-content;
-  padding-inline: var(--edge);
-}
-
 .slide {
-  flex: none;
+  flex: 0 0 calc((100% - 32px) / 2);
+  min-width: 0;
   scroll-snap-align: start;
 }
 
-.slideInner {
-  height: 100%;
-}
-
-/* Frame 18: 548×331, column, justify centre, gap 25, padding 16/12, 1px #d7d8d3 stroke included
-   in layout, radius 12. Content (314) overflows the padding box and is centred like Figma. */
+/* "Frame 18": 624×533, column, centred, gap 25, padding 16/12, 1px #d7d8d3 stroke in layout, r12. */
 .card {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 25px;
-  width: 548px;
-  height: 331px;
+  height: 533px;
   padding: 16px 12px;
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -96,34 +68,22 @@
   transition: box-shadow 200ms ease;
 }
 
-.card > * {
-  flex-shrink: 0;
-}
-
 .card:hover {
   box-shadow: var(--shadow-card);
 }
 
-.prompt {
-  min-height: 39px; /* Figma rounds the 2 × 19.2 text box up to 39 */
-  font-size: 16px;
-  line-height: 19.2px;
-  font-weight: 300;
-  font-style: italic;
-  letter-spacing: -0.24px;
-  color: var(--ink-800);
-}
-
+/* "Rectangle 1": fills the rest (389 at 1440), #d9d9d9. */
 .preview {
-  height: 176px;
+  flex: 1 1 0;
+  min-height: 0;
   background: #d9d9d9;
 }
 
-/* Frame 19: column, gap 4. */
+/* Quote (42) · 12 · author row (31). */
 .caption {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 12px;
 }
 
 .quote {
@@ -133,33 +93,87 @@
   color: var(--ink-600);
 }
 
+/* "Frame 62": row, gap 8, centred; avatar 28×30 r3 #989898. */
 .author {
   display: flex;
   align-items: center;
   gap: 8px;
-  height: 24px;
 }
 
 .avatar {
-  flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
+  flex: none;
+  width: 28px;
+  height: 30px;
+  border-radius: 3px;
   background: #989898;
 }
 
+/* Column gap 2: 500 12/15.6 #232323; 400 10/13 #454543. */
+.who {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .name {
-  display: block;
   height: 16px;
   font-size: 12px;
   line-height: 15.6px;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--ink-800);
 }
 
-.cta {
+.role {
+  height: 13px;
+  font-size: 10px;
+  line-height: 13px;
+  font-weight: 400;
+  color: var(--ink-600);
+}
+
+/* "Frame 2147239163": space-between: button · arrows (gap 24). */
+.footer {
   display: flex;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.arrows {
+  display: flex;
+  gap: 24px;
+}
+
+/* "Icon accent": 40×40 #f4f5f0 circle; next #000, previous (disabled) #7a7b77. */
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  background: var(--surface-100);
+  color: #000000;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 200ms var(--ease-out);
+}
+
+.arrow:hover {
+  background: var(--surface-200);
+}
+
+.arrow:focus-visible {
+  border-radius: 40px;
+}
+
+.arrowOff {
+  color: var(--dash);
+  cursor: default;
+}
+
+.arrowOff:hover {
+  background: var(--surface-100);
 }
 
 @media (max-width: 767px) {
@@ -167,8 +181,7 @@
     padding-block: 64px;
   }
 
-  .title,
-  .prompt {
+  .title {
     min-height: 0;
   }
 
@@ -177,20 +190,22 @@
   }
 
   .scroller {
-    margin-block: 8px;
+    gap: 16px;
+    margin: 8px calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
   }
 
-  .track {
-    gap: 16px;
+  .slide {
+    flex-basis: calc(100% - 24px);
   }
 
   .card {
-    width: calc(100vw - var(--gutter) * 2 - 32px);
     height: auto;
   }
 
   .preview {
-    height: auto;
-    aspect-ratio: 522 / 176;
+    flex: none;
+    aspect-ratio: 598 / 389;
   }
 }

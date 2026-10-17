@@ -7,9 +7,10 @@ import { RollingText } from '../motion/RollingText'
 import styles from './Pricing.module.css'
 
 /**
- * Figma "Pricing" (234:1817) using component set "Component 4" (241:3479), variants
- * Property 1=Monthly (default, the page instance) and Property 1=Yearly. The toggle switches
- * the Starter and Pro price blocks between the two variants.
+ * Figma "Pricing" (532:24952) using component set "Component 7" (489:6324): "Component 5" = Monthly
+ * (default, the page instance), "Component 6" = Yearly. Four 302×489 cards in a row; each has a
+ * grey content panel (green for Pro) and a feature list. The toggle switches the Starter and Pro
+ * price blocks between the variants.
  */
 type Period = 'monthly' | 'yearly'
 
@@ -24,10 +25,10 @@ type Plan = {
   tagline: string
   cta: { label: string; variant: ButtonVariant; href?: string }
   features: string[]
-  /** Pro card: green border, shadow and strokes included in layout (Figma 234:1934). */
+  /** Pro: green stroke (in layout), shadow stack, green panel and the "Recommended" badge. */
   popular?: boolean
-  /** Free Trial: 335px wide (others 343) and its button sits 19px under the tagline (fixed 204px content). */
-  narrow?: boolean
+  /** Free Trial: the panel's content is a fixed 205×204 column (button 205 wide, 19px under the tagline). */
+  trial?: boolean
 }
 
 /**
@@ -53,9 +54,9 @@ function Unit({ children, w }: { children: ReactNode; w?: number }) {
 type PriceText = { text: string; w: number }
 
 /**
- * Starter / Pro price block.
- * Monthly ("Frame 2147239024"): 64px row, price line 48px tall ($9 / $19 "Monthly").
- * Yearly ("Frame 2147239021"): 62px row, price line 46px + "Billed annually (…)" 16px ($7 / $15).
+ * Starter / Pro price block ("Frame 2147239024").
+ * Monthly: 64px block, price line 48px tall ($9 / $19 "Monthly").
+ * Yearly: 62px block, price line 46px + "Billed annually (…)" 16px ($7 / $15).
  */
 function BillingPrice({
   period,
@@ -154,9 +155,9 @@ const plans: Plan[] = [
       </div>
     ),
     tagline: 'Take it for a spin.',
-    cta: { label: 'Start free', variant: 'outline', href: '#top' },
+    cta: { label: 'Start free', variant: 'white', href: '#top' },
     features: ['1 page,', '1 funnel,', '50 AI credits'],
-    narrow: true,
+    trial: true,
   },
   {
     name: 'Starter',
@@ -164,11 +165,11 @@ const plans: Plan[] = [
       <BillingPrice period={period} monthly={{ text: '$9', w: 49 }} yearly={{ text: '$7', w: 48 }} billed="Billed annually ($84/year)" />
     ),
     tagline: 'Get online. Start selling.',
-    cta: { label: 'Get started', variant: 'outline', href: '#top' },
+    cta: { label: 'Get started', variant: 'white', href: '#top' },
     features: ['5 pages', '5 products', 'Your domain', '300 credits/mo'],
   },
   {
-    name: 'Pro (Most popular)',
+    name: 'Pro',
     price: (period) => (
       <BillingPrice period={period} monthly={{ text: '$19', w: 65 }} yearly={{ text: '$15', w: 65 }} billed="Billed annually ($180/year)" />
     ),
@@ -194,20 +195,23 @@ const plans: Plan[] = [
 
 function PlanCard({ plan, period, delay }: { plan: Plan; period: Period; delay: number }) {
   const isStatic = useStaticMotion()
-  const slot = [styles.slot, plan.narrow && styles.slotNarrow].filter(Boolean).join(' ')
   const card = [styles.card, plan.popular && styles.cardPopular].filter(Boolean).join(' ')
 
   return (
-    <Reveal delay={delay} className={slot}>
+    <Reveal delay={delay} className={styles.slot}>
       <motion.article
         className={card}
         aria-label={plan.name}
         whileHover={isStatic ? undefined : { y: -3 }}
         transition={softSpring}
       >
-        <div className={`${styles.content} ${plan.narrow ? styles.contentFixed : ''}`}>
+        <div className={styles.panel}>
+          <div className={plan.trial ? styles.trialColumn : styles.column}>
           <div className={styles.summary}>
-            <h3 className={styles.name}>{plan.name}</h3>
+            <div className={styles.titleRow}>
+              <h3 className={styles.name}>{plan.name}</h3>
+              {plan.popular && <span className={styles.badge}>Recommended</span>}
+            </div>
             <div className={styles.pricing}>
               {plan.price(period)}
               <p className={styles.tagline}>{plan.tagline}</p>
@@ -216,6 +220,7 @@ function PlanCard({ plan, period, delay }: { plan: Plan; period: Period; delay: 
           <Button variant={plan.cta.variant} href={plan.cta.href} fullWidth>
             {plan.cta.label}
           </Button>
+          </div>
         </div>
         <ul className={styles.features}>
           {plan.features.map((feature) => (
@@ -279,7 +284,7 @@ export default function Pricing() {
             <h2 id="pricing-title" className={`h2 ${styles.title}`}>
               Try it free
               <br />
-              {/* Figma centres this line including its trailing line-separator glyph; the nbsp reproduces that offset. */}
+              {/* Figma ends this line with a carriage return that counts as a space when centring. */}
               Pay when it&apos;s live.&nbsp;
             </h2>
           </Reveal>
@@ -293,14 +298,9 @@ export default function Pricing() {
         </Reveal>
 
         <div className={styles.cards}>
-          <div className={`${styles.row} ${styles.rowFirst}`}>
-            <PlanCard plan={plans[0]} period={period} delay={0} />
-            <PlanCard plan={plans[1]} period={period} delay={0.06} />
-          </div>
-          <div className={`${styles.row} ${styles.rowSecond}`}>
-            <PlanCard plan={plans[2]} period={period} delay={0.12} />
-            <PlanCard plan={plans[3]} period={period} delay={0.18} />
-          </div>
+          {plans.map((plan, i) => (
+            <PlanCard key={plan.name} plan={plan} period={period} delay={i * 0.06} />
+          ))}
         </div>
       </div>
     </section>

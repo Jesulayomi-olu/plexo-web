@@ -1,0 +1,44 @@
+.divider {
+  position: relative;
+  height: 6px;
+  pointer-events: none;
+}
+
+/* "Line 3": 1px stroke centred on y=4 (Figma draws it on row 3); 8/8 dashes, the first starting 4px
+   before the left edge (dashes at 12 + 16n). */
+.line {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: repeating-linear-gradient(to right, var(--dash) 0 8px, transparent 8px 16px);
+  background-position: 12px 0;
+}
+
+/* The content column (1280 at 1440), so the stars follow the guide lines at any width. */
+.edges {
+  position: absolute;
+  inset: 0;
+  max-width: calc(var(--content-max) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.starLeft,
+.starRight {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  max-width: none;
+}
+
+.starLeft {
+  top: -3px;
+  left: calc(var(--gutter) - 4px);
+}
+
+.starRight {
+  top: -2px;
+  right: calc(var(--gutter) - 5px);
+}

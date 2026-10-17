@@ -1,7 +1,7 @@
-/* Figma "Who it's for" (234:1006): 1440×934, padding 100/80, white. */
+/* Figma "Who it's for" (532:24350): 1440×894, padding 80, white. */
 .section {
   background: var(--white);
-  padding-block: 100px;
+  padding-block: 80px;
   overflow: hidden;
 }
 

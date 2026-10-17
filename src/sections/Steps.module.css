@@ -1,0 +1,247 @@
+/*
+ * Figma "How it works" (532:24115): padding 80, #f5f7ed, r32/32/0/0, clipped; overlaps the lime strip by
+ * 24px. Content "Frame 2147239166" (1281×889): header frame (179) · 48 · stack (886×642) · 20.
+ * overflow: clip (not hidden) so the pinned stack can still stick to the viewport.
+ */
+.section {
+  position: relative;
+  z-index: 1;
+  margin-top: -24px;
+  padding: 80px 0;
+  border-radius: 32px 32px 0 0;
+  background: var(--cream);
+  overflow: clip;
+}
+
+.inner {
+  max-width: calc(var(--content-max) + var(--gutter) * 2);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* "Frame 16": row, centred; text block (grow) · "Start building" (centred on the 146px block). */
+.head {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  height: 146px;
+  margin-bottom: 81px;
+}
+
+/* The "HOW IT WORKS" eyebrow has no fill in Figma (invisible) but still takes 15 + 12px. */
+.headText {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-top: 27px;
+}
+
+.heading {
+  max-width: 804px;
+}
+
+/* 400 16/24, #1e1e1e, 888 wide, 50px box. */
+.lead {
+  max-width: 888px;
+  min-height: 50px;
+  margin-top: 16px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--ink-600);
+}
+
+.cta {
+  flex: none;
+}
+
+/* "Frame 2147239165": 886×642, centred at x 197 of the content column; cards at y 0 / 86 / 155. */
+.stack,
+.track {
+  position: relative;
+  width: 884px;
+  margin-left: calc(50% - 443px);
+  margin-bottom: 20px;
+}
+
+.stack {
+  height: 642px;
+}
+
+.pin {
+  position: sticky;
+  top: max(96px, calc((100vh - 642px + var(--nav-height)) / 2));
+  height: 642px;
+}
+
+/* Card: 507 tall, 1px #d7d8d3 inside stroke, r16, padding 24 (content at 25,25), clipped. */
+.card {
+  position: absolute;
+  left: 0;
+  display: flex;
+  height: 507px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.card1 {
+  top: 0;
+  width: 882px;
+  gap: 40px;
+  background: var(--surface-50);
+}
+
+.card2 {
+  top: 86px;
+  width: 884px;
+  gap: 42px;
+}
+
+.card3 {
+  top: 155px;
+  width: 884px;
+  gap: 42px;
+}
+
+/* "Screen": 433×457. Step 2's is a 10% #1e1e1e wash with the AI dialogs over it (at 85,112 of the card). */
+.screen {
+  position: relative;
+  flex: none;
+  width: 433px;
+  height: 457px;
+}
+
+.card2 .screen {
+  background: rgb(30 30 30 / 0.1);
+}
+
+.screenImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+.dialogs {
+  position: absolute;
+  top: 87px;
+  left: 60px;
+  width: 315.63px;
+  height: 281.53px;
+  max-width: none;
+}
+
+/* "Frame 2147239150": 359 wide, column, space-between: step label · title + description. */
+.text {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 359px;
+}
+
+/* 600 14/16.1, −0.35, #5b5b58. */
+.label {
+  font-size: 14px;
+  line-height: 16.1px;
+  font-weight: 600;
+  letter-spacing: -0.35px;
+  color: var(--ink-500);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 600 20/26, −0.4, #333332. */
+.title {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: var(--ink-700);
+}
+
+/* 400 16/24, #454543. */
+.body {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--ink-600);
+}
+
+/* Tablet and phone: the three cards one after another, screen on top. */
+@media (max-width: 1023px) {
+  .head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    height: auto;
+    margin-bottom: 40px;
+  }
+
+  .headText {
+    padding-top: 0;
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 640px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .card {
+    position: static;
+    flex-direction: column;
+    gap: 24px;
+    width: auto;
+    height: auto;
+    padding: 16px;
+  }
+
+  .screen {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 433 / 457;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .dialogs {
+    top: 19.04%;
+    left: 13.86%;
+    width: 72.9%;
+    height: auto;
+  }
+
+  .text {
+    gap: 24px;
+    width: auto;
+    padding: 0 8px 8px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding: 56px 0;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .title {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .body {
+    font-size: 15px;
+    line-height: 22px;
+  }
+}

@@ -7,7 +7,7 @@ import { durations, ease, isPreviewMode, useStaticMotion } from '../lib/motion'
 import styles from './WhoItsFor.module.css'
 
 /**
- * Figma "Who it's for" (234:1006) with the tab states of "Component 2" (238:1447):
+ * Figma "Who it's for" (Home page V2 532:24350; tab states of "Component 2", 238:1447):
  * Frame 30 = Small businesses (default), 31 = Coaches and creators, 32 = Agencies and freelancers,
  * 33 = Growing brands, 34 = Product teams. Photo offsets inside the cream frame differ slightly per
  * variant in Figma (x 17 or 20, y ≈ 25) and are kept as-is.
@@ -141,11 +141,11 @@ export default function WhoItsFor() {
   }
 
   return (
-    <section id="who-its-for" data-section="who-its-for" className={styles.section}>
+    <section id="for-you" data-section="for-you" className={styles.section}>
       <div className="container">
         <Reveal className={styles.intro}>
-          <h2 className={styles.heading}>Made for how you make money</h2>
-          <p className={styles.lead}>Pick your business. See what Plexo does for it</p>
+          <h2 className={styles.heading}>Plexo Is for everyone</h2>
+          <p className={styles.lead}>You don't need to be a designer, developer or tech expert to bring your ideas to life.</p>
         </Reveal>
 
         <div className={styles.component}>

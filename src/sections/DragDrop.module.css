@@ -1,16 +1,16 @@
-/* Figma "Drag and drop" (234:1218): 1440×885, padding 100/80, white. */
+/* Figma "Drag and drop" (532:24562): 1440×831, padding 80, white. */
 .section {
   background: var(--white);
-  padding-block: 100px;
+  padding-block: 80px;
   overflow: hidden;
 }
 
-/* "Frame 57": column, gap 78, centred (button centred under the cards). */
+/* "Frame 57": column, gap 64, centred (button centred under the cards). */
 .inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 78px;
+  gap: 64px;
 }
 
 /* "Frame 56": column, gap 80, left-aligned. */
@@ -143,11 +143,10 @@
   max-width: none;
 }
 
-/* "Frame 17": @16,157, 259 wide, column gap 16. */
+/* "Frame 17": x 16 (y per variant, set inline), 259 wide, column gap 16. */
 .copy {
   position: absolute;
   left: 15px;
-  top: 156px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -155,13 +154,29 @@
   max-width: calc(44.25% - 32px);
 }
 
-/* 500 24/24, ls -0.29, #333332 */
+/*
+ * 600 20/26, −0.4, #333332, as a bulleted list item: the text starts 31px in and the bullet is a
+ * 7.6px dot centred at (15, 15.3).
+ */
 .title {
-  font-size: 24px;
-  line-height: 24px;
-  font-weight: 500;
-  letter-spacing: -0.29px;
+  position: relative;
+  padding-left: 31px;
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
   color: var(--ink-700);
+}
+
+.title::before {
+  content: '';
+  position: absolute;
+  top: 11.5px;
+  left: 11.2px;
+  width: 7.6px;
+  height: 7.6px;
+  border-radius: 50%;
+  background: currentColor;
 }
 
 /* 400 14/21, #000, 226px text box */
@@ -173,15 +188,6 @@
   font-weight: 400;
   color: #000000;
   white-space: pre-wrap;
-}
-
-/* Below 1440 the expanded text column narrows; use the design's 20/24 card title (hidden "Frame 17" style). */
-@media (max-width: 1439px) {
-  .copy .title {
-    font-size: 20px;
-    line-height: 24px;
-    letter-spacing: -0.24px;
-  }
 }
 
 /* "Plus": 24×24 at (12,359). */

@@ -147,7 +147,10 @@
   min-width: 78px;
 }
 
-/* Figma "Frame 12": space-between, items centred, 26px tall. */
+/*
+ * Figma "Frame 12": space-between, items centred, 16px tall. The text boxes are 13.2px lines at
+ * y 1.5 beside a 16px arrow icon, i.e. the text centred in a 16px line.
+ */
 .meta {
   display: flex;
   align-items: center;
@@ -157,7 +160,7 @@
 
 .hint {
   font-size: 12px;
-  line-height: 13.2px;
+  line-height: 16px;
   font-weight: 400;
   color: var(--ink-700);
   white-space: nowrap;
@@ -182,10 +185,11 @@
   white-space: nowrap;
 }
 
+/* "Import icon" (191:2406): 16×16 arrow straight after "template". */
 .arrow {
   display: inline-block;
-  width: 8.9px;
-  height: 13px;
+  width: 16px;
+  height: 16px;
   vertical-align: top;
   transition: transform 200ms var(--ease-out);
 }
@@ -194,16 +198,115 @@
   transform: translateX(2px);
 }
 
-/* Figma: fixed 149px box, text " Free for 14 days. No card.⏎" (leading space, empty 2nd line → 26px). */
+/* Figma: fixed 149px box, text " Free for 14 days. No card." (leading space kept). */
 .trial {
   flex: none;
   width: 149px;
-  height: 26px;
   font-size: 12px;
-  line-height: 13.2px;
+  line-height: 16px;
   font-weight: 500;
   color: var(--green-text);
   white-space: pre;
+}
+
+/*
+ * Hero variant (532:24028): 993 wide, gap 12. "Frame 5": 993×238, #fcfcfa, 2px rgba(0,0,0,.2)
+ * inside stroke included in layout, padding 24/32, r16; content (attach · prompt · Build it) top-aligned.
+ */
+.hero {
+  max-width: 993px;
+  gap: 12px;
+}
+
+.hero .box {
+  align-items: flex-start;
+  height: 238px;
+  padding: 24px 32px;
+  background: var(--surface-50);
+  border: 2px solid rgb(0 0 0 / 0.2);
+}
+
+.hero .box:hover {
+  border-color: rgb(0 0 0 / 0.3);
+}
+
+.hero .box:focus-within {
+  border-color: var(--lime-pressed);
+}
+
+/* "Attach": #d7d8d3, black plus. */
+.hero .attach {
+  background: var(--line);
+  color: #000000;
+}
+
+.hero .attach:hover {
+  background: #c9cac4;
+}
+
+/* Prompt area: from 12px after the attach button to the button, the full box height. */
+.hero .field {
+  align-self: stretch;
+  align-items: stretch;
+  height: auto;
+  margin: 0;
+  padding-left: 12px;
+}
+
+/* Placeholder: 500 16/24, #5b5b58, first line centred on the 36px attach button (y 6). */
+.hero .input {
+  height: 100%;
+  padding: 6px 16px 0 0;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  resize: none;
+  overflow-y: auto;
+}
+
+.hero .input::placeholder {
+  color: var(--ink-500);
+}
+
+.hero .typing {
+  left: 12px;
+  align-items: flex-start;
+  padding-top: 6px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--ink-500);
+}
+
+/* The hero prompt area is multi-line: the typed text wraps like the textarea instead of scrolling. */
+.hero .typing {
+  display: block;
+  right: 16px;
+  white-space: pre-wrap;
+}
+
+.hero .typingText {
+  display: inline;
+}
+
+.hero .caret {
+  display: inline-block;
+  height: 19px;
+  vertical-align: -4px;
+}
+
+/* Helper row on the dark hero: 500, #fcfcfa; trial note #f0f6df. */
+.hero .hint {
+  font-weight: 500;
+  color: var(--surface-50);
+}
+
+.hero .hintLink:hover {
+  color: var(--lime);
+}
+
+.hero .trial {
+  color: var(--green-tint);
 }
 
 @media (max-width: 767px) {
@@ -231,5 +334,19 @@
     width: auto;
     height: auto;
     white-space: normal;
+  }
+
+  .hero .box {
+    height: 168px;
+    padding: 16px;
+  }
+
+  .hero .field {
+    margin: 0;
+    padding-left: 10px;
+  }
+
+  .hero .typing {
+    left: 10px;
   }
 }

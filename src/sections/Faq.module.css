@@ -1,29 +1,32 @@
-/* Figma "FAQ" (234:2070): 1440×860 with item 1 open, padding 100/80, white. */
+/* Figma "FAQ" (532:25034): 1440×970 (all closed), padding 80, white. */
 .section {
   background: var(--white);
-  padding-block: 100px;
+  padding-block: 80px;
 }
 
-/* Frame 70: row, gap 120, centred both ways. Heading 408 + 120 + accordion 752 = 1280. */
+/* "Frame 70": column, gap 80, centred: heading (408 box, text left) · accordion (914). */
 .inner {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: clamp(64px, calc(100% - 1160px), 120px);
+  gap: 80px;
 }
 
 .headCol {
-  flex: 0 0 408px;
-  min-width: 0;
+  width: 408px;
+  max-width: 100%;
 }
 
 .title {
+  position: relative;
+  top: 1px; /* Figma baseline snap */
   min-height: 106px; /* Figma rounds the 2 × 52.8 text box up to 106 */
 }
 
-/* "Plexo / FAQ Accordion": column, gap 24. */
+/* "Plexo / FAQ Accordion": column, gap 24, 914 wide. */
 .list {
-  flex: 0 1 752px;
+  width: 914px;
+  max-width: 100%;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -93,29 +96,18 @@
   overflow: hidden;
 }
 
+/* Open row: answer 12px under the question, 400 14/21 #454543. */
 .answer {
   padding: 0 12px 12px;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 500;
-  color: var(--ink-700);
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+  color: var(--ink-600);
 }
 
-/* Tablet and mobile: heading above the list. */
 @media (max-width: 1199px) {
   .inner {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 40px;
-  }
-
-  .headCol,
-  .list {
-    flex: none;
-  }
-
-  .title {
-    min-height: 0;
+    gap: 48px;
   }
 }
 
@@ -126,6 +118,14 @@
 
   .inner {
     gap: 32px;
+  }
+
+  .headCol {
+    width: 100%;
+  }
+
+  .title {
+    min-height: 0;
   }
 
   .list {

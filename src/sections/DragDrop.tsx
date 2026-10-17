@@ -6,7 +6,7 @@ import { ease, isPreviewMode, useStaticMotion } from '../lib/motion'
 import styles from './DragDrop.module.css'
 
 /**
- * Figma "Drag and drop" (234:1218) with the expandable cards from "Component 3" (238:1683).
+ * Figma "Drag and drop" (Home page V2 532:24562) with the expandable cards from "Component 3" (238:1683).
  * Variants: Frame 2147239068 (live expanded, default page instance) / Frame 26 (blocks expanded) /
  * Frame 2147239067 (mix expanded).
  *
@@ -19,11 +19,21 @@ import styles from './DragDrop.module.css'
 type CardId = 'live' | 'blocks' | 'mix'
 type Kind = 'expanded' | 'tint' | 'cream'
 
-const cards: { id: CardId; title: string; text: string }[] = [
-  { id: 'live', title: 'What you see goes live', text: 'No preview surprises, on desktop or mobile.' },
-  { id: 'blocks', title: 'Ready made blocks.', text: 'Hero, pricing, testimonials, forms and checkout. Drop them in.' },
-  // Figma keeps a leading space in this description (238:2094).
-  { id: 'mix', title: 'Mix both.', text: ' Let AI draft it, then drag things into place yourself.' },
+// Titles are bulleted list items in Figma. `copyTop`: the text block's y in the expanded card (Figma − 1px border).
+const cards: { id: CardId; title: string; text: string; copyTop: number }[] = [
+  { id: 'live', title: 'See what goes live', text: 'Design your page visually and preview it across desktop and mobile.', copyTop: 144.5 },
+  {
+    id: 'blocks',
+    title: 'Start with ready made blocks',
+    text: 'Add hero sections, pricing, testimonials, forms and checkout sections.',
+    copyTop: 132,
+  },
+  {
+    id: 'mix',
+    title: 'Combine AI with your creativity',
+    text: 'Generate a starting point with AI, then customise every detail yourself.',
+    copyTop: 132,
+  },
 ]
 
 /*
@@ -176,9 +186,10 @@ export default function DragDrop() {
         <div className={styles.inner}>
           <div className={styles.main}>
             <Reveal className={styles.intro}>
-              <h2 className={`h2 ${styles.heading}`}>Prefer to do it yourself? Go for it.</h2>
+              <h2 className={`h2 ${styles.heading}`}>Prefer to build it yourself? Go for it.</h2>
               <p className={`lead ${styles.lead}`}>
-                A visual canvas where every block moves exactly where you want it. No code. No guesswork
+                Take control with a visual editor that lets you design your website exactly how you want it. No code. No
+                guesswork.
               </p>
             </Reveal>
             <Reveal delay={0.06}>{isDesktop ? <CardRow /> : <CardStack />}</Reveal>
@@ -263,6 +274,7 @@ function CardRow() {
                   layout="position"
                   id={copyId}
                   className={styles.copy}
+                  style={{ top: card.copyTop }}
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0, transition: fadeIn }}
                   exit={{ opacity: 0, transition: fadeOut }}

@@ -7,7 +7,7 @@ import styles from './Button.module.css'
  * Figma component "Button" (Design system → Buttons), Size=Medium.
  * Default / Hover / Pressed / Focus colours come straight from the component variants.
  */
-export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'contrast'
+export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'contrast' | 'white'
 
 type ButtonProps = {
   children: ReactNode

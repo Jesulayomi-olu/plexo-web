@@ -1,4 +1,4 @@
-import { useId, useLayoutEffect, useRef, useState, type FormEvent } from 'react'
+import { useId, useLayoutEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react'
 import { useInView } from 'framer-motion'
 import { useStaticMotion } from '../lib/motion'
 import { useTypewriter } from '../motion/useTypewriter'
@@ -6,11 +6,14 @@ import { Button } from './Button'
 import styles from './PromptBox.module.css'
 
 /**
- * Figma "Frame 11" (hero, 234:709) / "Frame 71" (final CTA, 234:2083):
- * the 792×89 prompt box ("Frame 5") plus the helper row under it ("Frame 12").
+ * Prompt box (Home page V2).
+ * - "default": final CTA "Frame 71" (532:25042) — the 792×89 one-line box ("Frame 5") + helper row.
+ * - "hero": hero "Frame 2147239234" (532:24028) — the 993×238 box on the dark hero, a multi-line
+ *   prompt area, with a light helper row.
  */
 type PromptBoxProps = {
   className?: string
+  variant?: 'default' | 'hero'
   /**
    * Typewriter placeholder: types each prompt, holds, deletes, types the next. Stops while the field
    * is focused or filled. Static (Figma placeholder) for reduced motion and capture mode.
@@ -22,7 +25,22 @@ type PromptBoxProps = {
 
 const PLACEHOLDER = 'Build an online store for my skincare brand...'
 
-export function PromptBox({ className, typingPrompts, typingDelay = 600 }: PromptBoxProps) {
+/* "Import icon" (191:2406): arrow right, 16×16, 1.5 stroke. */
+function ArrowIcon() {
+  return (
+    <svg className={styles.arrow} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path
+        d="M3.33301 7.99967H12.6663M7.99967 12.6663L12.6663 7.99967L7.99967 3.33301"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+export function PromptBox({ className, variant = 'default', typingPrompts, typingDelay = 600 }: PromptBoxProps) {
   const uid = useId()
   const inputId = `${uid}-prompt`
   const isStatic = useStaticMotion()
@@ -35,6 +53,7 @@ export function PromptBox({ className, typingPrompts, typingDelay = 600 }: Promp
     startDelay: typingDelay,
   })
   const showTyping = typing && !focused && value === ''
+  const hero = variant === 'hero'
 
   // When the typed text is wider than the field (phones), flag it so the overlay fades its start.
   const typingRef = useRef<HTMLSpanElement>(null)
@@ -48,8 +67,24 @@ export function PromptBox({ className, typingPrompts, typingDelay = 600 }: Promp
     event.preventDefault()
   }
 
+  // Multi-line prompt: Enter adds a line, Ctrl/⌘ + Enter sends.
+  const onTextareaKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) boxRef.current?.requestSubmit()
+  }
+
+  const fieldProps = {
+    id: inputId,
+    name: 'prompt',
+    className: styles.input,
+    placeholder: typing ? '' : PLACEHOLDER,
+    autoComplete: 'off',
+    value,
+    onFocus: () => setFocused(true),
+    onBlur: () => setFocused(false),
+  }
+
   return (
-    <div className={[styles.root, className].filter(Boolean).join(' ')}>
+    <div className={[styles.root, hero && styles.hero, className].filter(Boolean).join(' ')}>
       <form ref={boxRef} className={styles.box} onSubmit={handleSubmit}>
         <button type="button" className={styles.attach} aria-label="Attach a file">
           <svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true">
@@ -65,18 +100,16 @@ export function PromptBox({ className, typingPrompts, typingDelay = 600 }: Promp
           Describe the site you want to build
         </label>
         <span className={styles.field}>
-          <input
-            id={inputId}
-            name="prompt"
-            type="text"
-            className={styles.input}
-            placeholder={typing ? '' : PLACEHOLDER}
-            autoComplete="off"
-            value={value}
-            onChange={(event) => setValue(event.target.value)}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-          />
+          {hero ? (
+            <textarea
+              {...fieldProps}
+              rows={1}
+              onChange={(event) => setValue(event.target.value)}
+              onKeyDown={onTextareaKeyDown}
+            />
+          ) : (
+            <input {...fieldProps} type="text" onChange={(event) => setValue(event.target.value)} />
+          )}
           {showTyping && (
             <span ref={typingRef} className={styles.typing} aria-hidden="true">
               <span className={styles.typingText}>
@@ -93,14 +126,11 @@ export function PromptBox({ className, typingPrompts, typingDelay = 600 }: Promp
       <div className={styles.meta}>
         <p className={styles.hint}>
           Prefer to design with existing templates?{' '}
-          <a href="#canvas" className={styles.hintLink}>
+          <a href="#templates" className={styles.hintLink}>
             Start with a{' '}
             <span className={styles.nowrap}>
               template
-              {/* "→" outlined from the Figma text: the Google Fonts subsets of Plus Jakarta Sans omit U+2192. */}
-              <svg className={styles.arrow} viewBox="347.1 0 8.9 13" fill="currentColor" aria-hidden="true">
-                <path d="M351.053 11L354.545 7.424L354.557 8.036L351.053 4.568H352.289L355.289 7.472V7.988L352.289 11H351.053ZM347.921 8.228V7.328H354.473V8.228H347.921Z" />
-              </svg>
+              <ArrowIcon />
             </span>
           </a>
         </p>

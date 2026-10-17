@@ -1,84 +1,80 @@
 /*
- * Figma "Footer" (234:2094): 1440×482, white, clipped, so the wordmark is cut at y=482.
- * (The Figma page frame has empty canvas below the footer; the page ends here.)
+ * Figma "Footer" (532:25055) on the page's #0d1a03 background: the white 1440×584 card (bottom
+ * corners r32, clipped), then a 248px dark band to the page end (y 11567 → 11815).
  */
 .footer {
+  position: relative;
+  overflow: hidden;
+  background: var(--night);
+}
+
+.card {
+  position: relative;
+  height: 584px;
+  border-radius: 0 0 32px 32px;
   background: var(--white);
   overflow: hidden;
-  container-type: inline-size;
 }
 
-.frame {
-  position: relative;
-  height: 482px;
-  max-width: 1440px;
-  margin: 0 auto;
-}
-
-/* "Frame 75": at (117,120), 1179×151, space-between, items centred (117 / 144 of 1440 → 8.125% / 10%). */
-.row {
-  position: relative;
-  z-index: 1;
+/*
+ * "Frame 2147239139": 1199 wide at (121, 60), padding 30/20, white; row "Frame 75" (1159×151),
+ * space-between, centred: brand (110 wide) · links (535).
+ */
+.content {
+  position: absolute;
+  top: 60px;
+  left: calc(50% - 599px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 120px 10% 0 8.125%;
+  width: 1199px;
+  padding: 30px 20px;
 }
 
-/* "Frame 72": fixed 110×95.43, column, gap 4. */
+/* "Frame 72": 110×95.43; logo 115.64×30, tagline at y 38 (400 12/13.2, #000). */
 .brand {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  flex: none;
   width: 110px;
   height: 95.43px;
 }
 
-/* 600 24/30, −0.48, #1e1e1e. */
-.logo {
-  font-size: 24px;
-  line-height: 30px;
-  font-weight: 600;
-  letter-spacing: -0.48px;
-  color: var(--ink-900);
+.brand img {
+  width: 115.64px;
+  height: 30px;
+  max-width: none;
 }
 
-/* 400 12/13.2, #000. */
 .tagline {
+  margin-top: 8px;
   font-size: 12px;
   line-height: 13.2px;
   font-weight: 400;
   color: #000000;
+  white-space: nowrap;
 }
 
-/* "Frame 77": 404 wide; three FILL columns of 134.67px each (they use all the width, so no gaps). */
+/* "Frame 77": 535 wide, four 103.75 columns, gap 40. */
 .columns {
-  display: flex;
-  justify-content: space-between;
-  width: 404px;
+  display: grid;
+  grid-template-columns: repeat(4, 103.75px);
+  gap: 40px;
 }
 
-/* Column: fills 1/3 of the group, column gap 24. */
+/* Column gap 24: heading 600 14/15.4 (15 box) · list (gap 16) of 400 12/15.6 (16 box), #0e1828. */
 .column {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  flex: 1 1 0;
-  min-width: 0;
 }
 
-/* 600 14/15.4, #0e1828 (Figma box 15px tall). */
 .heading {
-  display: block;
   height: 15px;
   font-size: 14px;
   line-height: 15.4px;
   font-weight: 600;
   color: #0e1828;
-  transition: color 160ms ease;
 }
 
-/* "Frame 73": column, gap 16; items 400 12/15.6 #0e1828 (Figma rounds each box to 16/32px). */
 .list {
   display: flex;
   flex-direction: column;
@@ -87,86 +83,123 @@
 
 .link {
   display: block;
+  height: 16px;
   font-size: 12px;
-  line-height: 16px;
+  line-height: 15.6px;
   font-weight: 400;
   color: #0e1828;
+  white-space: nowrap;
   transition: color 160ms ease;
 }
 
-.heading:hover,
 .link:hover {
-  color: var(--green-text);
+  color: var(--moss);
+}
+
+/* Giant logo "Frame 2147239134": 843×218.69 at (229, 399.61), cut by the card's bottom edge. */
+.giant {
+  position: absolute;
+  top: 399.61px;
+  left: calc(50% - 491px);
+  width: 843px;
+  height: calc(584px - 399.61px);
+  overflow: hidden;
+}
+
+.giant img {
+  display: block;
+  width: 843px;
+  height: auto;
+  max-width: none;
+}
+
+/* Dark band: divider 24px below the card. */
+.band {
+  position: relative;
+  height: 248px;
+}
+
+.divider {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  z-index: 1;
 }
 
 /*
- * "Plexo" wordmark: at (410,233), 600 240/normal (302px box), −4.8, #1e1e1e,
- * opacity 50% + difference blend (renders #f0f0f0 on white). The box is cut at the frame bottom:
- * 482 − 233 = 249px = 1.0375em.
+ * "Ellipse 3": 1071×572 at (206, 128 into the band), #112f0a, LAYER_BLUR 344.2 → Gaussian σ ≈ 172.
+ * Drawn above the card, as in Figma (the footer clips it at the page end).
  */
-.wordmark {
+.glow {
   position: absolute;
-  left: 28.4722%;
-  top: 233px;
-  height: 1.0375em;
-  overflow: hidden;
-  font-size: 240px;
+  z-index: 2;
+  top: 128px;
   pointer-events: none;
-  user-select: none;
+  left: calc(50% - 514px);
+  width: 1071px;
+  height: 572px;
+  border-radius: 50%;
+  background: #112f0a;
+  filter: blur(160px);
 }
 
-.wordmarkText {
-  display: block;
-  font-size: 1em;
-  line-height: 1.25833em;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--ink-900);
-  white-space: nowrap;
-  opacity: 0.5;
-  mix-blend-mode: difference;
-}
-
+/* Below 1200: content flows (brand, then the link grid), giant logo scales to the width. */
 @media (max-width: 1199px) {
-  .frame {
+  .card {
     height: auto;
+    padding: 56px var(--gutter) 0;
   }
 
-  .row {
-    padding: 80px var(--gutter) 0;
-  }
-
-  .wordmark {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: fit-content;
-    margin: 48px auto 0;
-    font-size: min(240px, calc((100cqw - var(--gutter) * 2) / 2.6));
-  }
-}
-
-@media (max-width: 767px) {
-  .row {
+  .content {
+    position: static;
     flex-direction: column;
     align-items: flex-start;
     gap: 40px;
-    padding-top: 56px;
+    width: auto;
+    padding: 0;
   }
 
   .brand {
     height: auto;
   }
 
-  .columns {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
+  .giant {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: min(843px, 100%);
+    height: auto;
+    margin: 56px auto 0;
+    aspect-ratio: 843 / 184.39;
+  }
+
+  .giant img {
     width: 100%;
   }
 
+  .band {
+    height: 160px;
+  }
+}
 
-  .wordmark {
-    margin-top: 32px;
+@media (max-width: 767px) {
+  .card {
+    padding-top: 48px;
+    border-radius: 0 0 24px 24px;
+  }
+
+  .columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 32px;
+    width: 100%;
+  }
+
+  .giant {
+    margin-top: 40px;
+  }
+
+  .band {
+    height: 120px;
   }
 }

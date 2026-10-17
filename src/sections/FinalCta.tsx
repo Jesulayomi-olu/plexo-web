@@ -5,8 +5,8 @@ import { isPreviewMode } from '../lib/motion'
 import styles from './FinalCta.module.css'
 
 /**
- * Figma "Final CTA" (234:2075): 1440×456, #f5f7ed, padding 100/80, column gap 80, centred.
- * The heading sits left-aligned in a centred 596px box ("Frame 57"), so it starts at x=422.
+ * Figma "Final CTA" (532:25039): 1440×430, #f5f7ed, padding 100/80, column gap 64, centred:
+ * the heading (692×53, "Frame 57") and the 792-wide prompt box.
  */
 export default function FinalCta() {
   return (
@@ -14,7 +14,7 @@ export default function FinalCta() {
       <div className="container">
         <div className={styles.inner}>
           <Reveal className={styles.headingBox}>
-            <h2 className={`h2 ${styles.title}`}>So, what are we building?</h2>
+            <h2 className={`h2 ${styles.title}`}>Ready to bring your idea to life?</h2>
           </Reveal>
           {isPreviewMode ? (
             <BlurIn trigger="view" delay={0.15} blur={10} duration={1.3} className={styles.promptWrap}>

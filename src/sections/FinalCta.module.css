@@ -1,26 +1,27 @@
-/* Figma "Final CTA" (234:2075): 1440×456, bg #f5f7ed, padding 100 top/bottom. */
+/* Figma "Final CTA" (532:25039): 1440×430, bg #f5f7ed, padding 100 top/bottom. */
 .cta {
   padding: 100px 0;
   background: var(--cream);
   overflow: hidden;
 }
 
-/* Column, gap 80, items centred. */
+/* Column, gap 64, items centred. */
 .inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 80px;
+  gap: 64px;
 }
 
-/* "Frame 57"/"Frame 56": 596 wide, centred; the 574×53 heading is left-aligned inside it. */
+/* "Frame 57": hugs the 692×53 heading, centred. */
 .headingBox {
-  width: 100%;
-  max-width: 596px;
+  max-width: 100%;
 }
 
 /* 700 48/52.8, −1.2, #232323 (shared .h2); Figma text box is 53px tall. */
 .title {
+  position: relative;
+  top: 1px; /* Figma baseline snap */
   min-height: 53px;
   white-space: nowrap;
 }

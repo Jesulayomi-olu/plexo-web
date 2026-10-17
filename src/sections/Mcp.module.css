@@ -1,30 +1,22 @@
-/* Figma "Mcp" (234:1228): 1440×1051, padding 100/80, bg #fcfcfa. */
+/* Figma "Mcp" (532:24572): 1440×1035, padding 80, #fcfcfa. Header (287) · 80 · diagram (508). */
 .section {
   background: var(--surface-50);
-  padding-block: 100px;
+  padding-block: 80px;
   overflow: hidden;
 }
 
-/* "Frame 32": column, gap 80. */
-.inner {
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
-}
-
-/* "Frame 82": column gap 8 (pill → text block); "Frame 81": text block → button gap 40. */
+/* "Frame 82": column, centred: pill · 8 · heading + lead (gap 16) · 40 · button. */
 .header {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 80px;
 }
 
-/* "Frame 7": pad 8/12, bg #e8e8e4, r100; label 600 12/13.2 ls 0.24 #333332. */
-.pill {
-  display: flex;
-  align-items: center;
-  height: 29px;
-  padding: 0 12px;
+/* "Frame 7": #e8e8e4 pill, padding 8/12; "Plexo Mcp" 600 12/13.2, 0.24 tracking, #333332. */
+.pill span {
+  display: block;
+  padding: 8px 12px;
   border-radius: 100px;
   background: var(--surface-200);
   font-size: 12px;
@@ -35,28 +27,29 @@
   white-space: nowrap;
 }
 
-/* "Frame 13": 888 wide, column gap 16, centred text. */
 .intro {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 16px;
-  width: 888px;
-  max-width: 100%;
   margin-top: 8px;
   text-align: center;
 }
 
+/* 1141px box, two centred lines; the second starts with a space (it counts when centring). */
 .heading {
   position: relative;
-  top: 1px; /* Figma sets this baseline 1px lower than Chrome */
-  min-height: 53px; /* Figma rounds the 52.8px line box up to 53 */
-  padding-right: 1.2px; /* Figma ignores the last glyph's -1.2px tracking when centring */
+  top: 1px; /* Figma baseline snap */
+  max-width: 1141px;
+  min-height: 106px;
+  padding-right: 1.2px; /* Figma ignores the last glyph's tracking when centring */
+  white-space: pre-wrap;
 }
 
-/* 234:1244 keeps a leading space on both lines. */
+/* Both lines start with a space. */
 .lead {
   position: relative;
-  top: 1px; /* Figma sets this baseline 1px lower than Chrome */
+  top: 1px; /* Figma baseline snap */
   white-space: pre-wrap;
 }
 
@@ -64,147 +57,211 @@
   margin-top: 40px;
 }
 
-/* "Frame 29" / "Frame 52": row, gap 20, centred, clipped. */
-.body {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+/* ---------- Desktop / tablet diagram: 1280×508, scaled by --s below 1440 ---------- */
+
+.fit {
+  height: calc(508px * var(--s, 1));
 }
 
-/* "Frame 28": 630×508 (fill), clipped; diagram 234:1263 at (11.9, 85.12). */
-.diagram {
-  flex: 1 1 0;
-  min-width: 0;
+.scale {
+  width: 1280px;
+  transform: scale(var(--s, 1));
+  transform-origin: top left;
+}
+
+/* "Frame 28": 1280×508, clipped. */
+.frame {
+  position: relative;
+  width: 1280px;
   height: 508px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 
-.diagram img {
-  /* Exported at 2× (1213×678) → 606.5×339; margins land the box on Figma's (11.9, 85.12). */
-  width: min(606.5px, calc(100% - 23.8px));
+/*
+ * "Integration · Ask Claude, Plexo ships": 1184.1×661.7 at (48, −34), clipped; white → transparent
+ * #f4f5f0 vertical gradient (handles at −42% and 119%).
+ */
+.integration {
+  position: absolute;
+  top: -34px;
+  left: 48px;
+  width: 1184.1px;
+  height: 661.7px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #ffffff -42%, rgb(244 245 240 / 0) 119%);
+}
+
+.integration img,
+.connectors {
+  position: absolute;
+  max-width: none;
+}
+
+/* "Dot pattern": 3.8px #e8e8e4 squares every 22.79px. */
+.dots {
+  top: -4.63px;
+  left: -48px;
+}
+
+.connectors {
+  top: 0;
+  left: 0;
+  width: 1184.1px;
+  height: 661.7px;
+  overflow: visible;
+}
+
+/* "Frame" (plexo logo) at (628.28, 258.12) on a white 123×32 plate. */
+.logo {
+  top: 258.116px;
+  left: 628.282px;
+  background: var(--white);
+}
+
+.claude {
+  top: 50.5px;
+  left: 52.24px;
+}
+
+.chatgpt {
+  top: 249.01px;
+  left: 52.24px;
+}
+
+.cursor {
+  top: 447.52px;
+  left: 52.24px;
+}
+
+.live {
+  top: 250px;
+  left: 1025px;
+}
+
+.line {
+  fill: none;
+}
+
+/* Flow: each line's dashes travel one period (dash + gap) toward Plexo / the live site, forever. */
+.moving .line {
+  animation: mcp-flow 0.9s linear infinite;
+}
+
+@keyframes mcp-flow {
+  from {
+    stroke-dashoffset: var(--o);
+  }
+  to {
+    stroke-dashoffset: calc(var(--o) - var(--p));
+  }
+}
+
+/* The output dot sends out a soft ping every 2.4s. */
+.ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mcp-ping 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes mcp-ping {
+  0% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(3.2);
+  }
+}
+
+/* ---------- Phones: vertical flow, 320×210 ---------- */
+
+.mobile {
+  position: relative;
+  width: 320px;
+  height: 210px;
+  margin: 8px auto 0;
+}
+
+.mobile::before {
+  content: '';
+  position: absolute;
+  inset: -24px -40px;
+  background-image: radial-gradient(circle, var(--surface-200) 1.2px, transparent 1.5px);
+  background-size: 14px 14px;
+  mask-image: radial-gradient(closest-side, #000 60%, transparent);
+  pointer-events: none;
+}
+
+.mobile img,
+.mLines {
+  position: absolute;
+  max-width: none;
+}
+
+.mClaude {
+  top: 0;
+  left: 0;
+  width: 99.9px;
   height: auto;
-  margin-top: 1.24px;
-  margin-left: 0.3px;
 }
 
-/* Animated diagram (preview): same box and offset as the exported image. */
-.flow {
-  width: min(606.2px, calc(100% - 23.8px));
-  margin-top: 1.24px;
-  margin-left: 0.3px;
+.mChatgpt {
+  top: 1.1px;
+  left: 107.9px;
+  width: 100.2px;
+  height: auto;
 }
 
-/* "Frame 53": column, gap 32, padding 40/0, centred. */
-.cards {
-  flex: 1 1 0;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  padding-block: 40px;
+.mCursor {
+  top: 0;
+  left: 216.1px;
+  width: 103.6px;
+  height: auto;
 }
 
-/* "Frame 42/43/44": pad 32/24, bg #f4f5f0, 3px #517a12 inside left stroke (counted in layout). */
-.card {
-  padding: 32px 24px;
-  border-left: 3px solid var(--moss);
-  background: var(--surface-100);
-  transition:
-    background-color 240ms ease,
-    border-color 240ms ease;
+.mLines {
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 210px;
+  overflow: visible;
 }
 
-@media (hover: hover) {
-  .card:hover {
-    background: var(--green-tint);
-    border-left-color: var(--lime-pressed);
-  }
+.mLogo {
+  top: 98px;
+  left: 108.7px;
+  width: 98.6px;
+  height: auto;
+  background: var(--surface-50);
 }
 
-/* 700 24/30, ls -0.48, #333332 */
-.title {
-  font-size: 24px;
-  line-height: 30px;
-  font-weight: 700;
-  letter-spacing: -0.48px;
-  color: var(--ink-700);
-}
-
-/* 400 14/21, #333332 */
-.text {
-  margin-top: 16px;
-  font-size: 14px;
-  line-height: 21px;
-  font-weight: 400;
-  color: var(--ink-700);
-  white-space: pre-wrap;
-}
-
-/* Tablet: diagram above the cards. */
-@media (max-width: 1199px) {
-  .body {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 40px;
-  }
-
-  .diagram {
-    flex: none;
-    height: auto;
-  }
-
-  .diagram img {
-    width: min(606.5px, 100%);
-    margin: 0;
-  }
-
-  .cards {
-    flex: none;
-    padding-block: 0;
-    gap: 24px;
-  }
+.mLive {
+  top: 170px;
+  left: 98.5px;
+  width: 119px;
+  height: auto;
 }
 
 @media (max-width: 767px) {
   .section {
-    padding-top: 64px;
-    padding-bottom: 56px;
+    padding-block: 64px 56px;
   }
 
-  .inner {
-    gap: 48px;
+  .header {
+    margin-bottom: 40px;
   }
 
   .heading {
     min-height: 0;
+    padding-right: 0;
   }
+}
 
-  .cta {
-    margin-top: 32px;
-  }
-
-  .body {
-    gap: 32px;
-  }
-
-  .cards {
-    gap: 16px;
-  }
-
-  .card {
-    padding: 24px 20px;
-  }
-
-  .title {
-    font-size: 20px;
-    line-height: 26px;
-    letter-spacing: -0.4px;
-  }
-
-  .text {
-    margin-top: 12px;
+@media (max-width: 359px) {
+  .mobile {
+    transform: scale(0.9);
+    transform-origin: top center;
   }
 }

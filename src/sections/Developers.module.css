@@ -1,15 +1,8 @@
-/* Figma "Developers" (234:1617): 1440×1005, padding 100/80, bg #fcfcfa. */
+/* Figma "Developers" (532:24745): 1440×1148, padding 80, #fcfcfa. Header (210) · 80 · panel (515) · 40 · tiles (143). */
 .section {
   background: var(--surface-50);
-  padding-block: 100px;
+  padding-block: 80px;
   overflow: hidden;
-}
-
-/* "Frame 32": column, gap 80. */
-.inner {
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
 }
 
 /* "Frame 82": column gap 8 (pill → text block); "Frame 81": text block → actions gap 40. */
@@ -17,10 +10,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 80px;
 }
 
-/* "Frame 7": pad 8/12, bg #e9e9e9 @ 71%, r100; label 400 12/13.2 #000. */
-.pill {
+/* "Frame 7": pad 8/12, #e9e9e9 @ 71%, r100; label 400 12/13.2 #000. */
+.pill span {
   display: flex;
   align-items: center;
   height: 29px;
@@ -45,18 +39,18 @@
   text-align: center;
 }
 
-/* 234:1633 uses #1e1e1e (not the usual #232323). */
+/* #1e1e1e here (not the usual #232323). */
 .heading {
   position: relative;
-  top: 1px; /* Figma sets this baseline 1px lower than Chrome */
-  min-height: 53px; /* Figma rounds the 52.8px line box up to 53 */
-  padding-right: 1.2px; /* Figma ignores the last glyph's -1.2px tracking when centring */
+  top: 1px; /* Figma baseline snap */
+  min-height: 53px;
+  padding-right: 1.2px; /* Figma ignores the last glyph's tracking when centring */
   color: var(--ink-900);
 }
 
 .lead {
   position: relative;
-  top: 1px; /* Figma sets this baseline 1px lower than Chrome */
+  top: 1px; /* Figma baseline snap */
 }
 
 /* "Frame 83": row, gap 40, top-aligned. */
@@ -67,11 +61,10 @@
   margin-top: 40px;
 }
 
-/* "Frame 17": pad 8/0; 500 14/21, ls -0.07, #1e1e1e, underlined. */
+/* "Frame 17": pad 8/0; 500 14/21, −0.07, #1e1e1e, underlined. */
 .link {
   display: block;
   padding: 8px 0;
-  border-radius: 36px;
   font-size: 14px;
   line-height: 21px;
   font-weight: 500;
@@ -87,45 +80,48 @@
   color: var(--forest-pressed);
 }
 
-.link:focus-visible {
-  border-radius: 6px;
-}
-
-/* "Frame 29" / "Frame 52": row, gap 20, centred. */
-.body {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-/* "SDK quickstart · Dark" (234:1641): 515×515, r19.31 — the export already contains the glow background. */
+/* "SDK quickstart · Dark": 717×515, r19.31, centred (corners and glows are in the export). */
 .code {
-  flex: 0 1 515px;
-  min-width: 0;
+  width: min(717px, 100%);
+  margin: 0 auto 40px;
 }
 
 .code img {
   width: 100%;
   height: auto;
-  border-radius: 19.31px;
 }
 
-/* "Frame 53": column, gap 32, padding 40/0, centred. */
-.rows {
-  flex: 1 1 0;
-  min-width: 0;
+/* "Frame 2147239167": row, gap 20; each tile frame is 415 wide (the row runs 5px past the column). */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+@media (min-width: 1440px) {
+  .features {
+    width: 1285px;
+  }
+}
+
+/* "Frame 2147239173": 415×143; the tile ("Frame 43") sits at x −1, 414.67 wide. */
+.feature {
+  position: relative;
+  height: 143px;
+}
+
+/* "Frame 43": #e8e8e4, r4, padding 38/16, column gap 16. */
+.tile {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1px;
+  right: 0.33px;
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  padding-block: 40px;
-}
-
-/* "Frame 42/43/44": bg #e8e8e4, clipped; "Frame 37": row, space-between. */
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
   gap: 16px;
+  padding: 38px 16px;
+  border-radius: 4px;
   background: var(--surface-200);
   transition:
     transform 280ms var(--ease-out),
@@ -133,28 +129,13 @@
 }
 
 @media (hover: hover) {
-  .row:hover {
+  .feature:hover .tile {
     transform: translateY(-2px);
     box-shadow: var(--shadow-card);
   }
 }
 
-.rowSdk {
-  padding: 38px 14px;
-}
-
-.rowExport {
-  padding: 38px 16px;
-}
-
-/* "Frame 44": pad 37/16, fixed 58px row with centred items. */
-.rowTokens {
-  align-items: center;
-  min-height: 132px;
-  padding: 37px 16px;
-}
-
-/* 700 24/30, ls -0.48, #232323 */
+/* 700 24/30, −0.48, #232323. */
 .title {
   font-size: 24px;
   line-height: 30px;
@@ -164,33 +145,84 @@
   white-space: nowrap;
 }
 
-/* 400 14/21, #232323 */
+/* 400 14/21, #232323. */
 .text {
   font-size: 14px;
   line-height: 21px;
   font-weight: 400;
   color: var(--ink-800);
-  text-align: right;
 }
 
-/* Tablet: code window above the rows. */
-@media (max-width: 1199px) {
-  .body {
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
+/* Corner brackets: 20×20, 2px #74a418 inside strokes on two sides. */
+.corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 0 solid var(--lime-pressed);
+  pointer-events: none;
+  transition: transform 280ms var(--ease-out);
+}
+
+.tl {
+  top: 0;
+  left: -2px;
+  border-width: 2px 0 0 2px;
+}
+
+.tr {
+  top: 0;
+  right: 1px;
+  border-width: 2px 2px 0 0;
+}
+
+.bl {
+  bottom: 0;
+  left: -1.5px;
+  border-width: 0 0 2px 2px;
+}
+
+.br {
+  bottom: 0;
+  right: 1px;
+  border-width: 0 2px 2px 0;
+}
+
+/* Hover: the brackets step out slightly, framing the lifted tile. */
+@media (hover: hover) {
+  .feature:hover .tl {
+    transform: translate(-3px, -5px);
   }
 
-  .code {
-    flex: none;
-    width: min(515px, 100%);
+  .feature:hover .tr {
+    transform: translate(3px, -5px);
   }
 
-  .rows {
-    flex: none;
-    width: 100%;
-    padding-block: 0;
+  .feature:hover .bl {
+    transform: translate(-3px, 1px);
+  }
+
+  .feature:hover .br {
+    transform: translate(3px, 1px);
+  }
+}
+
+@media (max-width: 1023px) {
+  .features {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 560px;
+    margin: 0 auto;
     gap: 24px;
+  }
+
+  .feature {
+    height: auto;
+    min-height: 143px;
+  }
+
+  .tile {
+    position: relative;
+    inset: auto;
+    min-height: 143px;
   }
 }
 
@@ -200,8 +232,8 @@
     padding-bottom: 56px;
   }
 
-  .inner {
-    gap: 48px;
+  .header {
+    margin-bottom: 48px;
   }
 
   .heading {
@@ -213,30 +245,23 @@
     margin-top: 32px;
   }
 
-  .body {
-    gap: 32px;
+  .code {
+    margin-bottom: 32px;
   }
 
-  .rows {
-    gap: 16px;
-  }
-
-  .row,
-  .rowTokens {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+  .tile {
     min-height: 0;
-    padding: 24px 20px;
+    padding: 28px 20px;
+    gap: 8px;
+  }
+
+  .feature {
+    min-height: 0;
   }
 
   .title {
     font-size: 20px;
     line-height: 26px;
     letter-spacing: -0.4px;
-  }
-
-  .text {
-    text-align: left;
   }
 }

@@ -1,0 +1,141 @@
+/*
+ * Figma "Your business" (532:24051): 1440×121, #d5f490. The next section overlaps its bottom 24px
+ * with rounded corners, so 97px of lime shows.
+ */
+.strip {
+  height: 121px;
+  padding-top: 27px;
+  background: var(--lime-soft);
+}
+
+/* "Frame 23": 1280×42 at (80, 27), row, gap 40, centred, clipped. */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  max-width: calc(var(--content-max) + var(--gutter) * 2);
+  height: 42px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* "Frame 18": 380×42 (r12, clipped); text at (12, 8): 600 18/27, #232323, trailing space kept. */
+.label {
+  flex: none;
+  width: 380px;
+  padding: 8px 12px 7px;
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: 600;
+  color: var(--ink-800);
+  white-space: pre;
+}
+
+/* "Frame 2147239130": the list fills the rest of the row (860 at 1440) and is clipped at its edge. */
+.viewport {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 24px;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+}
+
+.list {
+  display: flex;
+  gap: 40px;
+}
+
+/* Item: row, gap 8, centred; "Icon accent" 24×24 white r6 with a 14.4px icon; 500 14/21 #454543. */
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 24px;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+  color: var(--ink-600);
+  white-space: nowrap;
+}
+
+.itemTop {
+  align-items: flex-start;
+}
+
+.iconTile {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--white);
+}
+
+.iconTile img {
+  width: 14.4px;
+  height: 14.4px;
+  max-width: none;
+}
+
+/* Ticker: two copies scroll left by one copy + gap, linearly, forever; soft edges; pause on hover. */
+.moving {
+  mask-image: linear-gradient(to right, transparent, #000 24px, #000 calc(100% - 48px), transparent);
+}
+
+.moving .track {
+  animation: strip-scroll 32s linear infinite;
+}
+
+.moving:hover .track {
+  animation-play-state: paused;
+}
+
+@keyframes strip-scroll {
+  to {
+    transform: translateX(calc(-50% - 20px));
+  }
+}
+
+@media (max-width: 1023px) {
+  .label {
+    width: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .strip {
+    height: auto;
+    padding: 20px 0 48px;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    height: auto;
+    padding: 0;
+  }
+
+  .label {
+    padding: 0 var(--gutter);
+    font-size: 16px;
+    line-height: 24px;
+    white-space: normal;
+  }
+
+  .viewport {
+    flex: none;
+    padding-inline: var(--gutter);
+  }
+
+  .moving {
+    padding-inline: 0;
+    mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 20px), transparent);
+  }
+}

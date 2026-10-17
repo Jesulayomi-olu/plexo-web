@@ -1,14 +1,14 @@
 /*
- * Figma "Desktop navigation" (234:2134): 1440×72, white, no stroke, padding 16/80
- * (content row starts at 80,16).
- * Content row "Frame 4" hugs: logo · 412 · links · 412 · button, leaving 11px free on the right.
+ * Figma "Desktop navigation" (532:25146): 1440×72, #0d1a03, padding 16/80; content row "Frame 4"
+ * (1280×40) space-between: logo · links · button. It sits on the dark hero, so the bar and the hero
+ * read as one surface; the hero's dashed divider runs along the bar's bottom edge.
  */
 .nav {
   position: sticky;
   top: 0;
   z-index: 50;
   height: var(--nav-height);
-  background: var(--white);
+  background: var(--night);
   transition: box-shadow 240ms var(--ease-out);
 }
 
@@ -18,64 +18,72 @@
 }
 
 .scrolled {
-  box-shadow: var(--shadow-card);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.24);
 }
 
-/*
- * Grid with proportional gap tracks (412fr · 412fr · 11fr) — at 1440 the free space is exactly
- * 835px, so the gaps resolve to the Figma 412/412/11; narrower viewports shrink them evenly.
- */
 .inner {
-  display: grid;
-  grid-template-columns: auto 412fr auto 412fr auto 11fr;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 100%;
-  max-width: 1440px;
+  max-width: calc(var(--content-max) + var(--gutter) * 2);
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
 
-/* "Plexo": 600 24/30, −0.48 letter spacing, #1e1e1e. */
+/* "Frame": 123.26×32 wordmark + mark (#f4f5f0 / #9fd22c). */
 .logo {
-  grid-column: 1;
-  min-width: 63px;
-  font-size: 24px;
-  line-height: 30px;
-  font-weight: 600;
-  letter-spacing: -0.48px;
-  color: var(--ink-900);
+  flex: none;
+  display: block;
 }
 
-.links {
-  grid-column: 3;
+.logo img {
+  width: 123.26px;
+  height: 32px;
+  max-width: none;
 }
 
-/* "Frame 1": row, gap 24. */
+/* "Frame 1": row, gap 24, 333 wide. */
 .list {
   display: flex;
   align-items: center;
   gap: 24px;
 }
 
-/* Links: 400 14/21, #6e6e6e → darken to #1e1e1e on hover. */
+/* Links: 400 14/21, #f4f5f0; "Features" / "For You" add a 16px chevron, gap 2. */
 .link {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 2px;
   font-size: 14px;
   line-height: 21px;
   font-weight: 400;
-  color: var(--ink-400);
+  color: var(--surface-100);
   white-space: nowrap;
   transition: color 160ms ease;
 }
 
 .link:hover,
 .link:focus-visible {
-  color: var(--ink-900);
+  color: var(--lime);
 }
 
+.chevron {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--white);
+  transition: transform 200ms var(--ease-out);
+}
+
+.link:hover .chevron {
+  transform: translateY(1px);
+}
+
+/* "Button / Start free": fixed 174×40. */
 .cta {
-  grid-column: 5;
-  min-width: 96px;
+  flex: none;
+  width: 174px;
 }
 
 .menuButton {
@@ -86,37 +94,46 @@
   display: none;
 }
 
-@media (max-width: 767px) {
-  .inner {
-    grid-template-columns: 1fr auto;
+@media (max-width: 899px) {
+  .list {
+    gap: 18px;
   }
 
+  .cta {
+    width: auto;
+  }
+}
+
+@media (max-width: 767px) {
   .links,
   .cta {
     display: none;
   }
 
-  /* Compact menu button: Outline button look (white, 1px #d7d8d3, pill). */
+  .logo img {
+    width: 107.85px;
+    height: 28px;
+  }
+
+  /* Compact menu button on the dark bar: 1px #7a7b77 ring, light icon. */
   .menuButton {
-    grid-column: 2;
     display: grid;
     place-items: center;
     width: 40px;
     height: 40px;
     border-radius: 9999px;
-    background: var(--white);
-    box-shadow: inset 0 0 0 1px var(--line);
-    color: var(--ink-900);
+    box-shadow: inset 0 0 0 1px var(--dash);
+    color: var(--surface-100);
     transition: background-color 160ms ease;
   }
 
   .menuButton:hover {
-    background: var(--surface-100);
+    background: rgb(255 255 255 / 0.06);
   }
 
   .menuButton:focus-visible {
     border-radius: 9999px;
-    box-shadow: inset 0 0 0 1px var(--line), var(--focus-ring);
+    box-shadow: inset 0 0 0 1px var(--dash), var(--focus-ring);
   }
 
   .menuIcon {
@@ -159,20 +176,19 @@
   .panel {
     position: absolute;
     top: 100%;
-    left: -1px;
-    right: -1px;
+    left: 0;
+    right: 0;
     display: flex;
     flex-direction: column;
     gap: 16px;
     padding: 4px var(--gutter) 20px;
-    background: var(--white);
-    border: 1px solid #bebeba;
-    border-top: 0;
-    box-shadow: var(--shadow-card);
+    background: var(--night);
+    border-bottom: 1px solid var(--dash);
+    box-shadow: 0 16px 32px rgb(0 0 0 / 0.32);
   }
 
   .panelList li + li {
-    border-top: 1px solid var(--surface-200);
+    border-top: 1px solid rgb(255 255 255 / 0.08);
   }
 
   .panelLink {
@@ -181,12 +197,12 @@
     font-size: 14px;
     line-height: 21px;
     font-weight: 400;
-    color: var(--ink-400);
+    color: var(--surface-100);
     transition: color 160ms ease;
   }
 
   .panelLink:hover,
   .panelLink:focus-visible {
-    color: var(--ink-900);
+    color: var(--lime);
   }
 }

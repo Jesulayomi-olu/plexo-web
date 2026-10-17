@@ -1,0 +1,118 @@
+/* Figma "How it works" (532:24295): #fcfcfa, padding 80/0; header (151) · 64 · row (468). */
+.section {
+  padding: 80px 0;
+  background: var(--surface-50);
+  overflow: hidden;
+  --h: 468px;
+}
+
+/* "Frame 16": padding 0 80 32 80, space-between, centred: text (888×119) · "View all". */
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: calc(var(--content-max) + var(--gutter) * 2);
+  margin: 0 auto 64px;
+  padding: 0 var(--gutter) 32px;
+}
+
+.headText {
+  flex: 0 1 888px;
+  min-width: 0;
+}
+
+.headText h2 {
+  max-width: 804px;
+}
+
+/* 400 16/24, #1e1e1e, 50px box. */
+.lead {
+  min-height: 50px;
+  margin-top: 16px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--ink-600);
+}
+
+.cta {
+  flex: none;
+}
+
+/*
+ * "Frame 2147239132": row, gap 39, centred and clipped (content 1644 wide → starts at −101.5).
+ * Card sizes scale with --h (468 on desktop).
+ */
+.row {
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  gap: calc(var(--h) * 39 / 468);
+  width: max-content;
+  /* Figma's row is 1441 wide, so it centres on x 720.5. */
+  margin-left: calc(50% - var(--h) * 822 / 468 + 0.5px);
+}
+
+.list {
+  display: flex;
+  gap: calc(var(--h) * 39 / 468);
+}
+
+/* Card: white, 1px stroke (#bebeba first, #d7d8d3 others — in the artwork), r20.22, clipped. */
+.card {
+  flex: none;
+  width: calc(var(--h) * var(--w) / 468);
+  height: var(--h);
+  border-radius: calc(var(--h) * 20.22 / 468);
+  overflow: hidden;
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+/* Loop: two copies glide left by one copy + gap; pause on hover. */
+.moving .track {
+  animation: templates-scroll 70s linear infinite;
+}
+
+.moving:hover .track {
+  animation-play-state: paused;
+}
+
+@keyframes templates-scroll {
+  to {
+    transform: translateX(calc(-50% - var(--h) * 19.5 / 468));
+  }
+}
+
+@media (max-width: 1023px) {
+  .section {
+    --h: 380px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding: 56px 0;
+    --h: 300px;
+  }
+
+  .head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 32px;
+    padding-bottom: 0;
+  }
+
+  .headText {
+    flex: none;
+  }
+}

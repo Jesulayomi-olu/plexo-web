@@ -46,25 +46,27 @@ Easing describes timing, not the kind of movement. Every movement has one. A liv
 | Tilt (parallax tilt) | An element turns toward the cursor |
 | Morph / layout animation | An element smoothly changes size or position, e.g. an expanding card or a sliding tab underline |
 | Spotlight | One item emphasised while the others dim |
+|## Where motion is used
 
-## Where motion is used
+Home page V2 (Figma 532:23980).
 
 | Section | Motion | Details |
 |---|---|---|
 | Hero: eyebrow, heading, subtitle | Blur-to-focus entrance, staggered | Starts at 0.45s, 0.65s and 1.05s; 10px, 16px and 8px blur; ease `focusEase` (0.33, 1, 0.68, 1); `BlurIn` component |
 | Hero: prompt box | Fade-up | Starts at 1.3s |
-| Hero: mockup | Rise & settle entrance | Rises 100px over 1.2s and scales from 97% to 100%; starts after the heading on load, or as soon as it scrolls into view |
-| Hero: badges | Pop-in (stagger), then float (idle loop) | 0.75s, 0.9s and 1.05s after the mockup starts; float of 5px over 6s |
-| Problem, What you get, Platform, etc. | Fade-up entrances (stagger), hover lift | `Reveal` component |
-| How it works | Crossfade between steps; description expands | Click a step |
-| Who it's for | Tab underline morph; panel crossfade | Keyboard-accessible tabs |
-| AI: cards | One card at a time: blur-to-focus crossfade, 3s each, looping; progress bars | Pauses on hover or focus; on the first pass a scroll safety net makes sure all three are seen |
-| AI: card icons | Draw-on entrance (each time a card appears), float (idle loop), tilt toward the cursor (spring) | Draws in 1.3s with lines 70ms apart; floats 6px over 3.6s |
-| Drag and drop | Morph (card expands on hover, focus or click) | Framer Motion layout animation |
-| Platform | Fade-up stagger, float (idle loop), hover lift | |
+| Feature strip | Ticker (idle loop) | The feature list glides left, one full loop every 32s, with soft fading edges; pauses on hover |
+| Steps (desktop) | Scroll stack | The three step cards pin in the viewport; steps 2 and 3 rise from below into their places over 520px of scroll each (spring-smoothed), ending on the Figma layout |
+| Steps (tablet, phone) | Fade-up | The cards are listed one after another |
+| Start with a template | Ticker (idle loop) | The template row glides left, one loop every 70s; pauses on hover |
+| Section headings, cards, rows | Fade-up entrances (stagger), hover lift | `Reveal` component |
+| Plexo is for everyone | Tab underline morph; panel crossfade | Keyboard-accessible tabs |
+| AI: card icons | Draw-on (stagger), float (idle loop), tilt toward the cursor (spring) | When the cards are half on screen each icon draws itself, 0.35s apart, then floats 6px over 3.6s |
+| Drag and drop | Morph (card expands on hover, focus or click) | Framer Motion layout animation; the text fades in once the card has opened |
+| MCP | Flowing dashes (idle loop) + ping | Dashes travel along the connectors toward Plexo and on to the live site (one dash period every 0.9s); the output dot pings every 2.4s; pauses off screen |
+| Developers: tiles | Hover lift; the corner brackets step outward | |
 | Pricing | Toggle pill morph, price crossfade | Monthly / Yearly |
-| Built with Plexo | Horizontal scroll with snap | |
-| FAQ | Accordion height and opacity; plus turns into minus | |
+| Built with Plexo | Horizontal scroller with arrows | Swipe on touch; the arrows move one card |
+| FAQ | Accordion height and opacity; plus turns into minus | All closed at first |
 
 ## Proposed (preview only)
 
@@ -72,30 +74,26 @@ Open the site with `?preview` to see these. They are not live on the normal URL 
 
 | Section | Motion | Details |
 |---|---|---|
-| Hero: prompt box | Typewriter placeholder | Types, holds 1.9s, deletes, then the next of three prompts; stops while the field is focused or filled |
-| Problem | Count-up + pop-in stagger | "23 unread" counts up while the message lines stack in; the five app tiles pop in while "$148/mo" counts up |
-| Problem: Looking Small | Typing indicator (idle loop) | The three dots in the dark reply bubble run a wave: each brightens (30% to 100%) and rises 2px in turn, 0.15s apart, on a 1.2s loop. Pauses off screen |
-| How it works | Blur crossfade | The outgoing screen softens away while the new one sharpens into focus (0.55s) |
-| What you get | Pop + draw-on (stagger) | Badges spring in, then each icon draws itself |
-| Who it's for | Crossfade + settle zoom | The new photo fades in at 106% and settles to 100% over 2.4s |
-| Drag and drop | Pick-up (triggered) | When "Ready made blocks" opens, the Testimonials chip dips into its slot and lifts back out |
-| MCP | Data flow | The prompt lights up; a packet travels to the Plexo hub (ping), then to the live site (glow); cycles Claude, ChatGPT, Cursor |
-| Platform (desktop) | Orbit-in, then float + bounce wave + parallax | The cards sweep out from behind the heading on curved paths (once). Afterwards each card floats ±6px on its own 5.4–6.2s rhythm, and every 6.5s a bounce wave runs clockwise around the heading: each card lifts 12px, drops, rebounds 3px and settles, with a soft shadow and its icon popping. Cards follow the cursor slightly. The wave pauses while a card is hovered; both loops stop off screen |
-| Platform (tablet, phone) | Fade-up, then bounce wave | The cards are a grid, so they fade up as they scroll in, and the bounce wave (8px) runs down the list in reading order every 6.5s |
-| Developers | Line-by-line reveal | The code appears one line at a time |
+| Hero: prompt box | Typewriter placeholder | Types, holds 1.9s, deletes, then the next of three prompts; stops while the field is focused or filled; wraps inside the tall hero box |
+| Plexo is for everyone | Crossfade + settle zoom | The new photo fades in at 106% and settles to 100% over 2.4s |
+| Drag and drop | Pick-up (triggered) | When "Start with ready made blocks" opens, the Testimonials chip dips into its slot and lifts back out |
 | Pricing | Number roll (odometer) | Only the changed digits roll; the "Billed annually" line folds open |
 | FAQ | Fade + rise | The answer rises 6px as it fades in |
 | Final CTA | Blur-in on scroll | The prompt box sharpens into focus when reached |
-| Footer | Rise + blur-in | The giant wordmark rises out of its clipped band while coming into focus |
+| Footer | Rise + blur-in | The giant Plexo logo rises out of the footer's bottom edge while coming into focus |
+
+Retired with the redesign (their sections are gone or changed): the Problem count-ups and typing dots, What you get draw-on, the Platform orbit, float and bounce wave, the How it works blur crossfade, the old MCP packet flow and the Developers line-by-line code reveal.
 
 ## Phones and tablets
 
-Everything above runs on touch screens, with these adaptations:
-
 | Section | Adaptation |
 |---|---|
-| Hero prompt | When a typed prompt is wider than the field, the text aligns to its end so the caret stays visible, and the start fades out (as a real text field scrolls) |
-| AI cards, Platform | Cursor tilt and parallax are mouse-only; on touch, cards stay still apart from their loops |
+| Steps | No pinning: the three cards are listed one after another |
+| MCP | Below 768px the diagram becomes a vertical flow (labels on top, junction, Plexo, live site) with the same flowing dashes |
+| AI cards | Cursor tilt is mouse-only |
+| Hero prompt | The typed prompt wraps inside the box |
+
+parallax are mouse-only; on touch, cards stay still apart from their loops |
 | Platform | Below 1200px the orbit layout becomes a grid; see the Platform (tablet, phone) row |
 | Footer | The wordmark rise triggers on its band, so it plays even though the page ends there |
 
