@@ -175,23 +175,30 @@
   }
 }
 
-/* ---------- Phones: vertical flow, 320×210 ---------- */
+/* ---------- Phones: vertical flow on a 320×226 grid ---------- */
+
+/* Full-bleed band of the desktop's square dot grid (#e8e8e4), fading out at the top and bottom. */
+.mobileWrap {
+  position: relative;
+  padding: 36px 0;
+}
+
+.mobileWrap::before {
+  content: '';
+  position: absolute;
+  inset: 0 calc(var(--gutter) * -1);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect width='2.7' height='2.7' fill='%23e8e8e4'/%3E%3C/svg%3E");
+  background-position: center;
+  background-size: 16px 16px;
+  mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
+  pointer-events: none;
+}
 
 .mobile {
   position: relative;
   width: 320px;
-  height: 210px;
-  margin: 8px auto 0;
-}
-
-.mobile::before {
-  content: '';
-  position: absolute;
-  inset: -24px -40px;
-  background-image: radial-gradient(circle, var(--surface-200) 1.2px, transparent 1.5px);
-  background-size: 14px 14px;
-  mask-image: radial-gradient(closest-side, #000 60%, transparent);
-  pointer-events: none;
+  height: 226px;
+  margin: 0 auto;
 }
 
 .mobile img,
@@ -200,48 +207,49 @@
   max-width: none;
 }
 
-.mClaude {
-  top: 0;
-  left: 0;
-  width: 99.9px;
-  height: auto;
-}
-
-.mChatgpt {
-  top: 1.1px;
-  left: 107.9px;
-  width: 100.2px;
-  height: auto;
-}
-
-.mCursor {
-  top: 0;
-  left: 216.1px;
-  width: 103.6px;
-  height: auto;
-}
-
 .mLines {
   top: 0;
   left: 0;
   width: 320px;
-  height: 210px;
+  height: 226px;
   overflow: visible;
 }
 
+/* Labels at one height (32px): Claude, ChatGPT and Cursor, 10px apart, centred as a row. */
+.mClaude,
+.mChatgpt,
+.mCursor,
+.mLive {
+  top: 0;
+  width: auto;
+  height: 32px;
+}
+
+.mClaude {
+  left: 3.8px;
+}
+
+.mChatgpt {
+  left: 107.51px;
+}
+
+.mCursor {
+  left: 219.05px;
+}
+
+/* Plexo on its plate, centred on the spine. */
 .mLogo {
-  top: 98px;
-  left: 108.7px;
-  width: 98.6px;
-  height: auto;
+  top: 112px;
+  left: 104.03px;
+  width: 108.5px;
+  height: 28px;
   background: var(--surface-50);
 }
 
+/* The live site pill sits on the end of the green line (its dot half under the pill, as on desktop). */
 .mLive {
-  top: 170px;
-  left: 98.5px;
-  width: 119px;
-  height: auto;
+  top: 194px;
+  left: 102.98px;
 }
 
 @media (max-width: 767px) {

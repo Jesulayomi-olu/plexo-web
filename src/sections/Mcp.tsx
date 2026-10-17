@@ -75,37 +75,46 @@ function DesktopDiagram({ moving }: { moving: boolean }) {
   )
 }
 
-/** Phones: the same parts as a vertical flow (labels on top → junction → Plexo → live site), 320 wide. */
+/*
+ * Phones: a vertical flow on a 320×226 grid. The three AI labels sit in a row, all 32px tall and 10px
+ * apart; their connectors drop into a junction under ChatGPT, the spine runs down into Plexo and on to
+ * the live site. Same parts, colours and flowing dashes as desktop.
+ */
+const SPINE = 158.28 // x of the ChatGPT label's centre, the junction, Plexo and the live site
+const mobileLines = [
+  { d: `M50.66 32V66H${SPINE}`, color: '#bebeba' },
+  { d: `M267.62 32V66H${SPINE}`, color: '#bebeba' },
+  { d: `M${SPINE} 32V108`, color: '#bebeba' },
+  { d: `M${SPINE} 144V194`, color: '#74a418' },
+]
+
 function MobileDiagram({ moving }: { moving: boolean }) {
   return (
-    <div className={styles.mobile}>
-      <img className={styles.mClaude} src={claudeLabel} width={164} height={56} alt="" />
-      <img className={styles.mChatgpt} src={chatgptLabel} width={165} height={52} alt="" />
-      <img className={styles.mCursor} src={cursorLabel} width={170} height={56} alt="" />
-      <svg className={`${styles.mLines} ${moving ? styles.moving : ''}`} viewBox="0 0 320 210" aria-hidden="true">
-        {[
-          { d: 'M50 34V60H158', color: '#bebeba' },
-          { d: 'M268 34V60H158', color: '#bebeba' },
-          { d: 'M158 33V96', color: '#bebeba' },
-          { d: 'M158 126V162', color: '#74a418' },
-        ].map((l) => (
-          <path
-            key={l.d}
-            className={styles.line}
-            d={l.d}
-            stroke={l.color}
-            strokeWidth={1.6}
-            strokeDasharray="4.3 4.3"
-            strokeDashoffset={2.15}
-            style={{ '--o': '2.15px', '--p': '8.6px' } as CSSProperties}
-          />
-        ))}
-        <circle cx={158} cy={60} r={3.5} fill="#ffffff" stroke="#74a418" strokeWidth={1.6} />
-        {moving && <circle className={styles.ping} cx={158} cy={162} r={4.2} fill="#74a418" />}
-        <circle cx={158} cy={162} r={4.2} fill="#74a418" />
-      </svg>
-      <img className={styles.mLogo} src="/assets/v2/icons/logo-dark.svg" width={124} height={32} alt="" />
-      <img className={styles.mLive} src={liveLabel} width={159} height={46} alt="" />
+    <div className={styles.mobileWrap}>
+      <div className={styles.mobile}>
+        <svg className={`${styles.mLines} ${moving ? styles.moving : ''}`} viewBox="0 0 320 226" aria-hidden="true">
+          {mobileLines.map((l) => (
+            <path
+              key={l.d}
+              className={styles.line}
+              d={l.d}
+              stroke={l.color}
+              strokeWidth={1.8}
+              strokeDasharray="5 5"
+              strokeDashoffset={2.5}
+              style={{ '--o': '2.5px', '--p': '10px' } as CSSProperties}
+            />
+          ))}
+          <circle cx={SPINE} cy={66} r={4} fill="#ffffff" stroke="#74a418" strokeWidth={1.8} />
+          {moving && <circle className={styles.ping} cx={SPINE} cy={194} r={4.5} fill="#74a418" />}
+          <circle cx={SPINE} cy={194} r={4.5} fill="#74a418" />
+        </svg>
+        <img className={styles.mClaude} src={claudeLabel} width={164} height={56} alt="" />
+        <img className={styles.mChatgpt} src={chatgptLabel} width={165} height={52} alt="" />
+        <img className={styles.mCursor} src={cursorLabel} width={170} height={56} alt="" />
+        <img className={styles.mLogo} src="/assets/v2/icons/logo-dark.svg" width={124} height={32} alt="" />
+        <img className={styles.mLive} src={liveLabel} width={159} height={46} alt="" />
+      </div>
     </div>
   )
 }
