@@ -1,11 +1,12 @@
 import { Button } from '../components/Button'
 import { Reveal } from '../components/Reveal'
+import { DevCodePanel } from './DevCodePanel'
 import styles from './Developers.module.css'
 
 /**
  * Figma "Developers" (532:24745): 1440×1148, padding 80, #fcfcfa. Header (pill, heading, lead,
- * "Read the docs" + "Get an API key"), then the 717×515 "SDK quickstart · Dark" panel (exported with
- * its glows) and three feature tiles (415×143, gap 20) framed by lime corner brackets.
+ * "Read the docs" + "Get an API key"), then the 717×515 "SDK quickstart · Dark" panel (built live; its
+ * code types itself out) and three feature tiles (415×143, gap 20) framed by lime corner brackets.
  * The hidden "New" tag, sparkle and the hidden contents inside the tiles are omitted.
  */
 const features = [
@@ -43,14 +44,7 @@ export default function Developers() {
         </div>
 
         <Reveal delay={0.06} className={styles.code}>
-          <img
-            src="/assets/v2/dev-sdk.webp"
-            width={717}
-            height={515}
-            alt="Code editor showing app/developer-quickstart.tsx: importing PlexoBuilder and mcpServer, embedding the visual builder canvas and registering MCP tools, with “SDK & MCP Active” and “Vercel Edge Ready” status."
-            loading="lazy"
-            decoding="async"
-          />
+          <DevCodePanel />
         </Reveal>
 
         <ul className={styles.features}>

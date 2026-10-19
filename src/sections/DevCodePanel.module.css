@@ -1,0 +1,250 @@
+/* 717×515 composition, scaled as one piece (--s) when the column is narrower. */
+.fit {
+  width: min(717px, 100%);
+  height: calc(515px * var(--s, 1));
+  margin: 0 auto;
+}
+
+/* "SDK quickstart · Dark": #121212, r19.31, clipped. */
+.panel {
+  position: relative;
+  width: 717px;
+  height: 515px;
+  overflow: hidden;
+  border-radius: 19.3125px;
+  background: var(--ink);
+  transform: scale(var(--s, 1));
+  transform-origin: top left;
+}
+
+/* "Glow" ellipses; Figma layer blur R ≈ CSS blur R/2. */
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.glowTop {
+  top: -169px;
+  left: -183.5px;
+  width: 337.97px;
+  height: 337.97px;
+  background: #365811;
+  opacity: 0.9;
+  filter: blur(56.33px);
+}
+
+.glowBottom {
+  top: 370px;
+  left: 576.5px;
+  width: 289.69px;
+  height: 289.69px;
+  background: #74a418;
+  opacity: 0.35;
+  filter: blur(64.38px);
+}
+
+/* "Code window": 472.43×424.73 at (122, 43.06), #232323, 0.84px #333332 inside stroke, r16.87, shadow. */
+.window {
+  position: absolute;
+  top: 43.06px;
+  left: 122px;
+  display: flex;
+  flex-direction: column;
+  width: 472.43px;
+  height: 424.73px;
+  overflow: hidden;
+  border: 0.8436px solid #333332;
+  border-radius: 16.8726px;
+  background: #232323;
+  box-shadow: 0 20.2472px 50.6179px rgb(0 0 0 / 0.45);
+}
+
+/* "Title bar": 47.59 tall (bottom stroke inside), padding 13.5/16.87, gap 6.75. */
+.titleBar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 6.749px;
+  height: 47.59px;
+  padding: 0 16.8726px;
+  border-bottom: 0.8436px solid #333332;
+}
+
+.controls {
+  display: flex;
+  gap: 5.9054px;
+}
+
+.controls i {
+  display: block;
+  width: 9.28px;
+  height: 9.28px;
+  border-radius: 50%;
+  background: var(--ink-600);
+}
+
+.spacer {
+  flex: none;
+  width: 71.74px;
+}
+
+/* Plus Jakarta Sans 600 10.12/11.14, #bebeba. */
+.fileName {
+  flex: none;
+  width: 149px;
+  font-size: 10.1236px;
+  line-height: 11.1359px;
+  font-weight: 600;
+  color: #bebeba;
+  white-space: nowrap;
+}
+
+/* "Version": #1d3509 pill, 0.84px #517a12 inside stroke, padding 2.53/7.59; 600 10.12/13.16 #cbf274. */
+.version {
+  flex: none;
+  box-sizing: border-box;
+  width: 77.87px;
+  height: 19.75px;
+  padding: 2.5309px 7.5927px;
+  border: 0.8436px solid var(--moss);
+  border-radius: 9999px;
+  background: var(--forest);
+  font-size: 10.1236px;
+  line-height: 13.1606px;
+  font-weight: 600;
+  color: #cbf274;
+  white-space: nowrap;
+}
+
+/* "Code": padding 20.25/23.62; JetBrains Mono 400 10.97/18.56, #e8e8e4. */
+.code {
+  flex: none;
+  height: 337.49px;
+  margin: 0;
+  padding: 20.2472px 23.6217px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10.9672px;
+  line-height: 18.5599px;
+  font-weight: 400;
+  color: #e8e8e4;
+  white-space: pre;
+  tab-size: 2;
+}
+
+.keyword {
+  color: #cbf274;
+}
+
+.punct {
+  color: #9e9f9b;
+}
+
+.plain {
+  color: #e8e8e4;
+}
+
+.string {
+  color: #ffd372;
+}
+
+.comment {
+  color: var(--dash);
+  font-style: italic;
+}
+
+.tag {
+  color: #8ac3ff;
+}
+
+.attr {
+  color: #ffa09b;
+}
+
+.fn {
+  color: #b6daff;
+}
+
+/* Code not typed yet: laid out (so nothing moves) but invisible. */
+.pending {
+  visibility: hidden;
+}
+
+/* A 1px caret that takes no space, solid while typing and blinking once done (as in the prompt box). */
+.caret {
+  position: relative;
+  display: inline-block;
+  width: 0;
+  height: 14px;
+  vertical-align: -3px;
+}
+
+.caret::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 1px;
+  background: #e8e8e4;
+}
+
+.caretBlink::after {
+  animation: dev-caret-blink 1.05s steps(1, end) infinite;
+}
+
+@keyframes dev-caret-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* "Status bar": 37.96 tall (top stroke inside), padding 11.81/16.87, space-between. */
+.statusBar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  height: 37.96px;
+  padding: 0 16.8726px;
+  border-top: 0.8436px solid #333332;
+}
+
+/* Icon + label, gap 5.06; 600 10.12/13.16. */
+.status {
+  display: flex;
+  align-items: center;
+  gap: 5.0618px;
+  font-size: 10.1236px;
+  line-height: 13.1606px;
+  font-weight: 600;
+  color: #cbf274;
+  white-space: nowrap;
+}
+
+.deploy {
+  color: #8ac3ff;
+}
+
+/* Icon frames are 13.5 / 11.81; the exported SVGs round up to 14 / 12 from the same origin. */
+.icon {
+  position: relative;
+  flex: none;
+  width: 13.5px;
+  height: 13.5px;
+}
+
+.iconBolt {
+  width: 11.81px;
+  height: 11.81px;
+}
+
+.icon img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: none;
+}

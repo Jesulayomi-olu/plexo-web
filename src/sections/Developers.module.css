@@ -86,11 +86,6 @@
   margin: 0 auto 40px;
 }
 
-.code img {
-  width: 100%;
-  height: auto;
-}
-
 /* "Frame 2147239167": row, gap 20; each tile frame is 415 wide (the row runs 5px past the column). */
 .features {
   display: grid;
