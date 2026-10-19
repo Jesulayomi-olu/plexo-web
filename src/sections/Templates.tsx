@@ -6,9 +6,10 @@ import { isCaptureMode, useStaticMotion } from '../lib/motion'
 import styles from './Templates.module.css'
 
 /**
- * Figma "How it works" (532:24295) — "Start with a template": 1440×843, #fcfcfa, padding 80/0.
- * Header (heading, lead, "View all"), then a row of template previews (gap 39, centred, clipped):
- * 601 · 204 · 518 · 204 wide, 468 tall, r20.22 — it runs past both edges.
+ * Figma "How it works" (598:16996) — "Start with a template": 1440×843, #fcfcfa, padding 80/0.
+ * Header (heading, lead, "View all"), then a row of template screenshots (gap 39, centred, clipped,
+ * square corners): 348 · 348 · 515 · 508 · 555 wide, 468 tall — it runs past both edges. Images are
+ * exported at 2× (the two tallest are cut to the row's 468px, as Figma clips them).
  *
  * Motion: the row glides left in an endless loop (starting from the Figma position). Visitors can
  * take over at any time — trackpad swipe or shift + wheel, drag with a mouse or finger (with a little
@@ -17,13 +18,14 @@ import styles from './Templates.module.css'
  * Capture mode: the static Figma row.
  */
 const templates = [
-  { src: '/assets/v2/template-wedding.webp', w: 601, alt: 'Wedding website template: Jude & Jane are getting married' },
-  { src: '/assets/v2/template-summer.webp', w: 204, alt: 'Mobile store template: Your Summer starts here' },
-  { src: '/assets/v2/template-glow.webp', w: 518, alt: 'Skincare store template: Glow by Amy' },
-  { src: '/assets/v2/template-summer.webp', w: 204, alt: 'Mobile store template: Your Summer starts here' },
+  { src: '/assets/v2/template-fieldnote.webp', w: 348, alt: 'Software template: Fieldnote, “Know why they leave, not just when.”' },
+  { src: '/assets/v2/template-solene.webp', w: 348, alt: 'Skincare store template: Solène, “Skin that looks rested, not done.”' },
+  { src: '/assets/v2/template-atelier-oak.webp', w: 515, alt: 'Architecture studio template: Atelier Oak, “Quiet houses, built to last a century.”' },
+  { src: '/assets/v2/template-iron-grain.webp', w: 508, alt: 'Gym template: Iron & Grain, “Strength is a skill. We coach it.”' },
+  { src: '/assets/v2/template-northfold.webp', w: 555, alt: 'Brand studio template: Northfold, “We make brands people remember.”' },
 ] as const
 
-/** Glide speed in px/s (one 1683px loop ≈ 70s at 1440). */
+/** Glide speed in px/s (one 2469px loop ≈ 100s at 1440). */
 const SPEED = 24
 /** How long the glide waits after the visitor stops interacting (ms). */
 const RESUME_AFTER = 1400

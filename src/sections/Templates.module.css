@@ -52,8 +52,8 @@
   display: flex;
   gap: calc(var(--h) * 39 / 468);
   width: max-content;
-  /* Figma's row is 1441 wide, so it centres on x 720.5. */
-  margin-left: calc(50% - var(--h) * 822 / 468 + 0.5px);
+  /* Figma's row is 1441 wide, so it centres on x 720.5 (the five screenshots + gaps are 2430 wide). */
+  margin-left: calc(50% - var(--h) * 1215 / 468 + 0.5px);
 }
 
 .list {
@@ -61,12 +61,11 @@
   gap: calc(var(--h) * 39 / 468);
 }
 
-/* Card: white, 1px stroke (#bebeba first, #d7d8d3 others — in the artwork), r20.22, clipped. */
+/* Screenshot: square corners, clipped to the row height. */
 .card {
   flex: none;
   width: calc(var(--h) * var(--w) / 468);
   height: var(--h);
-  border-radius: calc(var(--h) * 20.22 / 468);
   overflow: hidden;
 }
 
