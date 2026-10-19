@@ -230,6 +230,14 @@
 }
 
 @media (max-width: 767px) {
+  /* Mobile navigation (532:7116): the dashed line runs 6px under the bar (centred on y 70), with
+     whole stars. */
+  .dividerTop {
+    top: 2px;
+    clip-path: none;
+    transform: translateY(0.5px); /* Figma's line is centred on y 70 (69.5–70.5); layout rounds half pixels */
+  }
+
   .frame {
     padding: 72px 0 88px;
   }

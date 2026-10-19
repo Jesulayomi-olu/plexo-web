@@ -1,0 +1,97 @@
+/* Fills the screen under the bar; scrolls if the open menu is taller than a short (landscape) screen. */
+.sheet {
+  position: fixed;
+  top: var(--nav-height);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--night);
+}
+
+/* "Menu items": padding 8/20. */
+.items {
+  padding: 8px 20px;
+}
+
+/* Each row, with its submenu, ends in a 1px white line at 12%. */
+.group {
+  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+}
+
+/* "Item / …": 350×57, padding 18/0; mobile/body/md/medium 500 14/21, white; chevron 20×20 at the right. */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 18px 0;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+  color: var(--white);
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.chevron {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  transition: transform 240ms var(--ease-out);
+}
+
+.row[aria-expanded='true'] .chevron {
+  transform: rotate(180deg);
+}
+
+.subWrap {
+  overflow: hidden;
+}
+
+/* "Submenu / …": padding 0 0 16 16, gap 16. */
+.sub {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 0 0 16px 16px;
+}
+
+/*
+ * mobile/body/sm/regular 400 12/18, white at 80%. The tap area reaches 8px above and below each link
+ * (34px tall) without changing the layout.
+ */
+.subLink {
+  position: relative;
+  top: 1px; /* Figma baseline snap */
+  display: block;
+  margin: -8px 0;
+  padding: 8px 0;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+  color: rgb(255 255 255 / 0.8);
+  transition: color 160ms ease;
+}
+
+.subLink:focus-visible {
+  color: var(--lime);
+}
+
+/* Hover colours only where a pointer can hover (a tap would otherwise leave the row lime). */
+@media (hover: hover) {
+  .row:hover,
+  .subLink:hover {
+    color: var(--lime);
+  }
+}
+
+/* "Menu footer": padding 16/20/32/20, pinned to the bottom (Figma's "Spacer" takes up the rest). */
+.footer {
+  margin-top: auto;
+  padding: 16px 20px max(32px, calc(env(safe-area-inset-bottom) + 16px));
+}

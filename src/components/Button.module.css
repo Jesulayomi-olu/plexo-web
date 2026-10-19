@@ -111,3 +111,16 @@
     line-height: 17.6px;
   }
 }
+
+/* Size=Small (mobile nav "Start free", comp 195:391): 32px, padding 0 12, label desktop/label/sm/regular 400 12/13.2. */
+.button.small {
+  height: 32px;
+  padding: 0 12px;
+  font-size: 12px;
+  line-height: 13.2px;
+  font-weight: 400;
+}
+
+.small .label {
+  transform: translateY(0.5px); /* Figma centres the 13.2px label half a pixel lower */
+}

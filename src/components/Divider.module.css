@@ -42,3 +42,19 @@
   top: -2px;
   right: calc(var(--gutter) - 5px);
 }
+
+/* Phones (mobile design 527:2678): each star is centred on the line and on the side margin. */
+@media (max-width: 767px) {
+  .starLeft,
+  .starRight {
+    top: -2.5px; /* centred on the line (3.5) */
+  }
+
+  .starLeft {
+    left: calc(var(--gutter) - 6px);
+  }
+
+  .starRight {
+    right: calc(var(--gutter) - 6px);
+  }
+}

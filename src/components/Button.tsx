@@ -12,6 +12,8 @@ export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'contrast' | '
 type ButtonProps = {
   children: ReactNode
   variant?: ButtonVariant
+  /** Size=Small (32px) at every width; otherwise Medium on desktop and Large on phones. */
+  size?: 'default' | 'small'
   /** Renders an <a> when set, otherwise a <button>. */
   href?: string
   fullWidth?: boolean
@@ -24,6 +26,7 @@ type ButtonProps = {
 export function Button({
   children,
   variant = 'primary',
+  size = 'default',
   href,
   fullWidth = false,
   className,
@@ -32,7 +35,7 @@ export function Button({
   'aria-label': ariaLabel,
 }: ButtonProps) {
   const isStatic = useStaticMotion()
-  const classes = [styles.button, styles[variant], fullWidth && styles.fullWidth, className]
+  const classes = [styles.button, styles[variant], size === 'small' && styles.small, fullWidth && styles.fullWidth, className]
     .filter(Boolean)
     .join(' ')
   const tap = isStatic ? undefined : { scale: 0.97 }
