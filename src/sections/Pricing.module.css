@@ -628,3 +628,89 @@
     line-height: 31.2px;
   }
 }
+
+/*
+ * Phones: the two cards in a row share their row lines (CSS subgrid), so the plan name, price,
+ * tagline, button and feature list start at the same height in both cards, however the text wraps,
+ * and both cards end together. Rows: title · price · tagline · button (inside the grey panel) · features.
+ * The wrappers between the card and those rows step aside (display: contents), and the spacing
+ * between rows moves from flex gaps to margins. Buttons are Size=Small.
+ */
+@media (max-width: 767px) {
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .slot,
+  .card {
+    display: grid;
+    grid-row: span 5;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+
+  /* A size container can't be a subgrid; the phone price rules above cover what it was for. */
+  .card {
+    container-type: normal;
+  }
+
+  .panel {
+    display: grid;
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+
+  .column,
+  .trialColumn,
+  .summary,
+  .pricing {
+    display: contents;
+  }
+
+  .titleRow {
+    align-self: start;
+  }
+
+  .priceRow {
+    align-self: start;
+    margin-top: 14px;
+  }
+
+  .tagline {
+    align-self: start;
+    margin-top: 8px;
+  }
+
+  /* Every price line is exactly as tall as its number, so all four prices start at the top of the
+     shared row (Starter and Pro add "Billed annually" underneath when yearly). */
+  .priceRow,
+  .priceRowYearly,
+  .priceAlt {
+    min-height: 0;
+  }
+
+  .priceLineAlt {
+    height: auto;
+  }
+
+  .priceSwap {
+    align-items: flex-start;
+  }
+
+  .features {
+    margin-top: 18px;
+  }
+
+  /* Size=Small: 32px, padding 0 12, 12/13.2 label (kept semibold, like the desktop pricing buttons). */
+  .panel a,
+  .panel button {
+    align-self: end;
+    height: 32px;
+    margin-top: 16px;
+    padding: 0 12px;
+    font-size: 12px;
+    line-height: 13.2px;
+  }
+}
