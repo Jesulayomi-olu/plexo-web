@@ -55,15 +55,16 @@
 }
 
 /*
- * "Frame 2147239165": 886×642, centred at x 197 of the content column; cards at y 0 / 86 / 155.
- * The cards share one grid cell (later ones on top), offset by their top margins, so the stack sizes
- * itself. While pinned it is scaled by --fit to fit short windows.
+ * "Frame 2147239165": cards 1128 wide at x 66 of the content column (Figma 532:24115, updated). The
+ * cards keep the earlier stacking offsets, y 0 / 86 / 155 (Figma now shows 72 / 144). They share one
+ * grid cell (later ones on top), offset by their top margins, so the stack sizes itself. While pinned
+ * it is scaled by --fit to fit short windows; in narrower columns the cards narrow instead.
  */
 .stack,
 .track {
   position: relative;
-  width: 884px;
-  margin-left: calc(50% - 443px);
+  width: min(1128px, 100%);
+  margin-left: max(0px, calc(50% - 574px));
 }
 
 .stack {
@@ -81,36 +82,37 @@
   position: sticky;
 }
 
-/* Card: 507 tall, 1px #d7d8d3 inside stroke, r16, padding 24 (content at 25,25), clipped. */
-/* Positioned so later cards always paint over earlier ones (the screens are positioned too). */
+/*
+ * Card: 1128×536 (its height follows the screen), 1.3px #d7d8d3 inside stroke, r20, padding 24 (content
+ * at 25.3), gap 52, clipped. Positioned so later cards always paint over earlier ones. Figma has card 2
+ * 1px right of card 1 and card 3 1px left.
+ */
 .card {
   position: relative;
   grid-area: 1 / 1;
   display: flex;
-  height: 507px;
+  gap: 52px;
+  width: 100%;
   padding: 24px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
+  border: 1.296px solid var(--line);
+  border-radius: 20px;
   background: var(--white);
   overflow: hidden;
 }
 
 .card1 {
-  width: 882px;
-  gap: 40px;
   background: var(--surface-50);
 }
 
 .card2 {
+  left: 1px;
   margin-top: 86px;
-  width: 884px;
-  gap: 42px;
 }
 
 .card3 {
+  left: -1px;
   margin-top: 155px;
-  width: 884px;
-  gap: 42px;
+  border-width: 1.245px;
 }
 
 /* Reduced motion: the three cards one after another, nothing covered. */
@@ -125,12 +127,17 @@
   margin-top: 0;
 }
 
-/* "Screen": 433×457. Step 2's is a 10% #1e1e1e wash with the AI dialogs over it (at 85,112 of the card). */
+/*
+ * "Screen": 540×485.4 (exported at 2×; the 10% #1e1e1e wash is part of steps 1 and 3). Step 2's is
+ * the wash in CSS with the AI dialogs over it (428×387.2 at 55.7, 48.7). Narrower cards shrink it
+ * with its proportions.
+ */
 .screen {
   position: relative;
-  flex: none;
-  width: 433px;
-  height: 457px;
+  flex: 0 1 540px;
+  align-self: flex-start;
+  min-width: 0;
+  aspect-ratio: 540 / 485.4;
 }
 
 .card2 .screen {
@@ -146,50 +153,54 @@
 
 .dialogs {
   position: absolute;
-  top: 87px;
-  left: 60px;
-  width: 315.63px;
-  height: 281.53px;
+  top: 10.03%;
+  left: 10.31%;
+  width: 79.26%;
+  height: auto;
   max-width: none;
 }
 
-/* "Frame 2147239150": 359 wide, column, space-between: step label · title + description. */
+/* "Frame 2147239150": 465.2 wide (446.9 on step 3), column, space-between: step label · title + text. */
 .text {
   display: flex;
-  flex: none;
+  flex: 0 1 465.2px;
   flex-direction: column;
   justify-content: space-between;
-  width: 359px;
+  min-width: 0;
 }
 
-/* 600 14/16.1, −0.35, #5b5b58. */
+.card3 .text {
+  flex-basis: 446.9px;
+}
+
+/* desktop/body/lg/regular: 400 18/27, #5b5b58. */
 .label {
-  font-size: 14px;
-  line-height: 16.1px;
-  font-weight: 600;
-  letter-spacing: -0.35px;
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: 400;
   color: var(--ink-500);
 }
 
+/* Title · 20.7 · description. */
 .copy {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20.735px;
 }
 
-/* 600 20/26, −0.4, #333332. */
+/* desktop/heading/h5/semibold: 600 24/30, −0.48, #333332. */
 .title {
-  font-size: 20px;
-  line-height: 26px;
+  font-size: 24px;
+  line-height: 30px;
   font-weight: 600;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.48px;
   color: var(--ink-700);
 }
 
-/* 400 16/24, #454543. */
+/* desktop/body/lg/regular: 400 18/27, #454543. */
 .body {
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 18px;
+  line-height: 27px;
   font-weight: 400;
   color: var(--ink-600);
 }
@@ -222,11 +233,14 @@
   .card1,
   .card2,
   .card3 {
+    left: 0;
     flex-direction: column;
     gap: 20px;
     width: 100%;
     height: auto;
     padding: 16px;
+    border-width: 1px;
+    border-radius: 16px;
   }
 
   .card2 {
@@ -243,18 +257,15 @@
   }
 
   .screen {
+    flex: none;
+    align-self: stretch;
     width: 100%;
-    height: auto;
-    aspect-ratio: 433 / 457;
     border-radius: 8px;
     overflow: hidden;
   }
 
-  .dialogs {
-    top: 19.04%;
-    left: 13.86%;
-    width: 72.9%;
-    height: auto;
+  .card3 .text {
+    flex-basis: auto;
   }
 
   /* The text column dissolves so the step number can sit above the screen. */

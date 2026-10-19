@@ -8,8 +8,9 @@ import styles from './Steps.module.css'
 
 /**
  * Figma "How it works" (532:24115): 1440×1049, #f5f7ed, r32 top corners overlapping the lime strip
- * by 24px. Header (heading, lead, "Start building"), then three step cards stacked 86 and 155px apart
- * (step 3 on top), exactly as in "Frame 2147239165".
+ * by 24px. Header (heading, lead, "Start building"), then three 1128×536 step cards (Figma's updated
+ * sizes and type) stacked 86 and 155px apart (step 3 on top). The stacking offsets and scroll pacing are
+ * kept from the earlier design at the designer's request (Figma now shows 72 / 144).
  *
  * Motion (scroll stack, every width): the stack pins in the viewport, scaled down if the window is too
  * short to show it whole. Each card holds fully readable before the next one rises from below to stack
@@ -23,21 +24,21 @@ const steps: Step[] = [
     label: '01/3',
     title: 'Start with your idea',
     body: 'Describe what you want to build, choose a template or start with a blank canvas.',
-    screen: <img className={styles.screenImg} src="/assets/v2/step-1-screen.webp" width={433} height={457} alt="" />,
+    screen: <img className={styles.screenImg} src="/assets/v2/step-1-screen.webp" width={540} height={485} alt="" />,
   },
   {
     label: '2/3',
     title: 'Make it Yours',
     body: 'Use AI or the visual editor to customise your content, layout and design.',
     screen: (
-      <img className={styles.dialogs} src="/assets/v2/step-2-dialogs.webp" width={315.63} height={281.53} alt="" />
+      <img className={styles.dialogs} src="/assets/v2/step-2-dialogs.webp" width={428} height={387} alt="" />
     ),
   },
   {
     label: '3/3',
     title: 'Publish and sell',
     body: 'Launch your website and give your customers a place to discover your business, explore your offers and buy from you.',
-    screen: <img className={styles.screenImg} src="/assets/v2/step-3-screen.webp" width={433} height={457} alt="" />,
+    screen: <img className={styles.screenImg} src="/assets/v2/step-3-screen.webp" width={540} height={485} alt="" />,
   },
 ]
 
