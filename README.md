@@ -28,7 +28,7 @@ Add `?capture` to the URL (for example `http://localhost:5173/?capture`) to turn
 
 ## Responsive behaviour
 
-The file has no mobile design, so the smaller layouts are derived from the desktop one using the same colours, type, radii and shadows:
+These layouts were derived from the desktop design (same colours, type, radii and shadows) before the file's mobile design, "Home page V2 · Mobile" (527:2678), was found. The phone layout does not follow that design yet. Current behaviour:
 
 - **1200px and wider:** the desktop layout. The content column is 1280px at most, centred, with 80px side margins. Fixed compositions (the AI panel, the MCP diagram) scale down uniformly below 1440.
 - **768–1199px:** 40px side margins; grids drop to two columns or stack.
@@ -37,11 +37,14 @@ The file has no mobile design, so the smaller layouts are derived from the deskt
 ## Interactions
 
 - Buttons use the design system's hover, pressed and focus states.
+- From 768px up, *Features* and *For You* in the nav open menus (Figma 565:2852; 565:2838 and its three siblings). With a mouse they open on hover; with touch, on a tap. From the keyboard, Enter, Space or ↓ opens them, ↑ ↓ move through the links and Esc closes. In *For You*, the hovered or focused audience shows its own photo. The menu items live in `src/sections/navData.ts`, shared with the phone menu.
+- On phones the bar follows Figma "Mobile navigation" (logo, a Small "Start free", menu button). The menu button opens a full-screen menu (Figma 555:2757 / 555:2816): Features and For You expand in place, one at a time. While it is open the page behind can't scroll or take focus, and Esc closes it.
 - The feature strip and the template row glide slowly in a loop and pause on hover.
 - The three step cards pin and stack as you scroll (each one readable before the next arrives), on every screen size.
 - *Plexo is for everyone* is a set of keyboard-accessible tabs with a sliding underline.
 - The *Drag and drop* cards expand on hover, focus or click.
 - The MCP diagram's dashes flow toward Plexo and the live site.
+- The Developers code window is built live (not an image) and its code types itself out once it scrolls into view.
 - The Monthly/Yearly toggle switches the Starter and Pro prices.
 - *Built with Plexo* scrolls sideways (swipe, or the arrows once there are more stories than fit).
 - The FAQ is an accordion with one item open at a time; the open item's plus turns into a minus.

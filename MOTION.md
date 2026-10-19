@@ -52,6 +52,8 @@ Home page V2 (Figma 532:23980).
 
 | Section | Motion | Details |
 |---|---|---|
+| Nav menus (Features, For You) | Fade + small drop (triggered); crossfade | The card fades in while settling 4px into place (160–200ms, ease-out; closing 120ms), after an 80ms hover pause that stops menus flashing open as the pointer sweeps across the bar. A 160ms grace period on leaving. The chevron turns to point up. In For You, the photo crossfades (220ms) to the hovered item's. Reduced motion: fade only |
+| Phone menu | Fade (triggered); accordion; icon crossfade | The menu fades in (0.18s) and its rows fade down 4px in turn (0.04s apart). Features / For You open with a height + opacity accordion (0.3s, ease-out) and their chevron turns. The menu icon turns into an X (crossfade with a 45° turn). Reduced motion: instant |
 | Hero: eyebrow, heading, subtitle | Blur-to-focus entrance, staggered | Starts at 0.45s, 0.65s and 1.05s; 10px, 16px and 8px blur; ease `focusEase` (0.33, 1, 0.68, 1); `BlurIn` component |
 | Hero: prompt box | Fade-up | Starts at 1.3s |
 | Hero: prompt text | Typewriter placeholder (idle loop) | Types "A store for my skincare brand...", "A sales funnel for my coaching program...", "A landing page for my product launch..." in turn: types, holds 1.9s, deletes, next. Stops while the field is focused or filled; reduced motion shows the Figma placeholder. On phones it stays on one line: long text slides left, its start fading, so the caret stays in view |
@@ -63,6 +65,7 @@ Home page V2 (Figma 532:23980).
 | AI: card icons | Draw-on (stagger), float (idle loop), tilt toward the cursor (spring) | When the cards are half on screen each icon draws itself, 0.35s apart, then floats 6px over 3.6s |
 | Drag and drop | Morph (card expands on hover, focus or click) | Framer Motion layout animation; the text fades in once the card has opened |
 | MCP | Flowing dashes (idle loop) + ping | Dashes travel along the connectors toward Plexo and on to the live site (one dash period every 0.9s); the output dot pings every 2.4s; pauses off screen |
+| Developers: code window | Typewriter (plays once) | When the panel is 40% on screen, the quickstart types itself out after 0.5s, about 6.5s in all: slightly uneven speed, a beat at each line end (longer before blank lines), indentation at once. The caret is solid while typing and blinks once finished, as in the hero prompt. Untyped code keeps its space, so nothing moves. Pauses off screen and carries on when back. Reduced motion: the full code at once |
 | Developers: tiles | Hover lift; the corner brackets step outward | |
 | Pricing | Toggle pill morph, price crossfade | Monthly / Yearly |
 | Built with Plexo | Horizontal scroller with arrows | Swipe on touch; the arrows move one card |
