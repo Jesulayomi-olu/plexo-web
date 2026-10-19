@@ -21,6 +21,9 @@ type ButtonProps = {
   type?: 'button' | 'submit'
   onClick?: () => void
   'aria-label'?: string
+  /** For a button that opens a dialog. */
+  'aria-haspopup'?: 'dialog'
+  'aria-expanded'?: boolean
 }
 
 export function Button({
@@ -33,6 +36,8 @@ export function Button({
   type = 'button',
   onClick,
   'aria-label': ariaLabel,
+  'aria-haspopup': ariaHasPopup,
+  'aria-expanded': ariaExpanded,
 }: ButtonProps) {
   const isStatic = useStaticMotion()
   const classes = [styles.button, styles[variant], size === 'small' && styles.small, fullWidth && styles.fullWidth, className]
@@ -50,7 +55,16 @@ export function Button({
   }
 
   return (
-    <motion.button type={type} className={classes} whileTap={tap} transition={transition} onClick={onClick} aria-label={ariaLabel}>
+    <motion.button
+      type={type}
+      className={classes}
+      whileTap={tap}
+      transition={transition}
+      onClick={onClick}
+      aria-label={ariaLabel}
+      aria-haspopup={ariaHasPopup}
+      aria-expanded={ariaExpanded}
+    >
       <span className={styles.label}>{children}</span>
     </motion.button>
   )

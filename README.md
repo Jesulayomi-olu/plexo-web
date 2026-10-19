@@ -46,6 +46,6 @@ These layouts were derived from the desktop design (same colours, type, radii an
 - The MCP diagram's dashes flow toward Plexo and the live site.
 - The Developers code window is built live (not an image) and its code types itself out once it scrolls into view.
 - The Monthly/Yearly toggle switches the Starter and Pro prices.
-- *Built with Plexo* scrolls sideways (swipe, or the arrows once there are more stories than fit).
+- *Built with Plexo* scrolls sideways (swipe, or the arrows once there are more stories than fit). "View Prompt" opens the prompt dialog over its card (over the whole screen on phones); it is not on the page until pressed, and "Copy" copies the prompt.
 - The FAQ is an accordion with one item open at a time; the open item's plus turns into a minus.
 - On small screens the nav collapses into a menu.

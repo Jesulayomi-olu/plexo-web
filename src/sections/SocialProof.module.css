@@ -56,6 +56,7 @@
 
 /* "Frame 2147239246": 712×426, #f4f5f0, r40, row: text side · screenshot. */
 .card {
+  position: relative; /* the prompt dialog layers over the card */
   display: flex;
   height: 426px;
   overflow: hidden;

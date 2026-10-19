@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from '../components/Button'
 import { Reveal } from '../components/Reveal'
 import { softSpring, useStaticMotion } from '../lib/motion'
+import { PromptModal } from './PromptModal'
 import styles from './SocialProof.module.css'
 
 /**
@@ -11,6 +12,7 @@ import styles from './SocialProof.module.css'
  * the right. Each card: quote + "View Prompt" (Outline / Small, r8) and the author on the left (347);
  * the site's screenshot in a slanted, rounded shape on the right (365×426). Then "Start with a prompt"
  * and the carousel arrows (next, previous). The row scrolls sideways (swipe, trackpad or the arrows).
+ * "View Prompt" opens the prompt dialog over its card (see PromptModal); it is hidden otherwise.
  *
  * Phones (the phone design still shows the previous card): the full screenshot on top, then the quote,
  * button and author.
@@ -25,10 +27,14 @@ type Story = {
   /** The whole screenshot, for the stacked phone card. */
   siteWide: string
   siteAlt: string
+  /** The prompt the site was built from, shown by "View Prompt". */
+  prompt: string
 }
 
 // The design repeats the same story.
 const stories: Story[] = Array.from({ length: 2 }, () => ({
+  prompt:
+    'Create a welcoming website for Helimax, an agricultural business. Use lush farm photography, fresh produce imagery, green accents and a clean, modern layout. Include a strong hero, an overview of our operations, consultation services, a product shop, an FAQ and contact details. Make it easy for visitors to explore our produce, learn about our services and get in touch. Ensure the website is responsive and accessible.',
   quote: 'With Plexo, I was able to bring my ideas to life and get my business online without all the stress.',
   name: 'Mrs. Olisa',
   role: 'Founder, Helimax',
@@ -88,6 +94,16 @@ export default function SocialProof() {
   const prevDisabled = !state.scrollable || state.atStart
   const nextDisabled = state.scrollable && state.atEnd
 
+  // Which card's prompt dialog is open (none until "View Prompt" is pressed). A card that only peeks
+  // in is scrolled fully into view first.
+  const [openPrompt, setOpenPrompt] = useState<number | null>(null)
+  const closePrompt = useCallback(() => setOpenPrompt(null), [])
+  const showPrompt = (index: number) => {
+    const card = scrollerRef.current?.querySelectorAll<HTMLElement>('[data-slide]')[index]
+    card?.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: isStatic ? 'auto' : 'smooth' })
+    setOpenPrompt(index)
+  }
+
   return (
     <section id="showcase" data-section="showcase" className={styles.section} aria-labelledby="showcase-title">
       <div className="container">
@@ -112,7 +128,7 @@ export default function SocialProof() {
                 className={styles.card}
                 aria-roledescription="slide"
                 aria-label={`${i + 1} of ${stories.length}`}
-                whileHover={isStatic ? undefined : { y: -3 }}
+                whileHover={isStatic || openPrompt === i ? undefined : { y: -3 }}
                 transition={softSpring}
               >
                 <figcaption className={styles.content}>
@@ -120,7 +136,14 @@ export default function SocialProof() {
                     <blockquote className={styles.quote}>
                       <p>{story.quote}</p>
                     </blockquote>
-                    <Button variant="outline" size="small" href="#top" className={styles.viewPrompt}>
+                    <Button
+                      variant="outline"
+                      size="small"
+                      className={styles.viewPrompt}
+                      aria-haspopup="dialog"
+                      aria-expanded={openPrompt === i}
+                      onClick={() => showPrompt(i)}
+                    >
                       View Prompt
                     </Button>
                   </div>
@@ -138,6 +161,7 @@ export default function SocialProof() {
                   <source media="(max-width: 767px)" srcSet={story.siteWide} width={800} height={431} />
                   <img src={story.site} width={365} height={426} alt={story.siteAlt} loading="lazy" decoding="async" />
                 </picture>
+                <PromptModal open={openPrompt === i} prompt={story.prompt} onClose={closePrompt} />
               </motion.figure>
             </Reveal>
           ))}

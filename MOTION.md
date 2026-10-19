@@ -69,6 +69,7 @@ Home page V2 (Figma 532:23980).
 | Developers: tiles | Hover lift; the corner brackets step outward | |
 | Pricing | Toggle pill morph, price crossfade | Monthly / Yearly |
 | Built with Plexo | Horizontal scroller with arrows | Swipe on touch; the arrows move one card |
+| Built with Plexo: prompt dialog | Fade (triggered); rise & settle | Only after "View Prompt" is pressed: the card dims (fade, 0.18s) and the dialog rises 8px from 98% scale into place (0.22s, ease-out); closing reverses it faster. A peeking card first scrolls fully into view. Reduced motion: fade only |
 | FAQ | Accordion height and opacity; plus turns into minus | All closed at first |
 
 ## Proposed (preview only)
