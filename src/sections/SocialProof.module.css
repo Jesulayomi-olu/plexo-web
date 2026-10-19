@@ -1,4 +1,4 @@
-/* Figma "Social proof" (532:24979): 1440×953, padding 80, white. Heading (92) · 64 · cards (533) · 64 · buttons (40). */
+/* Figma "Social proof" (575:15409): 1440×846, padding 80, white. Heading (92) · 64 · cards (426) · 64 · buttons (40). */
 .section {
   background: var(--white);
   padding-block: 80px;
@@ -47,24 +47,20 @@
   display: none;
 }
 
+/* 712 wide; narrower columns keep the next card peeking (the text side gives up the width). */
 .slide {
-  flex: 0 0 calc((100% - 32px) / 2);
+  flex: 0 0 min(712px, calc(100% - 80px));
   min-width: 0;
   scroll-snap-align: start;
 }
 
-/* "Frame 18": 624×533, column, centred, gap 25, padding 16/12, 1px #d7d8d3 stroke in layout, r12. */
+/* "Frame 2147239246": 712×426, #f4f5f0, r40, row: text side · screenshot. */
 .card {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 25px;
-  height: 533px;
-  padding: 16px 12px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--white);
+  height: 426px;
   overflow: hidden;
+  border-radius: 40px;
+  background: var(--surface-100);
   transition: box-shadow 200ms ease;
 }
 
@@ -72,44 +68,71 @@
   box-shadow: var(--shadow-card);
 }
 
-/* "Rectangle 1": fills the rest (389 at 1440), #d9d9d9. */
-.preview {
-  flex: 1 1 0;
-  min-height: 0;
-  background: #d9d9d9;
+/* "Frame 2147239161": 347 wide, padding 32/24, space-between: quote + button · author. */
+.content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  padding: 32px 24px;
 }
 
-/* Quote (42) · 12 · author row (31). */
-.caption {
+/* "Frame 2147239280": quote · 32 · button. */
+.top {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  align-items: flex-start;
+  gap: 32px;
 }
 
+/* desktop/body/sm/medium 500 14/21, #454543, 316 wide. */
 .quote {
+  max-width: 316px;
   font-size: 14px;
   line-height: 21px;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--ink-600);
 }
 
-/* "Frame 62": row, gap 8, centred; avatar 28×30 r3 #989898. */
+/* "Button / …" (Outline / Small) with r8 and a semibold label (desktop/label/sm/semibold); 101 wide. */
+.top .viewPrompt {
+  width: 101px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.top .viewPrompt:focus-visible {
+  border-radius: 8px;
+}
+
+/* "Frame 62": avatar (28×30, r3) · 8 · name and role. */
 .author {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
+/* "Frame 61": the photo is placed 4px left and 7.5px up inside the clipped 28×30 frame (exported as is). */
 .avatar {
   flex: none;
   width: 28px;
   height: 30px;
+  overflow: hidden;
   border-radius: 3px;
   background: #989898;
 }
 
+.avatar img {
+  width: 100%;
+  height: 100%;
+}
+
 /* Column gap 2: 500 12/15.6 #232323; 400 10/13 #454543. */
 .who {
+  position: relative;
+  top: 1px; /* Figma baseline snap */
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -129,6 +152,20 @@
   line-height: 13px;
   font-weight: 400;
   color: var(--ink-600);
+}
+
+/* "Vector 5": the screenshot in a slanted shape with r40 corners, 365×426 (exported with its shape). */
+.site {
+  display: block;
+  flex: none;
+  width: 365px;
+  height: 426px;
+}
+
+.site img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
 }
 
 /* "Frame 2147239163": space-between: button · arrows (gap 24). */
@@ -176,6 +213,12 @@
   background: var(--surface-100);
 }
 
+/* Tablets: the footer wraps rather than overflow if the button and arrows don't fit side by side. */
+.footer {
+  flex-wrap: wrap;
+  row-gap: 16px;
+}
+
 @media (max-width: 767px) {
   .section {
     padding-block: 64px;
@@ -200,13 +243,32 @@
     flex-basis: calc(100% - 24px);
   }
 
+  /* Stacked: the whole screenshot on top, then the quote, button and author. */
   .card {
+    flex-direction: column;
     height: auto;
+    border-radius: 24px;
   }
 
-  .preview {
-    flex: none;
-    aspect-ratio: 598 / 389;
+  .site {
+    order: -1;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 800 / 431;
+  }
+
+  .content {
+    justify-content: flex-start;
+    gap: 24px;
+    padding: 20px 16px 24px;
+  }
+
+  .top {
+    gap: 20px;
+  }
+
+  .arrows {
+    gap: 12px;
   }
 }
 
