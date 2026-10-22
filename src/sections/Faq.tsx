@@ -1,7 +1,9 @@
+'use client'
+
 import { motion } from 'framer-motion'
 import { useId, useState } from 'react'
 import { Reveal } from '../components/Reveal'
-import { durations, ease, isPreviewMode, useStaticMotion } from '../lib/motion'
+import { durations, ease, usePreviewMode, useStaticMotion } from '../lib/motion'
 import styles from './Faq.module.css'
 
 /**
@@ -36,6 +38,7 @@ function ToggleIcon({ open }: { open: boolean }) {
 }
 
 export default function Faq() {
+  const isPreviewMode = usePreviewMode()
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const isStatic = useStaticMotion()
   const baseId = useId()

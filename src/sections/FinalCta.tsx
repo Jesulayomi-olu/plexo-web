@@ -1,7 +1,9 @@
+'use client'
+
 import { PromptBox } from '../components/PromptBox'
 import { BlurIn } from '../components/BlurIn'
 import { Reveal } from '../components/Reveal'
-import { isPreviewMode } from '../lib/motion'
+import { usePreviewMode } from '../lib/motion'
 import styles from './FinalCta.module.css'
 
 /**
@@ -9,6 +11,7 @@ import styles from './FinalCta.module.css'
  * the heading (692×53, "Frame 57") and the 792-wide prompt box.
  */
 export default function FinalCta() {
+  const isPreviewMode = usePreviewMode()
   return (
     <section id="start" data-section="start" className={styles.cta}>
       <div className="container">

@@ -39,7 +39,7 @@
   --cream: #f5f7ed;
 
   /* Type */
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: var(--font-jakarta), system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* Layout */
   --content-max: 1280px;

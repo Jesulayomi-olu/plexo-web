@@ -1,7 +1,9 @@
+'use client'
+
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { Button } from '../components/Button'
-import { isCaptureMode } from '../lib/motion'
+import { useCaptureMode } from '../lib/motion'
 import { MobileMenu } from './MobileMenu'
 import { FeaturesMenu, ForYouMenu, type MenuId } from './NavMenu'
 import styles from './Nav.module.css'
@@ -72,6 +74,7 @@ function useNavMenus() {
 }
 
 export default function Nav() {
+  const isCaptureMode = useCaptureMode()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const { menu, controls, closeAll } = useNavMenus()
@@ -101,7 +104,7 @@ export default function Nav() {
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [isCaptureMode])
 
   // While the phone menu is open: the page behind can't scroll and is out of reach (inert) for focus and
   // screen readers. Esc closes it and returns focus to the menu button; so does growing past the phone

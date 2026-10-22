@@ -1,9 +1,11 @@
+'use client'
+
 import { useCallback, useId, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Button } from '../components/Button'
 import { Reveal } from '../components/Reveal'
-import { durations, ease, isPreviewMode, useStaticMotion } from '../lib/motion'
+import { durations, ease, usePreviewMode, useStaticMotion } from '../lib/motion'
 import styles from './WhoItsFor.module.css'
 
 /**
@@ -87,6 +89,7 @@ const PHOTO_W = 688
 const PHOTO_H = 458.67
 
 export default function WhoItsFor() {
+  const isPreviewMode = usePreviewMode()
   const [active, setActive] = useState(0)
   const isStatic = useStaticMotion()
   const uid = useId()

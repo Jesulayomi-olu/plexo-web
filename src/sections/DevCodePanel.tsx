@@ -1,3 +1,5 @@
+'use client'
+
 import { useInView } from 'framer-motion'
 import type { CSSProperties, ReactNode } from 'react'
 import { useFitScale } from '../lib/useFitScale'

@@ -1,8 +1,10 @@
+'use client'
+
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Button } from '../components/Button'
 import { Reveal } from '../components/Reveal'
-import { ease, isPreviewMode, useStaticMotion } from '../lib/motion'
+import { ease, usePreviewMode, useStaticMotion } from '../lib/motion'
 import styles from './DragDrop.module.css'
 
 /**
@@ -152,6 +154,7 @@ function Artwork({
   isStatic?: boolean
   expanded?: boolean
 }) {
+  const isPreviewMode = usePreviewMode()
   if (id === 'live') {
     // Frame 2147239069: desktop window (260×201 at y=11) + phone (110×233 at x=151).
     return (

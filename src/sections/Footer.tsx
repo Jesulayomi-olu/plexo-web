@@ -1,8 +1,10 @@
+'use client'
+
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Divider } from '../components/Divider'
 import { Reveal } from '../components/Reveal'
-import { focusEase, isPreviewMode, useStaticMotion } from '../lib/motion'
+import { focusEase, usePreviewMode, useStaticMotion } from '../lib/motion'
 import styles from './Footer.module.css'
 
 /**
@@ -50,6 +52,7 @@ const columns = [
 ] as const
 
 export default function Footer() {
+  const isPreviewMode = usePreviewMode()
   const isStatic = useStaticMotion()
   const logoRef = useRef<HTMLDivElement>(null)
   const logoInView = useInView(logoRef, { once: true, amount: 0.6 })

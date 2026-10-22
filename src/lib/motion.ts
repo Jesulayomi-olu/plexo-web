@@ -1,24 +1,38 @@
+import { useSyncExternalStore } from 'react'
 import { useReducedMotion } from 'framer-motion'
+
+/** Reads a URL flag after hydration; the server render (and first client render) always sees false. */
+function useUrlFlag(name: string): boolean {
+  return useSyncExternalStore(
+    noSubscribe,
+    () => new URLSearchParams(window.location.search).has(name),
+    () => false,
+  )
+}
+const noSubscribe = () => () => {}
 
 /**
  * "Capture mode" (`?capture` in the URL) renders every element in its final
  * state with no entrance animations or autoplay, so screenshots can be
  * compared against the Figma renders pixel for pixel.
  */
-export const isCaptureMode =
-  typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('capture')
+export function useCaptureMode(): boolean {
+  return useUrlFlag('capture')
+}
 
 /**
  * Preview mode (`?preview` in the URL) switches on motion that is still awaiting approval, so it can be
  * compared with the current site in context.
  */
-export const isPreviewMode =
-  typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('preview')
+export function usePreviewMode(): boolean {
+  return useUrlFlag('preview')
+}
 
 /** True when animations should be skipped (reduced-motion users or capture mode). */
 export function useStaticMotion(): boolean {
   const reduced = useReducedMotion()
-  return Boolean(reduced) || isCaptureMode
+  const capture = useCaptureMode()
+  return Boolean(reduced) || capture
 }
 
 /** Shared easing and durations so interactions feel consistent across sections. */

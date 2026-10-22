@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, type KeyboardEvent, type ReactNode } from 'react'
 import { audienceItems, featureItems } from './navData'
 import styles from './NavMenu.module.css'

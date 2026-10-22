@@ -1,3 +1,5 @@
+'use client'
+
 import { motion } from 'framer-motion'
 import type { ElementType, ReactNode } from 'react'
 import { focusEase, useStaticMotion } from '../lib/motion'

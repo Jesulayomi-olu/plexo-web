@@ -1,8 +1,10 @@
+'use client'
+
 import { cubicBezier, motion, useScroll, useSpring, useTransform, type MotionValue } from 'framer-motion'
 import { useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { Button } from '../components/Button'
 import { Reveal } from '../components/Reveal'
-import { isCaptureMode, useStaticMotion } from '../lib/motion'
+import { useCaptureMode, useStaticMotion } from '../lib/motion'
 import { useMediaQuery } from '../lib/useMediaQuery'
 import styles from './Steps.module.css'
 
@@ -146,6 +148,7 @@ function ScrollStack({ desktop }: { desktop: boolean }) {
 
 export default function Steps() {
   const isStatic = useStaticMotion()
+  const isCaptureMode = useCaptureMode()
   const desktop = useMediaQuery('(min-width: 1024px)')
 
   let cards: ReactNode

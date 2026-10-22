@@ -1,8 +1,10 @@
+'use client'
+
 import { motion, useMotionValue, type MotionValue } from 'framer-motion'
 import { forwardRef, useEffect, useRef, type CSSProperties, type KeyboardEvent, type RefObject } from 'react'
 import { Button } from '../components/Button'
 import { Reveal } from '../components/Reveal'
-import { isCaptureMode, useStaticMotion } from '../lib/motion'
+import { useCaptureMode, useStaticMotion } from '../lib/motion'
 import styles from './Templates.module.css'
 
 /**
@@ -238,6 +240,7 @@ function GlideRow({ auto }: { auto: boolean }) {
 
 export default function Templates() {
   const isStatic = useStaticMotion()
+  const isCaptureMode = useCaptureMode()
   return (
     <section id="templates" data-section="templates" className={styles.section}>
       <div className={styles.head}>

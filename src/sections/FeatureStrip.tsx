@@ -1,3 +1,5 @@
+'use client'
+
 import { useStaticMotion } from '../lib/motion'
 import styles from './FeatureStrip.module.css'
 

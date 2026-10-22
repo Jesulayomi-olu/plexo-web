@@ -1,3 +1,5 @@
+'use client'
+
 import { motion, useInView, useSpring } from 'framer-motion'
 import { useRef, type CSSProperties, type PointerEvent } from 'react'
 import { Button } from '../components/Button'

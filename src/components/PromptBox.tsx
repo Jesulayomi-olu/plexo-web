@@ -1,3 +1,5 @@
+'use client'
+
 import { useId, useLayoutEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react'
 import { useInView } from 'framer-motion'
 import { useStaticMotion } from '../lib/motion'

@@ -1,17 +1,17 @@
 # Plexo landing page
 
-A build of the Figma frame **"Home page V2"** from the file *Plexo 2026* (node `532:23980`), made with Vite, React, TypeScript and Framer Motion. The Figma file is the source of truth. At a 1440px-wide window the page matches the design's 1440 × 11815 layout (the build starts 1px higher: Figma's nav sits at y = 1).
+A build of the Figma frame **"Home page V2"** from the file *Plexo 2026* (node `532:23980`), made with Next.js (App Router), React, TypeScript and Framer Motion. The Figma file is the source of truth. At a 1440px-wide window the page matches the design's 1440 × 11815 layout (the build starts 1px higher: Figma's nav sits at y = 1).
 
 ## Run it
 
 ```bash
 npm install
-npm run dev       # http://localhost:5173
-npm run build     # production build in dist/
-npm run preview   # serve the production build
+npm run dev       # http://localhost:3000
+npm run build     # production build in .next/ (the page is prerendered as static HTML)
+npm run start     # serve the production build
 ```
 
-Add `?capture` to the URL (for example `http://localhost:5173/?capture`) to turn off animations and show the static design. Use it when comparing screenshots against Figma. Add `?preview` to see proposed motion that isn't live yet (see `MOTION.md`).
+Add `?capture` to the URL (for example `http://localhost:3000/?capture`) to turn off animations and show the static design. Use it when comparing screenshots against Figma. Add `?preview` to see proposed motion that isn't live yet (see `MOTION.md`).
 
 ## Structure
 
@@ -22,7 +22,8 @@ Add `?capture` to the URL (for example `http://localhost:5173/?capture`) to turn
 | `src/components/PromptBox.tsx` | The prompt box: the tall hero variant and the one-line final-CTA variant |
 | `src/components/Divider.tsx` | The dashed divider with star ornaments (hero top and bottom, footer band) |
 | `src/components/Reveal.tsx`, `BlurIn.tsx` | Entrance animations; off for users who prefer reduced motion and in `?capture` mode |
-| `src/sections/*` | One component with its own CSS module per Figma section, in page order (see `src/App.tsx`) |
+| `src/sections/*` | One component with its own CSS module per Figma section, in page order (see `src/app/page.tsx`) |
+| `src/app/layout.tsx` | The HTML shell: metadata, fonts (loaded with `next/font`) and global styles |
 | `public/assets/v2/` | Artwork exported from Figma at 2× (WebP) and SVG logos and icons |
 | `MOTION.md` | Every animation on the page, with the vocabulary used to discuss motion |
 

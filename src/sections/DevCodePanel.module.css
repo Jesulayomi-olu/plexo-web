@@ -123,7 +123,7 @@
   height: 337.49px;
   margin: 0;
   padding: 20.2472px 23.6217px;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 10.9672px;
   line-height: 18.5599px;
   font-weight: 400;

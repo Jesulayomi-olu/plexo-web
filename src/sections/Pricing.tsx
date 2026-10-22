@@ -1,8 +1,10 @@
+'use client'
+
 import { AnimatePresence, motion } from 'framer-motion'
 import { useState, type ReactNode } from 'react'
 import { Button, type ButtonVariant } from '../components/Button'
 import { Reveal } from '../components/Reveal'
-import { durations, ease, isPreviewMode, softSpring, useStaticMotion } from '../lib/motion'
+import { durations, ease, usePreviewMode, softSpring, useStaticMotion } from '../lib/motion'
 import { RollingText } from '../motion/RollingText'
 import styles from './Pricing.module.css'
 
@@ -70,6 +72,7 @@ function BillingPrice({
   billed: string
 }) {
   const isStatic = useStaticMotion()
+  const isPreviewMode = usePreviewMode()
 
   // Preview: one persistent price whose changed digits roll (odometer); the "Billed annually" line
   // folds open underneath. At rest each state matches its Figma variant exactly.

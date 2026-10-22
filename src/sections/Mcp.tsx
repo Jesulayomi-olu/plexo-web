@@ -1,3 +1,5 @@
+'use client'
+
 import { useInView } from 'framer-motion'
 import { useRef, type CSSProperties } from 'react'
 import { Button } from '../components/Button'
@@ -63,13 +65,13 @@ function DesktopDiagram({ moving }: { moving: boolean }) {
   return (
     <div className={styles.frame}>
       <div className={styles.integration}>
-        <img className={styles.dots} src={dots} width={1280} height={711} alt="" />
+        <img className={styles.dots} src={dots.src} width={1280} height={711} alt="" />
         <Connectors moving={moving} />
         <img className={styles.logo} src="/assets/v2/icons/logo-dark.svg" width={124} height={32} alt="" />
-        <img className={styles.claude} src={claudeLabel} width={164} height={56} alt="" />
-        <img className={styles.chatgpt} src={chatgptLabel} width={165} height={52} alt="" />
-        <img className={styles.cursor} src={cursorLabel} width={170} height={56} alt="" />
-        <img className={styles.live} src={liveLabel} width={159} height={46} alt="" />
+        <img className={styles.claude} src={claudeLabel.src} width={164} height={56} alt="" />
+        <img className={styles.chatgpt} src={chatgptLabel.src} width={165} height={52} alt="" />
+        <img className={styles.cursor} src={cursorLabel.src} width={170} height={56} alt="" />
+        <img className={styles.live} src={liveLabel.src} width={159} height={46} alt="" />
       </div>
     </div>
   )
@@ -109,11 +111,11 @@ function MobileDiagram({ moving }: { moving: boolean }) {
           {moving && <circle className={styles.ping} cx={SPINE} cy={194} r={4.5} fill="#74a418" />}
           <circle cx={SPINE} cy={194} r={4.5} fill="#74a418" />
         </svg>
-        <img className={styles.mClaude} src={claudeLabel} width={164} height={56} alt="" />
-        <img className={styles.mChatgpt} src={chatgptLabel} width={165} height={52} alt="" />
-        <img className={styles.mCursor} src={cursorLabel} width={170} height={56} alt="" />
+        <img className={styles.mClaude} src={claudeLabel.src} width={164} height={56} alt="" />
+        <img className={styles.mChatgpt} src={chatgptLabel.src} width={165} height={52} alt="" />
+        <img className={styles.mCursor} src={cursorLabel.src} width={170} height={56} alt="" />
         <img className={styles.mLogo} src="/assets/v2/icons/logo-dark.svg" width={124} height={32} alt="" />
-        <img className={styles.mLive} src={liveLabel} width={159} height={46} alt="" />
+        <img className={styles.mLive} src={liveLabel.src} width={159} height={46} alt="" />
       </div>
     </div>
   )
