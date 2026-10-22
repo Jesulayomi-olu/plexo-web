@@ -1,0 +1,165 @@
+/* Figma "Solutions" (571:12881): white, padding 80/0; column (1018) gap 40. */
+.section {
+  background: var(--white);
+  padding-block: 80px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  max-width: calc(1018px + var(--gutter) * 2);
+}
+
+/* desktop/heading/h2/semibold: 600 48/52.8, −1.2. */
+.title {
+  font-size: 48px;
+  line-height: 52.8px;
+  font-weight: 600;
+  letter-spacing: -1.2px;
+  color: var(--ink-800);
+  text-align: center;
+}
+
+.cards {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+}
+
+.slotStart,
+.slotEnd {
+  display: flex;
+}
+
+/* Cards: 345 tall, r16, padding 0 32, content centred. */
+.card {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 345px;
+  padding: 32px;
+  border-radius: 16px;
+}
+
+.problem {
+  background: var(--cream);
+  color: #000000;
+}
+
+.fix {
+  background: var(--forest);
+  color: var(--surface-100);
+}
+
+/* Content column: 324 wide, title row · 24 · lines. */
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 324px;
+  max-width: 100%;
+}
+
+/* desktop/heading/h6/semibold: 600 20/26, −0.4; icon 24, then 26 (problem) / 16 (fix). */
+.cardTitle {
+  display: flex;
+  align-items: flex-start;
+  gap: 26px;
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+}
+
+.problem .cardTitle {
+  color: var(--ink);
+}
+
+.fix .cardTitle {
+  gap: 16px;
+}
+
+.icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+/* Lines: gap 16; each padding 8/0, 24px bullet · 10 · 400 14/15.4. */
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-block: 8px;
+  font-size: 14px;
+  line-height: 15.4px;
+}
+
+.bullet {
+  flex-shrink: 0;
+}
+
+@media (max-width: 1199px) {
+  .title {
+    font-size: 40px;
+    line-height: 44px;
+    letter-spacing: -1px;
+  }
+
+  .cards {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: 48px;
+  }
+
+  .inner {
+    gap: 28px;
+  }
+
+  /* mobile heading/h2 → 32/36.8 */
+  .title {
+    font-size: 32px;
+    line-height: 36.8px;
+    letter-spacing: -0.7px;
+  }
+
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .card {
+    min-height: 0;
+    padding: 28px 20px;
+  }
+
+  .column {
+    width: 100%;
+  }
+
+  .cardTitle {
+    font-size: 18px;
+    line-height: 23.4px;
+  }
+
+  .problem .cardTitle {
+    gap: 16px;
+  }
+}

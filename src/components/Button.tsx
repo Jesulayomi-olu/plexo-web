@@ -14,8 +14,10 @@ export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'contrast' | '
 type ButtonProps = {
   children: ReactNode
   variant?: ButtonVariant
-  /** Size=Small (32px) at every width; otherwise Medium on desktop and Large on phones. */
-  size?: 'default' | 'small'
+  /** Size=Small (32px) or Size=Large (48px) at every width; otherwise Medium on desktop and Large on phones. */
+  size?: 'default' | 'small' | 'large'
+  /** Icon after the label (Figma "Trailing icon", 20px); it nudges right on hover. */
+  trailingIcon?: ReactNode
   /** Renders an <a> when set, otherwise a <button>. */
   href?: string
   fullWidth?: boolean
@@ -32,6 +34,7 @@ export function Button({
   children,
   variant = 'primary',
   size = 'default',
+  trailingIcon,
   href,
   fullWidth = false,
   className,
@@ -42,7 +45,7 @@ export function Button({
   'aria-expanded': ariaExpanded,
 }: ButtonProps) {
   const isStatic = useStaticMotion()
-  const classes = [styles.button, styles[variant], size === 'small' && styles.small, fullWidth && styles.fullWidth, className]
+  const classes = [styles.button, styles[variant], size === 'small' && styles.small, size === 'large' && styles.large, fullWidth && styles.fullWidth, className]
     .filter(Boolean)
     .join(' ')
   const tap = isStatic ? undefined : { scale: 0.97 }
@@ -52,6 +55,7 @@ export function Button({
     return (
       <motion.a href={href} className={classes} whileTap={tap} transition={transition} onClick={onClick} aria-label={ariaLabel}>
         <span className={styles.label}>{children}</span>
+      {trailingIcon && <span className={styles.trailing}>{trailingIcon}</span>}
       </motion.a>
     )
   }
@@ -68,6 +72,7 @@ export function Button({
       aria-expanded={ariaExpanded}
     >
       <span className={styles.label}>{children}</span>
+      {trailingIcon && <span className={styles.trailing}>{trailingIcon}</span>}
     </motion.button>
   )
 }

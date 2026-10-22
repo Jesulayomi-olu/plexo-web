@@ -338,11 +338,12 @@
 .tagline {
   position: relative;
   top: 1px; /* Figma baseline snap */
-  height: 18px;
+  min-height: 18px;
   font-size: 16px;
   line-height: 17.6px;
   font-weight: 500;
   color: var(--ink-500);
+  white-space: pre-line;
 }
 
 .features {
@@ -712,5 +713,84 @@
     padding: 0 12px;
     font-size: 12px;
     line-height: 13.2px;
+  }
+}
+
+/*
+ * Pricing page cards (Figma 571:11347): the four cards share one height (533), the feature list
+ * grows to fill it (186 min), and the audience line sits at the foot: lucide asterisk 24 · 4 · 600
+ * italic 14/21 #454543.
+ */
+.cardPage {
+  height: 100%;
+}
+
+.cardPage .features {
+  flex: 1 0 auto;
+  min-height: 186px;
+}
+
+.audience {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--ink-600);
+}
+
+.asterisk {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  transition: transform 600ms var(--ease-out);
+}
+
+.cardPage:hover .asterisk {
+  transform: rotate(90deg);
+}
+
+@media (max-width: 767px) {
+  .cardPage .features {
+    min-height: 0;
+  }
+
+  .audience {
+    align-items: flex-start;
+    gap: 2px;
+    margin-top: 16px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .asterisk {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* The pricing page's card row: cards hug their content and stretch to the tallest. */
+.cardsPage {
+  height: auto;
+  align-items: stretch;
+}
+
+@media (max-width: 1199px) {
+  .cardsPage .card {
+    min-height: 0;
+  }
+}
+
+/* Phones: the audience line adds a sixth shared row to the subgrid. */
+@media (max-width: 767px) {
+  .cardsPage .slot,
+  .cardsPage .card {
+    grid-row: span 6;
+  }
+
+  .cardsPage .audience {
+    align-self: end;
   }
 }

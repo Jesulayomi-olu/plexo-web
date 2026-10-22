@@ -61,10 +61,10 @@ export function MobileMenu({ id, onNavigate }: Props) {
   const toggle = (next: SectionId) => setSection((current) => (current === next ? null : next))
 
   const groups = [
-    { label: 'Pricing', href: '#pricing' },
+    { label: 'Pricing', href: '/pricing' },
     { label: 'Features', section: 'features' as const, items: featureItems },
     { label: 'For You', section: 'for-you' as const, items: audienceItems },
-    { label: 'Resources', href: '#developers' },
+    { label: 'Resources', href: '/#developers' },
   ]
 
   return (
@@ -115,7 +115,7 @@ export function MobileMenu({ id, onNavigate }: Props) {
         </ul>
       </nav>
       <div className={styles.footer}>
-        <Button href="#start" size="small" fullWidth onClick={onNavigate}>
+        <Button href="/#start" size="small" fullWidth onClick={onNavigate}>
           Start free
         </Button>
       </div>

@@ -1,0 +1,17 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="137" height="137" viewBox="0 0 137 137" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Frame 2147239182">
+<mask id="path-1-inside-1_0_17" fill="white">
+<path d="M0 0H137V137H0V0Z"/>
+</mask>
+<path d="M0 0V-24H-24V0H0ZM0 0V24H137V0V-24H0V0ZM0 137H24V0H0H-24V137H0Z" fill="url(#paint0_linear_0_17)" mask="url(#path-1-inside-1_0_17)"/>
+<circle id="Ellipse 4" cx="68.5" cy="68.5" r="45" fill="url(#paint1_linear_0_17)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_17" x1="165.5" y1="27" x2="15" y2="136.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#74A418"/>
+</linearGradient>
+<linearGradient id="paint1_linear_0_17" x1="125" y1="62.5" x2="45.0625" y2="113.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#74A418"/>
+</linearGradient>
+</defs>
+</svg>

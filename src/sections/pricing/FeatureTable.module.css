@@ -1,0 +1,176 @@
+/* Figma "Pricing Comparison Table" (571:11524): #fcfcfa, padding 100/80, column gap 24. */
+.section {
+  background: var(--surface-50);
+  padding-block: 100px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* desktop/heading/h3/semibold: 600 40/46, −1. */
+.title {
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--ink-800);
+}
+
+/* "table-container": white, 1px #d7d8d3, r12, clipped. */
+.frame {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.scroller {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.scroller:focus-visible {
+  border-radius: 12px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+/* Cells: padding 16, 1px #d7d8d3 right (not on the last column) and bottom (not on the last row). */
+.table th,
+.table td {
+  padding: 16px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--white);
+  text-align: center;
+  vertical-align: middle;
+  color: var(--ink-800);
+  transition: background-color 160ms ease;
+}
+
+.table tr > :last-child {
+  border-right: 0;
+}
+
+.table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+/* "table-header": #f4f5f0; desktop/label/lg/semibold 600 16/17.6. */
+.table thead th {
+  background: var(--surface-100);
+  font-size: 16px;
+  line-height: 17.6px;
+  font-weight: 600;
+}
+
+/* Feature column: 280 wide, left aligned, desktop/body/md/regular. */
+.table .featureCell {
+  width: 280px;
+  text-align: left;
+}
+
+.table tbody th {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.table tbody tr:hover > * {
+  background: var(--surface-50);
+}
+
+/* Plan values: desktop/body/md/semibold. */
+.value {
+  display: block;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+/* 20px check / minus, centred on a 24px line. */
+.mark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 24px;
+}
+
+.mark img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Below desktop the table keeps its columns and scrolls sideways; the feature column stays pinned. */
+@media (max-width: 1199px) {
+  .table {
+    min-width: 860px;
+  }
+
+  .table .featureCell {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    width: 220px;
+    box-shadow: 1px 0 0 var(--line);
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: 56px;
+  }
+
+  .inner {
+    gap: 20px;
+  }
+
+  /* mobile heading/h3 → 28/33.6 */
+  .title {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
+  }
+
+  .table {
+    min-width: 640px;
+  }
+
+  .table th,
+  .table td {
+    padding: 12px;
+  }
+
+  .table .featureCell {
+    width: 148px;
+  }
+
+  .table thead th {
+    font-size: 14px;
+    line-height: 15.4px;
+  }
+
+  .table tbody th,
+  .value {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .mark {
+    height: 21px;
+  }
+
+  .mark img {
+    width: 18px;
+    height: 18px;
+  }
+}

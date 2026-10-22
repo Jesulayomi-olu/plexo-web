@@ -14,21 +14,25 @@ import styles from './Pricing.module.css'
  * grey content panel (green for Pro) and a feature list. The toggle switches the Starter and Pro
  * price blocks between the variants.
  */
-type Period = 'monthly' | 'yearly'
+export type Period = 'monthly' | 'yearly'
 
 const periods: { id: Period; label: string }[] = [
   { id: 'monthly', label: 'Monthly' },
   { id: 'yearly', label: 'Yearly' },
 ]
 
-type Plan = {
+export type Plan = {
   name: string
-  price: (period: Period) => ReactNode
+  price: (period: Period, roll: boolean) => ReactNode
   tagline: string
   cta: { label: string; variant: ButtonVariant; href?: string }
   features: string[]
+  /** Who the plan is for; shown at the foot of the card on the pricing page (Figma 571:11383). */
+  audience: string
   /** Pro: green stroke (in layout), shadow stack, green panel and the "Recommended" badge. */
   popular?: boolean
+  /** The popular plan's badge text (default "Recommended"); null hides the badge. */
+  badge?: string | null
   /** Free Trial: the panel's content is a fixed 205×204 column (button 205 wide, 19px under the tagline). */
   trial?: boolean
 }
@@ -65,18 +69,21 @@ function BillingPrice({
   monthly,
   yearly,
   billed,
+  roll = false,
 }: {
   period: Period
   monthly: PriceText
   yearly: PriceText
   billed: string
+  /** Roll the digits between periods (the pricing page; on the home page only in preview mode). */
+  roll?: boolean
 }) {
   const isStatic = useStaticMotion()
   const isPreviewMode = usePreviewMode()
 
   // Preview: one persistent price whose changed digits roll (odometer); the "Billed annually" line
   // folds open underneath. At rest each state matches its Figma variant exactly.
-  if (isPreviewMode && !isStatic) {
+  if ((isPreviewMode || roll) && !isStatic) {
     const isYearly = period === 'yearly'
     const price = isYearly ? yearly : monthly
     return (
@@ -148,7 +155,7 @@ function BillingPrice({
   )
 }
 
-const plans: Plan[] = [
+export const plans: Plan[] = [
   {
     name: 'Free Trial',
     price: () => (
@@ -158,27 +165,30 @@ const plans: Plan[] = [
       </div>
     ),
     tagline: 'Take it for a spin.',
-    cta: { label: 'Start free', variant: 'white', href: '#top' },
+    cta: { label: 'Start free', variant: 'white', href: '/#top' },
     features: ['1 page,', '1 funnel,', '50 AI credits'],
+    audience: 'For Anyone testing an idea',
     trial: true,
   },
   {
     name: 'Starter',
-    price: (period) => (
-      <BillingPrice period={period} monthly={{ text: '$9', w: 49 }} yearly={{ text: '$7', w: 48 }} billed="Billed annually ($84/year)" />
+    price: (period, roll) => (
+      <BillingPrice period={period} roll={roll} monthly={{ text: '$9', w: 49 }} yearly={{ text: '$7', w: 48 }} billed="Billed annually ($84/year)" />
     ),
     tagline: 'Get online. Start selling.',
-    cta: { label: 'Get started', variant: 'white', href: '#top' },
+    cta: { label: 'Get started', variant: 'white', href: '/#top' },
     features: ['5 pages', '5 products', 'Your domain', '300 credits/mo'],
+    audience: 'For Small shops and solo sellers',
   },
   {
     name: 'Pro',
-    price: (period) => (
-      <BillingPrice period={period} monthly={{ text: '$19', w: 65 }} yearly={{ text: '$15', w: 65 }} billed="Billed annually ($180/year)" />
+    price: (period, roll) => (
+      <BillingPrice period={period} roll={roll} monthly={{ text: '$19', w: 65 }} yearly={{ text: '$15', w: 65 }} billed="Billed annually ($180/year)" />
     ),
     tagline: 'Grow without limits.',
-    cta: { label: 'Go Pro', variant: 'contrast', href: '#top' },
+    cta: { label: 'Go Pro', variant: 'contrast', href: '/#top' },
     features: ['15 pages', '5 funnels', '25 products', 'No badge', 'MCP', '1,500 credits/mo'],
+    audience: 'For Coaches, founders, designers',
     popular: true,
   },
   {
@@ -193,12 +203,28 @@ const plans: Plan[] = [
     tagline: 'Built around your team.',
     cta: { label: 'Talk to us', variant: 'outline' },
     features: ['White label', 'Seats', 'SSO', 'SLA'],
+    audience: 'For Agencies and Product teams',
   },
 ]
 
-function PlanCard({ plan, period, delay }: { plan: Plan; period: Period; delay: number }) {
+/**
+ * `variant="page"`: the pricing page's cards (Figma 571:11347): every panel column is full width, the
+ * prices roll between periods, and an audience line ("For …", asterisk) closes the card.
+ */
+export function PlanCard({
+  plan,
+  period,
+  delay,
+  variant = 'home',
+}: {
+  plan: Plan
+  period: Period
+  delay: number
+  variant?: 'home' | 'page'
+}) {
   const isStatic = useStaticMotion()
-  const card = [styles.card, plan.popular && styles.cardPopular].filter(Boolean).join(' ')
+  const isPage = variant === 'page'
+  const card = [styles.card, plan.popular && styles.cardPopular, isPage && styles.cardPage].filter(Boolean).join(' ')
 
   return (
     <Reveal delay={delay} className={styles.slot}>
@@ -209,14 +235,14 @@ function PlanCard({ plan, period, delay }: { plan: Plan; period: Period; delay: 
         transition={softSpring}
       >
         <div className={styles.panel}>
-          <div className={plan.trial ? styles.trialColumn : styles.column}>
+          <div className={plan.trial && !isPage ? styles.trialColumn : styles.column}>
           <div className={styles.summary}>
             <div className={styles.titleRow}>
               <h3 className={styles.name}>{plan.name}</h3>
-              {plan.popular && <span className={styles.badge}>Recommended</span>}
+              {plan.popular && plan.badge !== null && <span className={styles.badge}>{plan.badge ?? 'Recommended'}</span>}
             </div>
             <div className={styles.pricing}>
-              {plan.price(period)}
+              {plan.price(period, isPage)}
               <p className={styles.tagline}>{plan.tagline}</p>
             </div>
           </div>
@@ -233,12 +259,37 @@ function PlanCard({ plan, period, delay }: { plan: Plan; period: Period; delay: 
             </li>
           ))}
         </ul>
+        {isPage && (
+          <p className={styles.audience}>
+            <img src="/assets/pricing/asterisk.svg" width={24} height={24} alt="" className={styles.asterisk} />
+            <span>{plan.audience}</span>
+          </p>
+        )}
       </motion.article>
     </Reveal>
   )
 }
 
-function BillingToggle({ period, onChange }: { period: Period; onChange: (period: Period) => void }) {
+/** The plan cards in a row (all four by default; 2×2 on tablets, two per row on phones). */
+export function PlanGrid({
+  period,
+  variant = 'home',
+  items = plans,
+}: {
+  period: Period
+  variant?: 'home' | 'page'
+  items?: Plan[]
+}) {
+  return (
+    <div className={[styles.cards, variant === 'page' && styles.cardsPage].filter(Boolean).join(' ')}>
+      {items.map((plan, i) => (
+        <PlanCard key={plan.name} plan={plan} period={period} delay={i * 0.06} variant={variant} />
+      ))}
+    </div>
+  )
+}
+
+export function BillingToggle({ period, onChange }: { period: Period; onChange: (period: Period) => void }) {
   const isStatic = useStaticMotion()
 
   return (
@@ -300,11 +351,7 @@ export default function Pricing() {
           <BillingToggle period={period} onChange={setPeriod} />
         </Reveal>
 
-        <div className={styles.cards}>
-          {plans.map((plan, i) => (
-            <PlanCard key={plan.name} plan={plan} period={period} delay={i * 0.06} />
-          ))}
-        </div>
+        <PlanGrid period={period} />
       </div>
     </section>
   )

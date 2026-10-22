@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
+import { usePathname } from 'next/navigation'
 import { Button } from '../components/Button'
 import { useCaptureMode } from '../lib/motion'
 import { MobileMenu } from './MobileMenu'
@@ -75,6 +76,7 @@ function useNavMenus() {
 
 export default function Nav() {
   const isCaptureMode = useCaptureMode()
+  const onPricing = usePathname() === '/pricing'
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const { menu, controls, closeAll } = useNavMenus()
@@ -143,14 +145,14 @@ export default function Nav() {
   return (
     <header ref={headerRef} id="nav" data-section="nav" className={classes}>
       <div className={styles.inner}>
-        <a href="#top" className={styles.logo} aria-label="Plexo, back to top">
+        <a href="/#top" className={styles.logo} aria-label="Plexo, back to top">
           <img src="/assets/v2/icons/logo-light.svg" width={123.26} height={32} alt="" />
         </a>
 
         <nav ref={desktopNavRef} className={styles.links} aria-label="Primary">
           <ul className={styles.list}>
             <li>
-              <a href="#pricing" className={styles.link}>
+              <a href="/pricing" className={styles.link} aria-current={onPricing ? 'page' : undefined}>
                 Pricing
               </a>
             </li>
@@ -169,19 +171,19 @@ export default function Nav() {
               onNavigate={closeAll}
             />
             <li>
-              <a href="#developers" className={styles.link}>
+              <a href="/#developers" className={styles.link}>
                 Resources
               </a>
             </li>
           </ul>
         </nav>
 
-        <Button href="#start" className={styles.cta}>
+        <Button href="/#start" className={styles.cta}>
           Start free
         </Button>
 
         <div className={styles.mobileActions}>
-          <Button href="#start" size="small" className={styles.mobileCta} onClick={close}>
+          <Button href="/#start" size="small" className={styles.mobileCta} onClick={close}>
             Start free
           </Button>
           <button

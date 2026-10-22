@@ -380,3 +380,31 @@
     height: 48px;
   }
 }
+
+/* Card variant (For You hero, 571:12873): 696×143, #fcfcfa, 1px #bebeba, padding 24/32, r16. */
+.card {
+  max-width: 696px;
+}
+
+.card .box {
+  height: 143px;
+  border: 1px solid #bebeba;
+  box-shadow: 0 12px 40px rgb(13 26 3 / 0.18);
+}
+
+.card .box:hover {
+  border-color: var(--ink-300);
+}
+
+.card .box:focus-within {
+  border-color: var(--lime-pressed);
+  box-shadow:
+    0 0 0 4px rgb(184 243 74 / 0.24),
+    0 12px 40px rgb(13 26 3 / 0.18);
+}
+
+@media (max-width: 767px) {
+  .card .box {
+    height: 120px;
+  }
+}

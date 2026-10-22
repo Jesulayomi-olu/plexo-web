@@ -1,0 +1,234 @@
+/* Figma "Frame 2147239176" (571:11308): 1440×546, white, padding 60/40/40. */
+.heroSection {
+  background: var(--white);
+  padding: 60px 40px 40px;
+}
+
+/* "Pricing Hero": #1d3509, r40, 446 tall, clipped, with a fine grain. */
+.hero {
+  position: relative;
+  max-width: 1360px;
+  min-height: 446px;
+  margin-inline: auto;
+  padding: 137px 40px 74px;
+  border-radius: 40px;
+  background: var(--forest);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.18;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.corner {
+  position: absolute;
+  width: 137px;
+  height: 137px;
+  pointer-events: none;
+}
+
+.corner img {
+  width: 137px;
+  height: 137px;
+}
+
+.cornerStart {
+  top: 0;
+  left: 0;
+}
+
+/* Figma rotates the bottom-right mark 180° (the export is unrotated). */
+.cornerEnd {
+  right: 0;
+  bottom: 0;
+}
+
+.cornerEnd img {
+  transform: rotate(180deg);
+}
+
+/* Column, gap 79: copy (601 wide) · billing toggle. */
+.heroContent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 79px;
+  max-width: 601px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.heroCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* desktop/heading/h2/semibold: 600 48/52.8, −1.2, white. */
+.heroTitle {
+  font-size: 48px;
+  line-height: 52.8px;
+  font-weight: 600;
+  letter-spacing: -1.2px;
+  color: var(--white);
+}
+
+/* desktop/body/md/regular, #fcfcfa. */
+.heroLead {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--surface-50);
+}
+
+/* "Monthly · toggle · Yearly (2 months Free)": gap 8, bottom aligned, #e8e8e4. */
+.billing {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  color: var(--surface-200);
+}
+
+.billingLabel {
+  font-size: 16px;
+  line-height: 17.6px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color 160ms ease;
+}
+
+.billingLabel:hover {
+  color: var(--white);
+}
+
+.billingLabel:focus-visible {
+  border-radius: 4px;
+}
+
+.billingNote {
+  font-size: 14px;
+  line-height: 15.4px;
+  font-weight: 400;
+}
+
+.switch {
+  position: relative;
+  flex: none;
+  width: 36px;
+  height: 20px;
+  padding: 2px;
+  border-radius: 10px;
+  background: var(--surface-100);
+  transition: background-color 200ms ease;
+}
+
+.switch:focus-visible {
+  border-radius: 10px;
+}
+
+.switchOn {
+  background: var(--lime);
+}
+
+.knob {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow:
+    0 1px 2px rgba(10, 13, 18, 0.06),
+    0 1px 3px rgba(10, 13, 18, 0.1);
+}
+
+/* Figma "Pricing" (571:11323): white, padding 40/80; heading · 64 · cards. */
+.plans {
+  background: var(--white);
+  padding-block: 40px;
+}
+
+.plansInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+}
+
+.plansTitle {
+  text-align: center;
+}
+
+@media (max-width: 1199px) {
+  .heroSection {
+    padding: 40px var(--gutter) 32px;
+  }
+
+  .hero {
+    padding-top: 120px;
+  }
+}
+
+@media (max-width: 767px) {
+  .heroSection {
+    padding: 16px var(--gutter) 24px;
+  }
+
+  .hero {
+    min-height: 0;
+    padding: 96px 20px 88px;
+    border-radius: 24px;
+  }
+
+  .corner,
+  .corner img {
+    width: 72px;
+    height: 72px;
+  }
+
+  .heroContent {
+    gap: 40px;
+  }
+
+  .heroCopy {
+    gap: 16px;
+  }
+
+  /* mobile heading/h2 → 32/36.8 */
+  .heroTitle {
+    font-size: 32px;
+    line-height: 36.8px;
+    letter-spacing: -0.7px;
+  }
+
+  .heroLead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .billingLabel {
+    font-size: 14px;
+    line-height: 15.4px;
+  }
+
+  .billingNote {
+    font-size: 12px;
+    line-height: 13.2px;
+  }
+
+  .plans {
+    padding-block: 40px 24px;
+  }
+
+  .plansInner {
+    gap: 32px;
+  }
+}

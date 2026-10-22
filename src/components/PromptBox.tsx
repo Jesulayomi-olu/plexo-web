@@ -13,11 +13,15 @@ import styles from './PromptBox.module.css'
  * - "default": final CTA "Frame 71" (532:25042) — the 792×89 one-line box ("Frame 5") + helper row.
  * - "hero": hero "Frame 2147239234" (532:24028) — the 993×238 box on the dark hero, a multi-line
  *   prompt area (one line on phones), with a light helper row.
+ * - "card": For You hero (571:12873) — the hero box at 696×143 with a 1px #bebeba stroke, laid over a
+ *   photo, with no helper row.
  * Phones: the helper row keeps only "Start with a template →" and the trial note, side by side.
  */
 type PromptBoxProps = {
   className?: string
-  variant?: 'default' | 'hero'
+  variant?: 'default' | 'hero' | 'card'
+  /** Static placeholder (also the reduced-motion text). */
+  placeholder?: string
   /**
    * Typewriter placeholder: types each prompt, holds, deletes, types the next. Stops while the field
    * is focused or filled. Static (Figma placeholder) for reduced motion and capture mode.
@@ -44,7 +48,13 @@ function ArrowIcon() {
   )
 }
 
-export function PromptBox({ className, variant = 'default', typingPrompts, typingDelay = 600 }: PromptBoxProps) {
+export function PromptBox({
+  className,
+  variant = 'default',
+  placeholder = PLACEHOLDER,
+  typingPrompts,
+  typingDelay = 600,
+}: PromptBoxProps) {
   const uid = useId()
   const inputId = `${uid}-prompt`
   const isStatic = useStaticMotion()
@@ -57,7 +67,9 @@ export function PromptBox({ className, variant = 'default', typingPrompts, typin
     startDelay: typingDelay,
   })
   const showTyping = typing && !focused && value === ''
-  const hero = variant === 'hero'
+  const card = variant === 'card'
+  // The card is the hero box resized, so it shares the hero styles.
+  const hero = variant === 'hero' || card
   const phone = useMediaQuery('(max-width: 767px)')
   // The hero prompt is a multi-line area on larger screens and a single line on phones.
   const multiline = hero && !phone
@@ -83,7 +95,7 @@ export function PromptBox({ className, variant = 'default', typingPrompts, typin
     id: inputId,
     name: 'prompt',
     className: styles.input,
-    placeholder: typing ? '' : PLACEHOLDER,
+    placeholder: typing ? '' : placeholder,
     autoComplete: 'off',
     value,
     onFocus: () => setFocused(true),
@@ -91,7 +103,7 @@ export function PromptBox({ className, variant = 'default', typingPrompts, typin
   }
 
   return (
-    <div className={[styles.root, hero && styles.hero, className].filter(Boolean).join(' ')}>
+    <div className={[styles.root, hero && styles.hero, card && styles.card, className].filter(Boolean).join(' ')}>
       <form ref={boxRef} className={styles.box} onSubmit={handleSubmit}>
         <button type="button" className={styles.attach} aria-label="Attach a file">
           <svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true">
@@ -130,19 +142,21 @@ export function PromptBox({ className, variant = 'default', typingPrompts, typin
           Build it
         </Button>
       </form>
-      <div className={styles.meta}>
-        <p className={styles.hint}>
-          <span className={styles.hintLead}>Prefer to design with existing templates? </span>
-          <a href="#templates" className={styles.hintLink}>
-            Start with a{' '}
-            <span className={styles.nowrap}>
-              template
-              <ArrowIcon />
-            </span>
-          </a>
-        </p>
-        <p className={styles.trial}>{' Free for 14 days. No card.'}</p>
-      </div>
+      {!card && (
+        <div className={styles.meta}>
+          <p className={styles.hint}>
+            <span className={styles.hintLead}>Prefer to design with existing templates? </span>
+            <a href="#templates" className={styles.hintLink}>
+              Start with a{' '}
+              <span className={styles.nowrap}>
+                template
+                <ArrowIcon />
+              </span>
+            </a>
+          </p>
+          <p className={styles.trial}>{' Free for 14 days. No card.'}</p>
+        </div>
+      )}
     </div>
   )
 }

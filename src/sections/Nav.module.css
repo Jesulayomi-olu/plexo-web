@@ -93,7 +93,8 @@
 }
 
 /* A menu trigger while its menu is open: lime, chevron pointing up. */
-.link[aria-expanded='true'] {
+.link[aria-expanded='true'],
+.link[aria-current='page'] {
   color: var(--lime);
 }
 

@@ -34,7 +34,7 @@ type Story = {
 }
 
 // The design repeats the same story.
-const stories: Story[] = Array.from({ length: 2 }, () => ({
+export const stories: Story[] = Array.from({ length: 2 }, () => ({
   prompt:
     'Create a welcoming website for Helimax, an agricultural business. Use lush farm photography, fresh produce imagery, green accents and a clean, modern layout. Include a strong hero, an overview of our operations, consultation services, a product shop, an FAQ and contact details. Make it easy for visitors to explore our produce, learn about our services and get in touch. Ensure the website is responsive and accessible.',
   quote: 'With Plexo, I was able to bring my ideas to life and get my business online without all the stress.',
@@ -58,6 +58,69 @@ function Arrow({ dir }: { dir: 'left' | 'right' }) {
         strokeLinejoin="round"
       />
     </svg>
+  )
+}
+
+/**
+ * One story card: quote, "View Prompt" and author on the left, the site's screenshot on the right.
+ * `label` makes it a carousel slide ("1 of 2"); without it the card stands alone.
+ */
+export function StoryCard({
+  story,
+  label,
+  open,
+  onShowPrompt,
+  onClosePrompt,
+}: {
+  story: Story
+  label?: string
+  open: boolean
+  onShowPrompt: () => void
+  onClosePrompt: () => void
+}) {
+  const isStatic = useStaticMotion()
+
+  return (
+    <motion.figure
+      data-slide
+      className={styles.card}
+      aria-roledescription={label ? 'slide' : undefined}
+      aria-label={label}
+      whileHover={isStatic || open ? undefined : { y: -3 }}
+      transition={softSpring}
+    >
+      <figcaption className={styles.content}>
+        <div className={styles.top}>
+          <blockquote className={styles.quote}>
+            <p>{story.quote}</p>
+          </blockquote>
+          <Button
+            variant="outline"
+            size="small"
+            className={styles.viewPrompt}
+            aria-haspopup="dialog"
+            aria-expanded={open}
+            onClick={onShowPrompt}
+          >
+            View Prompt
+          </Button>
+        </div>
+        <span className={styles.author}>
+          <span className={styles.avatar}>
+            <img src={story.avatar} width={28} height={30} alt="" loading="lazy" decoding="async" />
+          </span>
+          <span className={styles.who}>
+            <span className={styles.name}>{story.name}</span>
+            <span className={styles.role}>{story.role}</span>
+          </span>
+        </span>
+      </figcaption>
+      <picture className={styles.site}>
+        <source media="(max-width: 767px)" srcSet={story.siteWide} width={800} height={431} />
+        <img src={story.site} width={365} height={426} alt={story.siteAlt} loading="lazy" decoding="async" />
+      </picture>
+      <PromptModal open={open} prompt={story.prompt} onClose={onClosePrompt} />
+    </motion.figure>
   )
 }
 
@@ -125,46 +188,13 @@ export default function SocialProof() {
         >
           {stories.map((story, i) => (
             <Reveal key={i} delay={0.06 * i} className={styles.slide}>
-              <motion.figure
-                data-slide
-                className={styles.card}
-                aria-roledescription="slide"
-                aria-label={`${i + 1} of ${stories.length}`}
-                whileHover={isStatic || openPrompt === i ? undefined : { y: -3 }}
-                transition={softSpring}
-              >
-                <figcaption className={styles.content}>
-                  <div className={styles.top}>
-                    <blockquote className={styles.quote}>
-                      <p>{story.quote}</p>
-                    </blockquote>
-                    <Button
-                      variant="outline"
-                      size="small"
-                      className={styles.viewPrompt}
-                      aria-haspopup="dialog"
-                      aria-expanded={openPrompt === i}
-                      onClick={() => showPrompt(i)}
-                    >
-                      View Prompt
-                    </Button>
-                  </div>
-                  <span className={styles.author}>
-                    <span className={styles.avatar}>
-                      <img src={story.avatar} width={28} height={30} alt="" loading="lazy" decoding="async" />
-                    </span>
-                    <span className={styles.who}>
-                      <span className={styles.name}>{story.name}</span>
-                      <span className={styles.role}>{story.role}</span>
-                    </span>
-                  </span>
-                </figcaption>
-                <picture className={styles.site}>
-                  <source media="(max-width: 767px)" srcSet={story.siteWide} width={800} height={431} />
-                  <img src={story.site} width={365} height={426} alt={story.siteAlt} loading="lazy" decoding="async" />
-                </picture>
-                <PromptModal open={openPrompt === i} prompt={story.prompt} onClose={closePrompt} />
-              </motion.figure>
+              <StoryCard
+                story={story}
+                label={`${i + 1} of ${stories.length}`}
+                open={openPrompt === i}
+                onShowPrompt={() => showPrompt(i)}
+                onClosePrompt={closePrompt}
+              />
             </Reveal>
           ))}
         </div>

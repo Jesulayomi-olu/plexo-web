@@ -17,36 +17,36 @@ const columns = [
   {
     title: 'Home',
     links: [
-      { label: 'Pricing', href: '#pricing' },
-      { label: 'Features', href: '#features' },
-      { label: 'For you', href: '#for-you' },
-      { label: 'Resources', href: '#developers' },
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'Features', href: '/#features' },
+      { label: 'For you', href: '/#for-you' },
+      { label: 'Resources', href: '/#developers' },
     ],
   },
   {
     title: 'Solutions',
     links: [
-      { label: 'Small Business', href: '#for-you' },
-      { label: 'Product teams', href: '#for-you' },
-      { label: 'Founders', href: '#for-you' },
-      { label: 'Coaches', href: '#for-you' },
+      { label: 'Small Business', href: '/for-you/small-business' },
+      { label: 'Product teams', href: '/#for-you' },
+      { label: 'Founders', href: '/for-you/founders' },
+      { label: 'Coaches', href: '/for-you/coaches' },
     ],
   },
   {
     title: 'Developers',
     links: [
-      { label: 'Developers Hub', href: '#developers' },
-      { label: 'SDK Reference', href: '#developers' },
-      { label: 'MCP Setup Guide', href: '#mcp' },
-      { label: 'API &Webhooks', href: '#developers' },
+      { label: 'Developers Hub', href: '/#developers' },
+      { label: 'SDK Reference', href: '/#developers' },
+      { label: 'MCP Setup Guide', href: '/#mcp' },
+      { label: 'API &Webhooks', href: '/#developers' },
     ],
   },
   {
     title: 'Resources',
     links: [
-      { label: 'Documentation', href: '#developers' },
-      { label: 'FAQ', href: '#faq' },
-      { label: 'Blog', href: '#top' },
+      { label: 'Documentation', href: '/#developers' },
+      { label: 'FAQ', href: '/#faq' },
+      { label: 'Blog', href: '/#top' },
     ],
   },
 ] as const

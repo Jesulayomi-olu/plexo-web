@@ -1,0 +1,144 @@
+/* Figma "Hero" (571:12848): white, padding 100/80. */
+.hero {
+  background: var(--white);
+  padding-block: 100px;
+}
+
+/* "Frame 2147239200": column, gap 40, centred. */
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Copy: 950 wide, tag · 8 · title · 24 · lead. */
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 950px;
+  text-align: center;
+}
+
+/* Tag pill: #e8e8e4, r100, padding 6/12; 400 10/12, −0.05, black. */
+.tag {
+  margin-bottom: 8px;
+  padding: 6px 12px;
+  border-radius: 100px;
+  background: var(--surface-200);
+  font-size: 10px;
+  line-height: 12px;
+  letter-spacing: -0.05px;
+  color: #000000;
+}
+
+/* 600 64/70.4, −3.2, #232323; up to 934 wide. */
+.title {
+  max-width: 934px;
+  font-size: 64px;
+  line-height: 70.4px;
+  font-weight: 600;
+  letter-spacing: -3.2px;
+  color: var(--ink-800);
+}
+
+.lead {
+  margin-top: 24px;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-800);
+}
+
+/* 1280×446: the photo frame with the prompt box over it. */
+.stage {
+  position: relative;
+  width: 100%;
+  height: 446px;
+}
+
+/* "Pricing Hero": r40, clipped, the whole frame blurred 2.35px (so its edges soften too). */
+.frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 40px;
+  filter: blur(2.35px);
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tint {
+  position: absolute;
+  inset: 0;
+  border-radius: 40px;
+  background: rgb(29 53 9 / 0.24);
+  pointer-events: none;
+}
+
+.promptSlot {
+  position: absolute;
+  top: 185px;
+  left: 50%;
+  width: 696px;
+  max-width: calc(100% - 48px);
+  translate: -50% 0;
+}
+
+@media (max-width: 1199px) {
+  .title {
+    font-size: 52px;
+    line-height: 57.2px;
+    letter-spacing: -2.4px;
+  }
+
+  .stage {
+    height: 400px;
+  }
+
+  .promptSlot {
+    top: 50%;
+    translate: -50% -50%;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    padding-block: 48px 40px;
+  }
+
+  .inner {
+    gap: 28px;
+  }
+
+  /* mobile heading/h1 → 36/39.6 */
+  .title {
+    font-size: 36px;
+    line-height: 39.6px;
+    letter-spacing: -1.2px;
+  }
+
+  .lead {
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .stage {
+    height: 320px;
+  }
+
+  .frame,
+  .tint {
+    border-radius: 24px;
+  }
+
+  .promptSlot {
+    max-width: calc(100% - 24px);
+  }
+}

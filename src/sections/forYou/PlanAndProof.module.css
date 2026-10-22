@@ -1,0 +1,53 @@
+/* Figma "Pricing" (571:12947) and "Social proof" (571:12972): white, padding 80, column gap 40. */
+.plans,
+.proof {
+  background: var(--white);
+  padding-block: 80px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  text-align: center;
+}
+
+/* Monthly / Yearly toggle with the "2 months free" note: 286.5×33. */
+.toggleWrap {
+  width: 286.5px;
+  height: 33px;
+  text-align: left;
+}
+
+/* Pro and Enterprise share the 1280 row (628 each). */
+.cards {
+  width: 100%;
+  text-align: left;
+}
+
+/* The 712-wide story card, centred. */
+.story {
+  width: 712px;
+  max-width: 100%;
+  text-align: left;
+}
+
+@media (max-width: 767px) {
+  .plans,
+  .proof {
+    padding-block: 48px;
+  }
+
+  .inner {
+    gap: 28px;
+  }
+}
+
+/* The two cards hug their content (the Pro list can wrap a line), 489 at least as in Figma. */
+@media (min-width: 768px) {
+  .cards > * {
+    height: auto;
+    min-height: 489px;
+  }
+}

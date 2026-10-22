@@ -124,3 +124,24 @@
 .small .label {
   transform: translateY(0.5px); /* Figma centres the 13.2px label half a pixel lower */
 }
+
+/* Size=Large at every width: 48px, padding 0 24, label 600 16/17.6. */
+.button.large {
+  height: 48px;
+  padding: 0 24px;
+  font-size: 16px;
+  line-height: 17.6px;
+}
+
+/* "Trailing icon": 20px, 8 after the label. */
+.trailing {
+  display: flex;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  transition: transform 200ms var(--ease-out);
+}
+
+.button:hover .trailing {
+  transform: translateX(3px);
+}
