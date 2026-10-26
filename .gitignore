@@ -31,3 +31,8 @@ next-env.d.ts
 
 # Cloudflare
 .wrangler
+
+# Local env
+.env
+.env.local
+.env*.local

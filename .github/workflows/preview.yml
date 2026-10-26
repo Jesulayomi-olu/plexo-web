@@ -1,0 +1,56 @@
+name: Preview | Pull Request
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+      pull-requests: write
+    name: Preview to Cloudflare Pages
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        env:
+          AWS_REGION: us-east-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          PLEXO_CONTENT_TABLE: plexo-content
+        run: npm run build
+
+      - name: Publish Preview to Cloudflare Pages
+        id: cf_action
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: plexo-marketing
+          directory: out
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add comment to PR
+        uses: mshick/add-pr-comment@v2
+        with:
+          allow-repeats: true
+          refresh-message-position: true
+          message: |
+            Preview app link 👇
+            ${{ steps.cf_action.outputs.url }}
+            has been deployed to `${{ steps.cf_action.outputs.environment }}` environment.
+            _Happy testing_ 🍻
