@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import { JetBrains_Mono, Plus_Jakarta_Sans } from 'next/font/google'
 import Providers from './providers'
+import Analytics from './Analytics'
+import { SITE_URL } from '../lib/site'
 import '../index.css'
 
 const jakarta = Plus_Jakarta_Sans({
@@ -17,6 +19,7 @@ const mono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: 'Plexo — What are we building today?',
   description: 'Plexo. Describe it or drag and drop it. Either way, you get a site that brings in customers.',
   icons: { icon: { url: '/favicon.svg', type: 'image/svg+xml' } },
@@ -32,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${jakarta.variable} ${mono.variable}`}>
       <body>
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   )
