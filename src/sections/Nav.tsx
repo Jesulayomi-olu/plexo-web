@@ -178,12 +178,12 @@ export default function Nav() {
           </ul>
         </nav>
 
-        <Button href="/#start" className={styles.cta}>
+        <Button href="https://plexo.charisol.io" className={styles.cta}>
           Start free
         </Button>
 
         <div className={styles.mobileActions}>
-          <Button href="/#start" size="small" className={styles.mobileCta} onClick={close}>
+          <Button href="https://plexo.charisol.io" size="small" className={styles.mobileCta} onClick={close}>
             Start free
           </Button>
           <button

@@ -115,7 +115,7 @@ export function MobileMenu({ id, onNavigate }: Props) {
         </ul>
       </nav>
       <div className={styles.footer}>
-        <Button href="/#start" size="small" fullWidth onClick={onNavigate}>
+        <Button href="https://plexo.charisol.io" size="small" fullWidth onClick={onNavigate}>
           Start free
         </Button>
       </div>

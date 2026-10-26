@@ -29,7 +29,7 @@ export default function PricingCta({
           <p className={styles.sub}>{sub}</p>
         </Reveal>
         <Reveal delay={0.18}>
-          <Button href="/#start">Start Free</Button>
+          <Button href="https://plexo.charisol.io">Start Free</Button>
         </Reveal>
       </div>
     </section>

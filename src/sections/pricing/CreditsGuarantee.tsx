@@ -125,7 +125,7 @@ export default function CreditsGuarantee() {
           </div>
           <Reveal delay={0.2}>
             <Button
-              href="/#start"
+              href="https://plexo.charisol.io"
               size="large"
               trailingIcon={<img src="/assets/pricing/arrow-right.svg" width={20} height={20} alt="" />}
             >
