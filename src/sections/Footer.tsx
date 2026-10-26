@@ -46,7 +46,7 @@ const columns = [
     links: [
       { label: 'Documentation', href: '/#developers' },
       { label: 'FAQ', href: '/#faq' },
-      { label: 'Blog', href: '/#top' },
+      { label: 'Blog', href: '/blog' },
     ],
   },
 ] as const
