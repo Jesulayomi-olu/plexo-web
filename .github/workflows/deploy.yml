@@ -40,6 +40,11 @@ jobs:
           PLEXO_CONTENT_TABLE: plexo-content
         run: npm run build
 
+      - name: Print Cloudflare Account ID
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: echo "Account ID = $CLOUDFLARE_ACCOUNT_ID"
+
       - name: Deploy to Cloudflare Pages
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
