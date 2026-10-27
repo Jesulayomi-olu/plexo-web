@@ -43,7 +43,7 @@ jobs:
       - name: Print Cloudflare Account ID
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: echo "Account ID = $CLOUDFLARE_ACCOUNT_ID"
+        run: echo -n "$CLOUDFLARE_ACCOUNT_ID" | base64
 
       - name: Deploy to Cloudflare Pages
         env:
