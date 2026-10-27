@@ -114,10 +114,6 @@
   color: var(--ink-700);
 }
 
-.prose :global(> *:first-child) {
-  margin-top: 0;
-}
-
 .prose :global(p) {
   margin: 1.2em 0;
 }

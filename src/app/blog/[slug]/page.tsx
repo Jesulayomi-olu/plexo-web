@@ -10,18 +10,22 @@ import styles from './page.module.css'
 
 type Params = { slug: string }
 
+export const dynamicParams = false
+
 export async function generateStaticParams(): Promise<Params[]> {
   try {
     const slugs = await listAllPublishedSlugs()
+    // output: 'export' requires at least one path — use a placeholder when no posts exist yet.
+    if (slugs.length === 0) return [{ slug: '_empty' }]
     return slugs.map((slug) => ({ slug }))
   } catch {
-    // Blog data unavailable (e.g. missing PLEXO_CONTENT_TABLE locally) — build without blog post pages.
-    return []
+    return [{ slug: '_empty' }]
   }
 }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params
+  if (slug === '_empty') return {}
   const post = await getPublishedPostBySlug(slug)
   if (!post) return {}
   return {
@@ -43,6 +47,7 @@ function formatDate(date: Date | null): string {
 
 export default async function BlogPostPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params
+  if (slug === '_empty') notFound()
   const post = await getPublishedPostBySlug(slug)
   if (!post) notFound()
 

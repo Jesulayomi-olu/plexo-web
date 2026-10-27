@@ -3,6 +3,8 @@ import { audiences } from '../sections/forYou/audiences'
 import { SITE_URL } from '../lib/site'
 import { listAllPublishedSlugs } from '../lib/blogQueries'
 
+export const dynamic = 'force-static'
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let blogSlugs: string[] = []
   try {
