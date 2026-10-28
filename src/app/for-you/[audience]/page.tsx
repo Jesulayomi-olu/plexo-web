@@ -8,6 +8,7 @@ import { AudienceProof, RecommendedPlan } from '../../../sections/forYou/PlanAnd
 import { audienceById, audiences } from '../../../sections/forYou/audiences'
 import PricingCta from '../../../sections/pricing/PricingCta'
 import Footer from '../../../sections/Footer'
+import { pageMetadata } from '../../../lib/metadata'
 
 type Props = { params: Promise<{ audience: string }> }
 
@@ -19,12 +20,14 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const audience = audienceById((await params).audience)
+  const { audience: audienceId } = await params
+  const audience = audienceById(audienceId)
   if (!audience) return {}
-  return {
-    title: `Plexo for ${audience.name}`,
-    description: `${audience.hero.title} ${audience.hero.lead}`,
-  }
+  return pageMetadata(
+    `Plexo for ${audience.name}`,
+    `${audience.hero.title} ${audience.hero.lead}`,
+    `/for-you/${audienceId}`,
+  )
 }
 
 // Section order follows Figma "For Founders" (571:12846) → "Main".

@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import Nav from '../../sections/Nav'
 import Footer from '../../sections/Footer'
@@ -7,12 +6,13 @@ import { Reveal } from '../../components/Reveal'
 import { listPublishedPosts } from '../../lib/blogQueries'
 import type { BlogPostCard } from '../../lib/blogQueries'
 import styles from './page.module.css'
+import { pageMetadata } from '../../lib/metadata'
 
-export const metadata: Metadata = {
-  title: 'Blog — Plexo',
-  description:
-    'Product updates, guides, and stories from the team building Plexo — the simple, user-friendly website builder.',
-}
+export const metadata = pageMetadata(
+  'Blog — Plexo',
+  'Product updates, guides, and stories from the team building Plexo — the simple, user-friendly website builder.',
+  '/blog',
+)
 
 function formatDate(date: Date | null): string {
   if (!date) return ''
