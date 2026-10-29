@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation'
 import Nav from '../../../sections/Nav'
 import Footer from '../../../sections/Footer'
 import { BlurIn } from '../../../components/BlurIn'
-import { Reveal } from '../../../components/Reveal'
 import { getPublishedPostBySlug, listAllPublishedSlugs } from '../../../lib/blogQueries'
 import styles from './page.module.css'
 
@@ -103,21 +102,19 @@ export default async function BlogPostPage({ params }: { params: Promise<Params>
 
         <div className={styles.articleWrap}>
           <div className="container">
-            <Reveal>
-              <article className={styles.articleInner}>
-                {post.featuredImageUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={post.featuredImageUrl}
-                    alt={post.featuredImageAlt ?? ''}
-                    className={styles.featuredImage}
-                  />
-                ) : null}
-                {/* contentHtml is sanitized at write time in plexo-web — lib/blog/sanitize.ts */}
-                {/* eslint-disable-next-line react/no-danger */}
-                <div className={styles.prose} dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
-              </article>
-            </Reveal>
+            <article className={styles.articleInner}>
+              {post.featuredImageUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={post.featuredImageUrl}
+                  alt={post.featuredImageAlt ?? ''}
+                  className={styles.featuredImage}
+                />
+              ) : null}
+              {/* contentHtml is sanitized at write time in plexo-web — lib/blog/sanitize.ts */}
+              {/* eslint-disable-next-line react/no-danger */}
+              <div className={styles.prose} dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+            </article>
           </div>
         </div>
       </main>
