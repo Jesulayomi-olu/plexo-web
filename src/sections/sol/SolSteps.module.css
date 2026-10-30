@@ -1,0 +1,249 @@
+/*
+ * Figma "Solutions" (575:15516): 1440×598, #e8e8e4. The 467-tall row is centred in the frame (Figma's
+ * padding 80 is overrun), so it sits 65.5 from the top and bottom.
+ */
+.section {
+  background: var(--surface-200);
+  padding-block: 65.5px;
+}
+
+/* Row: heading (338) · 146 · the step column (fills the rest, 796). */
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 146px;
+}
+
+.headSlot {
+  flex: none;
+}
+
+/* desktop/heading/h2/semibold: 600 48/52.8, −1.2, centred; 1px lower, as Figma draws it. */
+.title {
+  position: relative;
+  top: 1px;
+  font-size: 48px;
+  line-height: 52.8px;
+  font-weight: 600;
+  letter-spacing: -1.2px;
+  color: var(--ink-800);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/*
+ * Build with Sol: Figma's heading box is 338 wide (its first line ends with a space), which sets the
+ * steps 146 after it; the lines themselves centre on the 329 of text.
+ */
+.sol .headSlot {
+  width: 338px;
+}
+
+.sol .title {
+  width: fit-content;
+}
+
+/* desktop/body/md/regular, #232323; 1px lower, as Figma draws it. */
+.lead {
+  position: relative;
+  top: 1px;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-800);
+}
+
+/*
+ * Design with a Drag (644:21503): a 493 column (gap 24, centred) beside the steps (641): the heading
+ * wraps to two lines, the lead is 408 wide.
+ */
+.drag .headSlot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 493px;
+  text-align: center;
+}
+
+.drag .title {
+  white-space: normal;
+}
+
+/* Two lines: Figma's box is 106 (2 × 52.8, rounded up), which sets the lead 24 below it. */
+@media (min-width: 1200px) {
+  .drag .title {
+    min-height: 106px;
+  }
+}
+
+/* On these frames' half-pixel rows Figma draws the card title 1px lower than Chrome, the line where Chrome does. */
+.drag .stepTitle,
+.mcp .stepTitle {
+  position: relative;
+  top: 1px;
+}
+
+.drag .stepBody {
+  top: 0;
+}
+
+.drag .lead {
+  width: 408px;
+  max-width: 100%;
+}
+
+/*
+ * MCP and API (669:28949): padding 100; a 288 column (the lead's width), left-aligned, gap 24. The
+ * heading's two lines are centred on each other in their own box ("Connect In " carries a space).
+ */
+.mcp {
+  padding-block: 100px;
+}
+
+.mcp .headSlot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 288px;
+}
+
+.mcp .title {
+  width: fit-content;
+  white-space: pre;
+}
+
+.mcp .lead {
+  white-space: nowrap;
+  color: var(--ink-700);
+}
+
+/* One line per card: 16 + 32 + 24 + 17.6 + 16, which Figma rounds to 106. */
+.mcp .step {
+  min-height: 106px;
+}
+
+.steps {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Card: white, r8, padding 16/12, column gap 24. */
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px 12px;
+  border-radius: 8px;
+  background: var(--white);
+}
+
+/* 32px #517a12 circle; the 20px icon sits half a pixel up-left of centre, as in Figma. */
+.badge {
+  position: relative;
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 32px;
+  background: var(--moss);
+}
+
+.iconFrame {
+  position: absolute;
+  left: 5.5px;
+  top: 5.5px;
+  width: 20px;
+  height: 20px;
+}
+
+.iconFrame img {
+  position: absolute;
+  max-width: none;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* desktop/label/lg/medium: 500 16/17.6, #121212. */
+.stepTitle {
+  font-size: 16px;
+  line-height: 17.6px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* desktop/label/md/regular: 400 14/15.4, #333332; 1px lower, as Figma draws it. */
+.stepBody {
+  position: relative;
+  top: 1px;
+  font-size: 14px;
+  line-height: 15.4px;
+  color: var(--ink-700);
+}
+
+@media (max-width: 1199px) {
+  .section {
+    padding-block: 64px;
+  }
+
+  .inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 40px;
+  }
+
+  .steps {
+    gap: 24px;
+  }
+
+  .drag .headSlot {
+    width: 100%;
+    max-width: 560px;
+    align-self: center;
+  }
+
+  .mcp .headSlot {
+    width: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: 48px;
+  }
+
+  .inner {
+    gap: 28px;
+  }
+
+  /* mobile heading/h2 → 32/36.8 */
+  .title {
+    font-size: 32px;
+    line-height: 36.8px;
+    letter-spacing: -0.7px;
+  }
+
+  .steps {
+    gap: 16px;
+  }
+
+  .drag .headSlot,
+  .mcp .headSlot {
+    gap: 16px;
+  }
+
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .mcp .lead {
+    white-space: normal;
+  }
+}

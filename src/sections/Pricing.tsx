@@ -23,7 +23,8 @@ const periods: { id: Period; label: string }[] = [
 
 export type Plan = {
   name: string
-  price: (period: Period, roll: boolean) => ReactNode
+  /** `onPage`: the pricing page's card (prices roll; Free Trial drops "for 14 days", Figma 571:11347). */
+  price: (period: Period, onPage: boolean) => ReactNode
   tagline: string
   cta: { label: string; variant: ButtonVariant; href?: string }
   features: string[]
@@ -158,10 +159,10 @@ function BillingPrice({
 export const plans: Plan[] = [
   {
     name: 'Free Trial',
-    price: () => (
+    price: (_period, onPage) => (
       <div className={`${styles.priceRow} ${styles.priceRowFixed}`}>
         <Amount w={54}>$0</Amount>
-        <Unit>for 14 days</Unit>
+        {!onPage && <Unit>for 14 days</Unit>}
       </div>
     ),
     tagline: 'Take it for a spin.',
@@ -172,8 +173,8 @@ export const plans: Plan[] = [
   },
   {
     name: 'Starter',
-    price: (period, roll) => (
-      <BillingPrice period={period} roll={roll} monthly={{ text: '$9', w: 49 }} yearly={{ text: '$7', w: 48 }} billed="Billed annually ($84/year)" />
+    price: (period, onPage) => (
+      <BillingPrice period={period} roll={onPage} monthly={{ text: '$9', w: 49 }} yearly={{ text: '$7', w: 48 }} billed="Billed annually ($84/year)" />
     ),
     tagline: 'Get online. Start selling.',
     cta: { label: 'Get started', variant: 'white', href: '/#top' },
@@ -182,8 +183,8 @@ export const plans: Plan[] = [
   },
   {
     name: 'Pro',
-    price: (period, roll) => (
-      <BillingPrice period={period} roll={roll} monthly={{ text: '$19', w: 65 }} yearly={{ text: '$15', w: 65 }} billed="Billed annually ($180/year)" />
+    price: (period, onPage) => (
+      <BillingPrice period={period} roll={onPage} monthly={{ text: '$19', w: 65 }} yearly={{ text: '$15', w: 65 }} billed="Billed annually ($180/year)" />
     ),
     tagline: 'Grow without limits.',
     cta: { label: 'Go Pro', variant: 'contrast', href: '/#top' },

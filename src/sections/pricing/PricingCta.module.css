@@ -12,8 +12,77 @@
   text-align: center;
 }
 
+/* Figma rounds the 52.8 heading box to 53 and draws the text 1px lower than Chrome. */
 .title {
+  position: relative;
+  top: 1px;
+  min-height: 53px;
   white-space: nowrap;
+}
+
+/* Build with Sol's "Start with a Prompt": Size=Large, 234 wide (575:15653). */
+.large {
+  min-width: 234px;
+}
+
+/*
+ * Left-aligned in a centred box of --box (it may run past it, as in Figma). Below 1024 the overhang would
+ * reach the window's edge, so the heading is centred and may wrap.
+ */
+@media (min-width: 1024px) {
+  .boxed {
+    width: var(--box);
+    text-align: left;
+  }
+}
+
+@media (max-width: 1023px) {
+  .title {
+    white-space: normal;
+    text-wrap: balance;
+  }
+}
+
+/* "Frame 83" (MCP and API): button and link in a row, gap 40, top-aligned. */
+.actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+/* Figma draws the button label 1px lower than Chrome. */
+.actions a > span {
+  position: relative;
+  top: 1px;
+}
+
+/* "Frame 17": padding 8/0; 500 14/21, −0.07, #1e1e1e, underlined. */
+.link {
+  display: block;
+  padding: 8px 0;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+  letter-spacing: -0.07px;
+  color: var(--ink-900);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color 160ms ease;
+}
+
+.link:hover {
+  color: var(--forest-pressed);
+}
+
+/* E-commerce (736:14656): the prompt box (792) 64 below the heading. */
+.withPrompt .inner {
+  gap: 64px;
+}
+
+.promptSlot {
+  width: 792px;
+  max-width: 100%;
 }
 
 /* 500 20/26, −0.4, #1d3509. */
@@ -35,6 +104,7 @@
   }
 
   .title {
+    min-height: 0;
     white-space: normal;
   }
 
@@ -42,5 +112,18 @@
     font-size: 16px;
     line-height: 22px;
     letter-spacing: -0.2px;
+  }
+
+  .actions {
+    gap: 24px;
+  }
+
+  .link {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .withPrompt .inner {
+    gap: 32px;
   }
 }

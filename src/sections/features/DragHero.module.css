@@ -1,0 +1,153 @@
+/* Figma "Hero" (644:21398): 1440×911, white, padding 80 (the 751-tall row). */
+.hero {
+  background: var(--white);
+  padding-block: 80px;
+}
+
+/* Row: the 408 column and the 872 panel, space-between, centred (together exactly 1280). */
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Narrower: the panel shrinks, keeping 40 from the column. */
+@media (max-width: 1439px) {
+  .inner {
+    gap: 40px;
+  }
+}
+
+/* "Frame 2147239316": 408 wide, column gap 40, centred. */
+.copy {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 408px;
+}
+
+/* Heading and lead: column gap 24, centred text. */
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+/* desktop/heading/h2/semibold: 600 48/52.8, −1.2; three lines 16 apart; 1px lower, as Figma draws it. */
+.title {
+  position: relative;
+  top: 1px;
+  font-size: 48px;
+  line-height: 52.8px;
+  font-weight: 600;
+  letter-spacing: -1.2px;
+  color: var(--ink-800);
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  white-space: pre;
+}
+
+/* desktop/body/md/regular, #232323, 286 wide (it ends with a space, which counts when centring). */
+.lead {
+  position: relative;
+  top: 1px;
+  width: 286px;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-800);
+}
+
+/* "Button / Build it": Size=Large, 196 wide; Figma draws its label 1px lower than Chrome. */
+.cta {
+  min-width: 196px;
+}
+
+.cta > span {
+  position: relative;
+  top: 1px;
+}
+
+/*
+ * "Frame 2147239335": 872×751, the "Background / Lines / Match screenshot" fill (#1b3d22, 45° #24512e
+ * hairlines 4px apart: Figma's 8px tile drawn at 4px); the editor (824×515) centred in it.
+ */
+.panel {
+  flex: 0 1 872px;
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 872 / 751;
+  background: #1b3d22 url('/assets/features/lines-tile.png') 0 0 / 4px 4px repeat;
+}
+
+.editor {
+  display: block;
+  width: 94.495%;
+  height: auto;
+}
+
+@media (max-width: 1023px) {
+  .inner {
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .panel {
+    flex: none;
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    padding-block: 48px 56px;
+  }
+
+  .inner {
+    gap: 40px;
+  }
+
+  .copy {
+    width: 100%;
+    gap: 32px;
+  }
+
+  .text {
+    gap: 16px;
+  }
+
+  /* mobile heading/h2 → 32/36.8 */
+  .title {
+    font-size: 32px;
+    line-height: 36.8px;
+    letter-spacing: -0.7px;
+  }
+
+  .lines {
+    gap: 4px;
+  }
+
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .panel {
+    aspect-ratio: 4 / 3;
+    width: calc(100% + var(--gutter) * 2);
+    margin-inline: calc(var(--gutter) * -1);
+  }
+
+  .editor {
+    width: 92%;
+  }
+}

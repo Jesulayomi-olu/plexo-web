@@ -127,6 +127,101 @@
   opacity: 1;
 }
 
+/*
+ * "Dropdown / Resources" (942:6996): 562 wide, white, 1px #d7d8d3, r16, padding 8, Figma's shadow (0 12 16,
+ * #121212 at 8%); a 293 column, 4 apart from the second, which takes the rest (247). It starts under the
+ * label, its item text lined up with it (21px in), moved left by --shift (set from NavMenu) only where it
+ * would otherwise run off the window.
+ */
+.resources {
+  left: calc(-21px - var(--shift, 0px));
+  width: 562px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 12px 16px rgb(18 18 18 / 0.08);
+}
+
+.columns {
+  display: flex;
+  gap: 4px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 293px;
+}
+
+.column + .column {
+  flex: 1 1 0;
+  width: auto;
+  min-width: 0;
+}
+
+/* "Item": padding 12, r12, column gap 2: title (600 14/15.4, #232323) and line (400 14/21, #5b5b58). */
+.resource {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px;
+  border-radius: 12px;
+  transition: background-color 140ms ease;
+}
+
+a.resource:hover,
+a.resource:focus-visible {
+  background: var(--surface-100);
+}
+
+.inactive {
+  cursor: default;
+}
+
+.itemTitle {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 15.4px;
+  font-weight: 600;
+  color: var(--ink-800);
+  white-space: nowrap;
+}
+
+.itemText {
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--ink-500);
+}
+
+/* "Footer": a 1px #d7d8d3 line above, padding 12/12/8; "All resources" 600 14 #517a12 with the arrow, gap 6. */
+.menuFoot {
+  display: flex;
+  padding: 12px 12px 8px;
+  border-top: 1px solid var(--line);
+}
+
+.allLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  line-height: 15.4px;
+  font-weight: 600;
+  color: var(--moss);
+}
+
+.allLink img {
+  transition: transform 200ms var(--ease-out);
+}
+
+.allLink:hover img {
+  transform: translateX(3px);
+}
+
+
 @media (prefers-reduced-motion: reduce) {
   .menu,
   .item[data-open] .menu {

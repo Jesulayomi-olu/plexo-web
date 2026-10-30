@@ -1,0 +1,275 @@
+/* "Made for you": white, column gap 40, centred. Padding 100 (drag) or 120 (email, e-commerce). */
+.section {
+  background: var(--white);
+  padding-block: 100px;
+}
+
+.ecommerce {
+  padding-block: 120px;
+}
+
+/* Email & Marketing (736:14851): 80 above, 120 below. */
+.email {
+  padding-block: 80px 120px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Heading block: 630 wide, column gap 24, centred; 1px lower, as Figma draws the text (see .baseline-fix). */
+.head {
+  position: relative;
+  top: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 630px;
+  max-width: 100%;
+  text-align: center;
+}
+
+/*
+ * desktop/heading/h3/semibold: 600 40/46, −1. Figma centres the text without the last glyph's tracking.
+ * Drawn where Chrome draws it (only the lead sits 1px lower here).
+ */
+.title {
+  padding-right: 1px;
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--ink-800);
+  text-wrap: balance;
+}
+
+/* desktop/heading/h2/semibold: 600 48/52.8, −1.2. */
+.email .title,
+.ecommerce .title {
+  padding-right: 1.2px;
+  font-size: 48px;
+  line-height: 52.8px;
+  letter-spacing: -1.2px;
+}
+
+.drag .head {
+  top: 0;
+}
+
+.drag .lead {
+  position: relative;
+  top: 1px;
+}
+
+/* desktop/body/md/regular, #232323, 408 wide. */
+.lead {
+  width: 408px;
+  max-width: 100%;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-800);
+}
+
+.grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+}
+
+.email .grid {
+  max-width: 1208px;
+}
+
+/*
+ * E-commerce bento: the tall card (290×512, centred in the 513 of rows) beside two rows of three. The
+ * rows are 240 at 1440 and grow when narrower cards need another line of copy.
+ */
+.ecommerce .grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: minmax(240px, auto) minmax(240px, auto);
+  gap: 33px 40px;
+}
+
+.ecommerce .card:first-child {
+  grid-row: 1 / span 2;
+  justify-content: center;
+  margin-block: 0.5px;
+}
+
+/* Card: padding 24/24/32, column gap 64; 240 tall (its content, or fixed in the 3 × 2 grids). */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  min-height: 240px;
+  padding: 24px 24px 32px;
+  border: 1px solid rgb(255 255 255 / 0.12);
+}
+
+.lime {
+  background: rgb(213 244 144 / 0.8);
+}
+
+.grey {
+  background: var(--surface-200);
+}
+
+.dark {
+  border-color: rgb(0 0 0 / 0.1);
+  background: var(--forest);
+}
+
+/* "Icon accent": 32, r5.33, #1d3509 (#bdf38d on the dark cards), 19.2px icon centred. */
+.iconTile {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 5.333px;
+  background: var(--forest);
+}
+
+.dark .iconTile {
+  background: #bdf38d;
+}
+
+.iconFrame {
+  position: relative;
+  width: 19.2px;
+  height: 19.2px;
+}
+
+.iconFrame img {
+  position: absolute;
+  max-width: none;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* desktop/heading/h6/semibold: 600 20/26, −0.4, #365811 (#e9f5c8 on dark). */
+.cardTitle {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: var(--green-text);
+}
+
+.dark .cardTitle {
+  color: #e9f5c8;
+}
+
+/*
+ * desktop/body/md/regular, #454543 (#f5f7ed on dark). Figma's text boxes are sometimes wider than the
+ * card's padding allows (331 or 355 in a 350, 326 or 240 column), so the copy may use the right-hand
+ * padding, as Figma's does ("Paystack, Flutterwave and cards"), but never runs past the card's edge.
+ */
+.body {
+  position: relative;
+  top: 1px;
+  width: var(--body-w);
+  max-width: calc(100% + 24px);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-600);
+}
+
+.dark .body {
+  color: var(--cream);
+}
+
+/* Figma's own line breaks, at its width only; narrower cards wrap the copy where it fits. */
+.break {
+  display: none;
+}
+
+@media (min-width: 1440px) {
+  .break {
+    display: inline;
+  }
+}
+
+@media (max-width: 1199px) {
+  .grid,
+  .ecommerce .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+    gap: 24px;
+  }
+
+  .ecommerce .card:first-child {
+    grid-row: auto;
+    justify-content: flex-start;
+    margin-block: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .section,
+  .email,
+  .ecommerce {
+    padding-block: 64px;
+  }
+
+  .inner {
+    gap: 32px;
+  }
+
+  .head {
+    gap: 16px;
+  }
+
+  /* mobile heading/h3 → 28/33.6 */
+  .title {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
+  }
+
+  /* mobile heading/h2 → 32/36.8 */
+  .email .title,
+  .ecommerce .title {
+    font-size: 32px;
+    line-height: 36.8px;
+    letter-spacing: -0.7px;
+  }
+
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .grid,
+  .ecommerce .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .card {
+    gap: 32px;
+    min-height: 0;
+    padding: 20px 20px 24px;
+  }
+
+  .cardTitle {
+    font-size: 18px;
+    line-height: 23.4px;
+    letter-spacing: -0.36px;
+    white-space: normal;
+  }
+
+  .body {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}

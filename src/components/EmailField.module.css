@@ -1,0 +1,73 @@
+/* "Email input": 320×50, white, 1px #d7d8d3, r12, padding 4 4 4 16; icon (16) · 8 · text, button at the end. */
+.field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 320px;
+  max-width: 100%;
+  padding: 4px 4px 4px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--white);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.field:focus-within {
+  border-color: var(--moss);
+}
+
+/* "Icon / mail": a 16px frame; the 14.67×12 artwork sits centred in it. */
+.mailIcon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+.mailIcon img {
+  width: 14.6668px;
+  height: 12px;
+  max-width: none;
+}
+
+/* Placeholder: desktop/body/sm/regular 400 14/21, #5b5b58. */
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--ink-800);
+}
+
+.input::placeholder {
+  color: var(--ink-500);
+  opacity: 1;
+}
+
+.input:focus,
+.input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+/* "Button / Subscribe": Secondary, Size=Medium (40 tall at every width), radius 8. */
+.field .subscribe {
+  flex: none;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 15.4px;
+}
+
+.field .subscribe:focus-visible {
+  border-radius: 8px;
+}

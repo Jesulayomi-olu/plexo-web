@@ -1,0 +1,223 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* "Featured story": #1d3509, r24, padding 24, gap 48, centred. */
+.featured {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  padding: 24px;
+  border-radius: 24px;
+  background: var(--forest);
+}
+
+/* 620×380, white, clipped (square corners in Figma). */
+.featuredShot {
+  flex: 0 1 620px;
+  min-width: 0;
+  height: 380px;
+  border-radius: 0;
+  background: var(--white);
+}
+
+/* "Text": 520, column gap 20. */
+.featuredText {
+  flex: 0 1 520px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* desktop/caption/medium: 500 12/15.6, #d7d8d3. */
+.featuredTag {
+  font-size: 12px;
+  line-height: 15.6px;
+  font-weight: 500;
+  color: var(--line);
+}
+
+/* 500 24/30, −0.48, white. */
+.featuredQuote {
+  margin: 0;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 500;
+  letter-spacing: -0.48px;
+  color: var(--white);
+}
+
+.featuredFoot {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* "Prompt": #f0f6df, r12, padding 16, gap 6. */
+.prompt {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--green-tint);
+}
+
+/* desktop/overline/spaced: 600 12/13.2, 0.24, #517a12. */
+.promptLabel {
+  font-size: 12px;
+  line-height: 13.2px;
+  font-weight: 600;
+  letter-spacing: 0.24px;
+  color: var(--moss);
+}
+
+/* desktop/body/md/medium: 500 16/24, #232323. */
+.promptText {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--ink-800);
+}
+
+.featuredRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* "Author": avatar (40) · 12 · name and role, centred. */
+.author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+/* desktop/label/md/semibold 600 14/15.4 and desktop/caption/regular 400 12/15.6; white on the featured card. */
+.name {
+  font-size: 14px;
+  line-height: 15.4px;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.role {
+  font-size: 12px;
+  line-height: 15.6px;
+  color: var(--white);
+}
+
+.dark {
+  color: var(--ink-800);
+}
+
+.subtle {
+  color: var(--ink-500);
+}
+
+/* "Read the story": Primary, a 16px arrow. */
+.cta {
+  flex: none;
+}
+
+.cta > span:last-child {
+  width: 16px;
+  height: 16px;
+}
+
+/* "Stories": 410 cards, gap 24. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 410px));
+  gap: 40px 24px;
+}
+
+/* "Story": white, 1px #d7d8d3, r16, padding 16, column gap 24. */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--white);
+}
+
+.shot {
+  height: 240px;
+}
+
+/* desktop/body/lg/regular: 400 18/27, #232323. */
+.quote {
+  margin: 0;
+  font-size: 18px;
+  line-height: 27px;
+  color: var(--ink-800);
+}
+
+@media (max-width: 1199px) {
+  .featured {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 28px;
+  }
+
+  .featuredShot {
+    flex: none;
+    height: 320px;
+  }
+
+  .featuredText {
+    flex: none;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .content {
+    gap: 32px;
+  }
+
+  .featured {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .featuredShot {
+    height: 220px;
+  }
+
+  .featuredQuote {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  .featuredRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .quote {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}

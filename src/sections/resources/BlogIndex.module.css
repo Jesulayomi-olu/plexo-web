@@ -1,0 +1,161 @@
+/* "Content": column gap 48 (the page section adds the padding). */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* "Featured article": white, 1px #d7d8d3, r24, padding 24, gap 40, centred. */
+.featured {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--white);
+}
+
+.featuredSlot {
+  flex: 1;
+  min-width: 0;
+  height: 360px;
+}
+
+/* "Text": 480 wide, column gap 20. */
+.featuredText {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  width: 480px;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+}
+
+/* desktop/heading/h5/semibold: 600 24/30, −0.48, #232323 (Figma's own line break). */
+.featuredTitle {
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 600;
+  letter-spacing: -0.48px;
+  color: var(--ink-800);
+}
+
+/* desktop/body/md/regular, #5b5b58; 1px lower, as Figma draws it. */
+.excerpt {
+  position: relative;
+  top: 1px;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-500);
+}
+
+/* "Meta": gap 16; each a 16px icon, 6, then 12/15.6 #5b5b58. */
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  line-height: 15.6px;
+  color: var(--ink-500);
+}
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.metaIcon {
+  position: relative;
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+.metaIcon img {
+  position: absolute;
+  max-width: none;
+}
+
+/* "Read article": Secondary, a 16px arrow 8 after the label. */
+.cta > span:last-child {
+  width: 16px;
+  height: 16px;
+}
+
+/* "Articles": rows of three 410 cards, gap 40 down, 24 across. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 410px));
+  gap: 40px 24px;
+}
+
+.results {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-500);
+}
+
+.results a {
+  color: var(--moss);
+  font-weight: 600;
+}
+
+@media (max-width: 1199px) {
+  .featured {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+  }
+
+  .featuredSlot {
+    flex: none;
+    height: 280px;
+  }
+
+  .featuredText {
+    width: auto;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .content {
+    gap: 32px;
+  }
+
+  .featured {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .featuredSlot {
+    height: 200px;
+  }
+
+  .featuredTitle {
+    font-size: 20px;
+    line-height: 26px;
+    letter-spacing: -0.4px;
+  }
+
+  .excerpt {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+}

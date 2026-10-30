@@ -15,11 +15,12 @@ import styles from './PromptBox.module.css'
  *   prompt area (one line on phones), with a light helper row.
  * - "card": For You hero (571:12873) — the hero box at 696×143 with a 1px #bebeba stroke, laid over a
  *   photo, with no helper row.
+ * - "panel": Build with Sol hero (614:21075) — the card at 630 wide, flat (no shadow), on a light panel.
  * Phones: the helper row keeps only "Start with a template →" and the trial note, side by side.
  */
 type PromptBoxProps = {
   className?: string
-  variant?: 'default' | 'hero' | 'card'
+  variant?: 'default' | 'hero' | 'card' | 'panel'
   /** Static placeholder (also the reduced-motion text). */
   placeholder?: string
   /**
@@ -29,6 +30,8 @@ type PromptBoxProps = {
   typingPrompts?: readonly string[]
   /** Milliseconds before typing starts (lets an entrance animation finish). */
   typingDelay?: number
+  /** The helper row under the default box (off for E-commerce's final CTA, 736:14659). */
+  meta?: boolean
 }
 
 const PLACEHOLDER = 'Build an online store for my skincare brand...'
@@ -54,6 +57,7 @@ export function PromptBox({
   placeholder = PLACEHOLDER,
   typingPrompts,
   typingDelay = 600,
+  meta = true,
 }: PromptBoxProps) {
   const uid = useId()
   const inputId = `${uid}-prompt`
@@ -67,12 +71,13 @@ export function PromptBox({
     startDelay: typingDelay,
   })
   const showTyping = typing && !focused && value === ''
-  const card = variant === 'card'
-  // The card is the hero box resized, so it shares the hero styles.
+  // The card (and its flat panel version) is the hero box resized, so it shares the hero styles.
+  const card = variant === 'card' || variant === 'panel'
   const hero = variant === 'hero' || card
   const phone = useMediaQuery('(max-width: 767px)')
   // The hero prompt is a multi-line area on larger screens and a single line on phones.
-  const multiline = hero && !phone
+  // The flat panel is always one line, cut with "…" (Figma 614:21081).
+  const multiline = hero && !phone && variant !== 'panel'
 
   // When the typed text is wider than the field (phones), flag it so the overlay fades its start.
   const typingRef = useRef<HTMLSpanElement>(null)
@@ -103,7 +108,11 @@ export function PromptBox({
   }
 
   return (
-    <div className={[styles.root, hero && styles.hero, card && styles.card, className].filter(Boolean).join(' ')}>
+    <div
+      className={[styles.root, hero && styles.hero, card && styles.card, variant === 'panel' && styles.panel, className]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <form ref={boxRef} className={styles.box} onSubmit={handleSubmit}>
         <button type="button" className={styles.attach} aria-label="Attach a file">
           <svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true">
@@ -142,7 +151,7 @@ export function PromptBox({
           Build it
         </Button>
       </form>
-      {!card && (
+      {!card && meta && (
         <div className={styles.meta}>
           <p className={styles.hint}>
             <span className={styles.hintLead}>Prefer to design with existing templates? </span>

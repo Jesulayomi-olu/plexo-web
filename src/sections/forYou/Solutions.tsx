@@ -10,6 +10,8 @@ import styles from './Solutions.module.css'
  * gap 40, in a 1018 column — "The problem" (#f5f7ed, minus bullets) and "How Plexo fixes it"
  * (#1d3509, double-check bullets). Each card's content is a centred 324 column.
  *
+ * E-commerce (734:13459) reuses it with its own heading, "DMs are not for checkout."
+ *
  * Motion: the cards slide in towards each other; their lines follow one by one.
  */
 const list: Variants = {
@@ -63,13 +65,21 @@ function Card({
   )
 }
 
-export default function Solutions({ problems, fixes }: { problems: string[]; fixes: string[] }) {
+export default function Solutions({
+  title = 'We built Plexo for this.',
+  problems,
+  fixes,
+}: {
+  title?: string
+  problems: string[]
+  fixes: string[]
+}) {
   return (
     <section id="solutions" data-section="solutions" className={styles.section} aria-labelledby="solutions-title">
       <div className={`container ${styles.inner}`}>
         <Reveal>
           <h2 id="solutions-title" className={styles.title}>
-            We built Plexo for this.
+            {title}
           </h2>
         </Reveal>
         <div className={styles.cards}>

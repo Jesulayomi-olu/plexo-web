@@ -1,0 +1,20 @@
+.frame {
+  position: absolute;
+  left: 157px;
+  top: 14px;
+  width: 204px;
+  height: 468px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20.22px;
+  background: var(--white);
+}
+
+.email {
+  position: absolute;
+  left: -1px;
+  top: -29px;
+  width: 201px;
+  height: 599px;
+  max-width: none;
+}

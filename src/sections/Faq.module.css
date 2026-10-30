@@ -63,6 +63,12 @@
   color: var(--ink-800);
 }
 
+/* Figma draws the question 1px lower than Chrome (checked on the pricing and Build with Sol FAQs). */
+.question {
+  position: relative;
+  top: 1px;
+}
+
 .trigger:focus-visible {
   border-radius: 12px;
 }
@@ -130,6 +136,97 @@
 
   .list {
     gap: 16px;
+  }
+}
+
+/*
+ * Pricing page "FAQ" (571:11799): padding 100/80, column gap 120; the heading centred in its 408 box
+ * (desktop/heading/h3/semibold 600 40/46, −1); the accordion 1004 wide.
+ */
+.pricing {
+  padding-block: 100px;
+}
+
+.pricing .inner {
+  gap: 120px;
+}
+
+.pricing .title {
+  top: 0;
+  min-height: 0;
+  text-align: center;
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+}
+
+.pricing .list {
+  width: 1004px;
+}
+
+@media (max-width: 1199px) {
+  .pricing .inner {
+    gap: 64px;
+  }
+}
+
+@media (max-width: 767px) {
+  .pricing {
+    padding-block: 64px;
+  }
+
+  .pricing .inner {
+    gap: 32px;
+  }
+
+  /* mobile heading/h3 → 28/33.6 */
+  .pricing .title {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
+  }
+}
+
+/*
+ * Build with Sol "FAQ" (616:21365): 1440×667, padding 100, column gap 64; the heading (48 bold, two
+ * lines) centred in its 408 box; the accordion 1004 wide.
+ */
+.sol {
+  padding-block: 100px;
+}
+
+.sol .inner {
+  gap: 64px;
+}
+
+.sol .title {
+  top: 2px; /* this heading sits a further pixel lower in Figma */
+  text-align: center;
+}
+
+.sol .list {
+  width: 1004px;
+}
+
+/* E-commerce "FAQ" (736:14742): the Build with Sol layout, its heading 1px higher. */
+.ecommerce .title {
+  top: 1px;
+}
+
+@media (max-width: 1199px) {
+  .sol .inner {
+    gap: 48px;
+  }
+}
+
+@media (max-width: 767px) {
+  .sol {
+    padding-block: 64px;
+  }
+
+  .sol .inner {
+    gap: 32px;
   }
 }
 

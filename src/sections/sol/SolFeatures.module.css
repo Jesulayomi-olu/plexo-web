@@ -1,0 +1,149 @@
+/* Figma "Pricing" (575:15582): 1440×763, white, padding 80 and 80 more inside; heading · 64 · grid. */
+.section {
+  background: var(--white);
+  padding-block: 160px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+}
+
+/* desktop/heading/h2/bold (the shared .h2): 700 48/52.8, −1.2, centred in an 888 box. */
+.head {
+  width: 888px;
+  max-width: 100%;
+}
+
+.title {
+  text-align: center;
+  text-wrap: balance;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 430px);
+  gap: 40px;
+}
+
+/*
+ * Card: 430×143, #f4f5f0, r4, padding 38/16, gap 16. Figma fixes it at 143, so the two-line card runs
+ * into its bottom padding (17 left); 17 below keeps every card at 143 and lets one grow if it must.
+ */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 143px;
+  padding: 38px 16px 17px;
+  border-radius: 4px;
+  background: var(--surface-100);
+}
+
+/* desktop/heading/h5/bold: 700 24/30, −0.48, #232323. */
+.cardTitle {
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+  letter-spacing: -0.48px;
+  color: var(--ink-800);
+}
+
+/* desktop/body/sm/regular: 400 14/21, #232323. "Copy that sells" wraps at 282, as in Figma. */
+.cardBody {
+  max-width: 282px;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--ink-800);
+}
+
+.card:not(:first-child) .cardBody {
+  max-width: none;
+}
+
+/* Corner marks: 20×20, 2px #74a418 on the two outer sides. */
+.corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 0 solid var(--lime-pressed);
+  pointer-events: none;
+}
+
+.tl {
+  top: 0;
+  left: -1px;
+  border-top-width: 2px;
+  border-left-width: 2px;
+}
+
+.tr {
+  top: 0;
+  right: 0;
+  border-top-width: 2px;
+  border-right-width: 2px;
+}
+
+.bl {
+  bottom: 0;
+  left: -0.5px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+}
+
+.br {
+  bottom: 0;
+  right: 0;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+}
+
+@media (max-width: 1199px) {
+  .section {
+    padding-block: 96px;
+  }
+
+  .inner {
+    gap: 48px;
+  }
+
+  .grid {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: 64px;
+  }
+
+  .inner {
+    gap: 32px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .card {
+    min-height: 0;
+    padding: 28px 16px;
+  }
+
+  /* mobile heading/h5 → 20/26 */
+  .cardTitle {
+    font-size: 20px;
+    line-height: 26px;
+    letter-spacing: -0.4px;
+  }
+
+  .cardBody {
+    max-width: none;
+  }
+}

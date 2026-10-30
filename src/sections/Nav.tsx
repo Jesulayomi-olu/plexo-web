@@ -6,13 +6,14 @@ import { usePathname } from 'next/navigation'
 import { Button } from '../components/Button'
 import { useCaptureMode } from '../lib/motion'
 import { MobileMenu } from './MobileMenu'
-import { FeaturesMenu, ForYouMenu, type MenuId } from './NavMenu'
+import { FeaturesMenu, ForYouMenu, ResourcesMenu, type MenuId } from './NavMenu'
 import styles from './Nav.module.css'
 
 /**
  * Figma "Desktop navigation" (532:25146): 1440×72, #0d1a03, padding 16/80; content row (1280)
  * space-between: logo (123×32) · links (gap 24) · "Start free" (174×40).
- * "Features" and "For You" open their menus (Figma 565:2852 and 565:2838 + siblings); see NavMenu.
+ * "Features", "For You" and "Resources" open their menus (Figma 565:2852, 565:2838 + siblings and
+ * 942:6996); see NavMenu.
  *
  * Phones, Figma "Mobile navigation" (527:2679): 390×64, padding 12/20; logo (104.77×27.2) · "Start free"
  * (Size=Small) and the menu button (40×40, 20px icon), 8 apart. The button opens the full-screen menu
@@ -170,11 +171,13 @@ export default function Nav() {
               chevronClassName={styles.chevron}
               onNavigate={closeAll}
             />
-            <li>
-              <a href="/#developers" className={styles.link}>
-                Resources
-              </a>
-            </li>
+            <ResourcesMenu
+              open={menu === 'resources'}
+              controls={controls}
+              triggerClassName={styles.link}
+              chevronClassName={styles.chevron}
+              onNavigate={closeAll}
+            />
           </ul>
         </nav>
 

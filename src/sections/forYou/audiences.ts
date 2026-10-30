@@ -1,4 +1,5 @@
 import type { Plan } from '../Pricing'
+import type { WorkIcon } from './MadeForWork'
 
 /**
  * Content for the For You page (Figma "For Founders" 571:12846, "FOr coaches" 571:13665,
@@ -22,36 +23,26 @@ export type Audience = {
     /** Prompt-box placeholder (it types itself out on load). */
     prompt: string
     photo: string
-    /** Where the photo's focal point sits, as Figma crops it into the 1280×446 frame. */
+    /** Desktop: the photo layer's box in the 1280×446 frame, as Figma places it (x, y, width, height). */
+    crop: [number, number, number, number]
+    /** Smaller screens: where the photo's focal point sits when it is cropped to cover the frame. */
     focus: string
     /** Founders only: a 24% #1d3509 wash over the photo. */
     tint?: boolean
   }
   problems: string[]
   fixes: string[]
-  /** "Made for your work": five page types, each with the matching icon (work-1 … work-5). */
-  work: { title: string; body: string }[]
+  /** "Made for your work": five page types, each with its own icon. */
+  work: { title: string; body: string; icon: WorkIcon }[]
   /** "Recommended plan": which cards show (Pro and Enterprise unless set) and this page's changes to them. */
   pricing: { tiers?: Tier[]; overrides: Partial<Record<Tier, PlanOverride>> }
   cta: { title: string; sub: string }
+  /** Spacing that differs between the four frames: heading-to-rows in "Made for your work", social proof padding. */
+  layout?: { workGap?: number; proofPadding?: number }
 }
 
 const proFeatures = ['15 pages', '5 funnels', '25 products', 'No badge', 'MCP', '1,500 credits/mo']
-/** The Pro card's tagline on the pricing page (Designers keeps it). */
-const proTagline = 'Grow without limits.'
 const defaultSub = 'Start free today. Go live when you are ready'
-
-// Founders and Coaches still carry placeholder problem / fix lines in Figma.
-const placeholderProblems = Array(3).fill('Engineers are busy shipping the product')
-const placeholderFixes = Array(3).fill('Anyone on the team can ship pages')
-
-const founderWork = [
-  { title: 'Launch Page', body: 'Tell the world what you are building.' },
-  { title: 'Waitlist', body: 'Prove demand before you build.' },
-  { title: 'Pricing page', body: 'Test plans before you code billing.' },
-  { title: 'Investor update page', body: 'Share progress with one clean link.' },
-  { title: 'Changelog and blog', body: 'Show momentum and get found on Google.' },
-]
 
 export const audiences: Audience[] = [
   {
@@ -63,39 +54,74 @@ export const audiences: Audience[] = [
       lead: 'Test ideas, grow a waitlist and look funded from day one.',
       prompt: 'A launch page for my fintech app with a waitlist...',
       photo: '/assets/for-you/hero-founders.webp',
+      crop: [-134, -360, 1549, 1033],
       focus: '50% 61%',
       tint: true,
     },
-    problems: placeholderProblems,
-    fixes: placeholderFixes,
-    work: founderWork,
+    problems: [
+      'Engineers are busy shipping the product',
+      'Ideas die waiting for a landing page',
+      'The site looks like a side project',
+      'Paying for five marketing tools',
+    ],
+    fixes: [
+      'Anyone on the team can ship pages',
+      'Test a new idea the same afternoon',
+      'Polished, on brand pages from day one',
+      'Site, waitlist, emails and blog in one',
+    ],
+    work: [
+      { title: 'Launch Page', body: 'Tell the world what you are building.', icon: 'rocket' },
+      { title: 'Waitlist', body: 'Prove demand before you build.', icon: 'list-clock' },
+      { title: 'Pricing page', body: 'Test plans before you code billing.', icon: 'tag' },
+      { title: 'Investor update page', body: 'Share progress with one clean link.', icon: 'file-chart-line' },
+      { title: 'Changelog and blog', body: 'Show momentum and get found on Google.', icon: 'newspaper' },
+    ],
     pricing: {
       overrides: {
         Pro: {
           badge: 'For most Founders',
           tagline: 'For most Founders',
-          features: ['15 pages', '5 funnels', '25 products', 'No badge', 'MCP so you can ship from Claude or Cursor', '1,500 credits/mo'],
+          // Figma breaks this one after "from".
+          features: ['15 pages', '5 funnels', '25 products', 'No badge', 'MCP so you can ship from\nClaude or Cursor', '1,500 credits/mo'],
         },
       },
     },
     cta: { title: 'Your next launch starts here.', sub: defaultSub },
+    layout: { workGap: 80, proofPadding: 64 },
   },
   {
     id: 'coaches',
     name: 'Coaches',
     hero: {
       tag: 'For coaches and creators',
-      title: 'Launch offers, grow your list and fill your programs from one page',
-      lead: 'A sales funnel for my 8 week fitness coaching program...',
-      // Figma reuses the Founders prompt here; the coaching line under the title reads as the prompt.
+      title: 'Sell your expertise while you sleep',
+      lead: 'Launch offers, grow your list and fill your programs from one page.',
+      // Figma still shows the Founders prompt here.
       prompt: 'A sales funnel for my 8 week fitness coaching program...',
       photo: '/assets/for-you/hero-coaches.webp',
+      crop: [-62, -208, 1455, 970],
       focus: '35% 40%',
     },
-    problems: placeholderProblems,
-    fixes: placeholderFixes,
-    // Figma repeats the Founders list on this page.
-    work: founderWork,
+    problems: [
+      'Clients find you on Instagram, then vanish',
+      'Taking payment by bank transfer',
+      'Gluing together five tools',
+      'Launches take weeks to set up',
+    ],
+    fixes: [
+      'A page that turns interest into bookings',
+      'Checkout built into your offer page',
+      'Page, funnel, emails and payments in one',
+      'A full launch funnel in an afternoon',
+    ],
+    work: [
+      { title: 'Offer page', body: 'Explain your program and take payment.', icon: 'tag' },
+      { title: 'Lead magnet', body: 'Swap a free guide for an email address.', icon: 'magnet' },
+      { title: 'Sales funnel', body: 'Walk people from free value to paid offer.', icon: 'funnel' },
+      { title: 'Booking form', body: 'Let clients book a discovery call.', icon: 'calendar-check' },
+      { title: 'Course or ebook checkout', body: 'Sell digital products on autopilot.', icon: 'credit-card' },
+    ],
     pricing: {
       overrides: {
         Pro: {
@@ -107,6 +133,7 @@ export const audiences: Audience[] = [
       },
     },
     cta: { title: 'Your next cohort is waiting.', sub: defaultSub },
+    layout: { workGap: 80 },
   },
   {
     id: 'small-business',
@@ -117,6 +144,7 @@ export const audiences: Audience[] = [
       lead: 'Stop taking orders in DMs. Give buyers a proper place to shop and pay.',
       prompt: 'A store for my bakery in Lekki with cake orders..',
       photo: '/assets/for-you/hero-small-business.webp',
+      crop: [-138, -167, 1555, 1037],
       focus: '50% 28%',
     },
     problems: ['Orders lost in DMs', '"Price please" on every post', 'A link in bio looks small', 'No time to learn tech'],
@@ -127,11 +155,11 @@ export const audiences: Audience[] = [
       'If you can type it, Plexo builds it',
     ],
     work: [
-      { title: 'Online store', body: 'Sell your products day and night.' },
-      { title: 'Order form', body: 'Take custom orders the easy way.' },
-      { title: 'Business website', body: 'Look credible from the first click.' },
-      { title: 'Promo page', body: 'Run sales and holiday specials.' },
-      { title: 'Blog', body: 'Get found when people search Google.' },
+      { title: 'Online store', body: 'Sell your products day and night.', icon: 'store' },
+      { title: 'Order form', body: 'Take custom orders the easy way.', icon: 'clipboard-list' },
+      { title: 'Business website', body: 'Look credible from the first click.', icon: 'globe' },
+      { title: 'Promo page', body: 'Run sales and holiday specials.', icon: 'megaphone' },
+      { title: 'Blog', body: 'Get found when people search Google.', icon: 'newspaper' },
     ],
     // Three cards here; the Pro card has no badge.
     pricing: {
@@ -153,6 +181,7 @@ export const audiences: Audience[] = [
       lead: 'Build client sites in days, then hand over a login they can actually use.',
       prompt: 'A portfolio site for an architecture studio, minimal and bold...',
       photo: '/assets/for-you/hero-designers.webp',
+      crop: [-96, -490, 1472, 981],
       focus: '50% 92%',
     },
     // Figma's first line, "Orders lost in DMs", is left over from the Small Business page.
@@ -164,14 +193,19 @@ export const audiences: Audience[] = [
       'Every client site in one dashboard',
     ],
     work: [
-      { title: 'Client websites', body: 'Pixel level control on a visual canvas.' },
-      { title: 'Reusable templates', body: 'Build once, reuse across clients.' },
-      { title: 'Brand tokens', body: 'Lock fonts and colours per client.' },
-      { title: 'Clean code export', body: 'HTML and React when a client needs it.' },
-      { title: 'White label', body: 'Your brand on the editor, not ours. Enterprise.' },
+      { title: 'Client websites', body: 'Pixel level control on a visual canvas.', icon: 'layout-panel-top' },
+      { title: 'Reusable templates', body: 'Build once, reuse across clients.', icon: 'layout-template' },
+      { title: 'Brand tokens', body: 'Lock fonts and colours per client.', icon: 'palette' },
+      { title: 'Clean code export', body: 'HTML and React when a client needs it.', icon: 'code-xml' },
+      { title: 'White label', body: 'Your brand on the editor, not ours. Enterprise.', icon: 'badge-check' },
     ],
-    // Same layout as Founders and Coaches; badge wording not checked against Figma.
-    pricing: { overrides: { Pro: { badge: 'For most designers', tagline: proTagline, features: proFeatures } } },
+    pricing: {
+      overrides: {
+        // Figma badge: "For most Founders" (copied from the Founders page).
+        Pro: { badge: 'For most designers', tagline: 'For Freelancers', features: proFeatures },
+        Enterprise: { tagline: 'For studios that need white label, seats and multiple client workspaces.' },
+      },
+    },
     cta: { title: 'Your next client site starts here.', sub: 'Free for 14 days. No card.' },
   },
 ]

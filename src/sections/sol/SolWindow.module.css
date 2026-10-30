@@ -1,0 +1,277 @@
+/* All sizes are Figma's (614:21161), at the window's design scale. */
+.window {
+  display: flex;
+  width: 727px;
+  height: 466.672px;
+  border: 4px solid rgb(0 0 0 / 0.2);
+  background: var(--surface-50);
+  overflow: hidden;
+}
+
+.window img {
+  flex: none;
+  max-width: none;
+}
+
+/* Sidebar: 173.71, white, 0.679 #e8e8e4 right. */
+.sidebar {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  width: 173.712px;
+  height: 100%;
+  background: var(--white);
+  border-right: 0.679px solid var(--surface-200);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 6.786px;
+  height: 38px;
+  padding-inline: 10.857px;
+  border-bottom: 0.679px solid var(--surface-200);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 19px;
+  border-radius: 5.429px;
+  background: var(--forest);
+}
+
+.brandName {
+  font-size: 10.857px;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--ink-800);
+}
+
+.nav {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.357px;
+  padding: 8.143px 5.429px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 6.786px;
+  padding: 6.786px;
+  border-radius: 5.429px;
+  font-size: 9.5px;
+  line-height: 1.1;
+  font-weight: 500;
+  color: var(--ink-800);
+  white-space: nowrap;
+}
+
+/* The pointer over "New chat": navigation-2 turned −23°, in a 23.14 box. */
+.cursor {
+  position: absolute;
+  left: 52.74px;
+  top: 23.67px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 23.135px;
+  height: 23.135px;
+}
+
+.cursor img {
+  rotate: -23deg;
+}
+
+.recents {
+  display: flex;
+  flex-direction: column;
+  gap: 5.429px;
+  padding: 8.143px 12.214px 0;
+  font-size: 8.143px;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.recentsLabel {
+  font-weight: 600;
+  color: var(--dash);
+}
+
+.recentsEmpty {
+  color: #9e9f9b;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.account {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8.143px;
+  border-top: 0.679px solid var(--surface-200);
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 4.071px;
+  padding: 4.75px 8.143px;
+  border: 0.679px solid var(--surface-200);
+  border-radius: 9999px;
+  font-size: 8.143px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--ink-800);
+  white-space: nowrap;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  gap: 9.5px;
+  height: 38px;
+  padding-inline: 13.571px;
+  background: var(--white);
+  border-bottom: 0.679px solid var(--surface-200);
+}
+
+.switch {
+  display: flex;
+  align-items: center;
+  gap: 1.357px;
+  padding: 2.036px;
+  border-radius: 9999px;
+  background: var(--surface-100);
+}
+
+.switchItem {
+  display: flex;
+  align-items: center;
+  gap: 4.071px;
+  padding: 4.071px 8.143px;
+  font-size: 8.143px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--ink-500);
+  white-space: nowrap;
+}
+
+.switchActive {
+  padding-block: 3.393px;
+  border: 0.679px solid var(--surface-200);
+  border-radius: 9999px;
+  background: var(--white);
+  color: var(--green-text);
+}
+
+.convTitle {
+  font-size: 9.5px;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--ink-800);
+  white-space: nowrap;
+}
+
+.topSpacer {
+  flex: 1;
+}
+
+.credits {
+  display: flex;
+  align-items: center;
+  gap: 2.714px;
+  padding: 2.714px 6.786px;
+  border: 0.679px solid #dff5ad;
+  border-radius: 9999px;
+  background: var(--green-tint);
+  font-size: 8.143px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--green-text);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16.286px;
+}
+
+.greeting {
+  font-size: 16.286px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.3257px;
+  color: var(--ink-800);
+  white-space: nowrap;
+}
+
+/* Composer: 461.42, white, 0.679 #d7d8d3, pill; attach · placeholder · mode · mic · send. */
+.composer {
+  display: flex;
+  align-items: center;
+  gap: 6.786px;
+  width: 461.423px;
+  padding: 5.429px 5.429px 5.429px 6.786px;
+  border: 0.679px solid var(--line);
+  border-radius: 9999px;
+  background: var(--white);
+}
+
+.composerAttach {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24.428px;
+  height: 24.428px;
+  border: 0.679px solid var(--surface-200);
+  border-radius: 9999px;
+}
+
+.composerText {
+  flex: 1;
+  min-width: 0;
+  font-size: 9.5px;
+  line-height: 1.5;
+  color: var(--dash);
+}
+
+.mode {
+  display: flex;
+  align-items: center;
+  gap: 2.714px;
+  font-size: 8.143px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--ink-500);
+  white-space: nowrap;
+}
+
+.send {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25.785px;
+  height: 25.785px;
+  border-radius: 9999px;
+  background: var(--surface-200);
+}

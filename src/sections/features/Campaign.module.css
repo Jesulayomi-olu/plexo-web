@@ -1,0 +1,524 @@
+/* Figma "Campaign section · new" (779:16650): 1440×1019, #fcfcfa; header at y 67, panel at 268, 57 below. */
+.section {
+  background: var(--surface-50);
+  padding-block: 67px 57px;
+}
+
+/* "Header": column gap 16, centred, 637 wide, 5.5px left of centre (as in Figma). */
+.header {
+  position: relative;
+  left: -5.5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 637px;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* "Eyebrow": white, 1px #d7d8d3, padding 6/12, round; 500 12/13.2, #5b5b58. */
+.eyebrow {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+  background: var(--white);
+  font-size: 12px;
+  line-height: 13.2px;
+  font-weight: 500;
+  color: var(--ink-500);
+  white-space: nowrap;
+}
+
+/* desktop/heading/h2/semibold: 600 48/52.8, −1.2; 1px lower, as Figma draws it. */
+.title {
+  position: relative;
+  top: 1px;
+  font-size: 48px;
+  line-height: 52.8px;
+  font-weight: 600;
+  letter-spacing: -1.2px;
+  color: var(--ink-800);
+  white-space: nowrap;
+}
+
+/* desktop/body/md/regular, #5b5b58, 560 wide. */
+.lead {
+  position: relative;
+  top: 1px;
+  width: 560px;
+  max-width: 100%;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-500);
+}
+
+/* The 765×694 panel, 41 below the header, half a pixel right of centre; scaled (--s) from 768 to 845. */
+.fit {
+  position: relative;
+  left: 0.5px;
+  width: min(765px, 100%);
+  height: calc(694px * var(--s, 1));
+  margin: 41px auto 0;
+}
+
+/* #1d3509, the line pattern (8px tile at 6.76), a 20% black wash; r16, clipped. */
+.panel {
+  position: relative;
+  width: 765px;
+  height: 694px;
+  overflow: hidden;
+  border-radius: 16px;
+  background:
+    linear-gradient(rgb(0 0 0 / 0.2), rgb(0 0 0 / 0.2)),
+    url('/assets/features/email/lines-tile-campaign.png') 0 0 / 6.763px 6.763px repeat,
+    var(--forest);
+  transform: scale(var(--s, 1));
+  transform-origin: top left;
+}
+
+.connector {
+  position: absolute;
+  max-width: none;
+  pointer-events: none;
+}
+
+.toEmail {
+  left: 381.5px;
+  top: 378px;
+}
+
+.toReply {
+  left: 377px;
+  top: 165.589px;
+}
+
+.toPage {
+  left: 144.319px;
+  top: 313.993px;
+}
+
+.toReminder {
+  left: 566.4985px;
+  top: 305.501px;
+}
+
+/* Glass: white at 14% (12% for "You type"), 1px white at 30% (20%), 6px background blur. */
+.glass {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(255 255 255 / 0.3);
+  background: rgb(255 255 255 / 0.14);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* "Glass / You type": 460 at (152, 79), padding 12, r20. */
+.you {
+  left: 152px;
+  top: 79px;
+  width: 460px;
+  padding: 12px;
+  border-color: rgb(255 255 255 / 0.2);
+  border-radius: 20px;
+  background: rgb(255 255 255 / 0.12);
+}
+
+/* "Card": white, r16, padding 8/20/8/16, gap 16. */
+.youCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 20px 8px 16px;
+  border-radius: 16px;
+  background: var(--white);
+}
+
+/* The avatar: a 42.8 circle (#e8e8e4 behind the picture), turned 10°, in a 49.6 box. */
+.avatarSlot {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 49.589px;
+  height: 49.589px;
+}
+
+.avatar {
+  width: 42.806px;
+  height: 42.806px;
+  border-radius: 50%;
+  background: var(--surface-200);
+  object-fit: cover;
+  transform: rotate(10deg);
+}
+
+/* desktop/body/sm/medium: 500 14/21, #232323. */
+.prompt {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+  color: var(--ink-800);
+}
+
+/* The pointer and the "You" tag, hanging off the card's lower left (at −6, 57). */
+.cursor {
+  position: absolute;
+  left: -6px;
+  top: 57px;
+  width: 96.727px;
+  height: 76px;
+  pointer-events: none;
+}
+
+.pointer {
+  position: absolute;
+  left: 70.82px;
+  top: -3.45px;
+  display: grid;
+  place-items: center;
+  width: 26.566px;
+  height: 26.566px;
+}
+
+.pointer img {
+  transform: rotate(20deg);
+}
+
+/* "You": black, 1.76px #bebeba, padding 3.46/13.82, round; 500 13.82/15.2, −0.28, #fcfcfa. */
+.youTag {
+  position: absolute;
+  left: 29.36px;
+  top: 31.09px;
+  display: flex;
+  justify-content: center;
+  width: 63.909px;
+  padding: 3.455px 13.818px;
+  border: 1.762px solid #bebeba;
+  border-radius: 9999px;
+  background: #000000;
+  font-size: 13.818px;
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: -0.2764px;
+  color: var(--surface-50);
+}
+
+/* "Glass / Sol reply": 380 wide, centred (x 192), y 266, padding 12, r20. */
+.reply {
+  left: 192px;
+  top: 266px;
+  width: 380px;
+  padding: 12px;
+  border-radius: 20px;
+}
+
+/* "Card": white, r16, padding 16/20/16/16, gap 16: the Plexo tile and two placeholder lines. */
+.replyCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px 16px 16px;
+  border-radius: 16px;
+  background: var(--white);
+}
+
+.logoTile {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: var(--forest);
+}
+
+.replyLines {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.replyLines i {
+  display: block;
+  width: 90px;
+  max-width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: #9e9f9b;
+}
+
+.replyLines i:last-child {
+  width: 220px;
+  background: var(--line);
+}
+
+/* The three results sit on the panel directly (their wrapper only matters on phones). */
+.results {
+  display: contents;
+}
+
+/* The phone layout's branching connector; the desktop panel has Figma's own connectors. */
+.branch {
+  display: none;
+}
+
+/* "Glass / Result": 180 wide, padding 8, r16. */
+.result {
+  width: 180px;
+  padding: 8px;
+  border-radius: 16px;
+}
+
+.page {
+  left: 58px;
+  top: 473px;
+}
+
+.email {
+  left: 292px;
+  top: 418px;
+}
+
+.reminder {
+  left: 526px;
+  top: 482px;
+}
+
+/* "Card": white, r12, padding 10, column gap 8, centred: the preview and the "ready" check. */
+.resultCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 12px;
+  background: var(--white);
+}
+
+/* "Preview": 64 tall, #f4f5f0, r8; a 12px icon and 500 13.82/15.2 (−0.28) #232323, gap 8. */
+.preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 64px;
+  border-radius: 8px;
+  background: var(--surface-100);
+  font-size: 13.818px;
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: -0.2764px;
+  color: var(--ink-800);
+  white-space: nowrap;
+}
+
+.previewIcon {
+  position: relative;
+  flex: none;
+  width: 12px;
+  height: 12px;
+}
+
+.previewIcon img {
+  position: absolute;
+  max-width: none;
+}
+
+/* "Pill / Campaign ready": a 20px circle holding an 11px black dot with the check (half a pixel up-left). */
+.ready {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.check {
+  position: absolute;
+  left: calc(50% - 0.5px);
+  top: calc(50% - 0.5px);
+  display: grid;
+  place-items: center;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #000000;
+  transform: translate(-50%, -50%);
+}
+
+/* Phones: the same cards as a column, results side by side, joined by dashed lines. */
+@media (max-width: 767px) {
+  .section {
+    padding-block: 56px;
+  }
+
+  .header {
+    left: 0;
+    width: auto;
+  }
+
+  /* mobile heading/h2 → 32/36.8 */
+  .title {
+    font-size: 32px;
+    line-height: 36.8px;
+    letter-spacing: -0.7px;
+    white-space: normal;
+  }
+
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .fit {
+    left: 0;
+    width: auto;
+    height: auto;
+    margin: 32px calc(var(--gutter) * -1) 0;
+  }
+
+  .panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    width: auto;
+    height: auto;
+    padding: 32px 16px 40px;
+    border-radius: 0;
+    transform: none;
+  }
+
+  .connector {
+    display: none;
+  }
+
+  .glass,
+  .you,
+  .reply,
+  .result {
+    position: relative;
+    left: auto;
+    top: auto;
+  }
+
+  .you {
+    width: 100%;
+    max-width: 460px;
+    margin-bottom: 16px;
+  }
+
+  .reply {
+    width: 100%;
+    max-width: 380px;
+  }
+
+  .results {
+    position: relative;
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    max-width: 460px;
+  }
+
+  .result {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    padding: 6px;
+  }
+
+  .resultCard {
+    padding: 8px 6px;
+  }
+
+  .preview {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+  }
+
+  /* "You type" down to Plexo's reply. */
+  .reply::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -48px;
+    height: 32px;
+    border-left: 1px dashed rgb(255 255 255 / 0.6);
+  }
+
+  /*
+   * Plexo's reply down to the three results: a stem from the middle, a rule across the three card
+   * centres, then a drop into each card, ending in a dot. The cards are three equal columns 8 apart, so
+   * the outer centres sit (100% − 16px) / 6 in from each side.
+   */
+  .branch {
+    --edge: calc((100% - 16px) / 6);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -40px;
+    display: block;
+    height: 40px;
+    pointer-events: none;
+  }
+
+  .branch::before,
+  .branch::after,
+  .branch i {
+    content: '';
+    position: absolute;
+    border: 0 dashed rgb(255 255 255 / 0.6);
+  }
+
+  .branch::before {
+    left: 50%;
+    top: 0;
+    height: 20px;
+    border-left-width: 1px;
+  }
+
+  .branch::after {
+    left: var(--edge);
+    right: var(--edge);
+    top: 20px;
+    border-top-width: 1px;
+  }
+
+  .branch i {
+    top: 20px;
+    height: 17px;
+    border-left-width: 1px;
+  }
+
+  .branch i::after {
+    content: '';
+    position: absolute;
+    left: -3px;
+    bottom: -3px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 0.85);
+  }
+
+  .branch i:nth-child(1) {
+    left: var(--edge);
+  }
+
+  .branch i:nth-child(2) {
+    left: 50%;
+  }
+
+  .branch i:nth-child(3) {
+    left: calc(100% - var(--edge));
+  }
+}

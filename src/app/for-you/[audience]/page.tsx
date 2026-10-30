@@ -38,9 +38,9 @@ export default async function AudiencePage({ params }: Props) {
       <main className="page-main">
         <AudienceHero hero={audience.hero} />
         <Solutions problems={audience.problems} fixes={audience.fixes} />
-        <MadeForWork work={audience.work} />
+        <MadeForWork work={audience.work} gap={audience.layout?.workGap} />
         <RecommendedPlan pricing={audience.pricing} />
-        <AudienceProof />
+        <AudienceProof padding={audience.layout?.proofPadding} />
         <PricingCta title={audience.cta.title} sub={audience.cta.sub} />
       </main>
       <Footer />

@@ -26,7 +26,8 @@ const promises = [
   { icon: 'export', size: 17, title: 'Export anytime', body: 'Your code. No lock-in.' },
 ]
 
-function CreditGuide() {
+/** "Credit guide" (also on Build with Sol, 614:20334, which ends with its own reassurance line). */
+export function CreditGuide({ reassurance = 'Drag-and-drop edits never use credits.' }: { reassurance?: string }) {
   const isStatic = useStaticMotion()
 
   return (
@@ -52,7 +53,7 @@ function CreditGuide() {
       </div>
       <p className={styles.freeEdits}>
         <img src="/assets/pricing/table-check.svg" width={20} height={20} alt="" />
-        Drag-and-drop edits never use credits.
+        {reassurance}
       </p>
     </div>
   )

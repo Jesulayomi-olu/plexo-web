@@ -1,0 +1,153 @@
+/* The nav's colour behind the panel's rounded top corners. */
+.section {
+  background: var(--night);
+}
+
+/*
+ * "Pricing Hero": 476 tall (Figma's 502 frame is cut at 476), r40 top corners; #1d3509 with the
+ * "Background / Lines" tile (8px, drawn at 6.76) under a 20% black wash (its lime gradient and corner
+ * mark sit underneath, hidden).
+ */
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  height: 476px;
+  padding: 136px var(--gutter) 0;
+  border-radius: 40px 40px 0 0;
+  background:
+    linear-gradient(rgb(0 0 0 / 0.2), rgb(0 0 0 / 0.2)),
+    url('/assets/features/email/lines-tile-campaign.png') 0 0 / 6.763px 6.763px repeat,
+    var(--forest);
+}
+
+/* Heading and line: a 136-tall block, gap 24, centred. */
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 136px;
+  text-align: center;
+}
+
+/* desktop/heading/h3/semibold: 600 40/46, −1, white. */
+.title {
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--white);
+}
+
+/* desktop/body/md/regular, #fcfcfa; 1px lower, as Figma draws it. */
+.lead {
+  position: relative;
+  top: 1px;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--surface-50);
+}
+
+.searchSlot {
+  width: 640px;
+  max-width: 100%;
+}
+
+/* "Search": white, 1px #d7d8d3, round, padding 14/20, gap 12; 20px icon, 16/24 #5b5b58 placeholder. */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+  background: var(--white);
+  cursor: text;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.search:focus-within {
+  border-color: var(--lime-pressed);
+  box-shadow: 0 0 0 4px rgb(184 243 74 / 0.24);
+}
+
+.searchIcon {
+  position: relative;
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+
+.searchIcon img {
+  position: absolute;
+  left: 1.667px;
+  top: 1.667px;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-800);
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--ink-500);
+  opacity: 1;
+}
+
+/* The whole box shows the focus state instead. */
+.input:focus-visible {
+  box-shadow: none;
+}
+
+/* The browser's clear button, redrawn as the nav's close icon in the search icon's grey and size. */
+.input::-webkit-search-cancel-button {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--ink-500);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M18 6 6 18M6 6l12 12'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .panel {
+    gap: 32px;
+    height: auto;
+    padding: 72px var(--gutter) 64px;
+    border-radius: 28px 28px 0 0;
+  }
+
+  .copy {
+    gap: 16px;
+    height: auto;
+  }
+
+  /* mobile heading/h3 → 28/33.6 */
+  .title {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
+  }
+
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  /* The field keeps 16px text so phones don't zoom in on focus. */
+  .search {
+    padding: 12px 16px;
+  }
+}

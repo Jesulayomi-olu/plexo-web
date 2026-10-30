@@ -1,8 +1,15 @@
-/* Figma "Pricing" (571:12947) and "Social proof" (571:12972): white, padding 80, column gap 40. */
+/*
+ * Figma "Pricing" (571:12947) and "Social proof" (571:12972): white, padding 80, column gap 40.
+ * Social proof's padding can differ per page (Founders: 64).
+ */
 .plans,
 .proof {
   background: var(--white);
   padding-block: 80px;
+}
+
+.proof {
+  padding-block: var(--proof-pad, 80px);
 }
 
 .inner {
@@ -11,6 +18,15 @@
   align-items: center;
   gap: 40px;
   text-align: center;
+}
+
+/* desktop/heading/h3/semibold: 600 40/46, −1. */
+.title {
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--ink-800);
 }
 
 /* Monthly / Yearly toggle with the "2 months free" note: 286.5×33. */
@@ -24,6 +40,18 @@
 .cards {
   width: 100%;
   text-align: left;
+}
+
+/*
+ * Figma "Pricing / Billing=Monthly" (489:6323) pads its cards 12 (Pro's 1px border puts its content at 13)
+ * and fixes them at 489, so a long list runs into the 28 bottom padding: the Founders Pro card, with a
+ * two-line feature, keeps 11 of it. The bottom padding is 11 here, which gives the same cards while
+ * still letting a card grow when its content needs more room.
+ */
+@media (min-width: 768px) {
+  .cards article {
+    padding: 12px 12px 11px;
+  }
 }
 
 /* The 712-wide story card, centred. */
@@ -41,6 +69,13 @@
 
   .inner {
     gap: 28px;
+  }
+
+  /* mobile heading/h3 → 28/33.6 */
+  .title {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
   }
 }
 

@@ -21,7 +21,7 @@ export default function PricingPage() {
         <PricingOverview />
         <FeatureTable />
         <CreditsGuarantee />
-        <Faq />
+        <Faq variant="pricing" />
         <PricingCta />
       </main>
       <Footer />
