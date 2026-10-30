@@ -1,7 +1,7 @@
-/* Figma "Hero" (571:12848): white, padding 100/80. */
+/* Figma "Hero" (571:12848): 1440×779, white, padding 80. */
 .hero {
   background: var(--white);
-  padding-block: 100px;
+  padding-block: 80px;
 }
 
 /* "Frame 2147239200": column, gap 40, centred. */
@@ -34,17 +34,22 @@
   color: #000000;
 }
 
-/* 600 64/70.4, −3.2, #232323; up to 934 wide. */
+/* desktop/heading/h2/semibold: 600 48/52.8, −1.2, #232323; up to 934 wide. Title and lead sit 1px
+   lower, as Figma draws them (see .baseline-fix). */
 .title {
+  position: relative;
+  top: 1px;
   max-width: 934px;
-  font-size: 64px;
-  line-height: 70.4px;
+  font-size: 48px;
+  line-height: 52.8px;
   font-weight: 600;
-  letter-spacing: -3.2px;
+  letter-spacing: -1.2px;
   color: var(--ink-800);
 }
 
 .lead {
+  position: relative;
+  top: 1px;
   margin-top: 24px;
   font-size: 16px;
   line-height: 24px;
@@ -73,6 +78,22 @@
   object-fit: cover;
 }
 
+/*
+ * Desktop: the photo layer sits where Figma puts it in the 1280×446 frame (--crop-*, as % of the
+ * frame), so it is zoomed and framed as designed. The box always overhangs the frame, and cover keeps
+ * the photo undistorted while the frame narrows below 1280. Smaller screens crop from `focus`.
+ */
+@media (min-width: 1200px) {
+  .photo {
+    position: absolute;
+    left: var(--crop-x, 0);
+    top: var(--crop-y, 0);
+    width: var(--crop-w, 100%);
+    height: var(--crop-h, 100%);
+    max-width: none;
+  }
+}
+
 .tint {
   position: absolute;
   inset: 0;
@@ -91,12 +112,6 @@
 }
 
 @media (max-width: 1199px) {
-  .title {
-    font-size: 52px;
-    line-height: 57.2px;
-    letter-spacing: -2.4px;
-  }
-
   .stage {
     height: 400px;
   }
@@ -116,11 +131,11 @@
     gap: 28px;
   }
 
-  /* mobile heading/h1 → 36/39.6 */
+  /* mobile heading/h2 → 32/36.8 */
   .title {
-    font-size: 36px;
-    line-height: 39.6px;
-    letter-spacing: -1.2px;
+    font-size: 32px;
+    line-height: 36.8px;
+    letter-spacing: -0.7px;
   }
 
   .lead {

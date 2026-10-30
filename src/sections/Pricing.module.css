@@ -352,6 +352,7 @@
   gap: 12px;
 }
 
+/* "\n" in a feature breaks the line where Figma does. */
 .feature {
   display: flex;
   align-items: center;
@@ -360,6 +361,7 @@
   line-height: 21px;
   font-weight: 500;
   color: var(--ink-600);
+  white-space: pre-line;
 }
 
 .check {
@@ -721,8 +723,10 @@
  * grows to fill it (186 min), and the audience line sits at the foot: lucide asterisk 24 · 4 · 600
  * italic 14/21 #454543.
  */
+/* Figma 571:11356 and siblings: padded 8/12/28 (Pro's 1px border puts its content at 13). */
 .cardPage {
   height: 100%;
+  padding-inline: 12px;
 }
 
 .cardPage .features {
@@ -752,6 +756,18 @@
   transform: rotate(90deg);
 }
 
+/*
+ * One line, as in Figma. The longest ("For Coaches, founders, designers") needs 24 + 4 + 228 at 14px,
+ * which the four-across cards only have from about 1330px wide; below that the text scales with the
+ * card (100cqi = the card's content width) instead of wrapping.
+ */
+@media (min-width: 768px) {
+  .audience {
+    white-space: nowrap;
+    font-size: min(14px, calc((100cqi - 28px) * 14 / 230));
+  }
+}
+
 @media (max-width: 767px) {
   .cardPage .features {
     min-height: 0;
@@ -775,6 +791,18 @@
 .cardsPage {
   height: auto;
   align-items: stretch;
+}
+
+/*
+ * Figma 571:11433 fixes the Pro card at 533 (its neighbours hug to 535) and centres it, so it sits
+ * 1px inside them top and bottom; its 1px border leaves 24 of padding under the audience line.
+ */
+@media (min-width: 768px) {
+  .cardsPage .cardPopular {
+    height: auto;
+    margin-block: 1px;
+    padding-bottom: 24px;
+  }
 }
 
 @media (max-width: 1199px) {

@@ -1,15 +1,30 @@
-/* Fills the screen under the bar; scrolls if the open menu is taller than a short (landscape) screen. */
-.sheet {
+/* The page under the bar, dimmed while the drawer is open; a tap on it closes the menu. */
+.backdrop {
   position: fixed;
   top: var(--nav-height);
   right: 0;
   bottom: 0;
   left: 0;
+  background: rgb(13 26 3 / 0.55);
+}
+
+/*
+ * A drawer from the right under the bar, 320 wide (at most 86% of the window); it scrolls if the open
+ * menu is taller than a short (landscape) screen.
+ */
+.sheet {
+  position: fixed;
+  top: var(--nav-height);
+  right: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
+  width: min(320px, 86vw);
   overflow-y: auto;
   overscroll-behavior: contain;
+  border-left: 1px solid rgb(255 255 255 / 0.08);
   background: var(--night);
+  box-shadow: -16px 0 40px rgb(0 0 0 / 0.25);
 }
 
 /* "Menu items": padding 8/20. */
@@ -80,6 +95,11 @@
 
 .subLink:focus-visible {
   color: var(--lime);
+}
+
+/* Resources items with no page yet: plain text, dimmer. */
+.subText {
+  color: rgb(255 255 255 / 0.5);
 }
 
 /* Hover colours only where a pointer can hover (a tap would otherwise leave the row lime). */

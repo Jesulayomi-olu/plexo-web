@@ -1,4 +1,4 @@
-/* Figma "Made for you" (571:12913): white, padding 80/250 → a 940 column; heading · 40 · rows. */
+/* Figma "Made for you" (571:12913): white, padding 80/250 → a 940 column; heading · 40 (or 80) · rows. */
 .section {
   background: var(--white);
   padding-block: 80px;
@@ -8,15 +8,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
+  gap: var(--work-gap, 40px);
   max-width: calc(940px + var(--gutter) * 2);
 }
 
+/* desktop/heading/h3/semibold: 600 40/46, −1. */
 .title {
-  font-size: 48px;
-  line-height: 52.8px;
+  font-size: 40px;
+  line-height: 46px;
   font-weight: 600;
-  letter-spacing: -1.2px;
+  letter-spacing: -1px;
   color: var(--ink-800);
   text-align: center;
 }
@@ -64,7 +65,23 @@
   transition: background-color 200ms ease;
 }
 
+/* The 14.4 icon frame; the artwork is placed in it at its Figma offset (inline left / top). */
+.iconFrame {
+  position: relative;
+  flex: none;
+  width: 14.4px;
+  height: 14.4px;
+}
+
+.iconFrame img {
+  position: absolute;
+  max-width: none;
+}
+
+/* top: Figma draws this 16px text 1px lower than Chrome (as .baseline-fix). */
 .rowBody {
+  position: relative;
+  top: 1px;
   flex: 0 1 359px;
   font-size: 16px;
   line-height: 24px;
@@ -79,14 +96,6 @@
   background: var(--lime);
 }
 
-@media (max-width: 1199px) {
-  .title {
-    font-size: 40px;
-    line-height: 44px;
-    letter-spacing: -1px;
-  }
-}
-
 @media (max-width: 767px) {
   .section {
     padding-block: 48px;
@@ -96,10 +105,11 @@
     gap: 16px;
   }
 
+  /* mobile heading/h3 → 28/33.6 */
   .title {
-    font-size: 32px;
-    line-height: 36.8px;
-    letter-spacing: -0.7px;
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
   }
 
   .rows {

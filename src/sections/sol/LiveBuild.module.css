@@ -1,0 +1,228 @@
+/*
+ * Figma "Made for you" (575:15548): 1440×744, white, padding 100 top; column gap 40: heading block
+ * (630) · preview (686×403). The prompt card overlaps the preview's bottom by 54 and ends 46 above the
+ * section's end, so the bottom padding is 46.
+ */
+.section {
+  background: var(--white);
+  padding-block: 100px 46px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Heading block: column, gap 24, centred, 630 wide; 1px lower, as Figma draws the text (see .baseline-fix). */
+.head {
+  position: relative;
+  top: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 630px;
+  max-width: 100%;
+  text-align: center;
+}
+
+/* desktop/heading/h2/semibold: 600 48/52.8, −1.2. Balanced, so a narrow screen doesn't strand "live." */
+.title {
+  font-size: 48px;
+  line-height: 52.8px;
+  font-weight: 600;
+  letter-spacing: -1.2px;
+  color: var(--ink-800);
+  text-wrap: balance;
+}
+
+/* desktop/body/md/regular, #232323, 408 wide. */
+.lead {
+  width: 408px;
+  max-width: 100%;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-800);
+}
+
+.stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 686px;
+  max-width: 100%;
+}
+
+/* "Frame 2147239305": 686×403, white, clipped; the site image (685.34 wide) shows from its top. */
+.preview {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 686 / 403;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.result {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 99.904%;
+  height: auto;
+  max-width: none;
+}
+
+/*
+ * Prompt card "Frame 5" (592:16856): 630×108, #fcfcfa, r16, padding 24/32, clipped; a 2px inside
+ * stroke with a left-to-right gradient, #95e021 → #639615.
+ */
+.prompt {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  width: 630px;
+  max-width: calc(100% - 32px);
+  height: 108px;
+  margin-top: -54px;
+  padding: 24px 32px;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  background:
+    linear-gradient(var(--surface-50), var(--surface-50)) padding-box,
+    linear-gradient(90deg, #95e021, #639615) border-box;
+  overflow: hidden;
+}
+
+/* Attach (36, #d7d8d3) · 12 · prompt text (368), centred together. */
+.promptMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.attach {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  background: var(--line);
+  color: #000000;
+}
+
+/* Two lines of desktop/body/md/medium (500 16/24, #5b5b58), cut with "…"; 1px lower, as Figma draws it. */
+.textWindow {
+  position: relative;
+  top: 1px;
+  flex: 0 1 368px;
+  min-width: 0;
+  height: 48px;
+  overflow: hidden;
+}
+
+.text {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--ink-500);
+}
+
+/* Figma's two lines: the first as it wraps there, the second cut wherever it runs out (mid-word). */
+.line {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* "Button / Build it": Primary, Size=Medium at every width; part of the demo, not a control. */
+.prompt .build {
+  flex: none;
+  height: 40px;
+  padding: 0 16px;
+  font-size: 14px;
+  line-height: 15.4px;
+  cursor: default;
+}
+
+.prompt .build:hover {
+  background: var(--lime);
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: 64px 48px;
+  }
+
+  .inner {
+    gap: 28px;
+  }
+
+  .head {
+    gap: 16px;
+  }
+
+  /* mobile heading/h2 → 32/36.8 */
+  .title {
+    font-size: 32px;
+    line-height: 36.8px;
+    letter-spacing: -0.7px;
+  }
+
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .prompt {
+    height: auto;
+    margin-top: -40px;
+    padding: 14px 14px 14px 12px;
+    max-width: calc(100% - 24px);
+  }
+
+  .promptMain {
+    gap: 10px;
+  }
+
+  .attach {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* body/md mobile → 14/21: two lines of 21. */
+  .textWindow {
+    flex: 1;
+    height: 42px;
+  }
+
+  /* Phones: two lines wherever the words wrap, cut with "…". */
+  .text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .line {
+    display: inline;
+    white-space: normal;
+  }
+
+  .prompt .build {
+    height: 36px;
+    padding: 0 14px;
+  }
+}

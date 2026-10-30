@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, type KeyboardEvent, type ReactNode } from 'react'
+import { useLayoutEffect, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { audienceItems, featureItems } from './navData'
+import { resourceMenu } from './resources/data'
 import styles from './NavMenu.module.css'
 
-export type MenuId = 'features' | 'for-you'
+export type MenuId = 'features' | 'for-you' | 'resources'
 
 /* "chevron-up" (191:3635) rotated 180°: 16×16, white 1px stroke. Turns to point up while its menu is open. */
 function Chevron({ className }: { className: string }) {
@@ -86,7 +87,7 @@ function Dropdown({ id, label, open, controls, triggerClassName, chevronClassNam
         {label}
         <Chevron className={chevronClassName} />
       </button>
-      <div id={menuId} className={`${styles.menu} ${styles[id === 'features' ? 'features' : 'forYou']}`}>
+      <div id={menuId} className={`${styles.menu} ${styles[id === 'for-you' ? 'forYou' : id]}`}>
         {children}
       </div>
     </li>
@@ -158,6 +159,80 @@ export function ForYouMenu(props: Omit<DropdownProps, 'id' | 'label' | 'children
             />
           ))}
         </div>
+      </div>
+    </Dropdown>
+  )
+}
+
+/** The Resources card: 1 + 8 + 12 from its edge to the item text; 562 wide (Figma). */
+const MENU_INSET = 21
+const RESOURCES_WIDTH = 562
+const EDGE_MARGIN = 16
+
+/**
+ * "Dropdown / Resources" (942:6996): two columns of items (title 600 14, line 400 14 #5b5b58); Changelog
+ * and Developer Docs carry the external-link icon. "All resources" with an arrow below a 1px line. Items
+ * without a page yet are shown but are not links.
+ */
+export function ResourcesMenu(props: Omit<DropdownProps, 'id' | 'label' | 'children'> & { onNavigate: () => void }) {
+  const { onNavigate, ...rest } = props
+  const columnsRef = useRef<HTMLDivElement>(null)
+
+  // The card starts under the "Resources" label (text aligned, 21px inset), always two columns. Where
+  // that would run past the window's edge (narrower laptops), it moves left just enough to stay on
+  // screen (--shift on the card). Measured while closed too: the hidden card still takes up room, and
+  // unshifted it would widen the page.
+  useLayoutEffect(() => {
+    const measure = () => {
+      const card = columnsRef.current?.parentElement
+      const item = card?.closest('li')
+      if (!card || !item) return
+      const left = item.getBoundingClientRect().left - MENU_INSET
+      const shift = Math.max(0, left + RESOURCES_WIDTH - (document.documentElement.clientWidth - EDGE_MARGIN))
+      card.style.setProperty('--shift', `${shift}px`)
+    }
+    measure()
+    // The label moves once the web font has loaded.
+    document.fonts?.ready.then(measure)
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [props.open])
+
+  return (
+    <Dropdown id="resources" label="Resources" {...rest}>
+      <div ref={columnsRef} className={styles.columns}>
+        {resourceMenu.columns.map((column, i) => (
+          <ul key={i} className={styles.column}>
+            {column.map((item) => {
+              const content = (
+                <>
+                  <span className={styles.itemTitle}>
+                    {item.label}
+                    {item.external && <img src="/assets/resources/external.svg" width={16} height={16} alt="" />}
+                  </span>
+                  <span className={styles.itemText}>{item.description}</span>
+                </>
+              )
+              return (
+                <li key={item.label}>
+                  {item.href ? (
+                    <a href={item.href} className={styles.resource} onClick={onNavigate}>
+                      {content}
+                    </a>
+                  ) : (
+                    <span className={`${styles.resource} ${styles.inactive}`}>{content}</span>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
+        ))}
+      </div>
+      <div className={styles.menuFoot}>
+        <a href={resourceMenu.all.href} className={styles.allLink} onClick={onNavigate}>
+          {resourceMenu.all.label}
+          <img src="/assets/resources/arrow-right-green.svg" width={16} height={16} alt="" />
+        </a>
       </div>
     </Dropdown>
   )

@@ -121,7 +121,23 @@ function MobileDiagram({ moving }: { moving: boolean }) {
   )
 }
 
-export default function Mcp() {
+/**
+ * The MCP and API page (668:28635, 1440×951) uses the same section with a one-line 40px heading
+ * ("Ask Claude. Plexo ships.") and a one-line lead, so its header is 203 tall.
+ */
+const copy = {
+  home: {
+    title: 'Plexo now works in Claude, chatgpt\n and Cursor',
+    lead: ' Already living in Claude, ChatGPT or Cursor?\n Build your site from there',
+  },
+  page: {
+    // Figma ends the heading with a space, which counts when centring.
+    title: 'Ask Claude. Plexo ships.\u00a0',
+    lead: 'Already living in Claude, ChatGPT or Cursor? Build your site from there.',
+  },
+}
+
+export default function Mcp({ variant = 'home' }: { variant?: 'home' | 'page' }) {
   const isStatic = useStaticMotion()
   const { ref: fitRef, scale, fitted } = useFitScale<HTMLDivElement>(1280, 768)
   const flowRef = useRef<HTMLDivElement>(null)
@@ -129,15 +145,15 @@ export default function Mcp() {
   const moving = !isStatic && onScreen
 
   return (
-    <section id="mcp" data-section="mcp" className={styles.section}>
+    <section id="mcp" data-section="mcp" className={`${styles.section} ${variant === 'page' ? styles.page : ''}`}>
       <div className="container">
         <div className={styles.header}>
           <Reveal className={styles.pill}>
             <span>Plexo Mcp</span>
           </Reveal>
           <Reveal delay={0.06} className={styles.intro}>
-            <h2 className={`h2 ${styles.heading}`}>{'Plexo now works in Claude, chatgpt\n and Cursor'}</h2>
-            <p className={`lead ${styles.lead}`}>{' Already living in Claude, ChatGPT or Cursor?\n Build your site from there'}</p>
+            <h2 className={`h2 ${styles.heading}`}>{copy[variant].title}</h2>
+            <p className={`lead ${styles.lead}`}>{copy[variant].lead}</p>
           </Reveal>
           <Reveal delay={0.12} className={styles.cta}>
             <Button variant="primary" href="#mcp">

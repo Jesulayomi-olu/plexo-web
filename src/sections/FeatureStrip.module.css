@@ -102,6 +102,11 @@
   }
 }
 
+/* MCP and API (669:28982): nothing overlaps the strip there, so the row sits centred at y 39. */
+.centred {
+  padding-top: 39px;
+}
+
 @media (max-width: 1023px) {
   .label {
     width: auto;
@@ -112,6 +117,10 @@
   .strip {
     height: auto;
     padding: 20px 0 48px;
+  }
+
+  .centred {
+    padding: 32px 0;
   }
 
   .row {

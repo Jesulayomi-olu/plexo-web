@@ -1,0 +1,274 @@
+/* "Image slot": #f4f5f0, r12, the 24px image icon centred (its artwork is 20 at 2, 2). */
+.slot {
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--surface-100);
+}
+
+.slotIcon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.slotIcon img {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+}
+
+/* A site screenshot: clipped, r12, #f4f5f0 behind; the picture fills the width from the top. */
+.shot {
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--surface-100);
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+
+/* "Tag": #f4f5f0, padding 4/10, round; desktop/caption/semibold 600 12/15.6 (Figma rounds the line to 16: 24 tall), #5b5b58. */
+.tag {
+  align-self: flex-start;
+  padding: 5px 10px 3px; /* text 1px lower, as Figma draws it */
+  border-radius: 9999px;
+  background: var(--surface-100);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  color: var(--ink-500);
+  white-space: nowrap;
+}
+
+/* "Featured": #f0f6df, #517a12. */
+.tagLime {
+  background: var(--green-tint);
+  color: var(--moss);
+}
+
+/* "Article": white, 1px #d7d8d3, r16, padding 16, column gap 16. */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--white);
+  color: inherit;
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.card:hover {
+  border-color: var(--ink-300);
+  box-shadow: var(--shadow-card);
+}
+
+.cardSlot {
+  height: 220px;
+}
+
+/* desktop/heading/h6/semibold: 600 20/26, −0.4, #232323. */
+.cardTitle {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: var(--ink-800);
+}
+
+/* "Meta": desktop/caption/regular 400 12/15.6 (a 16 row in Figma), #5b5b58, gap 8. */
+.meta {
+  position: relative;
+  top: 1px; /* Figma draws it 1px lower */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--ink-500);
+  white-space: nowrap;
+}
+
+.avatar {
+  flex: none;
+  border-radius: 8px;
+  background: var(--surface-200);
+  object-fit: cover;
+}
+
+.avatarRound {
+  border-radius: 50%;
+}
+
+/* "Back navigation": #fcfcfa, 1px #d7d8d3 below, padding 16 (65 tall). */
+.back {
+  padding-block: 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-50);
+}
+
+/* "Button / Back to …": Ghost, Size=Small: 32 tall, padding 0 12, gap 6; 600 12/13.2, #232323. */
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  line-height: 13.2px;
+  font-weight: 600;
+  color: var(--ink-800);
+  transition: background-color 160ms ease;
+}
+
+.backLink:hover {
+  background: var(--surface-200);
+}
+
+.backLink img {
+  transition: transform 200ms var(--ease-out);
+}
+
+.backLink:hover img {
+  transform: translateX(-2px);
+}
+
+/* "Header": column gap 16, centred. */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.headerStart {
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* desktop/heading/h3/semibold: 600 40/46, −1, #232323. */
+.title {
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--ink-800);
+}
+
+/* desktop/body/md/regular, #5b5b58; 1px lower, as Figma draws it. */
+.lead {
+  position: relative;
+  top: 1px;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-500);
+}
+
+/* "Categories": gap 8. Chips: padding 8/16, round; desktop/label/md/medium 500 14/15.4. */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+  background: var(--white);
+  font-size: 14px;
+  line-height: 15.4px;
+  font-weight: 500;
+  color: var(--ink-800);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.chip:hover {
+  border-color: var(--ink-300);
+}
+
+.chip[aria-pressed='true'] {
+  border-color: var(--forest);
+  background: var(--forest);
+  color: var(--white);
+}
+
+/* "Pagination": the Outline "Load more…" button, centred. */
+.more {
+  display: flex;
+  justify-content: center;
+}
+
+.moreButton {
+  height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--white);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-size: 14px;
+  line-height: 15.4px;
+  font-weight: 600;
+  color: var(--ink-800);
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.moreButton:hover {
+  background: var(--surface-100);
+}
+
+.empty {
+  padding: 48px 0;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-500);
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  /* mobile heading/h3 → 28/33.6 */
+  .title {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
+  }
+
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .cardTitle {
+    font-size: 18px;
+    line-height: 23.4px;
+    letter-spacing: -0.36px;
+  }
+
+  .chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+
+  .chips::-webkit-scrollbar {
+    display: none;
+  }
+}

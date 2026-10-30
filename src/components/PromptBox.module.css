@@ -408,3 +408,59 @@
     height: 120px;
   }
 }
+
+/* "panel": the card at 630 wide and flat, as on the Build with Sol hero (614:21075). */
+.panel {
+  max-width: 630px;
+}
+
+.panel .box {
+  box-shadow: none;
+}
+
+.panel .box:focus-within {
+  box-shadow: 0 0 0 4px rgb(184 243 74 / 0.24);
+}
+
+/* One line beside the attach button (as the hero on phones): 12 after it, 368 of text, cut with "…". */
+.panel .field {
+  flex: 0 1 380px;
+  align-self: flex-start;
+  align-items: center;
+  height: 36px;
+  margin: 0 auto 0 0; /* keeps "Build it" at the far end */
+  padding-left: 12px;
+}
+
+/* 1px lower, as Figma draws the prompt text. */
+.panel .input {
+  position: relative;
+  top: 1px;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.panel .typing {
+  top: 1px;
+  left: 12px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding-top: 0;
+  white-space: pre;
+}
+
+.panel .typingText {
+  display: flex;
+}
+
+.panel .caret {
+  display: block;
+}
+
+/* Phones: the cut text stops 8 short of "Build it" (the auto margin above is 0 once space runs out). */
+@media (max-width: 767px) {
+  .panel .submit {
+    margin-left: 8px;
+  }
+}

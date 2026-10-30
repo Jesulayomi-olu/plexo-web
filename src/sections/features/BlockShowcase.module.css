@@ -1,0 +1,104 @@
+/* Figma "Made for you" (657:25731): 1440×1012, white; the 700 column "Frame 2147239364". */
+.section {
+  background: var(--white);
+  padding-block: 80px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  max-width: calc(700px + var(--gutter) * 2);
+}
+
+/* "Frame 2147239308": 429 wide, column gap 24, centred; 1px lower, as Figma draws the text. */
+.head {
+  position: relative;
+  top: 1px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 429px;
+  max-width: 100%;
+  text-align: center;
+}
+
+/* desktop/heading/h2/semibold: 600 48/52.8, −1.2. */
+.title {
+  font-size: 48px;
+  line-height: 52.8px;
+  font-weight: 600;
+  letter-spacing: -1.2px;
+  color: var(--ink-800);
+}
+
+/* desktop/body/md/regular, #232323. */
+.lead {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-800);
+}
+
+/*
+ * "Frame 2147239335": 709.44×611, the line pattern (#1b3d22, #24512e hairlines; the instance is scaled
+ * to 0.81, so the 4px tile draws at 3.25); the editor (670.39×419) centred.
+ */
+.panel {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 709.44 / 611;
+  background: #1b3d22 url('/assets/features/lines-tile.png') 0 0 / 3.25px 3.25px repeat;
+}
+
+/* Figma's 700×610 slot holds the 709.44×611 panel, so it runs 9.44 right and 1 below. */
+@media (min-width: 1200px) {
+  .panel {
+    width: 709.44px;
+    margin-right: -9.44px;
+    margin-bottom: -1px;
+  }
+}
+
+.editor {
+  display: block;
+  width: 94.496%;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: 56px;
+  }
+
+  .inner {
+    gap: 32px;
+  }
+
+  .head {
+    gap: 16px;
+  }
+
+  /* mobile heading/h2 → 32/36.8 */
+  .title {
+    font-size: 32px;
+    line-height: 36.8px;
+    letter-spacing: -0.7px;
+  }
+
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .panel {
+    aspect-ratio: 4 / 3;
+    width: calc(100% + var(--gutter) * 2);
+    margin-inline: calc(var(--gutter) * -1);
+  }
+
+  .editor {
+    width: 92%;
+  }
+}

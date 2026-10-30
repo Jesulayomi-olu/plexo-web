@@ -57,6 +57,22 @@
   margin-top: 40px;
 }
 
+/* MCP and API page (668:28637): Figma rounds the 203.2 header to 203. */
+.page .header {
+  margin-bottom: 79.8px;
+}
+
+/* desktop/heading/h3/semibold (600 40/46, −1) on one line, drawn where Chrome draws it. */
+.page .heading {
+  top: 0;
+  min-height: 46px;
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  padding-right: 1px;
+}
+
 /* ---------- Desktop / tablet diagram: 1280×508, scaled by --s below 1440 ---------- */
 
 .fit {
@@ -264,6 +280,14 @@
   .heading {
     min-height: 0;
     padding-right: 0;
+  }
+
+  /* mobile heading/h3 → 28/33.6 */
+  .page .heading {
+    min-height: 0;
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
   }
 }
 

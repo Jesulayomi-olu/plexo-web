@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { Reveal } from '../../components/Reveal'
 import { BillingToggle, PlanGrid, plans, type Period } from '../Pricing'
 import { StoryCard, stories } from '../SocialProof'
@@ -25,7 +25,7 @@ export function RecommendedPlan({ pricing }: { pricing: Audience['pricing'] }) {
     <section id="plans" data-section="plans" className={styles.plans} aria-labelledby="plans-title">
       <div className={`container ${styles.inner}`}>
         <Reveal>
-          <h2 id="plans-title" className="h2">
+          <h2 id="plans-title" className={styles.title}>
             Recommended plan
           </h2>
         </Reveal>
@@ -40,14 +40,20 @@ export function RecommendedPlan({ pricing }: { pricing: Audience['pricing'] }) {
   )
 }
 
-export function AudienceProof() {
+export function AudienceProof({ padding = 80 }: { padding?: number }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <section id="showcase" data-section="showcase" className={styles.proof} aria-labelledby="proof-title">
+    <section
+      id="showcase"
+      data-section="showcase"
+      className={styles.proof}
+      style={{ '--proof-pad': `${padding}px` } as CSSProperties}
+      aria-labelledby="proof-title"
+    >
       <div className={`container ${styles.inner}`}>
         <Reveal>
-          <h2 id="proof-title" className="h2">
+          <h2 id="proof-title" className={styles.title}>
             Social proof
           </h2>
         </Reveal>

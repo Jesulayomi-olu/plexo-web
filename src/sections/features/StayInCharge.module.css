@@ -1,0 +1,119 @@
+/* Figma "AI credits" (668:28232): 1440×364, white, padding 80, column gap 40, centred. */
+.section {
+  background: var(--white);
+  padding-block: 80px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.headSlot {
+  width: 420px;
+  max-width: 100%;
+}
+
+/*
+ * desktop/heading/h3/semibold: 600 40/46, −1, centred. Figma's 46-tall box clips the descenders of "y"
+ * and "g" (668:28233 clips its content); they are left whole here.
+ */
+.title {
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--ink-800);
+  text-align: center;
+}
+
+/* "Credit guide" → "AI examples": r16, clipped, padding 28/0/12; three equal columns. */
+.points {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 28px 0 12px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* "AI action": padding 15/32, gap 16, centred; a 1px #d7d8d3 divider on the right (not the last). */
+.point {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 32px;
+  border-right: 1px solid var(--line);
+}
+
+.point:last-child {
+  border-right: 0;
+}
+
+.icon {
+  flex: none;
+}
+
+/* desktop/body/md/regular, #232323; Figma keeps the trailing and leading spaces of its lines. */
+.text {
+  position: relative;
+  top: 1px;
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-800);
+  white-space: pre;
+}
+
+@media (max-width: 1023px) {
+  .points {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 480px;
+    padding: 0;
+  }
+
+  /* One per row, centred: the icon above its two lines. */
+  .point,
+  .point:last-child {
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 8px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+  }
+
+  .point:last-child {
+    border-bottom: 0;
+  }
+
+  .text {
+    flex: none;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: 56px;
+  }
+
+  .inner {
+    gap: 24px;
+  }
+
+  /* mobile heading/h3 → 28/33.6 */
+  .title {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
+  }
+
+  .text {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}

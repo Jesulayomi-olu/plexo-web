@@ -52,8 +52,8 @@ Home page V2 (Figma 532:23980).
 
 | Section | Motion | Details |
 |---|---|---|
-| Nav menus (Features, For You) | Fade + small drop (triggered); crossfade | The card fades in while settling 4px into place (160–200ms, ease-out; closing 120ms), after an 80ms hover pause that stops menus flashing open as the pointer sweeps across the bar. A 160ms grace period on leaving. The chevron turns to point up. In For You, the photo crossfades (220ms) to the hovered item's. Reduced motion: fade only |
-| Phone menu | Fade (triggered); accordion; icon crossfade | The menu fades in (0.18s) and its rows fade down 4px in turn (0.04s apart). Features / For You open with a height + opacity accordion (0.3s, ease-out) and their chevron turns. The menu icon turns into an X (crossfade with a 45° turn). Reduced motion: instant |
+| Nav menus (Features, For You, Resources) | Fade + small drop (triggered); crossfade | The card fades in while settling 4px into place (160–200ms, ease-out; closing 120ms), after an 80ms hover pause that stops menus flashing open as the pointer sweeps across the bar. A 160ms grace period on leaving. The chevron turns to point up. In For You, the photo crossfades (220ms) to the hovered item's. Reduced motion: fade only |
+| Phone menu | Slide-in drawer (triggered); accordion; icon crossfade | The drawer slides in from the right (0.3s, ease-out) while the page behind dims; it slides back out on close. Its rows fade down 4px in turn (0.04s apart). Features / For You / Resources open with a height + opacity accordion (0.3s, ease-out) and their chevron turns. The menu icon turns into an X (crossfade with a 45° turn). Reduced motion: instant |
 | Hero: eyebrow, heading, subtitle | Blur-to-focus entrance, staggered | Starts at 0.45s, 0.65s and 1.05s; 10px, 16px and 8px blur; ease `focusEase` (0.33, 1, 0.68, 1); `BlurIn` component |
 | Hero: prompt box | Fade-up | Starts at 1.3s |
 | Hero: prompt text | Typewriter placeholder (idle loop) | Types "A store for my skincare brand...", "A sales funnel for my coaching program...", "A landing page for my product launch..." in turn: types, holds 1.9s, deletes, next. Stops while the field is focused or filled; reduced motion shows the Figma placeholder. On phones it stays on one line: long text slides left, its start fading, so the caret stays in view |
@@ -71,6 +71,14 @@ Home page V2 (Figma 532:23980).
 | Built with Plexo | Horizontal scroller with arrows | Swipe on touch; the arrows move one card |
 | Built with Plexo: prompt dialog | Fade (triggered); rise & settle | Only after "View Prompt" is pressed: the card dims (fade, 0.18s) and the dialog rises 8px from 98% scale into place (0.22s, ease-out); closing reverses it faster. A peeking card first scrolls fully into view. Reduced motion: fade only |
 | FAQ | Accordion height and opacity; plus turns into minus | All closed at first |
+
+Build with Sol, `/features/sol` (Figma 575:15481): the sections only use the shared entrances. "You direct. AI builds it live." is a still (the gym prompt and its Iron & Grain site), not an animation.
+
+The other product pages, `/features/drag`, `/features/mcp`, `/features/ecommerce` and `/features/email`, use the shared entrances (heroes blur into focus as on Build with Sol; cards, rows and panels fade up) and the home sections they reuse keep their motion (MCP flowing dashes, the strip's ticker, the code window's typewriter). One addition:
+
+| Element | Motion | Notes |
+|---|---|---|
+| MCP and API: "Prompt from your terminal." tiles | Scroll stack, with holds and a peek (as the home Steps) | Figma's note on 669:29126. The row (the code window and the five tiles) pins in the viewport, scaled down to fit short windows; below 1200 the code window and the tiles pin together, one above the other. At first only "Webhooks" shows. Each tile holds, fully readable, while the top of the next peeks 32px in at the bottom of the window, then rises (ease-in-out) to land 72px below the last, which stays underneath. Pace in px of scroll: hold 120 / rise 260 on desktop, hold 100 / rise 240 below 1200; spring-smoothed; ends on the Figma stack, then the page scrolls on. Reduced motion lists the five tiles in full; capture mode shows the Figma stack |
 
 ## Proposed (preview only)
 

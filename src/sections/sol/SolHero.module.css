@@ -1,0 +1,193 @@
+/* Figma "Hero" (576:15969): 1440×712, white, padding 80. */
+.hero {
+  background: var(--white);
+  padding-block: 80px;
+}
+
+/* --s = column width / 1275 (1 from 1280 up): the card keeps its proportions on every desktop width. */
+.fit {
+  height: calc(552px * var(--s, 1));
+}
+
+/* "Frame 2147239200": 1275×552, #f5f7ed, r40, clipped (2.5 in from the 1280 column on each side). */
+.card {
+  position: relative;
+  width: 1275px;
+  height: 552px;
+  margin-inline: auto;
+  border-radius: 40px;
+  background: var(--cream);
+  overflow: hidden;
+  transform: scale(var(--s, 1));
+  transform-origin: top left;
+}
+
+/* "image 19": 1352.6×1014.45 at (−45.49, −177.76) once turned (the file is stored turned). */
+.lines {
+  position: absolute;
+  left: -45.49px;
+  top: -177.76px;
+  width: 1352.596px;
+  height: 1014.447px;
+  max-width: none;
+  pointer-events: none;
+}
+
+/* Panel (614:21061): 722×496 at (16, 28), #f5f7ed, 1px #74a418, r40; column gap 32, centred (padding 16 + 15). */
+.panel {
+  position: absolute;
+  left: 16px;
+  top: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  width: 722px;
+  height: 496px;
+  padding-block: 31px;
+  border: 1px solid var(--lime-pressed);
+  border-radius: 40px;
+  background: var(--cream);
+}
+
+/* Copy: 380 column, gap 12; heading and lead are 408 wide, centred over it. */
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 380px;
+  text-align: center;
+}
+
+/* desktop/heading/h2/semibold: 600 48/52.8, −1.2. */
+.title {
+  width: 408px;
+  font-size: 48px;
+  line-height: 52.8px;
+  font-weight: 600;
+  letter-spacing: -1.2px;
+  color: var(--ink-800);
+}
+
+/* desktop/body/md/regular, #232323; 1px lower, as Figma draws it (see .baseline-fix). */
+.lead {
+  position: relative;
+  top: 1px;
+  width: 408px;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-800);
+}
+
+.promptSlot {
+  width: 630px;
+}
+
+/* The Sol workspace at (768.5, 43); it runs past the card's right edge, which cuts it. */
+.windowSlot {
+  position: absolute;
+  left: 768.5px;
+  top: 43px;
+  width: 727px;
+  height: 466.672px;
+}
+
+.windowScale {
+  width: 727px;
+  transform: scale(var(--w, 1));
+  transform-origin: top left;
+}
+
+/* Below 1200: the card flows — the panel, then the whole window scaled to the card's width. */
+@media (max-width: 1199px) {
+  .hero {
+    padding-block: 40px;
+  }
+
+  .fit {
+    height: auto;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: auto;
+    height: auto;
+    padding: 16px;
+    transform: none;
+  }
+
+  .lines {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .panel {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+    padding: 56px 24px;
+  }
+
+  .promptSlot {
+    width: 100%;
+    max-width: 630px;
+  }
+
+  .windowSlot {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: calc(466.672px * var(--w, 1));
+  }
+
+  /* Centred when the card is wider than the window (it never scales up). */
+  .windowScale {
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    padding-block: 16px 24px;
+  }
+
+  .card {
+    padding: 12px;
+    gap: 12px;
+    border-radius: 24px;
+  }
+
+  .panel {
+    gap: 24px;
+    padding: 40px 16px;
+    border-radius: 24px;
+  }
+
+  .copy,
+  .title,
+  .lead {
+    width: 100%;
+  }
+
+  /* mobile heading/h2 → 32/36.8 */
+  .title {
+    font-size: 32px;
+    line-height: 36.8px;
+    letter-spacing: -0.7px;
+  }
+
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}

@@ -1,0 +1,305 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* "Frame 2147239376": the toolbar (40), 32, the gallery. */
+.library {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.kinds {
+  display: flex;
+  gap: 8px;
+}
+
+/* Chips: white, 1px #d7d8d3, padding 8/16, round; 500 14/15.4. Chosen: #1d3509, white text. */
+.kind {
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+  background: var(--white);
+  font-size: 14px;
+  line-height: 15.4px;
+  font-weight: 500;
+  color: var(--ink-800);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.kind:hover {
+  border-color: var(--ink-300);
+}
+
+.kind[aria-pressed='true'] {
+  border-color: var(--forest);
+  background: var(--forest);
+  color: var(--white);
+}
+
+/* "Search": 312×40, white, 1px #d7d8d3, r12, padding 0 12, gap 8; 16px icon, 14/21 #5b5b58. */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 312px;
+  max-width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--white);
+  cursor: text;
+  transition: border-color 160ms ease;
+}
+
+.search:focus-within {
+  border-color: var(--moss);
+}
+
+.searchIcon {
+  position: relative;
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+.searchIcon img {
+  position: absolute;
+  left: 1.333px;
+  top: 1.333px;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--ink-800);
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--ink-500);
+  opacity: 1;
+}
+
+/* The whole box shows the focus state instead. */
+.input:focus-visible {
+  box-shadow: none;
+}
+
+/* The browser's clear button, redrawn as the nav's close icon in the search icon's grey and size. */
+.input::-webkit-search-cancel-button {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--ink-500);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M18 6 6 18M6 6l12 12'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  cursor: pointer;
+}
+
+/* "Gallery": filters (220) · 48 · templates. */
+.gallery {
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+}
+
+/* "Audience": column gap 12. */
+.filters {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 220px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* desktop/overline/spaced: 600 12/13.2, 0.24, #5b5b58. */
+.overline {
+  float: left;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0;
+  font-size: 12px;
+  line-height: 13.2px;
+  font-weight: 600;
+  letter-spacing: 0.24px;
+  color: var(--ink-500);
+}
+
+/* "Option": checkbox (18) · 10 · 400 14/21 #232323. */
+.option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--ink-800);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.checkboxInput {
+  position: absolute;
+  opacity: 0;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+/* "Checkbox": 18, r4; unchecked white with a 1px #9e9f9b line, checked #b8f34a with the check. */
+.checkbox {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #9e9f9b;
+  border-radius: 4px;
+  background: var(--white);
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease;
+}
+
+.checkbox img {
+  opacity: 0;
+  transition: opacity 140ms ease;
+}
+
+.checkboxInput:checked + .checkbox {
+  border-color: var(--lime);
+  background: var(--lime);
+}
+
+.checkboxInput:checked + .checkbox img {
+  opacity: 1;
+}
+
+.checkboxInput:focus-visible + .checkbox {
+  box-shadow: var(--focus-ring);
+}
+
+.results {
+  flex: 1;
+  min-width: 0;
+}
+
+/* "Templates": cards 320 wide, gap 32 down, 24 across. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 320px));
+  gap: 32px 24px;
+}
+
+/* "Template": white, 1px #d7d8d3, r16, padding 8, column gap 12. */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--white);
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.card:hover {
+  border-color: var(--ink-300);
+  box-shadow: var(--shadow-card);
+}
+
+.shot {
+  height: 240px;
+}
+
+/* "Text": padding 0 8 8, column gap 8. */
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 8px 8px;
+}
+
+/* desktop/heading/h6/semibold: 600 20/26, −0.4, #232323. */
+.name {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: var(--ink-800);
+}
+
+@media (max-width: 1199px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1023px) {
+  .gallery {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .filters {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;
+    gap: 12px 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .content {
+    gap: 32px;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .input {
+    font-size: 16px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .name {
+    font-size: 18px;
+    line-height: 23.4px;
+  }
+}

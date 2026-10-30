@@ -141,10 +141,15 @@
   }
 
   /* "Actions": "Start free" (Size=Small) · 8 · menu button. */
+  /*
+   * The menu icon's lines end 13.3px inside its 40px button (10 of padding, 3.3 inside the icon), so the
+   * group moves right by that much: the lines then end on the gutter, matching the logo on the left.
+   */
   .mobileActions {
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-right: -13.333px;
   }
 
   /* "Button / Start free": Figma hugs its label to a whole 78px. */

@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import type { CSSProperties } from 'react'
 import { BlurIn } from '../../components/BlurIn'
 import { PromptBox } from '../../components/PromptBox'
 import { Reveal } from '../../components/Reveal'
@@ -9,15 +10,18 @@ import type { Audience } from './audiences'
 import styles from './AudienceHero.module.css'
 
 /**
- * For You "Hero" (571:12848 and siblings): white, padding 100/80, column gap 40, centred. The copy
- * (950 wide: tag pill · 64px title · lead), then a 1280×446 photo (r40, 2.35px blur) with the prompt
+ * For You "Hero" (571:12848 and siblings): white, padding 80, column gap 40, centred. The copy
+ * (950 wide: tag pill · 48px title · lead), then a 1280×446 photo (r40, 2.35px blur) with the prompt
  * box (696×143) laid over it, 185 from the top.
  *
  * Motion: the copy comes into focus, the photo settles from a soft zoom, then the prompt box rises
  * and types its prompt.
  */
+const pct = (value: number, of: number) => `${((value / of) * 100).toFixed(3)}%`
+
 export default function AudienceHero({ hero }: { hero: Audience['hero'] }) {
   const isStatic = useStaticMotion()
+  const [x, y, w, h] = hero.crop
 
   const photo = (
     <img
@@ -26,7 +30,15 @@ export default function AudienceHero({ hero }: { hero: Audience['hero'] }) {
       height={1200}
       alt=""
       className={styles.photo}
-      style={{ objectPosition: hero.focus }}
+      style={
+        {
+          objectPosition: hero.focus,
+          '--crop-x': pct(x, 1280),
+          '--crop-y': pct(y, 446),
+          '--crop-w': pct(w, 1280),
+          '--crop-h': pct(h, 446),
+        } as CSSProperties
+      }
       fetchPriority="high"
     />
   )

@@ -44,15 +44,19 @@
   table-layout: fixed;
 }
 
-/* Cells: padding 16, 1px #d7d8d3 right (not on the last column) and bottom (not on the last row). */
+/*
+ * Cells: padding 16, 1px #d7d8d3 right (not on the last column) and bottom (not on the last row).
+ * Figma draws the bottom rule inside the 16px padding (rows are 56, not 57), hence 15 below.
+ * Top aligned, as in Figma: in the two-line rows the one-line cells sit on the first line.
+ */
 .table th,
 .table td {
-  padding: 16px;
+  padding: 16px 16px 15px;
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   background: var(--white);
   text-align: center;
-  vertical-align: middle;
+  vertical-align: top;
   color: var(--ink-800);
   transition: background-color 160ms ease;
 }
@@ -63,6 +67,7 @@
 
 .table tbody tr:last-child > * {
   border-bottom: 0;
+  padding-bottom: 16px;
 }
 
 /* "table-header": #f4f5f0; desktop/label/lg/semibold 600 16/17.6. */
@@ -89,12 +94,13 @@
   background: var(--surface-50);
 }
 
-/* Plan values: desktop/body/md/semibold. */
+/* Plan values: desktop/body/md/semibold; "\n" in the copy breaks the line (two-line credit and domain cells). */
 .value {
   display: block;
   font-size: 16px;
   line-height: 24px;
   font-weight: 600;
+  white-space: pre-line;
 }
 
 /* 20px check / minus, centred on a 24px line. */
@@ -147,7 +153,11 @@
 
   .table th,
   .table td {
-    padding: 12px;
+    padding: 12px 12px 11px;
+  }
+
+  .table tbody tr:last-child > * {
+    padding-bottom: 12px;
   }
 
   .table .featureCell {

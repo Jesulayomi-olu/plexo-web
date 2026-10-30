@@ -1,0 +1,184 @@
+/* "Content": column gap 48, centred. */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+/* "Header": column gap 16, centred: title block, then "Copy Link". */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+/* "Title": 666 wide, column gap 16. */
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 666px;
+  max-width: 100%;
+}
+
+/* desktop/heading/h3/semibold: 600 40/46, −1, centred. */
+.title {
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--ink-800);
+  text-align: center;
+}
+
+/* "Author": the 24 avatar · 12 · "Maxwell, Sales Lead" · date · read time (gap 8, 4px #232323 dots); 12/13.2 #5b5b58. */
+.byline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bylineText {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 13.2px;
+  color: var(--ink-500);
+  white-space: nowrap;
+}
+
+.author {
+  font-weight: 500;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--ink-800);
+}
+
+/* "Copy Link": white, 1px #d7d8d3, r8, 32 tall, padding 0 12 0 10, gap 8; 14/21 #5b5b58. */
+.copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 12px 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--ink-500);
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.copy:hover {
+  background: var(--surface-100);
+}
+
+.copyIcon {
+  position: relative;
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+.copyIcon img {
+  position: absolute;
+  left: 0.871px;
+  top: 0.878px;
+  max-width: none;
+}
+
+.picture {
+  width: 1060px;
+  max-width: 100%;
+}
+
+.pictureSlot {
+  height: 360px;
+}
+
+/* Body: 500 16/25.6, #333332, 1060 wide; each paragraph's first line indented 40 (Figma's leading spaces). */
+.body {
+  position: relative;
+  top: 1px; /* Figma draws it 1px lower */
+  width: 1060px;
+  max-width: 100%;
+  font-size: 16px;
+  line-height: 25.6px;
+  font-weight: 500;
+  color: var(--ink-700);
+}
+
+.body p {
+  text-indent: 40px;
+}
+
+/* "Frame 2147239381": the heading (600 24/30, −0.48, #333332), 20, the cards. */
+.more {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.moreTitle {
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 600;
+  letter-spacing: -0.48px;
+  color: var(--ink-700);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 410px));
+  gap: 40px 24px;
+}
+
+@media (max-width: 1199px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .content {
+    gap: 32px;
+  }
+
+  /* mobile heading/h3 → 28/33.6 */
+  .title {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
+  }
+
+  .pictureSlot {
+    height: 220px;
+  }
+
+  .body {
+    font-size: 15px;
+    line-height: 24px;
+  }
+
+  .body p {
+    text-indent: 32px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+}

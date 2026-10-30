@@ -7,31 +7,34 @@ import styles from './FeatureTable.module.css'
 
 /**
  * Figma "Pricing Comparison Table" (571:11524): "Key Features" heading and a five-column table
- * (feature 280 · four equal plan columns). Cell values: text, true = check, false = minus, null = blank
- * (cells Figma leaves empty).
+ * (feature 280 · four equal plan columns). Cell values: text ("\n" breaks the line where Figma
+ * does), true = check, false = minus. Copy is verbatim from Figma, without its stray spaces.
  */
-type Cell = string | boolean | null
+type Cell = string | boolean
 
 const plansHeader = ['Free Trial', 'Starter', 'Pro', 'Enterprise']
 
 const rows: { feature: string; cells: [Cell, Cell, Cell, Cell] }[] = [
-  { feature: 'Pages', cells: ['1', '5', '15', 'Unlimited'] },
-  { feature: 'Funnels', cells: ['1', null, '5', 'Unlimited'] },
-  { feature: 'Products', cells: [null, '5', '25', 'Unlimited'] },
-  { feature: 'Plexo AI credits', cells: ['50 total', '300/mo', '1,500/mo', 'Custom'] },
-  { feature: 'Drag and drop canvas', cells: [true, true, true, true] },
-  { feature: 'Your own domain + SSL', cells: [false, true, true, true] },
-  { feature: 'Remove Plexo badge', cells: [false, false, true, true] },
-  { feature: 'Email designs', cells: [null, null, true, true] },
-  { feature: 'Blog + SEO tools', cells: [true, true, true, true] },
-  { feature: 'WordPress import', cells: [false, true, true, true] },
-  { feature: 'Plexo MCP (Claude, ChatGPT, Cursor)', cells: [false, false, true, true] },
-  { feature: 'API + SDK', cells: [false, false, null, true] },
-  { feature: 'Code export', cells: [null, true, true, true] },
-  { feature: 'Team seats', cells: ['1', '1', null, null] },
-  { feature: 'White label', cells: [false, false, false, true] },
-  { feature: 'SSO + SLA', cells: [false, false, false, true] },
-  { feature: 'Support', cells: [null, 'Email', 'Priority email', 'Dedicated manager'] },
+  { feature: 'Price', cells: ['$0', '$9/mo', '$19/mo', 'From $99/mo'] },
+  { feature: 'Website Pages', cells: ['1 Page', '1 Website (Multi-pages)', '4 Website (Multi-pages)', 'Custom (Multi-pages)'] },
+  { feature: 'Funnels', cells: ['0', '1', '3', 'Custom'] },
+  { feature: 'Access to Blog', cells: [false, true, true, true] },
+  { feature: 'Email templates', cells: ['1', '5', '20', 'Custom'] },
+  { feature: 'Products/Commerce', cells: ['0', 'Yes, 1000 products', 'Yes, 5000 Products', 'Yes, 10000 products'] },
+  {
+    feature: 'Plexo AI credits',
+    cells: ['$0.2 Value\n200 Credits', '$1 Value\n1000 Credits', '$2 Value\n2000 Credits', '$3 Value\n3000'],
+  },
+  { feature: 'Domains', cells: ['1 Subdomain only', '1 custom domain', '3 custom domains\n1 free domain', '1 Free .com domain'] },
+  { feature: 'Plexo badge', cells: ['Yes', 'Can be Removed', 'Can be Removed', 'White-label'] },
+  { feature: 'White label', cells: ['No', 'No', 'No', 'Yes'] },
+  { feature: 'Team features', cells: ['No', 'Yes (2 users)', 'Yes (5 users)', 'Yes'] },
+  { feature: 'Website Import', cells: ['Yes', 'Yes', 'Yes', 'Yes'] },
+  { feature: 'HTML export', cells: ['No', 'Yes', 'Yes', 'Yes'] },
+  { feature: 'Analytics', cells: ['No', 'Yes', 'Yes', 'Yes'] },
+  { feature: 'MCP', cells: ['Yes', 'Yes', 'Yes', 'Yes'] },
+  { feature: 'SDK', cells: ['Yes', 'Yes', 'Yes', 'Yes'] },
+  { feature: 'Support', cells: ['AI Chat', 'Email', 'Email + Call', 'Account manager'] },
 ]
 
 const body: Variants = {
@@ -51,7 +54,6 @@ const mark: Variants = {
 }
 
 function Value({ cell, isStatic }: { cell: Cell; isStatic: boolean }) {
-  if (cell === null) return null
   if (typeof cell === 'string') return <span className={styles.value}>{cell}</span>
 
   const src = cell ? '/assets/pricing/table-check.svg' : '/assets/pricing/table-minus.svg'
@@ -100,7 +102,8 @@ export default function FeatureTable() {
                 {rows.map((r) => (
                   <Row key={r.feature} {...rowMotion}>
                     <th scope="row" className={styles.featureCell}>
-                      {r.feature}
+                      {/* A zero-width space lets "Products/Commerce" wrap after the slash in the phone column. */}
+                      {r.feature.replace('/', '/​')}
                     </th>
                     {r.cells.map((cell, i) => (
                       <td key={plansHeader[i]}>

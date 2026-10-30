@@ -1,0 +1,147 @@
+/* Figma "Destinations" (718:7942): 1440×710, white, padding 80/80/100; cards 410 wide, gap 24. */
+.section {
+  background: var(--white);
+  padding-block: 80px 100px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 410px));
+  gap: 24px;
+}
+
+.slot {
+  display: flex;
+}
+
+/* "Card": white, 1px #d7d8d3, r16, padding 32, column gap 16. */
+.card {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--white);
+  color: inherit;
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.linked:hover {
+  border-color: var(--ink-300);
+  box-shadow: var(--shadow-card);
+}
+
+/* "Icon tile": 48, r12; the 24px icon centred (its artwork placed as in Figma). */
+.iconTile {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+}
+
+.iconFrame {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.iconFrame img {
+  position: absolute;
+  max-width: none;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+/* desktop/heading/h5/semibold: 600 24/30, −0.48, #232323. */
+.title {
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 600;
+  letter-spacing: -0.48px;
+  color: var(--ink-800);
+}
+
+/* desktop/body/md/medium: 500 16/24, #232323; 1px lower, as Figma draws it. */
+.promise {
+  position: relative;
+  top: 1px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--ink-800);
+}
+
+/* desktop/body/sm/regular: 400 14/21, #5b5b58. */
+.detail {
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--ink-500);
+}
+
+/* "Link": gap 6; desktop/label/md/semibold 600 14/15.4, #517a12; the arrow 16. */
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  line-height: 15.4px;
+  font-weight: 600;
+  color: var(--moss);
+}
+
+.link img {
+  transition: transform 200ms var(--ease-out);
+}
+
+.linked:hover .link img {
+  transform: translateX(3px);
+}
+
+@media (max-width: 1199px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: 48px 64px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  .title {
+    font-size: 20px;
+    line-height: 26px;
+    letter-spacing: -0.4px;
+  }
+
+  .promise {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .detail {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}

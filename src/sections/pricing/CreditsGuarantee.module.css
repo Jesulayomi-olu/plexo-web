@@ -74,12 +74,16 @@
   overflow: hidden;
 }
 
-/* "AI examples": padding 28/28/12, gap 12. */
+/*
+ * "AI examples": padding 28/28/12, gap 12. Figma's 1px strokes sit inside the boxes, CSS borders add to
+ * them, so the paddings next to a border are 1px less (the card's top and sides here, each action's
+ * bottom, the reassurance row's sides and bottom) and the guide keeps Figma's 358.
+ */
 .guideBody {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 28px 28px 12px;
+  padding: 27px 27px 12px;
 }
 
 /* desktop/heading/h6/semibold: 600 20/26, −0.4. */
@@ -96,7 +100,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  padding-block: 15px;
+  padding-block: 15px 14px;
   border-bottom: 1px solid var(--line);
   font-size: 16px;
   line-height: 24px;
@@ -104,6 +108,7 @@
 }
 
 .action:last-child {
+  padding-bottom: 15px;
   border-bottom: 0;
 }
 
@@ -116,12 +121,17 @@
   transform: scale(1.12);
 }
 
+/* Both 1px lower, as Figma draws them (see .baseline-fix). */
 .actionLabel {
+  position: relative;
+  top: 1px;
   flex: 1 1 0;
   min-width: 0;
 }
 
 .actionCost {
+  position: relative;
+  top: 1px;
   flex: 1 1 0;
   min-width: 0;
   font-weight: 600;
@@ -133,7 +143,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 20px 28px;
+  padding: 20px 27px 19px;
   background: var(--green-tint);
   font-size: 16px;
   line-height: 24px;

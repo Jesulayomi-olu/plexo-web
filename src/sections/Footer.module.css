@@ -1,6 +1,8 @@
 /*
- * Figma "Footer" (532:25055) on the page's #0d1a03 background: the white 1440×584 card (bottom
- * corners r32, clipped), then a 248px dark band to the page end (y 11567 → 11815).
+ * Figma "Footer" (814:5666) on the page's #0d1a03 background: the white 1440×584 card (bottom
+ * corners r32, clipped), then a 248px dark band to the page end.
+ * The card is laid out in flow (content, then the giant logo) so longer link text pushes the logo
+ * down instead of running into it; at 1440 the stack adds up to Figma's 584.
  */
 .footer {
   position: relative;
@@ -10,99 +12,190 @@
 
 .card {
   position: relative;
-  height: 584px;
   border-radius: 0 0 32px 32px;
   background: var(--white);
   overflow: hidden;
 }
 
-/*
- * "Frame 2147239139": 1199 wide at (121, 60), padding 30/20, white; row "Frame 75" (1159×151),
- * space-between, centred: brand (110 wide) · links (535).
- */
+/* "Frame 2147239355": 1280 wide, 60 from the top, column gap 48: top row · legal bar. */
 .content {
-  position: absolute;
-  top: 60px;
-  left: calc(50% - 599px);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 1199px;
-  padding: 30px 20px;
+  flex-direction: column;
+  gap: 48px;
+  padding-top: 60px;
 }
 
-/* "Frame 72": 110×95.43; logo 115.64×30, tagline at y 38 (400 12/13.2, #000). */
+/* "Top": row, gap 64: brand (340) · links (the rest). */
+.top {
+  display: flex;
+  align-items: flex-start;
+  gap: 64px;
+}
+
+/* "Brand": 340×180, column, space-between: logo + tagline · newsletter. */
 .brand {
   flex: none;
-  width: 110px;
-  height: 95.43px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 340px;
+  height: 180px;
 }
 
-.brand img {
+/* Logo 115.64×30, then the tagline 12 below (desktop/body/md/regular 400 16/24, #5b5b58). */
+.identity {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.logo {
   width: 115.64px;
   height: 30px;
   max-width: none;
 }
 
 .tagline {
-  margin-top: 8px;
-  font-size: 12px;
-  line-height: 13.2px;
+  font-size: 16px;
+  line-height: 24px;
   font-weight: 400;
-  color: #000000;
+  color: var(--ink-500);
   white-space: nowrap;
 }
 
-/* "Frame 77": 535 wide, four 103.75 columns, gap 40. */
-.columns {
-  display: grid;
-  grid-template-columns: repeat(4, 103.75px);
-  gap: 40px;
-}
-
-/* Column gap 24: heading 600 14/15.4 (15 box) · list (gap 16) of 400 12/15.6 (16 box), #0e1828. */
-.column {
+/* "Newsletter": column, gap 8: label (desktop/label/md/semibold 600 14/15.4, #232323) · field. */
+.newsletter {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 8px;
 }
 
-.heading {
-  height: 15px;
+.newsletterLabel {
   font-size: 14px;
   line-height: 15.4px;
   font-weight: 600;
-  color: #0e1828;
+  color: var(--ink-800);
+}
+
+/* "Links": five equal columns, gap 24; each column gap 12: heading · links. */
+.columns {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Headings: desktop/label/md/semibold 600 14/15.4, #232323. */
+.heading {
+  font-size: 14px;
+  line-height: 15.4px;
+  font-weight: 600;
+  color: var(--ink-800);
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
+/* Links: desktop/body/sm/regular 400 14/21, #5b5b58. "Log in" is semibold #517a12. */
 .link {
   display: block;
-  height: 16px;
-  font-size: 12px;
-  line-height: 15.6px;
+  font-size: 14px;
+  line-height: 21px;
   font-weight: 400;
-  color: #0e1828;
+  color: var(--ink-500);
+  transition: color 160ms ease;
+}
+
+a.link:hover {
+  color: var(--ink-800);
+}
+
+.accent {
+  font-weight: 600;
+  color: var(--moss);
+}
+
+a.accent:hover {
+  color: var(--forest-hover);
+}
+
+/* "Legal bar": 1px #d7d8d3 top rule, padding 12 0, space-between: legal text · social. */
+.legalBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: 12px;
+  border-top: 1px solid var(--line);
+}
+
+/* "Legal": row, gap 24, desktop/body/sm/regular 400 14/21, #5b5b58. */
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--ink-500);
+}
+
+.legalLink {
   white-space: nowrap;
   transition: color 160ms ease;
 }
 
-.link:hover {
-  color: var(--moss);
+a.legalLink:hover {
+  color: var(--ink-800);
 }
 
-/* Giant logo "Frame 2147239134": 843×218.69 at (229, 399.61), cut by the card's bottom edge. */
+/* "Social": 40px circles, #f0f6df, gap 8; 18px icons in #365811. */
+.socials {
+  flex: none;
+  display: flex;
+  gap: 8px;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  background: var(--green-tint);
+  transition: background-color 160ms ease;
+}
+
+a.social:hover {
+  background: var(--lime-soft);
+}
+
+.social img {
+  width: 18px;
+  height: 18px;
+}
+
+/*
+ * Giant logo "Frame 2147239134": 843×218.69, centred, 25.6 below the legal bar; the card's bottom
+ * edge cuts it at 184.39 (Figma: y 399.61 in the 584 card).
+ */
 .giant {
-  position: absolute;
-  top: 399.61px;
-  left: calc(50% - 491px);
+  position: relative;
   width: 843px;
-  height: calc(584px - 399.61px);
+  max-width: 100%;
+  height: 184.39px;
+  margin: 25.61px auto 0;
   overflow: hidden;
 }
 
@@ -144,33 +237,32 @@
   filter: blur(160px);
 }
 
-/* Below 1200: content flows (brand, then the link grid), giant logo scales to the width. */
+/* Below 1200: the brand sits above the link columns; the giant logo scales to the width. */
 @media (max-width: 1199px) {
-  .card {
-    height: auto;
-    padding: 56px var(--gutter) 0;
+  .content {
+    gap: 40px;
+    padding-top: 56px;
   }
 
-  .content {
-    position: static;
+  .top {
     flex-direction: column;
-    align-items: flex-start;
     gap: 40px;
-    width: auto;
-    padding: 0;
   }
 
   .brand {
+    width: 100%;
     height: auto;
+    gap: 32px;
+  }
+
+  .columns {
+    width: 100%;
   }
 
   .giant {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: min(843px, 100%);
+    width: min(843px, calc(100% - var(--gutter) * 2));
     height: auto;
-    margin: 56px auto 0;
+    margin-top: 48px;
     aspect-ratio: 843 / 184.39;
   }
 
@@ -185,14 +277,22 @@
 
 @media (max-width: 767px) {
   .card {
-    padding-top: 48px;
     border-radius: 0 0 24px 24px;
+  }
+
+  .content {
+    padding-top: 48px;
   }
 
   .columns {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     row-gap: 32px;
-    width: 100%;
+  }
+
+  .legalBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
   }
 
   .giant {
@@ -206,16 +306,23 @@
 
 /* Mobile type scale — design system "mobile/*" text styles, which apply below 768px. */
 @media (max-width: 767px) {
+  /* body/md → 14/21 */
+  .tagline {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
   /* label/md → 12/13.2 */
-  .heading {
-    height: auto;
+  .heading,
+  .newsletterLabel {
     font-size: 12px;
     line-height: 13.2px;
   }
 
-  /* label/sm → 10/11 */
-  .tagline {
-    font-size: 10px;
-    line-height: 11px;
+  /* body/sm → 12/18 */
+  .link,
+  .legal {
+    font-size: 12px;
+    line-height: 18px;
   }
 }

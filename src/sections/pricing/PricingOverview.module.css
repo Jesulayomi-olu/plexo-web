@@ -1,30 +1,36 @@
-/* Figma "Frame 2147239176" (571:11308): 1440×546, white, padding 60/40/40. */
+/* Figma "Frame 2147239176" (571:11308): 1440×443, white, padding 40. */
 .heroSection {
   background: var(--white);
-  padding: 60px 40px 40px;
+  padding: 40px;
 }
 
-/* "Pricing Hero": #1d3509, r40, 446 tall, clipped, with a fine grain. */
+/* "Pricing Hero" (571:11309): #1d3509, r40, 1360×363, clipped, with a fine grain; content centred. */
 .hero {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   max-width: 1360px;
-  min-height: 446px;
+  height: 363px;
   margin-inline: auto;
-  padding: 137px 40px 74px;
+  padding-inline: 40px;
   border-radius: 40px;
   background: var(--forest);
   overflow: hidden;
   isolation: isolate;
 }
 
+/*
+ * Figma's NOISE effect on the card: monotone white at 10%, density 0.94, size 0.2 × 3 (fine vertical
+ * streaks). Recreated as white turbulence whose alpha follows the noise, tuned against the Figma render:
+ * the card averages rgb(39 62 20) with a ±3.5 grain, as in Figma.
+ */
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
-  opacity: 0.18;
-  mix-blend-mode: soft-light;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.6 0.5' numOctaves='1' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.155 0 0 0 -0.0325'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   pointer-events: none;
 }
 
@@ -45,29 +51,35 @@
   left: 0;
 }
 
-/* Figma rotates the bottom-right mark 180° (the export is unrotated). */
+/* Figma rotates the bottom-right mark 180° (the export is unrotated) and puts it 225 down the 363 card, 1px off the bottom. */
 .cornerEnd {
   right: 0;
-  bottom: 0;
+  bottom: 1px;
 }
 
 .cornerEnd img {
   transform: rotate(180deg);
 }
 
-/* Column, gap 79: copy (601 wide) · billing toggle. */
+/*
+ * "Frame" 571:11310: 601 wide, centred, column: copy · billing toggle. Figma gives the copy a 136px box
+ * that its lead overflows by 17.6, then 40 to the toggle, so the toggle sits 22.4 under the lead.
+ */
 .heroContent {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 79px;
-  max-width: 601px;
-  margin-inline: auto;
+  gap: 22.4px;
+  width: 601px;
+  max-width: 100%;
   text-align: center;
 }
 
+/* Figma draws the title and lead 1px lower than Chrome (as .baseline-fix); the toggle row already matches. */
 .heroCopy {
+  position: relative;
+  top: 1px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -150,7 +162,7 @@
     0 1px 3px rgba(10, 13, 18, 0.1);
 }
 
-/* Figma "Pricing" (571:11323): white, padding 40/80; heading · 64 · cards. */
+/* Figma "Pricing" (571:11323): 1440×700, white, padding 40/80; heading (46) · 40 · cards (534). */
 .plans {
   background: var(--white);
   padding-block: 40px;
@@ -160,21 +172,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 64px;
+  gap: 40px;
 }
 
+/* desktop/heading/h3/semibold: 600 40/46, −1, #232323 (as the comparison table's heading). */
 .plansTitle {
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--ink-800);
   text-align: center;
-}
-
-@media (max-width: 1199px) {
-  .heroSection {
-    padding: 40px var(--gutter) 32px;
-  }
-
-  .hero {
-    padding-top: 120px;
-  }
 }
 
 @media (max-width: 767px) {
@@ -183,7 +191,7 @@
   }
 
   .hero {
-    min-height: 0;
+    height: auto;
     padding: 96px 20px 88px;
     border-radius: 24px;
   }
@@ -195,7 +203,7 @@
   }
 
   .heroContent {
-    gap: 40px;
+    gap: 24px;
   }
 
   .heroCopy {
@@ -230,5 +238,12 @@
 
   .plansInner {
     gap: 32px;
+  }
+
+  /* mobile heading/h3 → 28/33.6 */
+  .plansTitle {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
   }
 }

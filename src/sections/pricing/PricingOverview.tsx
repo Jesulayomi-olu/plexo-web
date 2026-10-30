@@ -82,7 +82,8 @@ export default function PricingOverview() {
                 <span id="pricing-hero-title">
                   Simple pricing
                   <br />
-                  Real results.
+                  {/* Figma starts this line with a space, which counts when centring. */}
+                  &nbsp;Real results.
                 </span>
               </BlurIn>
               <BlurIn as="p" delay={0.15} blur={8} duration={1.2} className={styles.heroLead}>
@@ -99,7 +100,7 @@ export default function PricingOverview() {
       <section id="plans" data-section="plans" className={styles.plans} aria-labelledby="plans-title">
         <div className={`container ${styles.plansInner}`}>
           <Reveal>
-            <h2 id="plans-title" className={`h2 ${styles.plansTitle}`}>
+            <h2 id="plans-title" className={styles.plansTitle}>
               Pricing Plan
             </h2>
           </Reveal>

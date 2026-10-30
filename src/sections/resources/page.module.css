@@ -1,0 +1,11 @@
+/* A Resources page's main section ("Content"): white, padding 80 above, 100 below. */
+.section {
+  background: var(--white);
+  padding-block: 80px 100px;
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: 48px 64px;
+  }
+}

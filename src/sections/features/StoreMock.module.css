@@ -1,0 +1,193 @@
+/*
+ * "Wireframe / Product card" and "Cart card" (Playful): white, 1px #e0e0e0, r24, column gap 14, a soft drop
+ * shadow. These strokes count in Figma's layout (the product card is 335 tall), as CSS borders do.
+ */
+.card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 240px;
+  border: 1px solid #e0e0e0;
+  border-radius: 24px;
+  background: var(--white);
+  filter: drop-shadow(0 10px 15px rgb(36 36 36 / 0.08));
+  color: #262626;
+  line-height: normal;
+}
+
+.product {
+  left: 44px;
+  top: 101px;
+  padding: 12px;
+}
+
+.cart {
+  left: 235px;
+  top: 60px;
+  padding: 16px;
+}
+
+/* "Image": 170 tall, #ededed, r18, the 26px image icon centred. */
+.image {
+  display: grid;
+  place-items: center;
+  height: 170px;
+  border-radius: 18px;
+  background: #ededed;
+}
+
+.imageIcon {
+  position: relative;
+  width: 26px;
+  height: 26px;
+}
+
+.imageIcon img {
+  position: absolute;
+  left: 2.1667px;
+  top: 2.1667px;
+  max-width: none;
+}
+
+/* "Name and price": padding 0 4, space-between. */
+.nameRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.lines i {
+  display: block;
+}
+
+.nameLine {
+  width: 110px;
+  height: 10px;
+  border-radius: 5px;
+  background: #bdbdbd;
+}
+
+.subLine {
+  width: 70px;
+  height: 8px;
+  border-radius: 4px;
+  background: #e8e8e8;
+}
+
+/* 600 14, #262626. */
+.price {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* "Sizes": padding 0 4, gap 6; pills 1px #d9d9d9 (the chosen one 1.5px #262626), 11px. */
+.sizes {
+  display: flex;
+  gap: 6px;
+  padding: 0 4px;
+}
+
+.size {
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+  padding: 6px 0;
+  border: 1px solid #d9d9d9;
+  border-radius: 999px;
+  font-size: 11px;
+  color: #737373;
+}
+
+.selected {
+  border: 1.5px solid #262626;
+  font-weight: 600;
+  color: #262626;
+}
+
+/* "Button": 1.5px #262626, r24, padding 12/16; 600 13. */
+.button {
+  display: flex;
+  justify-content: center;
+  padding: 12px 16px;
+  border: 1.5px solid #262626;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Cart header: "Cart" (500 italic 17) and the 16px close icon. */
+.cartHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cartTitle {
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* "Item": 44px thumbnail (#ededed, 1px #e0e0e0, round), two lines, price (600 12). */
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.thumb {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #e0e0e0;
+  border-radius: 22px;
+  background: #ededed;
+}
+
+.itemLines {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.itemLines i {
+  display: block;
+  height: 7px;
+  border-radius: 3.5px;
+  background: #e8e8e8;
+}
+
+.itemLines i:first-child {
+  background: #d4d4d4;
+}
+
+.itemPrice {
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* "Total": a 1px dashed #e0e0e0 rule, padding-top 10; 12.5px, the sum in bold. */
+.total {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px dashed #e0e0e0;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.totalValue {
+  font-weight: 700;
+}

@@ -12,12 +12,12 @@
   max-width: calc(1018px + var(--gutter) * 2);
 }
 
-/* desktop/heading/h2/semibold: 600 48/52.8, −1.2. */
+/* desktop/heading/h3/semibold: 600 40/46, −1. */
 .title {
-  font-size: 48px;
-  line-height: 52.8px;
+  font-size: 40px;
+  line-height: 46px;
   font-weight: 600;
-  letter-spacing: -1.2px;
+  letter-spacing: -1px;
   color: var(--ink-800);
   text-align: center;
 }
@@ -29,14 +29,17 @@
   gap: 40px;
 }
 
+/* min-width 0: on narrow tablets the 324 column shrinks with the card instead of pushing it wider. */
 .slotStart,
 .slotEnd {
   display: flex;
+  min-width: 0;
 }
 
 /* Cards: 345 tall, r16, padding 0 32, content centred. */
 .card {
   flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -113,12 +116,6 @@
 }
 
 @media (max-width: 1199px) {
-  .title {
-    font-size: 40px;
-    line-height: 44px;
-    letter-spacing: -1px;
-  }
-
   .cards {
     gap: 24px;
   }
@@ -133,11 +130,11 @@
     gap: 28px;
   }
 
-  /* mobile heading/h2 → 32/36.8 */
+  /* mobile heading/h3 → 28/33.6 */
   .title {
-    font-size: 32px;
-    line-height: 36.8px;
-    letter-spacing: -0.7px;
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
   }
 
   .cards {
