@@ -1,0 +1,256 @@
+/* Blog post detail — editorial light theme matching the marketing page. */
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-400);
+  margin-bottom: 32px;
+  transition: color 160ms ease;
+}
+
+.back:hover {
+  color: var(--olive);
+}
+
+.backArrow {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* Header */
+.header {
+  padding: 80px 0 56px;
+  background: var(--white);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.headerInner {
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.chip {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: var(--green-tint);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--olive);
+}
+
+.title {
+  font-size: 44px;
+  line-height: 52px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: var(--ink-800);
+  margin-bottom: 24px;
+  text-wrap: balance;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--ink-400);
+}
+
+.metaAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--surface-200);
+}
+
+.metaAuthor {
+  font-weight: 600;
+  color: var(--ink-700);
+}
+
+.metaDot {
+  color: var(--ink-300);
+}
+
+/* Article */
+.articleWrap {
+  padding: 56px 0 80px;
+  background: var(--white);
+}
+
+.articleInner {
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.featuredImage {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid var(--line-soft);
+  margin-bottom: 48px;
+  display: block;
+}
+
+/* Prose — scoped to .prose so it doesn't leak into the rest of the page */
+.prose {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--ink-700);
+}
+
+.prose :global(p) {
+  margin: 1.2em 0;
+}
+
+.prose :global(a) {
+  color: var(--olive);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose :global(a:hover) {
+  color: var(--moss);
+}
+
+.prose :global(h1),
+.prose :global(h2),
+.prose :global(h3),
+.prose :global(h4),
+.prose :global(h5),
+.prose :global(h6) {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--ink-800);
+  margin-top: 1.8em;
+  margin-bottom: 0.5em;
+}
+
+.prose :global(h1) { font-size: 1.9em; }
+.prose :global(h2) { font-size: 1.55em; }
+.prose :global(h3) { font-size: 1.28em; }
+.prose :global(h4),
+.prose :global(h5),
+.prose :global(h6) { font-size: 1.08em; }
+
+.prose :global(ul),
+.prose :global(ol) {
+  margin: 1.2em 0;
+  padding-left: 1.5em;
+}
+
+.prose :global(li) { margin: 0.4em 0; }
+.prose :global(ul) { list-style: disc; }
+.prose :global(ol) { list-style: decimal; }
+
+.prose :global(img) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin: 1.5em 0;
+  border: 1px solid var(--line-soft);
+}
+
+.prose :global(blockquote) {
+  border-left: 3px solid var(--lime);
+  margin: 1.5em 0;
+  padding: 0.4em 0 0.4em 1.25em;
+  color: var(--ink-500);
+  font-style: italic;
+}
+
+.prose :global(pre) {
+  background: var(--ink-900);
+  border: 1px solid var(--ink-700);
+  padding: 16px;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  font-size: 0.9em;
+  color: var(--surface-50);
+}
+
+.prose :global(code) {
+  background: var(--surface-200);
+  border: 1px solid var(--line);
+  padding: 2px 6px;
+  border-radius: 5px;
+  font-size: 0.88em;
+  color: var(--ink-700);
+}
+
+.prose :global(pre code) {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+
+.prose :global(hr) {
+  border: none;
+  border-top: 1px solid var(--line-soft);
+  margin: 2.5em 0;
+}
+
+.prose :global(table) {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.95em;
+  display: block;
+  overflow-x: auto;
+}
+
+.prose :global(th),
+.prose :global(td) {
+  border: 1px solid var(--line);
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.prose :global(th) {
+  background: var(--surface-100);
+  font-weight: 700;
+  color: var(--ink-800);
+}
+
+@media (max-width: 767px) {
+  .header {
+    padding: 64px 0 48px;
+  }
+
+  .title {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -0.5px;
+  }
+
+  .prose {
+    font-size: 15px;
+  }
+
+  .featuredImage {
+    border-radius: 12px;
+    margin-bottom: 32px;
+  }
+
+  .articleWrap {
+    padding: 40px 0 64px;
+  }
+}

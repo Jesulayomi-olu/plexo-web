@@ -166,7 +166,7 @@ export const plans: Plan[] = [
       </div>
     ),
     tagline: 'Take it for a spin.',
-    cta: { label: 'Start free', variant: 'white', href: '/#top' },
+    cta: { label: 'Start free', variant: 'white', href: 'https://plexo.charisol.io' },
     features: ['1 page,', '1 funnel,', '50 AI credits'],
     audience: 'For Anyone testing an idea',
     trial: true,
@@ -177,7 +177,7 @@ export const plans: Plan[] = [
       <BillingPrice period={period} roll={onPage} monthly={{ text: '$9', w: 49 }} yearly={{ text: '$7', w: 48 }} billed="Billed annually ($84/year)" />
     ),
     tagline: 'Get online. Start selling.',
-    cta: { label: 'Get started', variant: 'white', href: '/#top' },
+    cta: { label: 'Get started', variant: 'white', href: 'https://plexo.charisol.io' },
     features: ['5 pages', '5 products', 'Your domain', '300 credits/mo'],
     audience: 'For Small shops and solo sellers',
   },
@@ -187,7 +187,7 @@ export const plans: Plan[] = [
       <BillingPrice period={period} roll={onPage} monthly={{ text: '$19', w: 65 }} yearly={{ text: '$15', w: 65 }} billed="Billed annually ($180/year)" />
     ),
     tagline: 'Grow without limits.',
-    cta: { label: 'Go Pro', variant: 'contrast', href: '/#top' },
+    cta: { label: 'Go Pro', variant: 'contrast', href: 'https://plexo.charisol.io' },
     features: ['15 pages', '5 funnels', '25 products', 'No badge', 'MCP', '1,500 credits/mo'],
     audience: 'For Coaches, founders, designers',
     popular: true,

@@ -7,8 +7,9 @@ A build of the Figma frame **"Home page V2"** from the file *Plexo 2026* (node `
 ```bash
 npm install
 npm run dev       # http://localhost:3000
-npm run build     # production build in .next/ (the page is prerendered as static HTML)
-npm run start     # serve the production build
+npm run build     # static export in out/ (every page is prerendered as HTML)
+npm run dev:worker  # serve out/ through Wrangler, as Cloudflare will
+npm run deploy    # deploy out/ to Cloudflare (run build first)
 ```
 
 Add `?capture` to the URL (for example `http://localhost:3000/?capture`) to turn off animations and show the static design. Use it when comparing screenshots against Figma. Add `?preview` to see proposed motion that isn't live yet (see `MOTION.md`).
@@ -78,3 +79,9 @@ These layouts were derived from the desktop design (same colours, type, radii an
 - The FAQ is an accordion with one item open at a time; the open item's plus turns into a minus. The pricing page has its own questions (Figma "FAQ Pricing", 613:19248) and opens on the last one, as its Figma instance does. Build with Sol and E-commerce have their own too; E-commerce's answers are not in Figma yet (see `src/sections/Faq.tsx`).
 - The footer (Figma 814:5666) is shared by every page. Its email field checks the address but isn't connected to a mailing list yet, and items with no page yet (Log in, Help center, the Company and legal links, the social icons) are plain text until they get a URL in `src/sections/Footer.tsx`.
 - On small screens the nav collapses into a menu.
+
+## Deployment
+
+Deployed to Cloudflare Workers as static assets (no Worker function). Connect the repo through Cloudflare's GitHub integration with build command `npm run build` and deploy command `npx wrangler deploy`; every push to `main` then builds and deploys.
+
+Config: `wrangler.toml`. `next.config.ts` sets `output: 'export'`, so the build writes plain HTML to `./out`, which is what gets uploaded. Unknown paths get Next's `404.html` (`not_found_handling = "404-page"`). Because the export is static, the site can't use server features (API routes, middleware, `next/image` optimisation, request-time rendering); dynamic routes must list every path in `generateStaticParams`.

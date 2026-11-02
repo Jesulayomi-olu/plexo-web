@@ -19,7 +19,7 @@ import styles from './PricingCta.module.css'
 export default function PricingCta({
   title = 'Your site is one prompt away.',
   sub = 'Start free today. Go live when you are ready',
-  cta = { label: 'Start Free', href: '/#start' },
+  cta = { label: 'Start Free', href: 'https://plexo.charisol.io' },
   link,
   prompt,
   titleBox = 596,
