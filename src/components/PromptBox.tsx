@@ -147,7 +147,7 @@ export function PromptBox({
             </span>
           )}
         </span>
-        <Button type="submit" variant="primary" className={styles.submit}>
+        <Button href="https://plexo.charisol.io" variant="primary" className={styles.submit}>
           Build it
         </Button>
       </form>

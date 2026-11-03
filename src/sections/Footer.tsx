@@ -26,7 +26,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
       { label: 'Features', href: '/#features' },
       { label: 'Templates', href: '/resources/templates' },
       { label: 'What’s new' },
-      { label: 'Log in', accent: true },
+      { label: 'Log in', href: 'https://plexo.charisol.io', accent: true },
     ],
   },
   {
