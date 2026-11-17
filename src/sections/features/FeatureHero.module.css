@@ -52,9 +52,10 @@
   background: var(--white);
 }
 
+/* Centred across the width; 75 down on MCP (its 646 frame, clipped), 61 on Email (--card-top, 736:14786). */
 .single .card {
   left: 359px;
-  top: 75px;
+  top: var(--card-top, 75px);
 }
 
 .split .card {
@@ -62,13 +63,13 @@
   top: 61px;
 }
 
-/* Heading and lead: a 372 column, gap 24, centred text. */
+/* Heading and lead: a 372 column (--text-w; 435 on E-commerce, 731:12647), gap 24, centred text. */
 .text {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  width: 372px;
+  width: var(--text-w, 372px);
   max-width: 100%;
   text-align: center;
 }
@@ -108,6 +109,11 @@
 .actions a > span {
   position: relative;
   top: 1px;
+}
+
+/* A button Figma sets wider than its label (--action-w; Email's "View Templates" is 158). */
+.fixedAction {
+  width: var(--action-w);
 }
 
 /* Text link: padding 8/0; 500 14/21, −0.07, #1e1e1e, underlined. */
@@ -222,7 +228,7 @@
 
   .visual {
     width: 100%;
-    height: calc(496px * var(--v, 1) + 2px);
+    height: calc(496px * var(--v, 1));
   }
 }
 

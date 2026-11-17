@@ -1,0 +1,333 @@
+/*
+ * Figma "Hero storyboard" (1133:16152). Everything inside `.stage` is in the storyboard's design px on its
+ * 1280×339 frame; the stage is scaled to the picture from the top centre (see HeroStory).
+ */
+.root {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.stage {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1280px;
+  height: 339px;
+  transform-origin: top center;
+}
+
+/* Frames 1–4 keep the box centred 7.4 below the middle of the frame (y 176.9). */
+.center {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1280px;
+  height: 353.8px;
+}
+
+/* "Glass / You type": white 12% fill, its stroke drawn inside (box-shadow), background blur 9.4. */
+.glass {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  background: rgb(255 255 255 / 0.12);
+  -webkit-backdrop-filter: blur(4.7px);
+  backdrop-filter: blur(4.7px);
+}
+
+/* The white surface: the prompt pill, then the "thinking" pill, then the success card. */
+.surface {
+  position: relative;
+  flex: none;
+  overflow: hidden;
+  background: var(--white);
+}
+
+/* "Card" (1193:9948): attach · prompt · "Build", gap 12.84, padding 0 14.67. */
+.field {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: 12.838px;
+  padding: 0 14.672px;
+}
+
+/* "Attach": 40px circle, 1.11 #e8e8e4 stroke, 17.78 plus. */
+.attach {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1.111px solid var(--surface-200);
+  border-radius: 9999px;
+}
+
+/* The prompt: desktop/body/md/medium 500 16/24, #232323, one line. */
+.text {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--ink-800);
+  white-space: nowrap;
+}
+
+.caret {
+  flex: none;
+  width: 1.5px;
+  height: 19px;
+  margin-left: 1px;
+  background: var(--ink-800);
+}
+
+.caretBlink {
+  animation: caret-blink 1.05s steps(1, end) infinite;
+}
+
+@keyframes caret-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* "Build" (1193:9954): 72×40, #1d3509, 1.83 #517a12 stroke, r12.84; 400 16/24 #e8e8e4. */
+.build {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 72.012px;
+  height: 40px;
+  border: 1.834px solid var(--moss);
+  border-radius: 12.838px;
+  background: var(--forest);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--surface-200);
+}
+
+/*
+ * "Plexo is thinking..." (1159:21938): 500 16/24 in a grey → #232323 gradient; here a lighter band
+ * sweeps through it while Plexo works.
+ */
+.thinking {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: transparent;
+  white-space: nowrap;
+  background-image: linear-gradient(100deg, #232323 0%, #232323 38%, #a3a3a3 50%, #232323 62%, #232323 100%);
+  background-size: 260% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: thinking-sweep 1.3s linear infinite;
+}
+
+@keyframes thinking-sweep {
+  to {
+    background-position: 0 0;
+  }
+}
+
+/*
+ * "Success card" (1162:22095): padding 16/31.1, 340 wide. "Your site is live" (24px lime check · 8 ·
+ * 600 14/17.5, −0.28) · 6 · 400 11/16.5 · 12 · address (500 11.31/12.4, #517a12) and "View site" ·
+ * 18 · the note (400 10/14, #7a7b77).
+ */
+.live {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 31.102px;
+}
+
+.liveHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.check {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background: var(--lime);
+}
+
+.liveTitle {
+  font-size: 14px;
+  line-height: 17.5px;
+  font-weight: 600;
+  letter-spacing: -0.28px;
+  color: var(--ink-800);
+  white-space: nowrap;
+}
+
+.liveBody {
+  width: 340px;
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 16.5px;
+  color: var(--ink-800);
+}
+
+.liveRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 351px;
+  height: 29.379px;
+  margin-top: 12px;
+}
+
+.liveAddress {
+  flex: 1;
+  min-width: 0;
+  font-size: 11.31px;
+  line-height: 12.441px;
+  font-weight: 500;
+  color: var(--moss);
+}
+
+/* "Button / View site": #1d3509 pill, padding 9.19/16.97, 600 9.9/10.9 white; centred in its 97px slot. */
+.viewSite {
+  flex: none;
+  margin-right: 10px;
+  padding: 9.189px 16.965px;
+  border-radius: 9999px;
+  background: var(--forest);
+  font-size: 9.896px;
+  line-height: 10.886px;
+  font-weight: 600;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+.liveNote {
+  width: 340px;
+  margin-top: 18px;
+  font-size: 10px;
+  line-height: 14px;
+  color: var(--dash);
+}
+
+/* "Card" chips: white pills, 38 tall, padding 0 8, 500 11/16.5 #232323; they bob gently once in place. */
+.chip {
+  position: absolute;
+  height: 38px;
+}
+
+.chipFloat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 8px;
+  border-radius: 9999px;
+  background: var(--white);
+  font-size: 11px;
+  line-height: 16.5px;
+  font-weight: 500;
+  color: var(--ink-800);
+  white-space: nowrap;
+  animation: chip-float 3.4s ease-in-out infinite;
+}
+
+@keyframes chip-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* "Desktop window" (1162:22147): 486×300 at (464, 77), white, 1px #d7d8d3, r10, clipped by the frame. */
+.window {
+  position: absolute;
+  top: 77px;
+  left: 464px;
+  display: flex;
+  flex-direction: column;
+  width: 486px;
+  height: 300px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--white);
+}
+
+.window img {
+  flex: none;
+  max-width: none;
+}
+
+.windowShot {
+  object-fit: cover;
+}
+
+/* "iPhone-13-Pro-Front" (1162:22153) at (405, 121), exported at 2× as Figma clips it (168.5×218). */
+.phone {
+  position: absolute;
+  top: 121px;
+  left: 405px;
+  width: 168.5px;
+  height: 218px;
+  max-width: none;
+}
+
+/* The cursor's box sits on its tip; the arrow is "navigation-2" turned −46°, as in frame 2. */
+.cursor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.cursorIcon {
+  position: absolute;
+  top: -15.76px;
+  left: -15.38px;
+  display: grid;
+  place-items: center;
+  width: 53.371px;
+  height: 53.371px;
+}
+
+.cursorIcon img {
+  max-width: none;
+  transform: rotate(-46deg);
+}
+
+/* Idle loops stop with the story (before it starts and once it has left the screen). */
+.root:not([data-playing]) .thinking,
+.root:not([data-playing]) .chipFloat,
+.root:not([data-playing]) .caretBlink {
+  animation-play-state: paused;
+}

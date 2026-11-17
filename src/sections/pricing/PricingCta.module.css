@@ -50,8 +50,9 @@
   gap: 40px;
 }
 
-/* Figma draws the button label 1px lower than Chrome. */
-.actions a > span {
+/* Figma draws the button label 1px lower than Chrome (a link, or a button with no destination yet). */
+.actions a > span,
+.actions button > span {
   position: relative;
   top: 1px;
 }

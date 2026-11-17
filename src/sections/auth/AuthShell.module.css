@@ -1,0 +1,50 @@
+/*
+ * The auth screens' frame (Figma 1296:8209 "Create account" and its eight siblings, 1440×1024, white).
+ * The 1400×978 row (1296:8210) sits 20 from the sides and 23 from the top and bottom: the green panel
+ * (677 wide, see AuthPanel), 19 apart from the form column (704 wide). Each form is 510 wide, centred in
+ * the column both ways (e.g. Create Account 1296:8249: 97 from the column's left, (978 − height) / 2
+ * from the top).
+ *
+ * Below 1024 the panel becomes a band with just the logo (see AuthPanel) and the form follows it,
+ * centred at its 510 width; phones keep 20px gutters.
+ */
+.shell {
+  display: grid;
+  grid-template-columns: minmax(0, 677fr) minmax(0, 704fr);
+  column-gap: 19px;
+  align-items: start;
+  align-content: start;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 23px 20px;
+  background: var(--white);
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: calc(100vh - 46px);
+  min-height: calc(100dvh - 46px);
+  padding: 40px 24px;
+}
+
+@media (max-width: 1023px) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 20px;
+  }
+
+  .main {
+    align-items: flex-start;
+    min-height: 0;
+    padding: 56px 0 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .main {
+    padding: 40px 0 24px;
+  }
+}

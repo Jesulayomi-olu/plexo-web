@@ -31,7 +31,7 @@ export default function SolHero() {
             <div className={styles.panel}>
               <div className={styles.copy}>
                 <BlurIn as="h1" blur={14} duration={1.4} className={styles.title}>
-                  {/* Figma ends both lines (and the lead's first) with a space, which counts when centring. */}
+                  {/* Figma ends both lines with a space, which counts when centring. */}
                   <span id="sol-hero-title">
                     Type it.&nbsp;
                     <br />
@@ -39,9 +39,8 @@ export default function SolHero() {
                   </span>
                 </BlurIn>
                 <BlurIn as="p" delay={0.15} blur={8} duration={1.2} className={styles.lead}>
-                  Describe your business in plain words.&nbsp;
-                  <br />
-                  Get a live site with copy, images and checkout.
+                  Describe what you want in plain words. Sol turns your ideas into websites, landing pages and emails you can customise and
+                  publish.
                 </BlurIn>
               </div>
               <Reveal delay={0.4} y={16} className={styles.promptSlot}>

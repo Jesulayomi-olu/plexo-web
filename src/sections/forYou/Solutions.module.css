@@ -58,13 +58,24 @@
   color: var(--surface-100);
 }
 
-/* Content column: 324 wide, title row · 24 · lines. */
+/* Content column: 405 wide (the November 2026 frames; the lines are full sentences, 371 of text beside
+   the bullet), title row · 24 · lines. */
 .column {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  width: 324px;
+  width: var(--column, 405px);
   max-width: 100%;
+}
+
+/*
+ * E-commerce (734:13459) keeps the 324 column, its lines one line each. The last fix ("…even when you're
+ * away.") is wider than the 290 beside its bullet: Figma clips it; here it runs a few px past the column.
+ */
+@media (min-width: 1200px) {
+  .ownColumn .line {
+    white-space: nowrap;
+  }
 }
 
 /* desktop/heading/h6/semibold: 600 20/26, −0.4; icon 24, then 26 (problem) / 16 (fix). */

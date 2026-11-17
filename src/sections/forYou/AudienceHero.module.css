@@ -47,6 +47,7 @@
   color: var(--ink-800);
 }
 
+/* Figma breaks each lead onto two lines ("\n" in the copy); phones wrap it naturally instead. */
 .lead {
   position: relative;
   top: 1px;
@@ -54,6 +55,7 @@
   font-size: 16px;
   line-height: 24px;
   color: var(--ink-800);
+  white-space: pre-line;
 }
 
 /* 1280×446: the photo frame with the prompt box over it. */
@@ -142,6 +144,7 @@
     margin-top: 16px;
     font-size: 14px;
     line-height: 21px;
+    white-space: normal;
   }
 
   .stage {

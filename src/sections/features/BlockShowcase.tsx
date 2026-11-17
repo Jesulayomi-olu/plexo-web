@@ -25,7 +25,7 @@ export default function BlockShowcase() {
         </Reveal>
         <Reveal delay={0.1} y={20} className={styles.panel}>
           <img
-            src="/assets/features/drag/editor-blocks.webp"
+            src="/assets/features/drag/editor-blocks-v2.webp"
             width={670}
             height={419}
             alt="The Plexo editor with an empty canvas, ready for blocks from the layers panel."

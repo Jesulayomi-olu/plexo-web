@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Button } from '../../components/Button'
 import { Reveal } from '../../components/Reveal'
 import { ease, softSpring, useStaticMotion } from '../../lib/motion'
+import { SIGNUP_HREF } from '../navData'
 import styles from './CreditsGuarantee.module.css'
 
 /**
@@ -126,7 +127,7 @@ export default function CreditsGuarantee() {
           </div>
           <Reveal delay={0.2}>
             <Button
-              href="/#start"
+              href={SIGNUP_HREF}
               size="large"
               trailingIcon={<img src="/assets/pricing/arrow-right.svg" width={20} height={20} alt="" />}
             >

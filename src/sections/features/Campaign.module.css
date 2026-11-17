@@ -111,8 +111,9 @@
   flex-direction: column;
   border: 1px solid rgb(255 255 255 / 0.3);
   background: rgb(255 255 255 / 0.14);
-  backdrop-filter: blur(6px);
+  /* Prefixed first: in the other order the CSS build keeps only the prefixed one, which Chrome ignores. */
   -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 }
 
 /* "Glass / You type": 460 at (152, 79), padding 12, r20. */
@@ -162,6 +163,17 @@
   line-height: 21px;
   font-weight: 500;
   color: var(--ink-800);
+  white-space: nowrap;
+}
+
+/* The caret while the prompt types itself out. */
+.caret {
+  display: inline-block;
+  width: 1.5px;
+  height: 15px;
+  margin-left: 1px;
+  vertical-align: -2px;
+  background: currentColor;
 }
 
 /* The pointer and the "You" tag, hanging off the card's lower left (at −6, 57). */
@@ -251,6 +263,7 @@
   height: 8px;
   border-radius: 4px;
   background: #9e9f9b;
+  transform-origin: left center; /* they write themselves from the left */
 }
 
 .replyLines i:last-child {

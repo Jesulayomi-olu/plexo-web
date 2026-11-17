@@ -1,54 +1,279 @@
-/* Figma "Final CTA" (532:25039): 1440×430, bg #f5f7ed, padding 100 top/bottom. */
+/*
+ * Figma "Final CTA" (1166:16076): 1440×526, #f5f7ed, column gap 64, items centred.
+ * Padding 100 top/bottom. Figma pads only the right side (80), which puts the heading (x 395.5) and
+ * the card (x 222) 40px left of the page centre; every other section is centred, so this one is too.
+ */
 .cta {
-  padding: 100px 0;
-  background: var(--cream);
-  overflow: hidden;
-}
-
-/* Column, gap 64, items centred. */
-.inner {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 64px;
+  padding: 100px var(--gutter);
+  background: var(--cream);
+  overflow: hidden;
 }
 
-/* "Frame 57": hugs the 692×53 heading, centred. */
+/* "Frame 57": hugs the heading (569×46). */
 .headingBox {
   max-width: 100%;
 }
 
-/* 700 48/52.8, −1.2, #232323 (shared .h2); Figma text box is 53px tall. */
+/*
+ * desktop/heading/h3/semibold: 600 40/46, −1, #232323. CSS adds the tracking after the last glyph
+ * too; Figma doesn't, so the box gets it back on the right.
+ */
 .title {
-  position: relative;
-  top: 1px; /* Figma baseline snap */
-  min-height: 53px;
+  padding-right: 1px;
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--ink-800);
+  text-align: center;
   white-space: nowrap;
 }
 
-.promptWrap {
+/*
+ * "Frame 5": 916×216, #fcfcfa, 2px #e8e8e4 border, r16, padding 16, column, space-between:
+ * the prompt row (880×66) and the alternatives (99.6 tall).
+ */
+.card {
   display: flex;
-  justify-content: center;
-  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  width: 916px;
+  max-width: 100%;
+  min-height: 216px;
+  padding: 16px;
+  border: 2px solid var(--surface-200);
+  border-radius: 16px;
+  background: var(--surface-50);
+  overflow: hidden;
 }
 
+/*
+ * "Frame 2147239360": 1px #d7d8d3 border, pill, padding 12, space-between, items at the top: the
+ * field group (36 tall) · "Build it" (40 tall).
+ */
+.prompt {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.prompt:hover {
+  border-color: var(--border-strong);
+}
+
+/* The field shows focus on the whole row (the pill), not on the bare input. */
+.prompt:has(.input:focus-visible) {
+  border-color: var(--border-strong);
+  box-shadow: var(--focus-ring);
+}
+
+/* Attach (36, pill, #d7d8d3, "plus" 17) · 12 · the field. */
+.lead {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.attach {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: var(--line);
+  transition: background-color 160ms ease;
+}
+
+.attach:hover {
+  background: var(--surface-200);
+}
+
+.attach:focus-visible {
+  border-radius: 999px;
+}
+
+.attach img {
+  width: 17px;
+  height: 17px;
+}
+
+/* desktop/body/md/medium: 500 16/24; the placeholder #5b5b58, typed text #232323. */
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--ink-800);
+  text-overflow: ellipsis;
+  outline: none;
+  position: relative;
+  top: 1px; /* Figma baseline snap */
+}
+
+.input::placeholder {
+  color: var(--ink-500);
+  opacity: 1;
+}
+
+.input:focus-visible {
+  box-shadow: none;
+}
+
+/* "Button / Build it": Primary, Size=Medium (40, padding 16), hugs its label. */
+.submit {
+  flex: none;
+}
+
+/* "Frame 2147239359": column, gap 24, centred: "or" · the three links. */
+.alternatives {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* "Frame 2147239358": padding 8/24 around desktop/body/sm/regular 400 14/21, #454543. */
+.or {
+  position: relative;
+  top: 1px; /* Figma baseline snap */
+  padding: 8px 24px;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--ink-600);
+}
+
+/* "Frame 2147239356": row, gap 24. */
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+/* White, 0.8px #bebeba border, r8, padding 8/24; 400 14/21, #454543. Figma keeps the label's spaces. */
+.link {
+  display: block;
+  padding: 8px 24px;
+  border: 0.8px solid var(--text-subtle);
+  border-radius: 8px;
+  background: var(--white);
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--ink-600);
+  text-align: center;
+  white-space: pre;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.link:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-100);
+  color: var(--ink-800);
+}
+
+.link:active {
+  background: var(--surface-200);
+}
+
+.link:focus-visible {
+  border-radius: 8px;
+}
+
+/* Below 1200: centred between equal side margins. */
 @media (max-width: 1199px) {
-  .title {
-    text-align: center;
+  .cta {
+    padding-inline: var(--gutter);
   }
 }
 
 @media (max-width: 767px) {
   .cta {
-    padding: 64px 0 56px;
-  }
-
-  .inner {
     gap: 40px;
+    padding-block: 64px 56px;
   }
 
   .title {
-    min-height: 0;
+    padding-right: 0;
     white-space: normal;
+    text-wrap: balance;
+  }
+
+  .card {
+    min-height: 0;
+    gap: 16px;
+    padding: 12px;
+  }
+
+  /* "Build it" grows to Size=Large (48) on phones; the field group centres against it. */
+  .prompt {
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .lead {
+    gap: 8px;
+  }
+
+  .alternatives {
+    gap: 12px;
+  }
+
+  .or {
+    padding-block: 4px;
+  }
+
+  /* The three links stack, full width. */
+  .links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .link {
+    white-space: pre-wrap;
+  }
+}
+
+/* Mobile type scale — design system "mobile/*" text styles, which apply below 768px. */
+@media (max-width: 767px) {
+  /* heading/h3 → 28/33.6, −2% */
+  .title {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
+  }
+
+  /* body/sm → 12/18. The field stays at 16px so phones don't zoom in when it is focused. */
+  .or,
+  .link {
+    font-size: 12px;
+    line-height: 18px;
   }
 }

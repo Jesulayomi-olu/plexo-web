@@ -6,6 +6,7 @@ import { Button, type ButtonVariant } from '../components/Button'
 import { Reveal } from '../components/Reveal'
 import { durations, ease, usePreviewMode, softSpring, useStaticMotion } from '../lib/motion'
 import { RollingText } from '../motion/RollingText'
+import { SIGNUP_HREF } from './navData'
 import styles from './Pricing.module.css'
 
 /**
@@ -13,6 +14,9 @@ import styles from './Pricing.module.css'
  * (default, the page instance), "Component 6" = Yearly. Four 302×489 cards in a row; each has a
  * grey content panel (green for Pro) and a feature list. The toggle switches the Starter and Pro
  * price blocks between the variants.
+ * Home page V2 "Pricing" (1166:16044): the heading is now desktop/heading/h3/semibold (40/46) and the
+ * cards (instance 1166:16070) are padded 12/12/28, so the home section passes `roomy` to PlanGrid. The
+ * For You and pricing pages keep the earlier cards.
  */
 export type Period = 'monthly' | 'yearly'
 
@@ -166,7 +170,7 @@ export const plans: Plan[] = [
       </div>
     ),
     tagline: 'Take it for a spin.',
-    cta: { label: 'Start free', variant: 'white', href: '/#top' },
+    cta: { label: 'Start free', variant: 'white', href: SIGNUP_HREF },
     features: ['1 page,', '1 funnel,', '50 AI credits'],
     audience: 'For Anyone testing an idea',
     trial: true,
@@ -177,7 +181,7 @@ export const plans: Plan[] = [
       <BillingPrice period={period} roll={onPage} monthly={{ text: '$9', w: 49 }} yearly={{ text: '$7', w: 48 }} billed="Billed annually ($84/year)" />
     ),
     tagline: 'Get online. Start selling.',
-    cta: { label: 'Get started', variant: 'white', href: '/#top' },
+    cta: { label: 'Get started', variant: 'white', href: SIGNUP_HREF },
     features: ['5 pages', '5 products', 'Your domain', '300 credits/mo'],
     audience: 'For Small shops and solo sellers',
   },
@@ -187,7 +191,7 @@ export const plans: Plan[] = [
       <BillingPrice period={period} roll={onPage} monthly={{ text: '$19', w: 65 }} yearly={{ text: '$15', w: 65 }} billed="Billed annually ($180/year)" />
     ),
     tagline: 'Grow without limits.',
-    cta: { label: 'Go Pro', variant: 'contrast', href: '/#top' },
+    cta: { label: 'Go Pro', variant: 'contrast', href: SIGNUP_HREF },
     features: ['15 pages', '5 funnels', '25 products', 'No badge', 'MCP', '1,500 credits/mo'],
     audience: 'For Coaches, founders, designers',
     popular: true,
@@ -271,18 +275,24 @@ export function PlanCard({
   )
 }
 
-/** The plan cards in a row (all four by default; 2×2 on tablets, two per row on phones). */
+/**
+ * The plan cards in a row (all four by default; 2×2 on tablets, two per row on phones).
+ * `roomy`: the cards of Home page V2 (1166:16070), whose master (489:6323) now pads them 12/12/28
+ * (8/8/28 before), so everything inside sits 4px further in.
+ */
 export function PlanGrid({
   period,
   variant = 'home',
   items = plans,
+  roomy = false,
 }: {
   period: Period
   variant?: 'home' | 'page'
   items?: Plan[]
+  roomy?: boolean
 }) {
   return (
-    <div className={[styles.cards, variant === 'page' && styles.cardsPage].filter(Boolean).join(' ')}>
+    <div className={[styles.cards, variant === 'page' && styles.cardsPage, roomy && styles.cardsRoomy].filter(Boolean).join(' ')}>
       {items.map((plan, i) => (
         <PlanCard key={plan.name} plan={plan} period={period} delay={i * 0.06} variant={variant} />
       ))}
@@ -336,7 +346,7 @@ export default function Pricing() {
       <div className={`container ${styles.inner}`}>
         <div className={styles.head}>
           <Reveal>
-            <h2 id="pricing-title" className={`h2 ${styles.title}`}>
+            <h2 id="pricing-title" className={styles.title}>
               Try it free
               <br />
               {/* Figma ends this line with a carriage return that counts as a space when centring. */}
@@ -352,7 +362,7 @@ export default function Pricing() {
           <BillingToggle period={period} onChange={setPeriod} />
         </Reveal>
 
-        <PlanGrid period={period} />
+        <PlanGrid period={period} roomy />
       </div>
     </section>
   )

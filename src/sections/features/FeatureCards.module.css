@@ -86,19 +86,19 @@
 }
 
 /*
- * E-commerce bento: the tall card (290×512, centred in the 513 of rows) beside two rows of three. The
- * rows are 240 at 1440 and grow when narrower cards need another line of copy.
+ * E-commerce bento (736:13525, 1280×561): the tall card (290×561, its content centred) beside two rows
+ * of three. The rows are 264 at 1440 (a three-line body fills one) and grow when narrower cards need
+ * another line of copy.
  */
 .ecommerce .grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-template-rows: minmax(240px, auto) minmax(240px, auto);
+  grid-template-rows: minmax(264px, auto) minmax(264px, auto);
   gap: 33px 40px;
 }
 
 .ecommerce .card:first-child {
   grid-row: 1 / span 2;
   justify-content: center;
-  margin-block: 0.5px;
 }
 
 /* Card: padding 24/24/32, column gap 64; 240 tall (its content, or fixed in the 3 × 2 grids). */
@@ -171,13 +171,14 @@
 
 /*
  * desktop/body/md/regular, #454543 (#f5f7ed on dark). Figma's text boxes are sometimes wider than the
- * card's padding allows (331 or 355 in a 350, 326 or 240 column), so the copy may use the right-hand
- * padding, as Figma's does ("Paystack, Flutterwave and cards"), but never runs past the card's edge.
+ * card's padding allows (331 or 355 in a 350 or 326 column), so the copy may use the right-hand
+ * padding, as Figma's does, but never runs past the card's edge. E-commerce's fill the padding box (no
+ * --body-w).
  */
 .body {
   position: relative;
   top: 1px;
-  width: var(--body-w);
+  width: var(--body-w, 100%);
   max-width: calc(100% + 24px);
   font-size: 16px;
   line-height: 24px;
@@ -195,6 +196,13 @@
 
 @media (min-width: 1440px) {
   .break {
+    display: inline;
+  }
+}
+
+/* Design with a Drag: its two broken lines ("Templates", "Undo and history") fit from tablet up. */
+@media (min-width: 768px) {
+  .drag .break {
     display: inline;
   }
 }
@@ -271,5 +279,10 @@
   .body {
     font-size: 14px;
     line-height: 21px;
+  }
+
+  /* Email's wider Figma boxes (331, 355) only matter at 1440; on phones its copy keeps to the padding. */
+  .email .body {
+    max-width: 100%;
   }
 }

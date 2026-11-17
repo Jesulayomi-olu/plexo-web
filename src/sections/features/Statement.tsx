@@ -4,8 +4,9 @@ import { Reveal } from '../../components/Reveal'
 import styles from './Statement.module.css'
 
 /**
- * Email & Marketing "Solutions" (736:14813): white, padding 80/80/40; one centred 1054-wide line of
- * 600 40/60 (−1): the problem in #5b5b58, then the answer in #121212.
+ * Email & Marketing "Solutions" (736:14813): 1440×300, white, padding 80/80/40; one centred 1054-wide
+ * paragraph of 600 40/60 (−1) that wraps to three lines at 1440: the problem in #5b5b58, then the
+ * answer in #121212.
  */
 export default function Statement() {
   return (
@@ -14,7 +15,7 @@ export default function Statement() {
         <Reveal>
           <p className={styles.text}>
             <span className={styles.muted}>Most visitors leave without buying.</span> Plexo helps you collect their email and
-            follow up until they do.
+            follow up with the right message, giving them another reason to come back.
           </p>
         </Reveal>
       </div>

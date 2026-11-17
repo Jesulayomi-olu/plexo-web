@@ -6,6 +6,7 @@ import { Divider } from '../components/Divider'
 import { EmailField } from '../components/EmailField'
 import { Reveal } from '../components/Reveal'
 import { focusEase, usePreviewMode, useStaticMotion } from '../lib/motion'
+import { LOGIN_HREF } from './navData'
 import styles from './Footer.module.css'
 
 /**
@@ -23,30 +24,30 @@ const columns: { title: string; links: FooterLink[] }[] = [
     title: 'Product',
     links: [
       { label: 'Pricing', href: '/pricing' },
-      { label: 'Features', href: '/#features' },
+      { label: 'Features', href: '/features/sol' },
       { label: 'Templates', href: '/resources/templates' },
       { label: 'What’s new' },
-      { label: 'Log in', accent: true },
+      { label: 'Log in', href: LOGIN_HREF, accent: true },
     ],
   },
   {
     // The same five audiences as the home page's "Plexo is for everyone" tabs.
     title: 'Solutions',
     links: [
-      { label: 'Small businesses', href: '/for-you/small-business' },
-      { label: 'Coaches and creators', href: '/for-you/coaches' },
-      { label: 'Agencies and freelancers', href: '/for-you/designers' },
-      { label: 'Growing brands', href: '/#for-you' },
-      { label: 'Product teams', href: '/#for-you' },
+      { label: 'Small businesses', href: '/solutions/small-business' },
+      { label: 'Coaches and creators', href: '/solutions/coaches' },
+      { label: 'Agencies and freelancers', href: '/solutions/designers' },
+      { label: 'Growing brands', href: '/#who-its-for' },
+      { label: 'Product teams', href: '/#who-its-for' },
     ],
   },
   {
     title: 'Developers',
     links: [
-      { label: 'Developer docs', href: '/#developers' },
-      { label: 'MCP setup', href: '/#mcp' },
-      { label: 'API reference', href: '/#developers' },
-      { label: 'SDK guides', href: '/#developers' },
+      { label: 'Developer docs' },
+      { label: 'MCP setup' },
+      { label: 'API reference' },
+      { label: 'SDK guides' },
       { label: 'API status' },
     ],
   },

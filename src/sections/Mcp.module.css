@@ -57,9 +57,17 @@
   margin-top: 40px;
 }
 
-/* MCP and API page (668:28637): Figma rounds the 203.2 header to 203. */
+/* MCP and API page (668:28637): Figma rounds the 227.2 header to 227. */
 .page .header {
   margin-bottom: 79.8px;
+}
+
+/*
+ * Its lead (668:28649): 568 wide, Figma's two lines; the first ends with a space, which counts when
+ * centring (white-space: pre keeps it). Phones let it wrap.
+ */
+.page .lead {
+  white-space: pre;
 }
 
 /* desktop/heading/h3/semibold (600 40/46, −1) on one line, drawn where Chrome draws it. */
@@ -105,6 +113,26 @@
   height: 661.7px;
   overflow: hidden;
   background: linear-gradient(180deg, #ffffff -42%, rgb(244 245 240 / 0) 119%);
+}
+
+/*
+ * MCP and API page (668:28668, at (48, −34.39)): the fill is now white (41.5%) → transparent #f4f5f0
+ * (119%) under a 50px background blur, which Figma renders not white but 0–2 levels darker than the
+ * page: page colour at the top of the frame, a shade darker down to the 41.5% stop, two shades below
+ * it, easing off toward the bottom. These #f4f5f0 stops reproduce that render (measured).
+ */
+.page .integration {
+  background: linear-gradient(
+    180deg,
+    rgb(244 245 240 / 0) 5.2%,
+    rgb(244 245 240 / 0.06) 9%,
+    rgb(244 245 240 / 0.09) 22%,
+    rgb(244 245 240 / 0.09) 38%,
+    rgb(244 245 240 / 0.21) 39.5%,
+    rgb(244 245 240 / 0.2) 54%,
+    rgb(244 245 240 / 0.15) 79%,
+    rgb(244 245 240 / 0.08) 82%
+  );
 }
 
 .integration img,
@@ -210,6 +238,11 @@
   pointer-events: none;
 }
 
+/* The MCP and API page's diagram has no dot pattern (668:28669 is hidden). */
+.page .mobileWrap::before {
+  content: none;
+}
+
 .mobile {
   position: relative;
   width: 320px;
@@ -288,6 +321,10 @@
     font-size: 28px;
     line-height: 33.6px;
     letter-spacing: -0.56px;
+  }
+
+  .page .lead {
+    white-space: normal;
   }
 }
 

@@ -21,12 +21,14 @@ import styles from './DevStack.module.css'
  */
 type Tile = { title: string; text: string }
 
-// Figma's Webhooks line ends with a stray "]" ("…form fills and orders.]"); it is left out.
+// Figma's Webhooks line ends with a stray "]" ("…form fills and orders.]"); it is left out. The SDK
+// line gets the full stop Figma leaves off, like its siblings (the design team's rule), and the
+// "Clean export." title loses Figma's full stop, like the other titles (the design team's call).
 const tiles: Tile[] = [
   { title: 'Webhooks', text: 'Get notified on publish, form fills and orders.' },
-  { title: 'Clean export.', text: 'HTML, React, MJML. Ship it as is.' },
+  { title: 'Clean export', text: 'HTML, React, MJML. Ship it as is.' },
   { title: 'REST API', text: 'Create, update and publish pages from your code.' },
-  { title: 'SDK', text: 'A full page and email builder in your React app' },
+  { title: 'SDK', text: 'A full page and email builder in your React app.' },
   { title: 'Design tokens', text: 'Sync once. On brand forever.' },
 ]
 

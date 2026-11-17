@@ -1,0 +1,169 @@
+/* Figma "Developers" (1166:15834): 1440×648, #fcfcfa, padding 80; centred column, gap 64. */
+.section {
+  padding-block: 80px;
+  background: var(--surface-50);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+}
+
+/* "Frame 13": 888 wide, column, gap 16, centred. */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 888px;
+  text-align: center;
+}
+
+/* desktop/heading/h3/semibold: 600 40/46, −1, #1e1e1e; two lines, broken by hand. */
+.title {
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--ink-900);
+}
+
+/* desktop/body/md/regular: 400 16/24, #454543, 776 wide; 1px lower, as Figma draws it. */
+.lead {
+  position: relative;
+  top: 1px;
+  max-width: 776px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--ink-600);
+}
+
+/* "Frame 2147239167": row, gap 20, 164 tall; three equal cards (160 tall) at the top. */
+.cards {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  min-height: 164px;
+}
+
+/* "Frame 43": #e8e8e4, r4, padding 38/16, clipped; title · 16 · text. */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 38px 16px;
+  border-radius: 4px;
+  background: var(--surface-200);
+  overflow: hidden;
+}
+
+/* desktop/heading/h6/semibold: 600 20/26, −0.4, #232323. */
+.cardTitle {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: var(--ink-800);
+}
+
+/* desktop/body/sm/regular: 400 14/21, #232323, with Figma's hand-made line breaks. */
+.cardText {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+  color: var(--ink-800);
+  white-space: pre-wrap;
+}
+
+/* "Button / Read the docs" (labelled "Get started"): Secondary, 197 wide. */
+.ctaWrap {
+  display: flex;
+  width: 197px;
+}
+
+/* Narrower than Figma's column: the cards share the tallest card's height. */
+@media (max-width: 1439px) {
+  .cards {
+    align-items: stretch;
+    min-height: 0;
+  }
+}
+
+/* Figma's hand-made line breaks only fit the desktop card; below 1200 the text flows freely. */
+@media (max-width: 1199px) {
+  .cardText {
+    white-space: normal;
+  }
+}
+
+/* Below 1024 the cards stack. */
+@media (max-width: 1023px) {
+  .cards {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    min-height: 0;
+    max-width: 640px;
+  }
+
+  .card {
+    flex: none;
+    padding: 28px 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: 64px;
+  }
+
+  .inner {
+    gap: 40px;
+  }
+
+  .header {
+    gap: 12px;
+  }
+
+  /* mobile heading/h3 → 28/33.6 */
+  .title {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
+  }
+
+  /* body/md → 14/21 */
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .cards {
+    gap: 12px;
+  }
+
+  .card {
+    gap: 8px;
+    padding: 24px 16px;
+  }
+
+  /* heading/h6 → 18/23.4 */
+  .cardTitle {
+    font-size: 18px;
+    line-height: 23.4px;
+    letter-spacing: -0.36px;
+  }
+
+  /* body/sm → 12/18 */
+  .cardText {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}

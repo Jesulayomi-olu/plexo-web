@@ -60,12 +60,15 @@ function Connectors({ moving }: { moving: boolean }) {
   )
 }
 
-/** Desktop / tablet: the Figma composition at 1280×508, scaled to fit below 1440. */
-function DesktopDiagram({ moving }: { moving: boolean }) {
+/**
+ * Desktop / tablet: the Figma composition at 1280×508, scaled to fit below 1440. The MCP and API page's
+ * frame (668:28669) hides the dot pattern, so only the home variant draws it.
+ */
+function DesktopDiagram({ moving, grid }: { moving: boolean; grid: boolean }) {
   return (
     <div className={styles.frame}>
       <div className={styles.integration}>
-        <img className={styles.dots} src={dots.src} width={1280} height={711} alt="" />
+        {grid && <img className={styles.dots} src={dots.src} width={1280} height={711} alt="" />}
         <Connectors moving={moving} />
         <img className={styles.logo} src="/assets/v2/icons/logo-dark.svg" width={124} height={32} alt="" />
         <img className={styles.claude} src={claudeLabel.src} width={164} height={56} alt="" />
@@ -122,8 +125,9 @@ function MobileDiagram({ moving }: { moving: boolean }) {
 }
 
 /**
- * The MCP and API page (668:28635, 1440×951) uses the same section with a one-line 40px heading
- * ("Ask Claude. Plexo ships.") and a one-line lead, so its header is 203 tall.
+ * The MCP and API page (668:28635, 1440×975) uses the same section with a one-line 40px heading
+ * ("Ask Claude. Plexo ships.") and a two-line lead (Figma's own break, 568 box), so its header is 227
+ * tall; its diagram has no dot pattern.
  */
 const copy = {
   home: {
@@ -131,9 +135,9 @@ const copy = {
     lead: ' Already living in Claude, ChatGPT or Cursor?\n Build your site from there',
   },
   page: {
-    // Figma ends the heading with a space, which counts when centring.
+    // Figma ends the heading and the lead's first line with a space, which counts when centring.
     title: 'Ask Claude. Plexo ships.\u00a0',
-    lead: 'Already living in Claude, ChatGPT or Cursor? Build your site from there.',
+    lead: 'Bring your AI coding tools and Plexo together. Create, edit and publish \nyour projects without leaving the workflow you already use.',
   },
 }
 
@@ -170,7 +174,7 @@ export default function Mcp({ variant = 'home' }: { variant?: 'home' | 'page' })
               style={{ '--s': scale, display: fitted ? undefined : 'none' } as CSSProperties}
             >
               <div className={styles.scale}>
-                <DesktopDiagram moving={moving && fitted} />
+                <DesktopDiagram moving={moving && fitted} grid={variant === 'home'} />
               </div>
             </div>
             {!fitted && <MobileDiagram moving={moving} />}

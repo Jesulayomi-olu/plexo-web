@@ -1,10 +1,10 @@
-/* Figma "Hero" (644:21398): 1440×911, white, padding 80 (the 751-tall row). */
+/* Figma "Hero" (644:21398): 1440×759, white, padding 80 (the 599-tall row). */
 .hero {
   background: var(--white);
   padding-block: 80px;
 }
 
-/* Row: the 408 column and the 872 panel, space-between, centred (together exactly 1280). */
+/* Row: the 408 column and the 753 panel, space-between (119 apart at 1440), centred. */
 .inner {
   display: flex;
   align-items: center;
@@ -56,11 +56,11 @@
   white-space: pre;
 }
 
-/* desktop/body/md/regular, #232323, 286 wide (it ends with a space, which counts when centring). */
+/* desktop/body/md/regular, #232323, the column's 408 (three lines). */
 .lead {
   position: relative;
   top: 1px;
-  width: 286px;
+  width: 100%;
   font-size: 16px;
   line-height: 24px;
   color: var(--ink-800);
@@ -77,21 +77,23 @@
 }
 
 /*
- * "Frame 2147239335": 872×751, the "Background / Lines / Match screenshot" fill (#1b3d22, 45° #24512e
- * hairlines 4px apart: Figma's 8px tile drawn at 4px); the editor (824×515) centred in it.
+ * "Frame 2147239335": 753×599 (clips), the "Background / Lines / Match screenshot" fill (#1b3d22, 45°
+ * #24512e hairlines 4px apart: Figma's 8px tile drawn at 4px). The editor starts 31 from the left and
+ * is cut off by the right edge, so its visible 722×473 sits flush right, centred top to bottom.
  */
 .panel {
-  flex: 0 1 872px;
+  flex: 0 1 753px;
   min-width: 0;
   display: grid;
-  place-items: center;
-  aspect-ratio: 872 / 751;
+  place-items: center end;
+  aspect-ratio: 753 / 599;
   background: #1b3d22 url('/assets/features/lines-tile.png') 0 0 / 4px 4px repeat;
 }
 
+/* 722 of 753. */
 .editor {
   display: block;
-  width: 94.495%;
+  width: 95.883%;
   height: auto;
 }
 
@@ -141,13 +143,9 @@
     line-height: 21px;
   }
 
+  /* Edge to edge, in Figma's proportions (the editor still runs off the right). */
   .panel {
-    aspect-ratio: 4 / 3;
     width: calc(100% + var(--gutter) * 2);
     margin-inline: calc(var(--gutter) * -1);
-  }
-
-  .editor {
-    width: 92%;
   }
 }

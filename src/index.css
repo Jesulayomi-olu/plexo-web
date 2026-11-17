@@ -37,6 +37,11 @@
   --surface-100: #f4f5f0;
   --surface-50: #fcfcfa;
   --cream: #f5f7ed;
+  /* Home page V2 (1166:14994) variables: color/neutral-400 (border-strong) and color/neutral-300 (text-subtle). */
+  --border-strong: #9e9f9b;
+  --text-subtle: #bebeba;
+  /* Auth screens (1296:8606): color/border-error, used for error borders and error text. */
+  --error: #d22e30;
 
   /* Type */
   --font-sans: var(--font-jakarta), system-ui, -apple-system, 'Segoe UI', sans-serif;

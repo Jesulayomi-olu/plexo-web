@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Button } from '../components/Button'
 import { durations, ease, useStaticMotion } from '../lib/motion'
-import { audienceItems, featureItems } from './navData'
+import { audienceItems, DEVELOPERS_HREF, featureItems, SIGNUP_HREF } from './navData'
 import { resourceMenu } from './resources/data'
 import styles from './MobileMenu.module.css'
 
@@ -72,10 +72,12 @@ export function MobileMenu({ id, onNavigate }: Props) {
   const isStatic = useStaticMotion()
   const toggle = (next: SectionId) => setSection((current) => (current === next ? null : next))
 
+  // Same items and order as the desktop bar (Figma "Navigation" 1042:18288).
   const groups = [
-    { label: 'Pricing', href: '/pricing' },
     { label: 'Features', section: 'features' as const, items: featureItems },
-    { label: 'For You', section: 'for-you' as const, items: audienceItems },
+    { label: 'Solution', section: 'for-you' as const, items: audienceItems },
+    { label: 'Pricing', href: '/pricing' },
+    { label: 'Developers', href: DEVELOPERS_HREF },
     { label: 'Resources', section: 'resources' as const, items: resourceItems },
   ]
 
@@ -139,7 +141,7 @@ export function MobileMenu({ id, onNavigate }: Props) {
           </ul>
         </nav>
         <div className={styles.footer}>
-          <Button href="/#start" size="small" fullWidth onClick={onNavigate}>
+          <Button href={SIGNUP_HREF} size="small" fullWidth onClick={onNavigate}>
             Start free
           </Button>
         </div>

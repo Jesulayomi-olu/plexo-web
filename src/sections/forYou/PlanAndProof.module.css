@@ -1,15 +1,7 @@
-/*
- * Figma "Pricing" (571:12947) and "Social proof" (571:12972): white, padding 80, column gap 40.
- * Social proof's padding can differ per page (Founders: 64).
- */
-.plans,
-.proof {
+/* Figma "Pricing" (571:12947): white, padding 80, column gap 40. */
+.plans {
   background: var(--white);
   padding-block: 80px;
-}
-
-.proof {
-  padding-block: var(--proof-pad, 80px);
 }
 
 .inner {
@@ -54,16 +46,8 @@
   }
 }
 
-/* The 712-wide story card, centred. */
-.story {
-  width: 712px;
-  max-width: 100%;
-  text-align: left;
-}
-
 @media (max-width: 767px) {
-  .plans,
-  .proof {
+  .plans {
     padding-block: 48px;
   }
 

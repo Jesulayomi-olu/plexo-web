@@ -1,301 +1,270 @@
 /*
- * Figma "Hero section" (532:23982): 1440×807, #0d1a03, clipped. Positions below are relative to the
- * section top (Figma page y 73) and the 1280 content frame (page x 80).
+ * Figma "Hero" (1166:14999): 1440×863, white, padding 80 top / 80 sides; the picture ends 90 above the
+ * section's bottom edge. Measurements below are Figma's at 1440; the heading's inner geometry is in em so
+ * the boxed word scales with the type on phones.
  */
 .hero {
-  position: relative;
-  height: 807px;
-  overflow: hidden;
-  background: var(--night);
+  background: var(--white);
+  padding: 80px var(--gutter) 90px;
 }
 
-/* Nav divider (page y 72, i.e. 1px above the hero): line on hero row 2; the nav bar covers the
-   stars' upper half and the group clips them at hero y 5, leaving a thin sliver of each. */
-.dividerTop {
-  position: absolute;
-  top: -1px;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  clip-path: inset(1px -20px 0 -20px);
-}
-
-/* Hero divider "Divider 1 " at (1, 745). */
-.dividerBottom {
-  position: absolute;
-  top: 745px;
-  left: 1px;
-  right: -1px;
-  z-index: 1;
-}
-
-/*
- * "Hero content": the 1280 column with 1px dashed (#7a7b77) left and right borders. The frame is
- * 1070 tall, so Figma spreads the 8/8 dashes evenly over it (67 repeats → 15.97px), starting 4px
- * above the hero top.
- */
-.frame {
-  position: relative;
-  height: 100%;
+/* "Frame 2147239540" (1193:9967): 1280 wide, column, gap 64, centred. */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
   max-width: var(--content-max);
   margin: 0 auto;
 }
 
-.frame::before,
-.frame::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: repeating-linear-gradient(to bottom, var(--dash) 0 7.985px, transparent 7.985px 15.97px);
-  background-position: 0 -3.97px;
-}
-
-.frame::before {
-  left: 0;
-}
-
-.frame::after {
-  right: 0;
-}
-
-@media (max-width: 1439px) {
-  .frame {
-    margin-inline: var(--gutter);
-  }
-}
-
-/* "Ellipse 3": 1062×572 at (110, 397), #194211, LAYER_BLUR 386.3 → Gaussian σ ≈ 193. */
-.glow {
-  position: absolute;
-  top: 397px;
-  left: 110px;
-  width: 1062px;
-  height: 572px;
-  border-radius: 50%;
-  background: var(--night-glow);
-  filter: blur(185px);
-  pointer-events: none;
-}
-
-/* "Frame 2147239143": 993×544 at (144, 125), column, space-between, centred. */
-.content {
-  position: absolute;
-  top: 125px;
-  left: 144px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 993px;
-  height: 544px;
-}
-
-/* "Frame 13": 888 wide; badge · 8 · heading (591×140), then 24 · subtitle. */
+/* "Frame 16" (1166:15022): 888 wide; heading · 24 · lead, then 32 · buttons. */
 .copy {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 888px;
+  max-width: 100%;
 }
 
-.badgeWrap {
+.titleWrap {
   display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
-/* "Frame 7": #d7d8d3, pill, padding 6/12, gap 4. */
-.badge {
+/*
+ * Heading: desktop SemiBold 48/52.8, −0.96 tracking (−2%), #121212, centred, two lines.
+ * Line 1 "Frame 2147239482" (1166:15035): row, gap 8, centred vertically on the 61px box.
+ */
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 48px;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-align: center;
+}
+
+.titleLine {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 6px 12px;
-  border-radius: 100px;
-  background: var(--line);
-}
-
-/* "Frame 71": #406006, r4, padding 2; "New" 400 12/13.2 white. */
-.newTag {
-  padding: 2px;
-  border-radius: 4px;
-  background: var(--olive);
-  font-size: 12px;
-  line-height: 13.2px;
-  font-weight: 400;
-  color: var(--white);
-}
-
-/* 400 10/12, −0.05 tracking, black. */
-.badgeText {
-  font-size: 10px;
-  line-height: 12px;
-  font-weight: 400;
-  letter-spacing: -0.05px;
-  color: #000000;
+  justify-content: center;
+  gap: 0.1667em;
   white-space: nowrap;
 }
 
-/* 600 64/70.4, −3.2 tracking, #e8e8e4, centred. */
-.title {
-  margin-top: 8px;
-  font-size: 64px;
-  line-height: 70.4px;
-  font-weight: 600;
-  letter-spacing: -3.2px;
-  color: var(--surface-200);
-  text-align: center;
-  white-space: pre;
-  /* CSS adds the −3.2 tracking after the last glyph too; Figma doesn't, so re-centre by half of it. */
-  padding-right: 3.2px;
+/*
+ * "Frame 2147239484" (1166:15037): 214×61 for "Business" (padding 4/8, r12, no fill); the word sits
+ * 8 in and 4 down. Its width follows the typed word (set inline once measured) and eases between words.
+ */
+.wordBox {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  flex: none;
+  height: 1.2708em;
+  padding: 0.0833em 0.1667em 0;
+  border-radius: 0.25em;
+  transition: width 220ms var(--ease-out);
 }
 
-/* 400 16/24, #fcfcfa, centred; the second line keeps its leading space. */
-.subtitle {
+/* The typed word: one line, left-aligned in the box, caret right after it. */
+.typed {
+  display: flex;
+  align-items: center;
+  height: 1.1em;
+}
+
+/* A thin caret in the heading colour: solid while typing or deleting, blinking while it waits. */
+.caret {
+  flex: none;
+  width: 0.05em;
+  height: 0.82em;
+  margin-left: 0.04em;
+  border-radius: 1px;
+  background: currentColor;
+}
+
+.caretBlink {
+  animation: caret-blink 1.05s steps(1, end) infinite;
+}
+
+@keyframes caret-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/*
+ * "Vector 6" (1166:15041): the hand-drawn frame, 210.18×61 at (1.5, 4) in the box; its stroke reaches
+ * 1.48 past the top and bottom and 1.47 past the right (the SVG's own 211.51×63.96 box). It stretches
+ * with the box for the other words.
+ */
+.wordFrame {
+  position: absolute;
+  top: 0.0526em;
+  left: 0.0313em;
+  right: 0.0177em;
+  height: 1.3325em;
+  pointer-events: none;
+}
+
+.wordFrame img {
   width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+/* Invisible copies of each word, stacked, for measuring the box widths (it resizes with the type). */
+.measure {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  visibility: hidden;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Lead: desktop/body/md/regular 400 16/24, #454543, 572 wide, centred. */
+.lead {
+  width: 572px;
+  max-width: 100%;
   margin-top: 24px;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
-  color: var(--surface-50);
+  color: var(--ink-600);
   text-align: center;
-  white-space: pre-wrap;
+}
+
+/* "Frame 2147239480": two 174×48 buttons, gap 24; labels desktop/label/md/semibold (600 14/15.4). */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.actions .action {
+  width: 174px;
+  height: 48px;
+}
+
+/* "Explore templates": no fill, 1px #9e9f9b border (color/neutral-400), #232323 label. */
+.actions .secondary {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--border-strong);
+}
+
+.actions .secondary:hover {
+  background: var(--surface-100);
+}
+
+.actions .secondary:active {
+  background: var(--surface-200);
+}
+
+.actions .secondary:focus-visible {
+  box-shadow: inset 0 0 0 1px var(--border-strong), var(--focus-ring);
+}
+
+/*
+ * "Frame 2147239372" (1193:9939): 1280×339, r16, clipped. The backdrop is Figma's render of
+ * "Frame 2147239335" (1193:9940: five overlapping copies of the photo), exported at 2×. Narrower, it keeps
+ * the 1280×339 proportions, so the storyboard (HeroStory) scales with it.
+ */
+.picture {
   position: relative;
-  top: 1px; /* Figma baseline snap */
-}
-
-.promptWrap {
   width: 100%;
+  aspect-ratio: 1280 / 339;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #083828;
 }
 
-/* 1200–1439: the 993 composition fits inside the narrower column; centre it. */
-@media (max-width: 1439px) {
-  .content {
-    left: 50%;
-    width: min(993px, calc(100% - 48px));
-    transform: translateX(-50%);
-  }
-
-  .glow {
-    left: calc(50% - 531px);
-  }
+.backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
 }
 
-@media (max-width: 1023px) {
+/* Tablets: 40px gutters (the 1280 column narrows); a little less air above the heading. */
+@media (max-width: 1199px) {
   .hero {
-    height: auto;
+    padding-top: 80px;
+    padding-bottom: 64px;
   }
 
-  .frame {
-    height: auto;
-    padding: 96px 0 104px;
-  }
-
-  /* Stays above the glow (the glow is positioned, so static content would paint under it). */
   .content {
-    position: relative;
-    z-index: 1;
-    left: auto;
-    top: auto;
-    gap: 48px;
-    width: auto;
-    height: auto;
-    margin: 0 24px;
-    transform: none;
+    gap: 56px;
   }
 
-  .copy {
-    width: 100%;
-    max-width: 888px;
-  }
-
-  /* A smaller, softer glow rising from the bottom edge, behind the prompt box. */
-  .glow {
-    top: auto;
-    bottom: -300px;
-    left: calc(50% - 380px);
-    width: 760px;
-    height: 420px;
-    filter: blur(140px);
-    opacity: 0.85;
-  }
-
-  .dividerBottom {
-    top: auto;
-    bottom: 58px;
-  }
-
-  .subtitle {
-    white-space: normal;
+  /* The story never scales below 0.75 here, so the picture stays at least 339 × 0.75 tall. */
+  .picture {
+    min-height: 254.25px;
   }
 }
 
+/*
+ * Phones: the heading keeps its two-line composition and scales with the screen (32px at most, the
+ * mobile heading size), lead body/md 14/21, the buttons share the row, and the picture grows taller
+ * around the prompt box.
+ */
 @media (max-width: 767px) {
-  /* Mobile navigation (532:7116): the dashed line runs 6px under the bar (centred on y 70), with
-     whole stars. */
-  .dividerTop {
-    top: 2px;
-    clip-path: none;
-    transform: translateY(0.5px); /* Figma's line is centred on y 70 (69.5–70.5); layout rounds half pixels */
-  }
-
-  .frame {
-    padding: 72px 0 88px;
+  .hero {
+    padding-top: 48px;
+    padding-bottom: 40px;
   }
 
   .content {
     gap: 40px;
-    margin: 0 16px;
   }
 
   .title {
-    font-size: 40px;
-    line-height: 44px;
-    letter-spacing: -2px;
-    white-space: pre-line;
+    font-size: min(32px, calc((100vw - 2 * var(--gutter)) / 12));
+    line-height: 1.15;
+    letter-spacing: -0.022em;
   }
 
-  .subtitle {
+  .lead {
     margin-top: 16px;
-    font-size: 15px;
-    line-height: 22px;
-  }
-
-  .badgeText {
-    white-space: normal;
-  }
-
-  .dividerBottom {
-    bottom: 40px;
-  }
-
-  .glow {
-    bottom: -260px;
-    left: calc(50% - 260px);
-    width: 520px;
-    height: 340px;
-    filter: blur(110px);
-    opacity: 0.7;
-  }
-}
-
-/* Mobile type scale — design system "mobile/*" text styles, which apply below 768px. */
-@media (max-width: 767px) {
-  /* Hero heading: one step down from mobile H1 — heading/h2 (32/36.8, −2.2%). */
-  .title {
-    font-size: 32px;
-    line-height: 36.8px;
-    letter-spacing: -0.7px;
-  }
-
-  /* body/md → 14/21 */
-  .subtitle {
     font-size: 14px;
     line-height: 21px;
   }
 
-  /* label/sm → 10/11 */
-  .newTag {
-    font-size: 10px;
-    line-height: 11px;
+  .actions {
+    width: 100%;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .actions .action {
+    flex: 1 1 0;
+    width: auto;
+    max-width: 174px;
+    padding: 0 12px;
+  }
+
+  /* Phones: the story at half size, so the picture is 339 × 0.5 tall. */
+  .picture {
+    aspect-ratio: auto;
+    height: 169.5px;
+    min-height: 0;
+    border-radius: 12px;
   }
 }
