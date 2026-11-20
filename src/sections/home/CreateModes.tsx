@@ -25,17 +25,19 @@ import styles from './CreateModes.module.css'
  * (1166:15364, 1278 wide) of "Component 9" (1133:17767), whose three variants are the three tabs:
  * - "Start with Plexo AI" = 1133:17766: a 402-tall #1d3509 panel (20% black wash, r32) with the prompt
  *   card on a glass pane beside the white "Start with an idea." card and its three steps.
- * - "Start with a template" = 1133:17764, the page instance: a 602-tall #e8e8e4 panel (r32 on the
- *   instance) with the copy, the "Start with a template" chip and a row of template screenshots that
- *   runs past both sides and glides (as the earlier home page's template row did).
- * - "Design with the visual editor" = 1133:17765: a 456-tall line-pattern panel with the copy,
- *   "Start from a blank canvas" and the dark editor, which runs off the right and bottom edges.
+ * - "Start with a template" = 1133:17764: a 602-tall #e8e8e4 panel with the copy, the "Start with a
+ *   template" chip and a row of template screenshots that runs past both sides and glides (as the
+ *   earlier home page's template row did).
+ * - "Design with the visual editor" = 1133:17765, the page instance since November 2026 ("the new build
+ *   with editor section"): a 456-tall line-pattern panel with the copy, "Start from a blank canvas" and
+ *   the dark editor ("Editor v2 · Dark", the Elements panel open beside a Foundry & Form page), which
+ *   runs off the right and bottom edges.
  * The tab order is the page instance's (AI · template · visual editor); the AI variant still lists the
  * last two the other way round. The heading is the instance's override ("Built around the way you
- * create"), so every tab keeps it. The page opens on the Plexo AI tab. Every panel gets the instance's
- * r32 corners. The editor (1164:8674) and the template screenshots are images exported from Figma.
- * The template and visual-editor panels swap their body copy (the design team's correction: Figma has
- * each under the other heading).
+ * create"), so every tab keeps it. The page opens on the Plexo AI tab (the design team's call). Every
+ * panel gets r32 corners, as the AI panel has (the earlier template instance had them too; the editor
+ * and template variants are square). The editor (1328:9837) and the template screenshots are images
+ * exported from Figma.
  *
  * Motion: switching tabs crossfades the panels while the panel area eases to the new height. The
  * template row glides left in a loop from the Figma position (useGlide, 24px/s, as the earlier home
@@ -78,7 +80,14 @@ const GLIDE_SPEED = 24
 const GLIDE_COPIES = 4
 
 /** Every picture the tabs show, fetched once the section is near so switching tabs never waits. */
-const PRELOAD = [`${ASSETS}/editor.webp`, ...TEMPLATE_TILES.map((t) => t.src)]
+/* "Editor v2 · Dark" (1328:9837): the panel shows its top-left 753×420, exported at 2× and 3×. */
+const EDITOR_SHOT = {
+  src: `${ASSETS}/editor-v2@2x.webp`,
+  srcSet: `${ASSETS}/editor-v2@2x.webp 1506w, ${ASSETS}/editor-v2@3x.webp 2259w`,
+  sizes: '(max-width: 767px) 565px, 753px',
+}
+
+const PRELOAD = [EDITOR_SHOT, ...TEMPLATE_TILES.map((t) => ({ src: t.src, srcSet: undefined, sizes: undefined }))]
 
 /* "Start with Plexo AI" (1133:16214). */
 function AiPanel() {
@@ -164,7 +173,7 @@ function TemplateRow() {
   )
 }
 
-/* "Start with a template" (I1166:15364;1133:17118, the page instance). */
+/* "Start with a template" (1133:17118 in the variant 1133:17764). */
 function TemplatesPanel() {
   return (
     <div className={`${styles.panel} ${styles.templates}`}>
@@ -172,7 +181,7 @@ function TemplatesPanel() {
         <div className={styles.templatesHead}>
           <div className={styles.copyText}>
             <h3 className={styles.panelTitle}>Ready-made designs to get you started.</h3>
-            {/* Figma has this copy under the visual editor; the design team moved it here. */}
+            {/* Full stop added (Figma ends with "from scratch"). */}
             <p className={styles.panelBody}>
               Browse professionally designed templates and choose one that fits your business. Start with a layout that&apos;s already
               put together instead of building from scratch.
@@ -189,19 +198,19 @@ function TemplatesPanel() {
   )
 }
 
-/* "Design with the visual editor" (1164:8664). */
+/* "Design with the visual editor" (I1166:15364;1164:8664, the page instance). */
 function EditorPanel() {
   return (
     <div className={`${styles.panel} ${styles.editor}`}>
       <div className={styles.editorCopy}>
         <div className={styles.copyText}>
           <h3 className={styles.panelTitle}>Bring your own creative touch.</h3>
-          {/* Figma has this copy under the templates; the design team moved it here. */}
           <p className={styles.panelBody}>
             Arrange sections, change colours and fonts, add images and adjust layouts. Make every part of your website look and feel
             the way you want.
           </p>
         </div>
+        {/* Figma has two spaces after "from"; one here. */}
         <a href={SIGNUP_HREF} className={styles.pillCta}>
           Start from a blank canvas
           <img src={`${ASSETS}/arrow-right.svg`} width={16} height={16} alt="" />
@@ -209,10 +218,12 @@ function EditorPanel() {
       </div>
       <img
         className={styles.editorShot}
-        src={`${ASSETS}/editor.webp`}
+        src={EDITOR_SHOT.src}
+        srcSet={EDITOR_SHOT.srcSet}
+        sizes={EDITOR_SHOT.sizes}
         width={753}
         height={420}
-        alt="The Plexo visual editor: the layers panel, the canvas and the page settings"
+        alt="The Plexo visual editor: the Elements panel with ready-made sections and basic blocks, beside a furniture shop's home page on the canvas"
         draggable={false}
       />
     </div>
@@ -220,6 +231,20 @@ function EditorPanel() {
 }
 
 const PANELS: Record<TabId, ComponentType> = { ai: AiPanel, template: TemplatesPanel, editor: EditorPanel }
+
+/**
+ * Phones: the tab row scrolls sideways, so a tab tapped where it is cut off at the edge slides fully into
+ * view (a gutter's width from the edge). Where the row fits (tablets, desktop) nothing moves.
+ */
+function revealTab(tabEl: HTMLElement) {
+  const scroller = tabEl.parentElement?.parentElement
+  if (!scroller || scroller.scrollWidth <= scroller.clientWidth) return
+  const edge = 20
+  const s = scroller.getBoundingClientRect()
+  const t = tabEl.getBoundingClientRect()
+  const by = t.left < s.left + edge ? t.left - s.left - edge : t.right > s.right - edge ? t.right - s.right + edge : 0
+  if (by) scroller.scrollBy({ left: by, behavior: 'smooth' })
+}
 
 export default function CreateModes() {
   const uid = useId()
@@ -232,8 +257,12 @@ export default function CreateModes() {
   const near = useInView(sectionRef, { once: true, margin: '400px 0px' })
   useEffect(() => {
     if (!near) return
-    PRELOAD.forEach((src) => {
+    PRELOAD.forEach(({ src, srcSet, sizes }) => {
       const img = new Image()
+      if (srcSet && sizes) {
+        img.sizes = sizes
+        img.srcset = srcSet
+      }
       img.src = src
     })
   }, [near])
@@ -297,7 +326,10 @@ export default function CreateModes() {
                       aria-controls={selected ? panelId : undefined}
                       tabIndex={selected ? 0 : -1}
                       className={`${styles.tab} ${selected ? styles.tabActive : ''}`}
-                      onClick={() => setTab(t.id)}
+                      onClick={(event) => {
+                        setTab(t.id)
+                        revealTab(event.currentTarget)
+                      }}
                     >
                       {t.label}
                     </button>

@@ -23,8 +23,9 @@ const promises = [
   { icon: 'table-check', size: 20, title: '14 days free', body: 'No card needed.' },
   { icon: 'table-check', size: 20, title: '7-day money back', body: 'Guaranteed on every paid plan.' },
   { icon: 'table-check', size: 20, title: 'Cancel in two clicks', body: 'Your work stays saved.' },
-  // The export icon's artwork is 17px, centred in its 20px frame.
-  { icon: 'export', size: 17, title: 'Export anytime', body: 'Your code. No lock-in.' },
+  // The export icon's artwork is 17px, centred in its 20px frame. A word joiner keeps "lock-in" whole when
+  // the narrow phone card wraps the line (it broke after the hyphen).
+  { icon: 'export', size: 17, title: 'Export anytime', body: 'Your code. No lock-⁠in.' },
 ]
 
 /** "Credit guide" (also on Build with Sol, 614:20334, which ends with its own reassurance line). */

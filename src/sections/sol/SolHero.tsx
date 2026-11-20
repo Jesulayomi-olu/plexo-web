@@ -13,7 +13,8 @@ import styles from './SolHero.module.css'
  * lime-line photo ("image 19", turned −90°) behind: the light panel on the left (722×496, 1px #74a418,
  * r40 — heading, lead, the prompt box) and the Sol workspace at (768.5, 43), cut by the card's edge.
  * At 1200 and wider the card keeps its design proportions and scales to the column (as the AI panel);
- * below that the panel and the window stack, the window scaled to fit.
+ * below that the panel and the window stack, the window scaled to fit; phones show it larger, cut by the
+ * card's right edge as on desktop.
  */
 const PROMPT = 'A portfolio site for an architecture studio, minimal and bold...'
 

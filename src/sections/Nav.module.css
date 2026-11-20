@@ -176,14 +176,15 @@ a.login:focus-visible {
 
   /* "Actions": "Start free" (Size=Small) · 8 · menu button. */
   /*
-   * The menu icon's lines end 13.3px inside its 40px button (10 of padding, 3.3 inside the icon), so the
-   * group moves right by that much: the lines then end on the gutter, matching the logo on the left.
+   * The menu icon's lines end 15.3px inside its 44px button (12 of padding, 3.3 inside the icon), so the
+   * group moves right by that much: the lines then end on the gutter, matching the logo on the left. The
+   * 6px gap keeps "Start free" where it sat beside Figma's 40px button (gap 8).
    */
   .mobileActions {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-right: -13.333px;
+    gap: 6px;
+    margin-right: -15.333px;
   }
 
   /* "Button / Start free": Figma hugs its label to a whole 78px. */
@@ -191,12 +192,12 @@ a.login:focus-visible {
     width: 78px;
   }
 
-  /* "Menu button": 40×40, no fill or ring; 20px white icon. */
+  /* "Menu button": Figma's 40×40 grown to a 44px tap target; no fill or ring; 20px white icon. */
   .menuButton {
     display: grid;
     place-items: center;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 9999px;
     color: var(--white);
     transition: background-color 160ms ease;

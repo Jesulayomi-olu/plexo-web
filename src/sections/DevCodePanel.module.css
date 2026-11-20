@@ -5,6 +5,25 @@
   margin: 0 auto;
 }
 
+/*
+ * `phoneCrop` on phones: only the code window and 16px around it (x 106–610.43, y 27.06–483.79 of the
+ * panel) are shown, scaled to the column: --c is that crop's scale (the column over 504.43, at most 1;
+ * --s is the column over 717). The crop keeps the panel's rounded corners.
+ */
+@media (max-width: 767px) {
+  .fitCrop {
+    --c: calc(var(--s, 1) * 717 / 504.43);
+    width: min(504.43px, 100%);
+    height: calc(456.73px * var(--c));
+    overflow: hidden;
+    border-radius: calc(19.3125px * var(--c));
+  }
+
+  .fitCrop .panel {
+    transform: scale(var(--c)) translate(-106px, -27.06px);
+  }
+}
+
 /* "SDK quickstart · Dark": #121212, r19.31, clipped. */
 .panel {
   position: relative;

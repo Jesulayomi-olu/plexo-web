@@ -156,5 +156,6 @@
 
   .cardBody {
     max-width: none;
+    text-wrap: pretty;
   }
 }

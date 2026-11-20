@@ -11,11 +11,12 @@ import styles from './FinalCta.module.css'
  * and 80 on the right only (so Figma centres the column in the first 1360px, 40px left of the page
  * centre), column gap 64: the heading ("Frame 57", 569×46) and the 916×216 card ("Frame 5").
  * The card: the one-line prompt field (attach button, field, Primary "Build it"), then "or" and three
- * outline links. Copy is verbatim from Figma (including "Start with  a template").
+ * outline links. Copy is Figma's, with two slips corrected (the design team's call): "Start with  a template"
+ * (double space) and "blank Canvas" (capital C).
  */
 const links = [
-  { label: 'Start with  a template', href: '/resources/templates' },
-  { label: 'Start from a blank Canvas', href: SIGNUP_HREF },
+  { label: 'Start with a template', href: '/resources/templates' },
+  { label: 'Start from a blank canvas', href: SIGNUP_HREF },
   { label: 'Connect your AI', href: '/features/mcp' },
 ] as const
 

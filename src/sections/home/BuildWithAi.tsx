@@ -1,7 +1,8 @@
 'use client'
 
 import { useInView } from 'framer-motion'
-import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react'
+import { useLayoutEffect, useMemo, useState, type CSSProperties } from 'react'
+import { AiFlowPhone } from '../../components/AiFlowPhone'
 import { Button } from '../../components/Button'
 import { Reveal } from '../../components/Reveal'
 import { useStaticMotion } from '../../lib/motion'
@@ -11,18 +12,19 @@ import styles from './BuildWithAi.module.css'
  * Figma "Hero" → "Build with AI. Make it live with Plexo" (Home page V2 1166:15171): 1440×837, #fcfcfa,
  * padding 80/81 (the column starts at x 81). Header "Frame 16" (888×236, centred): the 40px heading, the
  * lead (696 wide) and "Connect your AI" (174×40). Then, 40 below, "Frame 2147239466": the 800×409
- * integration diagram and, 16 to its right, the 464×409 photo panel with the glass card of four steps.
- * Hidden in Figma and not rendered: the tabs row "Frame 42", the "New" badge, the dot pattern, the
- * "Frame 12" / "Frame 5" overlays, the panel's off-canvas "Start free" and the diagram's prompt cards
- * (their text is transparent).
+ * integration diagram and, 16 to its right, the 464×409 photo panel ("Frame 5") with the 450×321 glass
+ * card of four steps in a 2×2 grid (revised November 2026; the steps used to be one column). Hidden in
+ * Figma and not rendered: the tabs row "Frame 42", the "New" badge, the dot pattern, the "Frame 12" /
+ * "Frame 5" overlays, the panel's off-canvas "Start free" and the diagram's prompt cards (their text is
+ * transparent).
  *
  * Motion: the dashes flow along the connectors toward Plexo and on to the live site, and the output dot
  * sends out a soft ping, as in the MCP section; both pause off screen. The steps fade up in turn.
  * Reduced motion / capture mode: static.
  *
  * Layout: ≥1200 the 1280×409 row is the Figma composition, scaled down uniformly below 1440. 768–1199:
- * the diagram (scaled to fit) and the panel stack. Phones: a vertical version of the diagram, then the
- * panel.
+ * the diagram (scaled to fit) and the panel stack. Phones: the diagram as a vertical flow (AiFlowPhone,
+ * shared with the MCP section), then the panel, its steps in one column below 480.
  */
 const DIAGRAM_LABEL = 'Diagram: Claude, ChatGPT and Cursor connect to Plexo, which publishes your live site.'
 
@@ -133,118 +135,61 @@ function Diagram({ moving }: { moving: boolean }) {
   )
 }
 
-/*
- * Phones: a vertical flow on a 320×218 grid (as the MCP section's phone diagram). The three AI labels sit
- * in a row at 28px tall, 10 apart; their connectors drop into a junction under ChatGPT, the spine runs
- * into Plexo and on to the live site. Same parts, colours and flowing dashes as desktop.
- */
-const SPINE = 156.01 // x of the ChatGPT label's centre, the junction, Plexo and the live site
-const mobileLines = [
-  { d: `M53.54 28V62H${SPINE}`, color: '#bebeba' },
-  { d: `M262.44 28V62H${SPINE}`, color: '#bebeba' },
-  { d: `M${SPINE} 28V104`, color: '#bebeba' },
-  { d: `M${SPINE} 140V190`, color: '#74a418' },
-]
-
-function MobileDiagram({ moving }: { moving: boolean }) {
-  return (
-    <div className={styles.mobileWrap}>
-      <div className={styles.mobile}>
-        <svg className={`${styles.mLines} ${moving ? styles.moving : ''}`} viewBox="0 0 320 218" aria-hidden="true">
-          {mobileLines.map((l) => (
-            <path
-              key={l.d}
-              className={styles.line}
-              d={l.d}
-              stroke={l.color}
-              strokeWidth={1.8}
-              strokeDasharray="5 5"
-              style={{ '--p': '10px' } as CSSProperties}
-            />
-          ))}
-          <circle cx={SPINE} cy={62} r={4} fill="#ffffff" stroke="#74a418" strokeWidth={1.8} />
-          {moving && <circle className={styles.ping} cx={SPINE} cy={190} r={4.5} fill="#74a418" />}
-          <circle cx={SPINE} cy={190} r={4.5} fill="#74a418" />
-        </svg>
-        <span className={`${styles.mLabel} ${styles.mClaude}`}>
-          <ClaudeLabel />
-        </span>
-        <span className={`${styles.mLabel} ${styles.mChatgpt}`}>
-          <ChatGptLabel />
-        </span>
-        <span className={`${styles.mLabel} ${styles.mCursor}`}>
-          <CursorLabel />
-        </span>
-        <img className={styles.mLogo} src="/assets/v3/build-with-ai/plexo-logo.svg" width={101.747} height={26.4157} alt="" />
-        <span className={`${styles.mLabel} ${styles.mLive}`}>
-          <LiveLabel />
-        </span>
-      </div>
-    </div>
-  )
-}
-
 const ASSETS = '/assets/v3/build-with-ai'
 
-/* "SOL avatar": 19.2px rounds; ChatGPT's image is drawn 6.25% larger on every side (21.6). */
-function Avatar({ name }: { name: 'chatgpt' | 'claude' | 'cursor' }) {
-  const size = name === 'chatgpt' ? 21.6 : 19.2
+/*
+ * Step icons (the revised cards, 1193:91xx). The "SOL avatar" rounds are 16px; ChatGPT's SVG runs ~1px
+ * past its round on every side, as Figma's image does.
+ */
+
+/* "Frame 2147239527": ChatGPT (16.34) and Claude (16) overlapping (−10.8), on #e8e8e4, padding 2.4, r4. */
+function AiPair() {
   return (
-    <span className={`${styles.avatar} ${name === 'chatgpt' ? styles.avatarOut : ''}`}>
-      <img src={`${ASSETS}/avatar-${name}.svg`} width={size} height={size} alt="" />
+    <span className={styles.pair}>
+      <span className={styles.pairChatgpt}>
+        <img src={`${ASSETS}/steps-chatgpt.svg`} width={18.3404} height={18.3404} alt="" />
+      </span>
+      <img src={`${ASSETS}/steps-claude.svg`} width={16} height={16} alt="" />
     </span>
   )
 }
 
-/* "Frame 2147239527": the three AI tools overlapping (−10.8 each), on #e8e8e4, padding 2.4, r4. */
-function AiStack() {
-  return (
-    <span className={styles.stack}>
-      <Avatar name="chatgpt" />
-      <Avatar name="claude" />
-      <Avatar name="cursor" />
-    </span>
-  )
-}
-
-/* "Frame 2147239528": the AI tools 8.4 apart, a link, then the Plexo mark; gap 4, padding 2.4/2. */
+/* "Frame 2147239528": ChatGPT and Claude 9.4 apart, a link, then the Plexo mark; gap 4, padding 2.4/2. */
 function ConnectRow() {
   return (
     <span className={styles.connect}>
-      <span className={styles.connectStack}>
-        <Avatar name="chatgpt" />
-        <Avatar name="claude" />
-        <Avatar name="cursor" />
+      <span className={styles.connectPair}>
+        <img className={styles.connectChatgpt} src={`${ASSETS}/steps-chatgpt-small.svg`} width={18.1702} height={18.1702} alt="" />
+        <img className={styles.connectClaude} src={`${ASSETS}/steps-claude.svg`} width={16} height={16} alt="" />
       </span>
-      <span className={styles.link}>
-        <img src={`${ASSETS}/link.svg`} width={10.5} height={5.5} alt="" />
-      </span>
-      <img src={`${ASSETS}/plexo-mark.svg`} width={16.995} height={18} alt="" />
+      <img src={`${ASSETS}/steps-link.svg`} width={12} height={12} alt="" />
+      <img src={`${ASSETS}/steps-plexo-mark.svg`} width={15.1071} height={16} alt="" />
     </span>
   )
 }
 
-/** "Glass / You type": four white cards, each an icon row over one line of text. */
+/** "Glass / You type": four white cards, each an icon row over the text. */
 const steps = [
-  { icon: <AiStack />, text: 'Describe what you want to build in your AI agent', oneLine: true },
+  // Full stop added (Figma leaves it off).
+  { icon: <AiPair />, text: 'Describe what you want to build in your AI agent.' },
   { icon: <ConnectRow />, text: 'Link your AI tool to Plexo using MCP or the SDK.' },
   {
-    // "Frame 2147239526": #1d3509, padding 2.4, r14.4, a white 20px globe.
+    // "Frame 2147239526": #1d3509, padding 2.036, r12.214, a white 17.07 globe (21.14 square). Full stop added.
     icon: (
       <span className={styles.globeBadge}>
-        <img src={`${ASSETS}/globe-white.svg`} width={20.1242} height={20.1242} alt="" />
+        <img src={`${ASSETS}/steps-globe.svg`} width={17.0688} height={17.0688} alt="" />
       </span>
     ),
-    text: 'Ask your AI to create directly in Plexo, publish it online',
+    text: 'Ask your AI to create directly in Plexo, publish it online.',
   },
   {
-    // "Success icon": 24px #b8f34a round, 12px check.
+    // "Success icon": 21.14 #b8f34a round, 10.57 check.
     icon: (
       <span className={styles.success}>
-        <img src={`${ASSETS}/check.svg`} width={12} height={12} alt="" />
+        <img src={`${ASSETS}/steps-check.svg`} width={10.57} height={10.57} alt="" />
       </span>
     ),
-    text: 'Your website is live on a Plexo domain, with the option to connect your own domain and manage & update it as your business grows.',
+    text: 'Your site is live on a Plexo domain. Add your custom domain and update as you grow.',
   },
 ]
 
@@ -253,33 +198,53 @@ function StepsPanel() {
     <div className={styles.panel}>
       {/* "bg 1": the photo, blurred (baked into a 2× export clipped to the panel). */}
       <img className={styles.photo} src={`${ASSETS}/steps-photo.webp`} width={464} height={409} alt="" />
-      <ol className={styles.glass} aria-label="How it works">
-        {steps.map((step, i) => (
-          <Reveal as="li" key={step.text} className={styles.step} delay={0.1 + i * 0.08} y={8}>
-            <span className={styles.stepIcon} aria-hidden="true">
-              {step.icon}
-            </span>
-            <span className={`${styles.stepText} ${step.oneLine ? styles.oneLine : ''}`}>{step.text}</span>
-          </Reveal>
-        ))}
-      </ol>
+      <div className={styles.glass}>
+        <ol className={styles.steps} aria-label="How it works">
+          {steps.map((step, i) => (
+            <Reveal as="li" key={step.text} className={styles.step} delay={0.1 + i * 0.08} y={8}>
+              <span className={styles.stepIcon} aria-hidden="true">
+                {step.icon}
+              </span>
+              <span className={styles.stepText}>{step.text}</span>
+            </Reveal>
+          ))}
+        </ol>
+      </div>
     </div>
   )
 }
 
-/** Width of the content column, for the uniform scale of the fixed compositions. */
+/** A callback ref that also exposes `.current`, so it can be passed to hooks that expect a ref object. */
+type NodeRef<T> = ((node: T | null) => void) & { current: T | null }
+
+/**
+ * Width of the content column, for the uniform scale of the fixed compositions. The ref follows its
+ * element: Reveal swaps the measured node after hydration in capture mode and for reduced motion (a
+ * plain element instead of a motion one), and the detached node must not leave the scale at 1 (as
+ * useFitScale does).
+ */
 function useColumnWidth<T extends HTMLElement>() {
-  const ref = useRef<T>(null)
+  const [el, setEl] = useState<T | null>(null)
   const [width, setWidth] = useState(0)
+  const ref = useMemo(() => {
+    const fn = ((node: T | null) => {
+      fn.current = node
+      setEl(node)
+    }) as NodeRef<T>
+    fn.current = null
+    return fn
+  }, [])
   useLayoutEffect(() => {
-    const el = ref.current
     if (!el) return
-    const update = () => setWidth(el.clientWidth)
+    const update = () => {
+      // Detached or hidden: keep the last width until it has one again.
+      if (el.clientWidth) setWidth(el.clientWidth)
+    }
     update()
     const observer = new ResizeObserver(update)
     observer.observe(el)
     return () => observer.disconnect()
-  }, [])
+  }, [el])
   return { ref, width }
 }
 
@@ -318,7 +283,7 @@ export default function BuildWithAi() {
                 <Diagram moving={moving} />
               </div>
               <div className={styles.mobileCard} role="img" aria-label={DIAGRAM_LABEL}>
-                <MobileDiagram moving={moving} />
+                <AiFlowPhone moving={moving} />
               </div>
               <StepsPanel />
             </div>

@@ -161,9 +161,21 @@
     letter-spacing: -0.36px;
   }
 
-  /* body/sm → 12/18 */
+  /* The card text keeps its desktop size, 14/21 (body/md here): 12 was too small to read comfortably. */
   .cardText {
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 21px;
+  }
+}
+
+/* Phones: no lone last word in the heading ("you.") or the lead ("scratch."). */
+@media (max-width: 767px) {
+  .title {
+    text-wrap: balance;
+  }
+
+  .lead,
+  .cardText {
+    text-wrap: pretty;
   }
 }

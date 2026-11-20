@@ -96,7 +96,7 @@ function Newsletter() {
       <label htmlFor={inputId} className={styles.newsletterLabel}>
         Get product updates
       </label>
-      <EmailField id={inputId} />
+      <EmailField id={inputId} className={styles.email} />
     </form>
   )
 }

@@ -46,6 +46,8 @@ export default function EcommercePage() {
             tone: 'tint',
             label: 'A product card with sizes and “Add to cart”, and the cart beside it: two items, ₦30,500 in total, and “Checkout”.',
             content: <StoreMock />,
+            // Phones: the two cards and 20px around them, so they read larger (about 0.74 on a 390 phone, not 0.67).
+            phoneCrop: { x: 24, y: 40, width: 471, height: 420 },
           }}
         />
         <Solutions

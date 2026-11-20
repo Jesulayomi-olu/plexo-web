@@ -1,20 +1,31 @@
 /*
  * Figma "Hero storyboard" (1133:16152). Everything inside `.stage` is in the storyboard's design px on its
- * 1280×339 frame; the stage is scaled to the picture from the top centre (see HeroStory).
+ * 1280×339 frame; the stage is centred on the picture, top aligned, and sized to it with `zoom`
+ * (--stage-scale, see HeroStory). Zoom lays the frame out at its real size, so text and screenshots
+ * render crisply; a `transform: scale()` would draw them at 1280 and then resample them.
  */
 .root {
   position: absolute;
   inset: 0;
+  display: flex;
+  justify-content: center;
   overflow: hidden;
 }
 
 .stage {
-  position: absolute;
-  top: 0;
-  left: 50%;
+  position: relative;
+  flex: none;
   width: 1280px;
   height: 339px;
-  transform-origin: top center;
+  zoom: var(--stage-scale, 1);
+}
+
+/* Browsers without `zoom` (Firefox before 126) scale the frame instead. */
+@supports not (zoom: 1) {
+  .stage {
+    transform: scale(var(--stage-scale, 1));
+    transform-origin: top center;
+  }
 }
 
 /* Frames 1–4 keep the box centred 7.4 below the middle of the frame (y 176.9). */
@@ -233,39 +244,79 @@
   color: var(--dash);
 }
 
-/* "Card" chips: white pills, 38 tall, padding 0 8, 500 11/16.5 #232323; they bob gently once in place. */
+/*
+ * "Card" chips (1159:21670, 1131:15672, 1159:21656): white pills, 38 tall, padding 0 8, centred row with
+ * gap 7: the "Icon accent" tile (24, white, r6) holding a 14.4 icon, then the label, 500 11/16.5
+ * #232323. They sit above the devices (they only meet where a narrow picture pulls them in) and bob
+ * gently once in place. The bob moves `top`, not `transform`: a transform loop runs on its own layer
+ * that is resampled at fractional offsets every frame, which blurs the labels; with `top` the chip is
+ * redrawn at whole pixels and its text stays as sharp as when still.
+ */
 .chip {
   position: absolute;
+  z-index: 1;
   height: 38px;
 }
 
 .chipFloat {
+  position: relative;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 7px;
   height: 100%;
   padding: 0 8px;
   border-radius: 9999px;
   background: var(--white);
+  animation: chip-float 3.4s ease-in-out infinite;
+}
+
+.chipIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--white);
+}
+
+.chipGlyph {
+  position: relative;
+  width: 14.4px;
+  height: 14.4px;
+}
+
+.chipGlyph img {
+  position: absolute;
+  max-width: none;
+}
+
+.chipText {
+  flex: none;
   font-size: 11px;
   line-height: 16.5px;
   font-weight: 500;
   color: var(--ink-800);
   white-space: nowrap;
-  animation: chip-float 3.4s ease-in-out infinite;
 }
 
 @keyframes chip-float {
   0%,
   100% {
-    transform: translateY(0);
+    top: 0;
   }
   50% {
-    transform: translateY(-5px);
+    top: -5px;
   }
 }
 
-/* "Desktop window" (1162:22147): 486×300 at (464, 77), white, 1px #d7d8d3, r10, clipped by the frame. */
+/*
+ * "Desktop window" (1162:22147): 486×300 at (464, 77), white, 1px #d7d8d3, r10, clipped by the frame:
+ * the 485×16 browser bar, then the 485-wide screenshot (the 245 of it above the frame's bottom edge).
+ */
 .window {
   position: absolute;
   top: 77px;
@@ -285,11 +336,7 @@
   max-width: none;
 }
 
-.windowShot {
-  object-fit: cover;
-}
-
-/* "iPhone-13-Pro-Front" (1162:22153) at (405, 121), exported at 2× as Figma clips it (168.5×218). */
+/* "iPhone-13-Pro-Front" (1162:22153) at (405, 121), as Figma clips it at the frame's edge (168.5×218). */
 .phone {
   position: absolute;
   top: 121px;
@@ -323,6 +370,73 @@
 .cursorIcon img {
   max-width: none;
   transform: rotate(-46deg);
+}
+
+/* The untyped rest of the prompt on phones: it holds the two-line layout but isn't seen. */
+.pending {
+  visibility: hidden;
+}
+
+/*
+ * Phones: the picture is 169.5 tall (Hero.module.css). The frame (PHONE in HeroStory) is drawn larger than
+ * half size and centred top to bottom in it, so the prompt, "thinking" and success boxes, centred in the
+ * frame, sit in the middle of the picture; the prompt wraps onto two lines (the untyped rest holds its
+ * place, so nothing shifts while it types). The last scene isn't drawn on the frame on phones but in its
+ * own layer (.phoneShow), in screen px: the window and phone sized and placed by HeroStory, the chips
+ * smaller (22 tall, 10px labels, a 16px icon tile).
+ */
+@media (max-width: 767px) {
+  .root {
+    align-items: center;
+  }
+
+  .stage {
+    height: 382.8px;
+  }
+
+  .center {
+    height: 382.8px;
+  }
+
+  .text {
+    display: block;
+    white-space: normal;
+  }
+
+  .caret {
+    display: inline-block;
+    vertical-align: -4px;
+  }
+
+  .phoneShow {
+    position: absolute;
+    inset: 0;
+  }
+
+  .phoneShow .chip {
+    height: 22px;
+  }
+
+  .phoneShow .chipFloat {
+    gap: 4px;
+    padding: 0 8px 0 3px;
+  }
+
+  .phoneShow .chipIcon {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+  }
+
+  /* The 14.4 icon box at 10. */
+  .phoneShow .chipGlyph {
+    zoom: 0.6944;
+  }
+
+  .phoneShow .chipText {
+    font-size: 10px;
+    line-height: 14px;
+  }
 }
 
 /* Idle loops stop with the story (before it starts and once it has left the screen). */

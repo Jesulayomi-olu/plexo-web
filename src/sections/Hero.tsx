@@ -13,8 +13,8 @@ import styles from './Hero.module.css'
  *   (572 wide), 32 · "Start free" and "Explore templates" (174×48 each, gap 24).
  * - Picture "Frame 2147239372" (1193:9939, 1280×339, r16): a soft green photo composition with the
  *   "Hero storyboard" (1133:16152) playing on it: prompt → click → thinking → live → the site (HeroStory).
- *   Below 1280 the picture keeps the 1280×339 proportions (at least 254 tall on tablets, 169.5 on phones)
- *   so the story scales with it.
+ *   Below 1280 the picture keeps the 1280×339 proportions (at least 254 tall on tablets) so the story
+ *   scales with it; on phones it is 0.8 of its width tall for the story's phone arrangement.
  * Hidden in Figma and not rendered: the tab row "Frame 42" and the older picture "Frame 2147239235".
  */
 

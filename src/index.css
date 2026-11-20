@@ -95,7 +95,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  /* clip, not hidden: hidden would make the body its own scroll box once the phone menu locks the page
+     (overflow: hidden on html), and the sticky nav bar would then scroll away under the open menu. */
+  overflow-x: clip;
 }
 
 h1,

@@ -185,3 +185,11 @@
     line-height: 18px;
   }
 }
+
+/* Home strip on phones: the items at 14/21 (body/md), readable as the row glides past. */
+@media (max-width: 767px) {
+  .home .item {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}

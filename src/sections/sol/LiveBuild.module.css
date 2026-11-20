@@ -183,6 +183,11 @@
     line-height: 21px;
   }
 
+  /* Taller than Figma's 686×403 so more of the site shows above the prompt that covers its foot. */
+  .preview {
+    aspect-ratio: 4 / 3;
+  }
+
   .prompt {
     height: auto;
     margin-top: -40px;

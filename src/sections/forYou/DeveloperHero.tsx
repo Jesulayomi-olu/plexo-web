@@ -11,7 +11,7 @@ import styles from './DeveloperHero.module.css'
  * and the underlined "Read the docs", 40 apart; "Read the docs" goes nowhere until there is a docs site),
  * then 80 below it the "SDK quickstart · Dark" code panel
  * (717×515, 1042:20268), the same panel as on the MCP and API page: it types its code out once it is
- * on screen (DevCodePanel).
+ * on screen (DevCodePanel). On phones it is cropped to its code window, so the code stays legible.
  */
 export default function DeveloperHero() {
   return (
@@ -39,7 +39,7 @@ export default function DeveloperHero() {
         </div>
 
         <Reveal delay={0.4} y={24} className={styles.panel}>
-          <DevCodePanel />
+          <DevCodePanel phoneCrop />
         </Reveal>
       </div>
     </section>

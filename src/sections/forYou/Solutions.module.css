@@ -141,11 +141,12 @@
     gap: 28px;
   }
 
-  /* mobile heading/h3 → 28/33.6 */
+  /* mobile heading/h3 → 28/33.6; balanced, so no word is left alone on narrow phones ("checkout."). */
   .title {
     font-size: 28px;
     line-height: 33.6px;
     letter-spacing: -0.56px;
+    text-wrap: balance;
   }
 
   .cards {
@@ -169,5 +170,14 @@
 
   .problem .cardTitle {
     gap: 16px;
+  }
+
+  /* More lines wrap here: 20px lines (15.4 crowded a wrapped sentence) and a tighter gap between them. */
+  .lines {
+    gap: 8px;
+  }
+
+  .line {
+    line-height: 20px;
   }
 }

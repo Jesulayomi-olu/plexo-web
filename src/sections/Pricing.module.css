@@ -842,3 +842,43 @@
     align-self: end;
   }
 }
+
+/*
+ * Phones, readability and touch: Figma's hand-made line breaks ("\n") belong to the wide desktop cards,
+ * so features and taglines flow freely here (a forced break left "from" alone on a line); the badge is
+ * 11 (10 read too small); the pricing page's cards take the home cards' 6px sides, so "From $99 /month"
+ * stays on one line; and the Monthly / Yearly items reach 45px tall for a thumb (the extra is invisible).
+ */
+@media (max-width: 767px) {
+  .feature,
+  .tagline {
+    white-space: normal;
+  }
+
+  /* A tagline that wraps (some run to four lines) needs more than label/lg's 15.4 between lines. */
+  .tagline {
+    line-height: 18px;
+  }
+
+  .badge {
+    font-size: 11px;
+    line-height: 12px;
+  }
+
+  .cardPage {
+    padding-inline: 6px;
+  }
+
+  .switchItem::after {
+    content: '';
+    position: absolute;
+    inset: -8px -1px;
+  }
+}
+
+/* Phones: no lone last word in the lead ("plans"). */
+@media (max-width: 767px) {
+  .lead {
+    text-wrap: pretty;
+  }
+}

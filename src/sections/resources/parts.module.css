@@ -254,21 +254,37 @@
     line-height: 21px;
   }
 
+  /* Balanced, so no word is left alone ("…10 ideas for / coaches"). */
   .cardTitle {
     font-size: 18px;
     line-height: 23.4px;
     letter-spacing: -0.36px;
+    text-wrap: balance;
   }
 
+  /* The row scrolls sideways, edge to edge; 6px above and below hold the chips' taller tap areas. */
   .chips {
     flex-wrap: nowrap;
     overflow-x: auto;
-    margin-inline: calc(var(--gutter) * -1);
-    padding-inline: var(--gutter);
+    margin: -6px calc(var(--gutter) * -1);
+    padding: 6px var(--gutter);
     scrollbar-width: none;
   }
 
   .chips::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Chips and the back link reach about 44px tall for a thumb (the extra is invisible). */
+  .chip,
+  .backLink {
+    position: relative;
+  }
+
+  .chip::after,
+  .backLink::after {
+    content: '';
+    position: absolute;
+    inset: -6px 0;
   }
 }

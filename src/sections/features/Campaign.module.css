@@ -377,17 +377,19 @@
     width: auto;
   }
 
-  /* mobile heading/h2 → 32/36.8 */
+  /* mobile heading/h2 → 32/36.8; balanced, so "campaign." isn't left alone. */
   .title {
     font-size: 32px;
     line-height: 36.8px;
     letter-spacing: -0.7px;
     white-space: normal;
+    text-wrap: balance;
   }
 
   .lead {
     font-size: 14px;
     line-height: 21px;
+    text-wrap: pretty;
   }
 
   .fit {

@@ -312,17 +312,44 @@ a.social:hover {
     line-height: 21px;
   }
 
-  /* label/md → 12/13.2 */
+  /*
+   * Headings and links keep their desktop size (14; the label/md and body/sm steps down to 12 read too
+   * small), and each link gets a 37px tap row: 8px above and below its line, the list's gap moved inside.
+   */
   .heading,
   .newsletterLabel {
-    font-size: 12px;
-    line-height: 13.2px;
+    font-size: 14px;
+    line-height: 15.4px;
   }
 
-  /* body/sm → 12/18 */
+  .column {
+    gap: 4px;
+  }
+
+  .list {
+    gap: 0;
+  }
+
   .link,
   .legal {
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .link {
+    padding-block: 8px;
+  }
+
+  .legal {
+    gap: 0 24px;
+  }
+
+  .legalLink {
+    padding-block: 8px;
+  }
+
+  /* The newsletter field spans the column. */
+  .newsletter .email {
+    width: 100%;
   }
 }

@@ -143,9 +143,24 @@
     line-height: 21px;
   }
 
-  /* Edge to edge, in Figma's proportions (the editor still runs off the right). */
+  /*
+   * Edge to edge, with the editor drawn larger (about 0.77 of its size on a 390 phone instead of 0.52)
+   * and cut on both sides so the page on the canvas sits in the middle: from the layers (x 80 of 722) to
+   * just past the canvas (588), leaving out most of the settings panel.
+   */
   .panel {
+    display: block;
+    place-items: normal;
+    aspect-ratio: auto;
     width: calc(100% + var(--gutter) * 2);
     margin-inline: calc(var(--gutter) * -1);
+    padding-block: 24px;
+    overflow: hidden;
+  }
+
+  .editor {
+    width: 142.13%; /* 722 / 508 */
+    max-width: none;
+    margin-left: -15.75%; /* 80 / 508 */
   }
 }

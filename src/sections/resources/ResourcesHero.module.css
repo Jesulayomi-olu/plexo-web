@@ -141,13 +141,20 @@
     letter-spacing: -0.56px;
   }
 
+  /* Balanced, so "online." isn't left alone on the second line. */
   .lead {
     font-size: 14px;
     line-height: 21px;
+    text-wrap: balance;
   }
 
   /* The field keeps 16px text so phones don't zoom in on focus. */
   .search {
     padding: 12px 16px;
+  }
+
+  /* The placeholder is cut with "…" where it doesn't fit, not mid-letter ("…and dc"). */
+  .input {
+    text-overflow: ellipsis;
   }
 }

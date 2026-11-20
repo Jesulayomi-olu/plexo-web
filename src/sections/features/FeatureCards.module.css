@@ -276,9 +276,11 @@
     white-space: normal;
   }
 
+  /* No word left alone on the last line ("Drop them / in."). */
   .body {
     font-size: 14px;
     line-height: 21px;
+    text-wrap: pretty;
   }
 
   /* Email's wider Figma boxes (331, 355) only matter at 1440; on phones its copy keeps to the padding. */

@@ -97,7 +97,7 @@
   box-shadow: inset 0 0 0 2px var(--lime-pressed);
 }
 
-/* Every panel: r32 (the page instance's corners), clipped. */
+/* Every panel: r32 (the AI variant's corners), clipped. */
 .panel {
   position: relative;
   width: 100%;
@@ -126,22 +126,19 @@
   font-weight: 400;
 }
 
-/* ---------- "Start with a template" (I1166:15364;1133:17118) ---------- */
+/* ---------- "Start with a template" (1133:17118, variant 1133:17764) ---------- */
 
-/*
- * 1278×602 in Figma, #e8e8e4. Its height follows the content: the swapped-in body copy runs to three
- * lines (Figma's ran to two), so the panel grows by a line and the row keeps its 33 below.
- */
+/* 1278×602, #e8e8e4 (the copy runs to three lines; the variant tightened the spacing to keep 602). */
 .templates {
   background: var(--surface-200);
 }
 
-/* "Frame 2147239501": 1230 wide at (24, 36), gap 40: the copy row, then the template row; 33 below. */
+/* "Frame 2147239501": 1230 wide at (24, 36), gap 32: the copy row (113), then the template row; 19.76 below. */
 .templatesContent {
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  padding: 36px 24px 33px;
+  gap: 32px;
+  padding: 36px 24px 19.76px;
 }
 
 /* "Frame 2147239519": the copy and, right-aligned and centred on it, the chip; gap 32. */
@@ -239,7 +236,7 @@
   pointer-events: none;
 }
 
-/* ---------- "Design with the visual editor" (1164:8664) ---------- */
+/* ---------- "Design with the visual editor" (I1166:15364;1164:8664) ---------- */
 
 /* 1278×456, "Background / Lines / Match screenshot": #1b3d22 with #24512e 45° hairlines (8px tile at 3.25). */
 .editor {
@@ -305,7 +302,7 @@
   border-radius: 9999px;
 }
 
-/* "Editor · Dark" (1164:8674): 1214×758.75 at (525, 36); the panel shows its top-left 753×420. */
+/* "Editor v2 · Dark" (1328:9837): 971.2×607 at (525, 36), 32 right of the copy; the panel shows its top-left 753×420. */
 .editorShot {
   position: absolute;
   top: 36px;
@@ -577,11 +574,24 @@
     gap: 20px;
   }
 
-  /* Mobile heading/h3: 600 28/33.6, −0.56. */
+  /* Mobile heading/h3: 600 28/33.6, −0.56; balanced, so "create" isn't left alone on the second line. */
   .title {
     font-size: 28px;
     line-height: 33.6px;
     letter-spacing: -0.56px;
+    text-wrap: balance;
+  }
+
+  /* The panels' actions grow to 44px tall (14px labels) for a thumb. */
+  .chip {
+    gap: 6px;
+    padding: 12px 14px 12px 18px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .pillCta {
+    padding: 11px 18px;
   }
 
   /* The tab row scrolls sideways, edge to edge. */

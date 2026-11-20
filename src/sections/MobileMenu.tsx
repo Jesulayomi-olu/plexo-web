@@ -18,8 +18,9 @@ const resourceItems: SubItem[] = [...resourceMenu.columns.flat(), resourceMenu.a
  * Figma "Mobile menu · open (Features)" (555:2757) and "(For You)" (555:2816), as a 320-wide drawer that
  * slides in from the right under the 64px bar (Figma fills the screen; the page shows dimmed beside it),
  * #0d1a03. Rows (500 14/21, white, 57 tall) are split by 12% white lines; Features, For You and Resources
- * open in place to show their links (400 12/18, white at 80%). "Start free" (Small, full width) sits at
- * the bottom. One submenu is open at a time; all start closed.
+ * open in place to show their links (400 12/18, white at 80%). "Start free" (full width) sits at the
+ * bottom, at Size=Large (48; Figma has Small), as the design system sizes main actions on phones. One
+ * submenu is open at a time; all start closed.
  */
 type SectionId = 'features' | 'for-you' | 'resources'
 
@@ -141,7 +142,7 @@ export function MobileMenu({ id, onNavigate }: Props) {
           </ul>
         </nav>
         <div className={styles.footer}>
-          <Button href={SIGNUP_HREF} size="small" fullWidth onClick={onNavigate}>
+          <Button href={SIGNUP_HREF} size="large" fullWidth onClick={onNavigate}>
             Start free
           </Button>
         </div>

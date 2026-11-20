@@ -219,7 +219,7 @@
   }
 }
 
-/* ---------- Phones: vertical flow on a 320×226 grid ---------- */
+/* ---------- Phones: the vertical flow (AiFlowPhone), 36 above and below ---------- */
 
 /* Full-bleed band of the desktop's square dot grid (#e8e8e4), fading out at the top and bottom. */
 .mobileWrap {
@@ -241,64 +241,6 @@
 /* The MCP and API page's diagram has no dot pattern (668:28669 is hidden). */
 .page .mobileWrap::before {
   content: none;
-}
-
-.mobile {
-  position: relative;
-  width: 320px;
-  height: 226px;
-  margin: 0 auto;
-}
-
-.mobile img,
-.mLines {
-  position: absolute;
-  max-width: none;
-}
-
-.mLines {
-  top: 0;
-  left: 0;
-  width: 320px;
-  height: 226px;
-  overflow: visible;
-}
-
-/* Labels at one height (32px): Claude, ChatGPT and Cursor, 10px apart, centred as a row. */
-.mClaude,
-.mChatgpt,
-.mCursor,
-.mLive {
-  top: 0;
-  width: auto;
-  height: 32px;
-}
-
-.mClaude {
-  left: 3.8px;
-}
-
-.mChatgpt {
-  left: 107.51px;
-}
-
-.mCursor {
-  left: 219.05px;
-}
-
-/* Plexo on its plate, centred on the spine. */
-.mLogo {
-  top: 112px;
-  left: 104.03px;
-  width: 108.5px;
-  height: 28px;
-  background: var(--surface-50);
-}
-
-/* The live site pill sits on the end of the green line (its dot half under the pill, as on desktop). */
-.mLive {
-  top: 194px;
-  left: 102.98px;
 }
 
 @media (max-width: 767px) {
@@ -328,20 +270,10 @@
   }
 }
 
-@media (max-width: 359px) {
-  .mobile {
-    transform: scale(0.9);
-    transform-origin: top center;
-  }
-}
-
 /* Mobile type scale — design system "mobile/*" text styles, which apply below 768px. */
 @media (max-width: 767px) {
-  /* label/sm → 10/11 */
+  /* The pill keeps its 12px label (label/sm's 10px read too small) with a little less padding. */
   .pill span {
     padding: 7px 10px;
-    font-size: 10px;
-    line-height: 11px;
-    letter-spacing: 0.2px;
   }
 }

@@ -158,4 +158,11 @@
     grid-template-columns: minmax(0, 1fr);
     gap: 16px;
   }
+
+  /* "Clear search" reaches 44px tall for a thumb (the extra is invisible). */
+  .results a {
+    display: inline-block;
+    padding-block: 10px;
+    margin-block: -10px;
+  }
 }

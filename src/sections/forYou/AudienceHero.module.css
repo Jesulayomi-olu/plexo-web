@@ -114,6 +114,28 @@
 }
 
 @media (max-width: 1199px) {
+  /* The tag at 12 (10 is too small to read at tablet and phone distance). */
+  .tag {
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  /* Balanced titles (no lone "ends."); a title of short sentences wraps only between them ("Design it.
+     Ship it. / Hand it over.", not "… Hand it / over." or "… Ship / it."). */
+  .title {
+    text-wrap: balance;
+  }
+
+  .phrase {
+    white-space: nowrap;
+  }
+
+  /* Figma's line break in the lead fits the desktop column only (narrower, it left "and" alone on a line). */
+  .lead {
+    white-space: normal;
+    text-wrap: pretty;
+  }
+
   .stage {
     height: 400px;
   }
@@ -133,11 +155,12 @@
     gap: 28px;
   }
 
-  /* mobile heading/h2 → 32/36.8 */
+  /* mobile heading/h2 → 32/36.8; balanced. */
   .title {
     font-size: 32px;
     line-height: 36.8px;
     letter-spacing: -0.7px;
+    text-wrap: balance;
   }
 
   .lead {
@@ -145,6 +168,7 @@
     font-size: 14px;
     line-height: 21px;
     white-space: normal;
+    text-wrap: pretty;
   }
 
   .stage {

@@ -242,33 +242,45 @@
 }
 
 /*
- * "Glass / You type": 372×353, centred (46, 28), rgba(255,255,255,.1), r17.087, shadow
- * 0 0.8 12.1 8 rgba(0,0,0,.1), clipped. The 351-wide column of cards (gap 16, 340.9 tall) is centred in
- * it, so it starts 6 from the top (Figma's 10.252 vertical padding is overrun).
+ * "Glass / You type": 450×321, centred 16 above the panel's middle (7, 28), rgba(255,255,255,.1),
+ * r17.087, shadow 0 0.8 12.1 8 rgba(0,0,0,.1), clipped; the 436-wide grid centred in it (padding
+ * 10.252 / 7). Figma's render also shows a fine light edge (its glass effect, which the export doesn't
+ * describe): about 29% white along the top and left, 18% along the bottom and right.
  */
 .glass {
   position: absolute;
   top: 28px;
-  left: 46px;
+  left: 7px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 16px;
-  width: 372px;
-  height: 353px;
-  padding: 0 10.5px;
+  width: 450px;
+  height: 321px;
+  padding: 10.252px 7px;
   overflow: hidden;
   border-radius: 17.087px;
   background: rgb(255 255 255 / 0.1);
-  box-shadow: 0 0.8px 12.1px 8px rgb(0 0 0 / 0.1);
+  box-shadow:
+    inset 1px 1px 0 rgb(255 255 255 / 0.29),
+    inset -1px -1px 0 rgb(255 255 255 / 0.18),
+    0 0.8px 12.1px 8px rgb(0 0 0 / 0.1);
 }
 
-/* "Card": white, r8, padding 8; the icon row · 6 · the text. */
+/* "Frame 2147239395": 2×2, gap 16, the cards 210 wide. */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+/* "Card": white, r8, padding 8, 100 tall: the icon row · 8 · the text (54, three lines), centred. */
 .step {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
+  min-height: 100px;
   padding: 8px;
   border-radius: 8px;
   background: var(--white);
@@ -277,7 +289,7 @@
 .stepIcon {
   display: flex;
   align-items: center;
-  min-height: 24px;
+  min-height: 21.14px;
 }
 
 .stepIcon img {
@@ -285,42 +297,17 @@
   max-width: none;
 }
 
-/* desktop/body/sm semibold 12: 600 12/18, #1d3509. */
+/* desktop/body/sm medium: 500 12/18, #1d3509, in a 54 box. */
 .stepText {
+  min-height: 54px;
   font-size: 12px;
   line-height: 18px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--forest);
 }
 
-/* The first card's text is one line, cut with "…". */
-.oneLine {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* "SOL avatar" rounds, 19.2px; ChatGPT's image spills 1.2 on every side. */
-.avatar {
-  position: relative;
-  flex: none;
-  width: 19.2px;
-  height: 19.2px;
-}
-
-.avatar img {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.avatarOut img {
-  top: -1.2px;
-  left: -1.2px;
-}
-
-/* Overlapping stack: #e8e8e4, padding 2.4, r4, each avatar but the last −10.8 (8.4 apart). */
-.stack {
+/* "Frame 2147239527": #e8e8e4, padding 2.4, r4; ChatGPT (16.34, −10.8 on its right) then Claude (16). */
+.pair {
   display: flex;
   align-items: center;
   padding: 2.4px;
@@ -328,11 +315,26 @@
   background: var(--surface-200);
 }
 
-.stack .avatar:not(:last-child) {
+.pairChatgpt {
+  position: relative;
+  flex: none;
+  width: 16.34px;
+  height: 16.34px;
   margin-right: -10.8px;
 }
 
-/* "Frame 2147239528": #e8e8e4, padding 2.4/2, gap 4, r4, clipped: the stack (36×19.2), link, mark. */
+.pairChatgpt img {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+}
+
+/* Claude sits over ChatGPT, as in Figma (positioned, so it paints above the positioned ChatGPT). */
+.pair > img {
+  position: relative;
+}
+
+/* "Frame 2147239528": #e8e8e4, padding 2.4/2, gap 4, r4, clipped (66.1×20.8). */
 .connect {
   display: flex;
   align-items: center;
@@ -343,56 +345,44 @@
   background: var(--surface-200);
 }
 
-.connectStack {
+/* "Frame 2147239529": 27×16; ChatGPT (16.17) at (1.6, −0.5), Claude at (11, −0.5). */
+.connectPair {
   position: relative;
   flex: none;
-  width: 36px;
-  height: 19.2px;
+  width: 27px;
+  height: 16px;
 }
 
-.connectStack .avatar {
+.connectPair img {
   position: absolute;
-  top: 0;
 }
 
-.connectStack .avatar:nth-child(2) {
-  left: 8.4px;
+.connectChatgpt {
+  top: -1.5px;
+  left: 0.6px;
 }
 
-.connectStack .avatar:nth-child(3) {
-  left: 16.8px;
+.connectClaude {
+  top: -0.5px;
+  left: 11px;
 }
 
-/* "link-2", 12px: its stroke group sits at (0.75, 3.25). */
-.link {
-  position: relative;
-  flex: none;
-  width: 12px;
-  height: 12px;
-}
-
-.link img {
-  position: absolute;
-  top: 3.25px;
-  left: 0.75px;
-}
-
-/* "Frame 2147239526": #1d3509, padding 2.4, r14.4 (24.9 square). */
+/* "Frame 2147239526": #1d3509, padding 2.036, r12.214 (21.14 square). */
 .globeBadge {
   display: flex;
-  padding: 2.4px;
-  border-radius: 14.4px;
+  padding: 2.036px;
+  border-radius: 12.214px;
   background: var(--forest);
 }
 
-/* "Success icon": 24px #b8f34a round, the check centred. */
+/* "Success icon": 21.14 #b8f34a round, the check centred. */
 .success {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 333px;
+  width: 21.14px;
+  height: 21.14px;
+  border-radius: 293.318px;
   background: var(--lime);
 }
 
@@ -435,7 +425,7 @@
   }
 }
 
-/* ---------- Phones: the vertical diagram, then the panel ---------- */
+/* ---------- Phones: the vertical diagram (AiFlowPhone), then the panel ---------- */
 
 @media (max-width: 767px) {
   .section {
@@ -473,8 +463,10 @@
     display: none;
   }
 
+  /* The diagram's card: #e8e8e4, r16, as on desktop; the flow centred, 28 above and below. */
   .mobileCard {
     display: block;
+    padding: 28px 0;
     overflow: hidden;
     border-radius: 16px;
     background: var(--surface-200);
@@ -493,102 +485,43 @@
     top: auto;
     left: auto;
     width: 100%;
-    max-width: 372px;
+    max-width: 450px;
     height: auto;
-    padding: 10.252px 10.5px;
     transform: none;
   }
+}
 
-  /* Narrow phones: the first card's line wraps rather than being cut. */
-  .oneLine {
-    white-space: normal;
+/* Narrow phones: one column of cards, each as tall as its words (the 2×2 cards would be 150 wide). */
+@media (max-width: 479px) {
+  .glass {
+    padding: 10px;
+  }
+
+  .steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .step {
+    min-height: 0;
+  }
+
+  .stepText {
+    min-height: 0;
   }
 }
 
-/* The phone diagram: a 320×218 grid, centred in its card. */
-.mobileWrap {
-  padding: 28px 0;
+/* Phones: the steps are full-width cards, so their text steps up to 14/21 (body/md); 12 read too small. */
+@media (max-width: 767px) {
+  .stepText {
+    font-size: 14px;
+    line-height: 21px;
+  }
 }
 
-.mobile {
-  position: relative;
-  width: 320px;
-  height: 218px;
-  margin: 0 auto;
-}
-
-.mobile > * {
-  position: absolute;
-  max-width: none;
-}
-
-.mLines {
-  top: 0;
-  left: 0;
-  width: 320px;
-  height: 218px;
-  overflow: visible;
-}
-
-/* Labels at one height (28px): Claude, ChatGPT and Cursor, 10 apart, centred as a row. */
-.mLabel {
-  top: 0;
-  height: 28px;
-}
-
-.mLabel > * {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform-origin: top left;
-}
-
-/* 135.12×42 → ×2/3. */
-.mClaude {
-  left: 8.53px;
-  width: 90.08px;
-}
-
-.mClaude > * {
-  transform: scale(0.66667);
-}
-
-/* 40 tall → ×0.7. */
-.mChatgpt {
-  left: 108.61px;
-  width: 94.76px;
-}
-
-.mCursor {
-  left: 213.37px;
-  width: 98.11px;
-}
-
-.mChatgpt > *,
-.mCursor > * {
-  transform: scale(0.7);
-}
-
-/* Plexo, centred on the spine, between the junction's line and the output line. */
-.mLogo {
-  top: 108px;
-  left: 105.14px;
-}
-
-/* The live site pill sits on the end of the green line (its dot half under the pill, as on desktop). */
-.mLive {
-  top: 190px;
-  left: 107.22px;
-  width: 97.6px;
-}
-
-.mLive > * {
-  transform: scale(0.74929);
-}
-
-@media (max-width: 359px) {
-  .mobile {
-    transform: scale(0.9);
-    transform-origin: top center;
+/* Phones: no lone last word in the lead. */
+@media (max-width: 767px) {
+  .lead {
+    text-wrap: pretty;
   }
 }

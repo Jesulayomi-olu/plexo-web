@@ -241,7 +241,9 @@
     gap: 32px;
   }
 
-  .card .copy {
+  /* .card.designers too: its desktop side padding (42) belongs to the wide card. */
+  .card .copy,
+  .card.designers .copy {
     flex: 1 1 0;
     gap: 32px;
     padding-inline: 0;
@@ -260,6 +262,11 @@
 
   .item:nth-child(3) .itemText {
     max-width: none;
+  }
+
+  /* The narrower column wraps more items onto two lines; give those lines room. */
+  .itemText {
+    line-height: 19px;
   }
 }
 
@@ -304,7 +311,8 @@
     border-radius: 20px;
   }
 
-  .card .copy {
+  .card .copy,
+  .card.designers .copy {
     gap: 24px;
     padding-inline: 4px;
   }
@@ -341,16 +349,35 @@
   }
 
   .list {
+    gap: 10px;
     margin-top: 12px;
   }
 
-  /* label/md → 12/13.2 */
+  /* body/md → 14/21: the list is the card's body copy, so it stays at the readable size (12 was too small). */
   .itemText {
-    font-size: 12px;
-    line-height: 13.2px;
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  /* The check sits by the first line of a wrapped item. */
+  .item {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .check {
+    margin-top: 3.5px;
   }
 
   .ctaWrap {
     margin-top: 24px;
+  }
+}
+
+/* Phones: no lone last word in the lead or a card's subtitle. */
+@media (max-width: 767px) {
+  .lead,
+  .subtitle {
+    text-wrap: pretty;
   }
 }

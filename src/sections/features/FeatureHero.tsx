@@ -16,7 +16,7 @@ import styles from './FeatureHero.module.css'
  *   picture.
  * Card: column gap 40, centred: the 48px heading (526 box) and lead (372, 24 below; E-commerce's is
  * 435), the actions, and the trial note. At 1200 and wider the composition keeps Figma's positions and scales below 1440; on
- * smaller screens the card and the panel stack.
+ * smaller screens the card and the panel stack (on phones the panel can be cropped to its contents).
  */
 type Action = {
   label: string
@@ -45,8 +45,16 @@ export default function FeatureHero({
   link?: { label: string; href?: string }
   /** The trial note under the actions. */
   note?: string
-  /** The right-hand panel: its tone and its 518×496 contents. */
-  visual?: { tone: 'tint' | 'white'; label: string; content: ReactNode }
+  /**
+   * The right-hand panel: its tone and its 518×496 contents. `phoneCrop` (in those coordinates): on phones
+   * only that part of the panel shows, scaled to the width, so the contents read larger.
+   */
+  visual?: {
+    tone: 'tint' | 'white'
+    label: string
+    content: ReactNode
+    phoneCrop?: { x: number; y: number; width: number; height: number }
+  }
   /** Width of the heading-and-lead column where a frame's lead box differs from the 372 default. */
   textWidth?: number
   /** The single card's top in the 1440 composition where it differs from MCP's 75 (Email: 61). */
@@ -99,8 +107,18 @@ export default function FeatureHero({
             <Reveal delay={0.25} y={20} className={styles.visualSlot}>
               <div
                 ref={visualRef}
-                className={`${styles.visual} ${visual.tone === 'tint' ? styles.tint : ''}`}
-                style={{ '--v': visualScale } as CSSProperties}
+                className={`${styles.visual} ${visual.tone === 'tint' ? styles.tint : ''} ${visual.phoneCrop ? styles.cropped : ''}`}
+                style={
+                  {
+                    '--v': visualScale,
+                    ...(visual.phoneCrop && {
+                      '--crop-x': visual.phoneCrop.x,
+                      '--crop-y': visual.phoneCrop.y,
+                      '--crop-w': visual.phoneCrop.width,
+                      '--crop-h': visual.phoneCrop.height,
+                    }),
+                  } as CSSProperties
+                }
                 role="img"
                 aria-label={visual.label}
               >

@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import type { CSSProperties } from 'react'
+import { Fragment, type CSSProperties, type ReactNode } from 'react'
 import { BlurIn } from '../../components/BlurIn'
 import { PromptBox } from '../../components/PromptBox'
 import { Reveal } from '../../components/Reveal'
@@ -18,6 +18,21 @@ import styles from './AudienceHero.module.css'
  * and types its prompt.
  */
 const pct = (value: number, of: number) => `${((value / of) * 100).toFixed(3)}%`
+
+/**
+ * A title of several short sentences ("Design it. Ship it. Hand it over.") as one span per sentence, so
+ * on phones it wraps between sentences, never inside one ("Ship / it."). One sentence stays plain text.
+ */
+function phrases(title: string): ReactNode {
+  const parts = title.split(/(?<=\.) /)
+  if (parts.length < 2) return title
+  return parts.map((part, i) => (
+    <Fragment key={part}>
+      {i > 0 && ' '}
+      <span className={styles.phrase}>{part}</span>
+    </Fragment>
+  ))
+}
 
 export default function AudienceHero({ hero }: { hero: Audience['hero'] }) {
   const isStatic = useStaticMotion()
@@ -51,7 +66,7 @@ export default function AudienceHero({ hero }: { hero: Audience['hero'] }) {
             <p className={styles.tag}>{hero.tag}</p>
           </BlurIn>
           <BlurIn as="h1" delay={0.08} blur={14} duration={1.4} className={styles.title}>
-            <span id="audience-title">{hero.title}</span>
+            <span id="audience-title">{phrases(hero.title)}</span>
           </BlurIn>
           <BlurIn as="p" delay={0.2} blur={8} duration={1.2} className={styles.lead}>
             {hero.lead}

@@ -229,11 +229,12 @@
     gap: 28px;
   }
 
-  /* mobile heading/h2 → 32/36.8 */
+  /* mobile heading/h2 → 32/36.8; balanced, so no word is left alone ("You / finish."). */
   .title {
     font-size: 32px;
     line-height: 36.8px;
     letter-spacing: -0.7px;
+    text-wrap: balance;
   }
 
   /* mobile heading/h3 → 28/33.6 */
@@ -264,6 +265,7 @@
   .lead {
     font-size: 14px;
     line-height: 21px;
+    text-wrap: pretty;
   }
 
   .mcp .lead {

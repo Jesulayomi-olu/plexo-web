@@ -296,6 +296,12 @@
   .controls {
     margin-top: 40px;
   }
+
+  /* Stacked (tablets and phones): the role at 12 (body/sm); 10 is too small to read at arm's length. */
+  .role {
+    font-size: 12px;
+    line-height: 16px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -323,6 +329,12 @@
   .controls {
     gap: 12px;
     margin-top: 24px;
+  }
+
+  /* 44px arrows: an easier target for a thumb. */
+  .arrow {
+    width: 44px;
+    height: 44px;
   }
 }
 

@@ -354,9 +354,9 @@
     line-height: 21px;
   }
 
-  /* body/sm → 12/18 */
+  /* The answers keep their desktop size, 14/21 (body/md here): they are body copy, and 12 read too small. */
   .answer {
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 21px;
   }
 }

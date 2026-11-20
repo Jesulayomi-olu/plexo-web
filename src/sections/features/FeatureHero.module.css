@@ -249,16 +249,18 @@
     gap: 16px;
   }
 
-  /* mobile heading/h2 → 32/36.8 */
+  /* mobile heading/h2 → 32/36.8; balanced, so no word is left alone ("Bring them back for / more."). */
   .title {
     font-size: 32px;
     line-height: 36.8px;
     letter-spacing: -0.7px;
+    text-wrap: balance;
   }
 
   .lead {
     font-size: 14px;
     line-height: 21px;
+    text-wrap: pretty;
   }
 
   .actions {
@@ -268,12 +270,26 @@
     gap: 16px 24px;
   }
 
+  /* The link keeps 14px and grows to a 45px tap target (the extra is padding). */
   .link {
-    font-size: 12px;
-    line-height: 18px;
+    padding-block: 12px;
   }
 
   .visual {
     border-radius: 32px;
+  }
+
+  /*
+   * phoneCrop: only the crop box (--crop-x/y/w/h, panel coordinates) shows, scaled to the panel's width:
+   * --vc is that scale (--v is the width over 516).
+   */
+  .cropped {
+    --vc: calc(var(--v, 1) * 516 / var(--crop-w));
+    height: calc(var(--crop-h) * 1px * var(--vc));
+    overflow: hidden;
+  }
+
+  .cropped .visualScale {
+    transform: scale(var(--vc)) translate(calc(var(--crop-x) * -1px), calc(var(--crop-y) * -1px));
   }
 }
