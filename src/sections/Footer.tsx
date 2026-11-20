@@ -6,7 +6,7 @@ import { Divider } from '../components/Divider'
 import { EmailField } from '../components/EmailField'
 import { Reveal } from '../components/Reveal'
 import { focusEase, usePreviewMode, useStaticMotion } from '../lib/motion'
-import { LOGIN_HREF } from './navData'
+import { DEVELOPERS_HREF, LOGIN_HREF } from './navData'
 import styles from './Footer.module.css'
 
 /**
@@ -15,7 +15,8 @@ import styles from './Footer.module.css'
  * (copyright, policies, social links). The giant Plexo logo is cut by the bottom edge. Below it the
  * page's #0d1a03 band (248px) with the dashed star divider (532:25133) and a soft green glow
  * ("Ellipse 3", 532:25172).
- * Labels are verbatim from Figma. Items without an `href` have no page yet and render as plain text.
+ * Labels are verbatim from Figma, except Solutions (below). Items without an `href` have no page yet and
+ * render as plain text.
  */
 type FooterLink = { label: string; href?: string; /** "Log in": semibold, green. */ accent?: boolean }
 
@@ -31,14 +32,15 @@ const columns: { title: string; links: FooterLink[] }[] = [
     ],
   },
   {
-    // The same five audiences as the home page's "Plexo is for everyone" tabs.
+    // The five solution pages that exist, named as on the home page's "Plexo is for everyone" tabs (Figma's
+    // "Agencies and freelancers", "Growing brands" and "Product teams" have no pages; the design team's call).
     title: 'Solutions',
     links: [
       { label: 'Small businesses', href: '/solutions/small-business' },
       { label: 'Coaches and creators', href: '/solutions/coaches' },
-      { label: 'Agencies and freelancers', href: '/solutions/designers' },
-      { label: 'Growing brands', href: '/#who-its-for' },
-      { label: 'Product teams', href: '/#who-its-for' },
+      { label: 'Designers and agencies', href: '/solutions/designers' },
+      { label: 'Founders', href: '/solutions/founders' },
+      { label: 'Developers', href: DEVELOPERS_HREF },
     ],
   },
   {

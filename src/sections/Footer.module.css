@@ -78,11 +78,16 @@
 }
 
 /* "Links": five equal columns, gap 24; each column gap 12: heading · links. */
+/*
+ * Five even columns, but none narrower than its longest link ("Designers and agencies" is 158.5, the even
+ * share 156 at 1440 and 121 at 1263), so no link wraps; the others share what's left. The links need about
+ * 623px in all, which every width from 768 up has.
+ */
 .columns {
   flex: 1;
   min-width: 0;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(max-content, 1fr));
   gap: 24px;
 }
 
