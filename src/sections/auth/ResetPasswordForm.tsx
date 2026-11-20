@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { resetPassword } from '../../lib/auth'
 import { AuthScreen, formStyles as styles, PasswordRules, SubmitButton, TextField } from './AuthForm'
 import { useAuthForm, type Errors } from './useAuthForm'
@@ -14,6 +14,11 @@ function validate(values: Record<Key, string>): Errors<Key> {
     password: meetsPasswordRules(values.password) ? undefined : messages.passwordRules,
     confirm: !values.confirm ? messages.confirmRequired : values.confirm !== values.password ? messages.mismatch : undefined,
   }
+}
+
+/** The form with the reset link's `?token=`, read in the browser so the page can be plain static HTML. */
+export function ResetPasswordFromLink() {
+  return <ResetPasswordForm token={useSearchParams().get('token') ?? undefined} />
 }
 
 /**

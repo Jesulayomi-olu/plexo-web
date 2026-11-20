@@ -1,0 +1,4 @@
+# Cloudflare redirects (copied to the build output as is). The audience pages moved from /for-you/* to
+# /solutions/*; next.config.ts does the same for `next dev` / `next start`, but a static export skips it.
+/for-you/:audience /solutions/:audience 301
+/for-you/:audience/ /solutions/:audience 301

@@ -2,6 +2,8 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   // The audience pages moved from "For you" to "Solutions"; old links keep working.
+  // The audience pages moved from /for-you/* to /solutions/*. A static export ignores this; on Cloudflare
+  // public/_redirects does the same.
   async redirects() {
     return [{ source: '/for-you/:audience', destination: '/solutions/:audience', permanent: true }]
   },

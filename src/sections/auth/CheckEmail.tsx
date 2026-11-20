@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 import { requestPasswordReset } from '../../lib/auth'
 import { durations, ease, useStaticMotion } from '../../lib/motion'
@@ -29,6 +30,15 @@ const CONFIRMATION_MS = 5000
  * sends the link again and confirms it briefly underneath (not in Figma). The resend line gets a closing
  * full stop.
  */
+/**
+ * The screen with the address from `?email=`, read in the browser so the page can be plain static HTML
+ * (Cloudflare); until then it reads as it does without one.
+ */
+export function CheckEmailFromLink() {
+  const email = useSearchParams().get('email')?.trim()
+  return <CheckEmail email={email || undefined} />
+}
+
 export default function CheckEmail({ email }: { email?: string }) {
   const isStatic = useStaticMotion()
   const [state, setState] = useState<'idle' | 'sending' | 'sent'>('idle')
