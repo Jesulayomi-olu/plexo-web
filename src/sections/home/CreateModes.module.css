@@ -1,0 +1,709 @@
+/*
+ * Figma "Hero" (1166:15342): 1440×924, white, padding 80; "Component 9" (1133:17767) is 1278 wide in
+ * the 1280 column, column gap 51: header (heading · 24 · tabs), then the active tab's panel.
+ */
+.section {
+  padding: 80px 0;
+  background: var(--white);
+}
+
+.component {
+  display: flex;
+  flex-direction: column;
+  gap: 51px;
+  max-width: 1278px;
+}
+
+/* "Frame 2147239500": heading (46) · 24 · tab row (41). */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* desktop/heading/h3/semibold: 600 40/46, −1 (−2.5%), #232323. */
+.title {
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--ink-800);
+}
+
+.tabsScroller {
+  display: flex;
+}
+
+/* "Frame 2147239482": 41 tall, gap 10, the 40px pills centred. */
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 41px;
+}
+
+/* Unselected: #fcfcfa, 1px #9e9f9b (outside the padding), r32, padding 0 24; desktop/body/md/regular #333332. */
+.tab {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 24px;
+  border: 1px solid var(--border-strong);
+  border-radius: 32px;
+  background: var(--surface-50);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--ink-700);
+  white-space: nowrap;
+  transition:
+    background-color 200ms var(--ease-out),
+    color 200ms var(--ease-out),
+    padding 200ms var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tab:hover {
+  background: var(--surface-100);
+}
+
+.tab:focus-visible {
+  border-radius: 32px;
+}
+
+/* Selected: #1d3509, no stroke, padding 0 16; desktop/body/md/medium, white. */
+.tab.tabActive {
+  padding: 0 16px;
+  border-width: 0;
+  background: var(--forest);
+  font-weight: 500;
+  color: var(--white);
+}
+
+/* The panel area: it eases to each panel's height; clipped while two panels crossfade. */
+.stage {
+  position: relative;
+  overflow: hidden;
+}
+
+.tabpanel {
+  border-radius: 32px;
+}
+
+.tabpanel:focus-visible {
+  border-radius: 32px;
+  box-shadow: inset 0 0 0 2px var(--lime-pressed);
+}
+
+/* Every panel: r32 (the AI variant's corners), clipped. */
+.panel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 32px;
+}
+
+/* Panel copy: desktop/heading/h6/semibold 600 20/26, −0.4 · 24 · desktop/body/sm/regular 14/21. */
+.copyText {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.panelTitle {
+  max-width: 383px;
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+}
+
+.panelBody {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+}
+
+/* ---------- "Start with a template" (1133:17118, variant 1133:17764) ---------- */
+
+/* 1278×602, #e8e8e4 (the copy runs to three lines; the variant tightened the spacing to keep 602). */
+.templates {
+  background: var(--surface-200);
+}
+
+/* "Frame 2147239501": 1230 wide at (24, 36), gap 32: the copy row (113), then the template row; 19.76 below. */
+.templatesContent {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 36px 24px 19.76px;
+}
+
+/* "Frame 2147239519": the copy and, right-aligned and centred on it, the chip; gap 32. */
+.templatesHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.templates .panelTitle {
+  color: var(--ink-700);
+}
+
+.templates .panelBody {
+  max-width: 532px;
+  color: var(--ink-600);
+}
+
+/* "Start with a template": #1d3509 pill, padding 8/8/8/12, gap 4; desktop/label/sm/regular 12/13.2 white, 12px chevron. */
+.chip {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 8px 8px 12px;
+  border-radius: 32px;
+  background: var(--forest);
+  font-size: 12px;
+  line-height: 13.2px;
+  font-weight: 400;
+  color: var(--white);
+  white-space: nowrap;
+  transition: background-color 160ms ease;
+}
+
+.chip:hover {
+  background: var(--forest-hover);
+}
+
+.chip:focus-visible {
+  border-radius: 32px;
+}
+
+/*
+ * "Frame 2147239134": 1230 × 401.24, clipped, so the row runs past both sides. Tiles, gap 33.437:
+ * Fieldnote ("image 26") 298.52 · Solène 298.36 · Atelier Oak 441.53 · Iron & Grain 435.53 · Northfold
+ * 475.84; the two tall ones are cut to the row's height. At rest the row is centred, as in Figma; it
+ * glides (useGlide moves the track). Sizes scale with --h. Vertical swipes stay with the page
+ * (touch-action: pan-y); a grab cursor hints that the row can be dragged.
+ */
+.templateRow {
+  --h: 401.238px;
+  height: var(--h);
+  overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.templateRow[data-dragging] {
+  cursor: grabbing;
+}
+
+.templateRow:focus-visible {
+  border-radius: 0;
+  box-shadow: inset 0 0 0 2px var(--lime-pressed);
+}
+
+.templateTrack,
+.templateList {
+  display: flex;
+  gap: calc(var(--h) * 33.437 / 401.238);
+}
+
+.templateTrack {
+  width: max-content;
+  will-change: transform;
+}
+
+.templateTile {
+  flex: none;
+  width: calc(var(--h) * var(--w) / 401.238);
+  height: var(--h);
+  overflow: hidden;
+}
+
+.templateTile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* ---------- "Design with the visual editor" (I1166:15364;1164:8664) ---------- */
+
+/* 1278×456, "Background / Lines / Match screenshot": #1b3d22 with #24512e 45° hairlines (8px tile at 3.25). */
+.editor {
+  height: 456px;
+  background: #1b3d22 url('/assets/features/lines-tile.png') 0 0 / 3.2543px 3.2543px repeat;
+}
+
+/* "Frame 2147239502": 469×420 at (24, 36), space-between, 36 bottom padding: the copy, then the card (y 347). */
+.editorCopy {
+  position: absolute;
+  top: 36px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 469px;
+  height: 420px;
+  padding-bottom: 36px;
+}
+
+.editor .panelTitle {
+  color: var(--surface-50);
+}
+
+/* #bebeba (text-subtle). */
+.editor .panelBody {
+  color: var(--text-subtle);
+}
+
+/* "Card": white pill, padding 8/12, gap 7; desktop/body/sm/medium #232323 and a 16px arrow. */
+.pillCta {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border-radius: 9999px;
+  background: var(--white);
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+  color: var(--ink-800);
+  white-space: nowrap;
+  transition: background-color 160ms ease;
+}
+
+.pillCta img,
+.chip img {
+  flex: none;
+  transition: transform 200ms var(--ease-out);
+}
+
+.pillCta:hover {
+  background: var(--surface-200);
+}
+
+.pillCta:hover img,
+.chip:hover img {
+  transform: translateX(3px);
+}
+
+.pillCta:focus-visible {
+  border-radius: 9999px;
+}
+
+/* "Editor v2 · Dark" (1328:9837): 971.2×607 at (525, 36), 32 right of the copy; the panel shows its top-left 753×420. */
+.editorShot {
+  position: absolute;
+  top: 36px;
+  left: 525px;
+  width: 753px;
+  max-width: none;
+  height: 420px;
+  user-select: none;
+}
+
+/* ---------- "Start with Plexo AI" (1133:16214) ---------- */
+
+/* #1d3509 under a 20% black wash, r32, padding 40; row gap 41: the glass pane, then the 458×322 card. */
+.ai {
+  display: flex;
+  align-items: center;
+  gap: 41px;
+  padding: 40px;
+  background:
+    linear-gradient(rgb(0 0 0 / 0.2), rgb(0 0 0 / 0.2)),
+    var(--forest);
+}
+
+/* Glass pane: 6% white, 0.85px white 20% stroke, padding 24; as tall as the card beside it. */
+.aiGlass {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  justify-content: center;
+  align-self: stretch;
+  min-width: 0;
+  padding: 24px;
+  border: 0.85px solid rgb(255 255 255 / 0.2);
+  background: rgb(255 255 255 / 0.06);
+}
+
+/* Prompt card (1133:16219): 216 tall, #fcfcfa, 2px black 20% stroke, r16, padding 16. */
+.aiPrompt {
+  height: 216px;
+  padding: 16px;
+  border: 2px solid rgb(0 0 0 / 0.2);
+  border-radius: 16px;
+  background: var(--surface-50);
+}
+
+/* The field (1133:16220): 1px #d7d8d3, pill, padding 12; the attach + text group and "Build it", top-aligned. */
+.aiField {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+  transition:
+    border-color 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out);
+}
+
+.aiField:focus-within {
+  border-color: var(--lime-pressed);
+  box-shadow: 0 0 0 4px rgb(184 243 74 / 0.24);
+}
+
+.aiFieldMain {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+/* "Attach": 36px #d7d8d3 circle, 17px plus. */
+.attach {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: var(--line);
+  transition: background-color 160ms ease;
+}
+
+.attach:hover {
+  background: var(--surface-200);
+}
+
+.attach:focus-visible {
+  border-radius: 999px;
+}
+
+/* desktop/body/md/medium 500 16/24; the placeholder is #5b5b58. */
+.aiInput {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--ink-800);
+  text-overflow: ellipsis;
+  outline: none;
+}
+
+.aiInput::placeholder {
+  color: var(--ink-500);
+  opacity: 1;
+}
+
+.aiInput:focus-visible {
+  box-shadow: none;
+}
+
+.aiSubmit {
+  flex: none;
+}
+
+/* "Frame 2147239417": 458×322, white, r16, padding 43/32: the title, then (40) the three steps (gap 16). */
+.aiCard {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 40px;
+  width: 458px;
+  height: 322px;
+  padding: 43px 32px;
+  border-radius: 16px;
+  background: var(--white);
+}
+
+/* desktop/heading/h6/bold: 700 20/26, −0.4, #333332; Figma keeps the second line's leading space. */
+.aiTitle {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: var(--ink-700);
+  white-space: pre;
+}
+
+.aiSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* "Card": #f0f6df, r8, padding 8/12, gap 7, hard 2/2 #365811 shadow; 500 12/18, #333332. */
+.aiStep {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--green-tint);
+  box-shadow: 2px 2px 0 var(--green-text);
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+  color: var(--ink-700);
+}
+
+/* "SOL avatar": 24px #121212 disc; the 12px icon centred. */
+.stepIcon {
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--ink);
+}
+
+.stepIcon img {
+  width: 12px;
+  height: 12px;
+}
+
+/* "sparkles": its group (inset 8.32%, drawn 5% / 9.99% past it) is an 11.5px drawing at (0, 0.5) in the 12px box. */
+.stepIcon img.stepIconSparkles {
+  position: absolute;
+  top: 6.5px;
+  left: 6px;
+  width: 11.5012px;
+  height: 11.5012px;
+}
+
+/* ---------- Tablets and small laptops ---------- */
+
+/* Narrower windows: the card gives up width (down to 380) before the prompt does. */
+@media (max-width: 1199px) {
+  .ai {
+    gap: 32px;
+  }
+
+  .aiGlass {
+    min-width: 420px;
+  }
+
+  .aiCard {
+    flex: 0 1 458px;
+    min-width: 380px;
+  }
+}
+
+/* Below 1024 the panels stack: copy first, the picture underneath (still running off the edge). */
+@media (max-width: 1023px) {
+  .editor {
+    height: auto;
+  }
+
+  .editorCopy {
+    position: static;
+  }
+
+  .templatesHead {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .editorCopy {
+    width: auto;
+    height: auto;
+    max-width: 517px; /* 469 + padding */
+    padding: 36px 24px 0;
+    gap: 24px;
+  }
+
+  .editorShot {
+    position: static;
+    display: block;
+    margin: 36px 0 0 24px;
+  }
+
+  .ai {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .aiGlass,
+  .aiCard {
+    min-width: 0;
+  }
+
+  .aiCard {
+    flex: none;
+    width: auto;
+    height: auto;
+  }
+}
+
+/* ---------- Phones ---------- */
+
+@media (max-width: 767px) {
+  .section {
+    padding: 64px 0;
+  }
+
+  .component {
+    gap: 32px;
+  }
+
+  .header {
+    gap: 20px;
+  }
+
+  /* Mobile heading/h3: 600 28/33.6, −0.56; balanced, so "create" isn't left alone on the second line. */
+  .title {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
+    text-wrap: balance;
+  }
+
+  /* The panels' actions grow to 44px tall (14px labels) for a thumb. */
+  .chip {
+    gap: 6px;
+    padding: 12px 14px 12px 18px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .pillCta {
+    padding: 11px 18px;
+  }
+
+  /* The tab row scrolls sideways, edge to edge. */
+  .tabsScroller {
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .tabsScroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Room for the focus ring inside the scroller. */
+  .tabs {
+    height: 48px;
+    padding-right: var(--gutter);
+  }
+
+  .tab {
+    padding: 0 20px;
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .tab.tabActive {
+    padding: 0 16px;
+  }
+
+  .panel,
+  .tabpanel,
+  .tabpanel:focus-visible {
+    border-radius: 24px;
+  }
+
+  /* Mobile heading/h6: 600 18/23.4, −0.36; body/sm stays 14/21. */
+  .panelTitle,
+  .aiTitle {
+    font-size: 18px;
+    line-height: 23.4px;
+    letter-spacing: -0.36px;
+  }
+
+  .templatesContent {
+    padding: 28px 20px 24px;
+  }
+
+  .editorCopy {
+    padding: 28px 20px 0;
+  }
+
+  /* The template row at 60%. */
+  .templateRow {
+    --h: 240.743px;
+  }
+
+  /* The editor at 75%, running off the right and bottom edges. */
+  .editorShot {
+    width: 565px;
+    height: 315px;
+    margin: 28px 0 0 20px;
+  }
+
+  .ai {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .aiGlass {
+    padding: 10px;
+  }
+
+  .aiPrompt {
+    height: 168px;
+    padding: 12px;
+  }
+
+  .aiField {
+    gap: 8px;
+    padding: 6px;
+  }
+
+  .aiFieldMain {
+    gap: 8px;
+  }
+
+  .attach {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* "Build it" stays Medium (40px, 600 14) inside the field; the shared Button turns Large on phones. */
+  .aiField .aiSubmit {
+    height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+    line-height: 15.4px;
+  }
+
+  .aiInput {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .aiCard {
+    gap: 24px;
+    padding: 28px 20px;
+  }
+
+  .aiTitle {
+    white-space: pre-line;
+  }
+}

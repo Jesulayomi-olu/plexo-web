@@ -78,11 +78,16 @@
 }
 
 /* "Links": five equal columns, gap 24; each column gap 12: heading · links. */
+/*
+ * Five even columns, but none narrower than its longest link ("Designers and agencies" is 158.5, the even
+ * share 156 at 1440 and 121 at 1263), so no link wraps; the others share what's left. The links need about
+ * 623px in all, which every width from 768 up has.
+ */
 .columns {
   flex: 1;
   min-width: 0;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(max-content, 1fr));
   gap: 24px;
 }
 
@@ -312,17 +317,44 @@ a.social:hover {
     line-height: 21px;
   }
 
-  /* label/md → 12/13.2 */
+  /*
+   * Headings and links keep their desktop size (14; the label/md and body/sm steps down to 12 read too
+   * small), and each link gets a 37px tap row: 8px above and below its line, the list's gap moved inside.
+   */
   .heading,
   .newsletterLabel {
-    font-size: 12px;
-    line-height: 13.2px;
+    font-size: 14px;
+    line-height: 15.4px;
   }
 
-  /* body/sm → 12/18 */
+  .column {
+    gap: 4px;
+  }
+
+  .list {
+    gap: 0;
+  }
+
   .link,
   .legal {
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .link {
+    padding-block: 8px;
+  }
+
+  .legal {
+    gap: 0 24px;
+  }
+
+  .legalLink {
+    padding-block: 8px;
+  }
+
+  /* The newsletter field spans the column. */
+  .newsletter .email {
+    width: 100%;
   }
 }

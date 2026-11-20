@@ -1,0 +1,527 @@
+/*
+ * Figma "Build with AI. Make it live with Plexo" (Home page V2 1166:15171): 1440×837, #fcfcfa.
+ * Padding 80 top; header (236) · 40 · row (409); 72 below (Figma's 677-tall frame lets the row run 8px
+ * into its 80 bottom padding).
+ */
+.section {
+  background: var(--surface-50);
+  padding: 80px 0 72px;
+  overflow: hidden;
+}
+
+/* Figma's column starts at x 81 (padding-left 81), one pixel right of the usual 80. */
+@media (min-width: 1200px) {
+  .inner {
+    padding-left: calc(var(--gutter) + 1px);
+    padding-right: calc(var(--gutter) - 1px);
+  }
+}
+
+/* "Frame 14": column, centred: heading + lead (gap 16) · 40 · button. */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/*
+ * desktop/heading/h3/semibold: 600 40/46, −1 tracking, #121212; two lines in an 847 box. The first line
+ * ends in a space, which Figma counts when centring (so `pre`); CSS adds the tracking after the last
+ * glyph too, so re-centre by it.
+ */
+.heading {
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--ink);
+  white-space: pre;
+  padding-right: 1px;
+}
+
+/* desktop/body/md/regular: 400 16/24, #454543, 696 wide, centred. */
+.lead {
+  max-width: 696px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--ink-600);
+}
+
+.cta {
+  margin-top: 40px;
+}
+
+/* "Button / Start free": Primary, Medium, 174 wide. */
+.button {
+  width: 174px;
+}
+
+/* ---------- The row: 1280×409, scaled by --s below 1440 ---------- */
+
+.stage {
+  height: calc(409px * var(--s, 1));
+}
+
+/* "Frame 2147239466": the diagram (800) · 16 · the photo panel (464). */
+.row {
+  display: flex;
+  gap: 16px;
+  width: 1280px;
+  transform: scale(var(--s, 1));
+  transform-origin: top left;
+}
+
+.diagramFit {
+  flex: none;
+  width: 800px;
+  height: 409px;
+}
+
+/* Phones only. */
+.mobileCard {
+  display: none;
+}
+
+/* "Integration · Ask Claude, Plexo ships": 800×409, #e8e8e4, r16, clipped. */
+.integration {
+  position: relative;
+  width: 800px;
+  height: 409px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--surface-200);
+}
+
+.integration > * {
+  position: absolute;
+  max-width: none;
+}
+
+.connectors {
+  top: 0;
+  left: 0;
+  overflow: visible;
+}
+
+/* "Frame" (Plexo logo): 101.75×26.42 at (438, 189). */
+.logo {
+  top: 189px;
+  left: 438px;
+}
+
+.claudeAt {
+  top: 21px;
+  left: 46px;
+}
+
+/* Vertically centred 1.5px above the middle: (409 / 2 − 1.5) − 20. */
+.chatgptAt {
+  top: 183px;
+  left: 37px;
+}
+
+.cursorAt {
+  top: 336px;
+  left: 43px;
+}
+
+.liveAt {
+  top: 182px;
+  left: 626px;
+}
+
+/* Labels: pills, 600 17.249/1.1 names. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 1436px;
+  font-size: 17.249px;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+.pill img {
+  flex: none;
+  max-width: none;
+}
+
+/* "Label / ChatGPT": black, 40 tall, padding 8.625 18.687 8.625 10.062, gap 5.75. */
+.chatgpt {
+  gap: 5.75px;
+  height: 40px;
+  padding: 8.625px 18.687px 8.625px 10.062px;
+  background: #000000;
+}
+
+/* "Label / Cursor": white, 1.437 black stroke (inside), 40 tall, same padding, gap 10.062. */
+.cursor {
+  gap: 10.062px;
+  height: 40px;
+  padding: 8.625px 18.687px 8.625px 10.062px;
+  border: 1.437px solid #000000;
+  background: var(--white);
+}
+
+/* "Label / Live site": #1d3509, padding 8.625/17.249, gap 8.625 (37.37 tall). */
+.live {
+  gap: 8.625px;
+  padding: 8.625px 17.249px;
+  background: var(--forest);
+}
+
+/* Flow: each line's dashes travel one period (dash + gap) toward Plexo / the live site, forever. */
+.line {
+  fill: none;
+}
+
+.moving .line {
+  animation: bwa-flow 0.9s linear infinite;
+}
+
+@keyframes bwa-flow {
+  from {
+    stroke-dashoffset: var(--o, 0px);
+  }
+  to {
+    stroke-dashoffset: calc(var(--o, 0px) - var(--p));
+  }
+}
+
+/* The output dot sends out a soft ping every 2.4s. */
+.ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bwa-ping 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes bwa-ping {
+  0% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(3.2);
+  }
+}
+
+/* ---------- Photo panel ---------- */
+
+/* "Frame 5": 464×409, #fcfcfa, r16, clipped. */
+.panel {
+  position: relative;
+  flex: none;
+  width: 464px;
+  height: 409px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--surface-50);
+}
+
+/* The photo layer as Figma renders it inside the panel (2× export). */
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+/*
+ * "Glass / You type": 450×321, centred 16 above the panel's middle (7, 28), rgba(255,255,255,.1),
+ * r17.087, shadow 0 0.8 12.1 8 rgba(0,0,0,.1), clipped; the 436-wide grid centred in it (padding
+ * 10.252 / 7). Figma's render also shows a fine light edge (its glass effect, which the export doesn't
+ * describe): about 29% white along the top and left, 18% along the bottom and right.
+ */
+.glass {
+  position: absolute;
+  top: 28px;
+  left: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 450px;
+  height: 321px;
+  padding: 10.252px 7px;
+  overflow: hidden;
+  border-radius: 17.087px;
+  background: rgb(255 255 255 / 0.1);
+  box-shadow:
+    inset 1px 1px 0 rgb(255 255 255 / 0.29),
+    inset -1px -1px 0 rgb(255 255 255 / 0.18),
+    0 0.8px 12.1px 8px rgb(0 0 0 / 0.1);
+}
+
+/* "Frame 2147239395": 2×2, gap 16, the cards 210 wide. */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+/* "Card": white, r8, padding 8, 100 tall: the icon row · 8 · the text (54, three lines), centred. */
+.step {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  min-height: 100px;
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--white);
+}
+
+.stepIcon {
+  display: flex;
+  align-items: center;
+  min-height: 21.14px;
+}
+
+.stepIcon img {
+  flex: none;
+  max-width: none;
+}
+
+/* desktop/body/sm medium: 500 12/18, #1d3509, in a 54 box. */
+.stepText {
+  min-height: 54px;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+  color: var(--forest);
+}
+
+/* "Frame 2147239527": #e8e8e4, padding 2.4, r4; ChatGPT (16.34, −10.8 on its right) then Claude (16). */
+.pair {
+  display: flex;
+  align-items: center;
+  padding: 2.4px;
+  border-radius: 4px;
+  background: var(--surface-200);
+}
+
+.pairChatgpt {
+  position: relative;
+  flex: none;
+  width: 16.34px;
+  height: 16.34px;
+  margin-right: -10.8px;
+}
+
+.pairChatgpt img {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+}
+
+/* Claude sits over ChatGPT, as in Figma (positioned, so it paints above the positioned ChatGPT). */
+.pair > img {
+  position: relative;
+}
+
+/* "Frame 2147239528": #e8e8e4, padding 2.4/2, gap 4, r4, clipped (66.1×20.8). */
+.connect {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2.4px 2px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--surface-200);
+}
+
+/* "Frame 2147239529": 27×16; ChatGPT (16.17) at (1.6, −0.5), Claude at (11, −0.5). */
+.connectPair {
+  position: relative;
+  flex: none;
+  width: 27px;
+  height: 16px;
+}
+
+.connectPair img {
+  position: absolute;
+}
+
+.connectChatgpt {
+  top: -1.5px;
+  left: 0.6px;
+}
+
+.connectClaude {
+  top: -0.5px;
+  left: 11px;
+}
+
+/* "Frame 2147239526": #1d3509, padding 2.036, r12.214 (21.14 square). */
+.globeBadge {
+  display: flex;
+  padding: 2.036px;
+  border-radius: 12.214px;
+  background: var(--forest);
+}
+
+/* "Success icon": 21.14 #b8f34a round, the check centred. */
+.success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 21.14px;
+  height: 21.14px;
+  border-radius: 293.318px;
+  background: var(--lime);
+}
+
+/* ---------- 768–1199: the diagram (scaled by --d to fit) above the panel at the same width ---------- */
+
+@media (max-width: 1199px) {
+  .stage {
+    height: auto;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+    transform: none;
+  }
+
+  .diagramFit {
+    width: calc(800px * var(--d, 1));
+    height: calc(409px * var(--d, 1));
+  }
+
+  .integration {
+    transform: scale(var(--d, 1));
+    transform-origin: top left;
+  }
+
+  .panel {
+    width: calc(800px * var(--d, 1));
+  }
+
+  .glass {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* The panel's shape differs from the photo's here: zoom it a little so its edges stay outside. */
+  .photo {
+    transform: scale(1.08);
+  }
+}
+
+/* ---------- Phones: the vertical diagram (AiFlowPhone), then the panel ---------- */
+
+@media (max-width: 767px) {
+  .section {
+    padding: 64px 0 56px;
+  }
+
+  .header {
+    margin-bottom: 32px;
+  }
+
+  /* Mobile heading/h3 → 28/33.6, −2%; keeps Figma's line break but may wrap. */
+  .heading {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
+    white-space: pre-line;
+    padding-right: 0;
+  }
+
+  /* body/md → 14/21 */
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .button {
+    width: auto;
+  }
+
+  .row {
+    align-items: stretch;
+  }
+
+  .diagramFit {
+    display: none;
+  }
+
+  /* The diagram's card: #e8e8e4, r16, as on desktop; the flow centred, 28 above and below. */
+  .mobileCard {
+    display: block;
+    padding: 28px 0;
+    overflow: hidden;
+    border-radius: 16px;
+    background: var(--surface-200);
+  }
+
+  .panel {
+    display: flex;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    padding: 32px 12px;
+  }
+
+  .glass {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    transform: none;
+  }
+}
+
+/* Narrow phones: one column of cards, each as tall as its words (the 2×2 cards would be 150 wide). */
+@media (max-width: 479px) {
+  .glass {
+    padding: 10px;
+  }
+
+  .steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .step {
+    min-height: 0;
+  }
+
+  .stepText {
+    min-height: 0;
+  }
+}
+
+/* Phones: the steps are full-width cards, so their text steps up to 14/21 (body/md); 12 read too small. */
+@media (max-width: 767px) {
+  .stepText {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}
+
+/* Phones: no lone last word in the lead. */
+@media (max-width: 767px) {
+  .lead {
+    text-wrap: pretty;
+  }
+}

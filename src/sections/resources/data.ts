@@ -91,7 +91,7 @@ export const articles: Article[] = [
     slug: 'how-to-stop-losing-sales-in-your-instagram-dms',
     title: ['How to stop losing sales in your Instagram DMs'],
     category: 'small-business',
-    tag: 'Small Businesses',
+    tag: 'Small businesses',
     date: 'Oct 15, 2026',
     readTime: '5 min read',
   },
@@ -99,7 +99,7 @@ export const articles: Article[] = [
     slug: 'website-or-link-in-bio',
     title: ['Website or link in bio: what your business actually needs'],
     category: 'small-business',
-    tag: 'Small Businesses',
+    tag: 'Small businesses',
     date: 'Oct 15, 2026',
     readTime: '5 min read',
   },
@@ -107,7 +107,7 @@ export const articles: Article[] = [
     slug: 'how-to-take-payments-online-in-nigeria',
     title: ['How to take payments online ', 'in Nigeria'],
     category: 'small-business',
-    tag: 'Small Businesses',
+    tag: 'Small businesses',
     date: 'Oct 15, 2026',
     readTime: '5 min read',
   },
@@ -226,7 +226,7 @@ export type Story = {
 
 /** Customer stories (718:11100). The avatars are one placeholder photo in Figma. */
 export const featuredStory = {
-  tag: 'Small Businesses',
+  tag: 'Small businesses',
   quote: '“I stopped taking orders in my DMs. Customers now shop and pay on my own site.”',
   prompt: 'Online store for my skincare brand. Warm, natural, simple.',
   name: 'Amy Okafor',

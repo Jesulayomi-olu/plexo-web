@@ -9,7 +9,8 @@ import Footer from '../../../sections/Footer'
 
 export const metadata: Metadata = {
   title: 'Design with a Drag — Plexo',
-  description: 'A visual canvas where every block lands exactly where you want it.',
+  description:
+    'Build and customise your website visually. Move things around, change the details and make every part of your design your own.',
 }
 
 const icon = (name: string) => ({ src: `/assets/features/drag/${name}.svg` })
@@ -23,11 +24,12 @@ const cards: FeatureCard[] = [
     bodyWidth: 331,
     icon: icon('live-preview'),
   },
-  { tone: 'grey', title: 'Ready made blocks', body: ['Hero, pricing, forms and checkout. Drop them in.'], bodyWidth: 331, icon: icon('blocks') },
+  { tone: 'grey', title: 'Ready-made blocks', body: ['Hero, pricing, forms and checkout. Drop them in.'], bodyWidth: 331, icon: icon('blocks') },
   { tone: 'lime', title: 'Mobile editing', body: ['Tweak the phone view without breaking desktop.'], bodyWidth: 331, icon: icon('mobile') },
   { tone: 'dark', title: 'Brand kit', body: ['Set fonts and colours once. Every page follows.'], bodyWidth: 355, icon: icon('brand') },
   { tone: 'grey', title: 'Templates', body: ['Start from a proven layout, ', 'not a blank page.'], bodyWidth: 331, icon: icon('templates') },
-  { tone: 'dark', title: 'Undo and history', body: ['Try anything. ', 'Go back anytime'], bodyWidth: 355, icon: icon('undo') },
+  // Figma has no full stop after "Go back anytime"; added to match the other cards.
+  { tone: 'dark', title: 'Undo and history', body: ['Try anything. ', 'Go back anytime.'], bodyWidth: 355, icon: icon('undo') },
 ]
 
 // Section order follows Figma "Design with a Drag" (644:21396) → "Main"; its hidden frames are left out.
@@ -48,10 +50,11 @@ export default function DragPage() {
         <SolSteps
           variant="drag"
           title={'Let Sol draft. You finish.\u00a0'}
-          lead="Start with a prompt, then drag things into place yourself. Switch anytime"
+          lead="Let Sol create your starting point. Then switch to the visual editor to refine the layout, adjust the details and make it yours."
           steps={dragSteps}
         />
-        <PricingCta title="Your canvas is waiting" titleBox={494} sub={'Free for 14 days. No card.\u00a0'} />
+        {/* Figma has no full stop after the heading; added like the other pages' closing headings. */}
+        <PricingCta title="Your canvas is waiting." titleBox={494} sub={'Free for 14 days. No card.\u00a0'} />
       </main>
       <Footer />
     </>

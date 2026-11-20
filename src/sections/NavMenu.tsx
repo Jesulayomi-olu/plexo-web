@@ -127,7 +127,7 @@ export function ForYouMenu(props: Omit<DropdownProps, 'id' | 'label' | 'children
   }
 
   return (
-    <Dropdown id="for-you" label="For You" {...rest}>
+    <Dropdown id="for-you" label="Solution" {...rest}>
       <div className={styles.row}>
         <ul className={styles.links}>
           {audienceItems.map((item, index) => (

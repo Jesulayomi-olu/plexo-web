@@ -17,16 +17,20 @@ import styles from './DevStack.module.css'
  * the tiles stack as you scroll. Only the first tile shows at first; each of the others holds below
  * (its top peeking in at the bottom of the window), then rises to land on the one before, which stays
  * underneath. The last state is the Figma stack. Below 1200 the panel sits above the tiles and pins with
- * them. Reduced motion lists the tiles in full; capture mode shows the Figma stack.
+ * them. On phones the panel is cropped to its code window (read larger) and scrolls by above, and only the
+ * tiles pin: together they were taller than a phone's window (with its browser bars) and were scaled down
+ * to fit. Reduced motion lists the tiles in full; capture mode shows the Figma stack.
  */
 type Tile = { title: string; text: string }
 
-// Figma's Webhooks line ends with a stray "]" ("…form fills and orders.]"); it is left out.
+// Figma's Webhooks line ends with a stray "]" ("…form fills and orders.]"); it is left out. The SDK
+// line gets the full stop Figma leaves off, like its siblings (the design team's rule), and the
+// "Clean export." title loses Figma's full stop, like the other titles (the design team's call).
 const tiles: Tile[] = [
   { title: 'Webhooks', text: 'Get notified on publish, form fills and orders.' },
-  { title: 'Clean export.', text: 'HTML, React, MJML. Ship it as is.' },
+  { title: 'Clean export', text: 'HTML, React, MJML. Ship it as is.' },
   { title: 'REST API', text: 'Create, update and publish pages from your code.' },
-  { title: 'SDK', text: 'A full page and email builder in your React app' },
+  { title: 'SDK', text: 'A full page and email builder in your React app.' },
   { title: 'Design tokens', text: 'Sync once. On brand forever.' },
 ]
 
@@ -69,14 +73,17 @@ function Code() {
   return (
     <div className={styles.code}>
       <div className={styles.codeInner}>
-        <DevCodePanel />
+        <DevCodePanel phoneCrop />
       </div>
     </div>
   )
 }
 
-/** The pinned version: the code window and the tiles (side by side, or stacked below 1200) stick while the tiles stack. */
-function ScrollStack({ desktop }: { desktop: boolean }) {
+/**
+ * The pinned version: the code window and the tiles (side by side, or stacked below 1200) stick while the
+ * tiles stack. Phones: the code window stays in the flow above and only the tiles stick.
+ */
+function ScrollStack({ desktop, phone }: { desktop: boolean; phone: boolean }) {
   const trackRef = useRef<HTMLDivElement>(null)
   const innerRef = useRef<HTMLDivElement>(null)
   const stackRef = useRef<HTMLOListElement>(null)
@@ -112,7 +119,7 @@ function ScrollStack({ desktop }: { desktop: boolean }) {
       observer.disconnect()
       window.removeEventListener('resize', measure)
     }
-  }, [desktop])
+  }, [desktop, phone])
 
   const { scrollY } = useScroll()
   const raw = useTransform(scrollY, [fit.start, fit.start + distance], [0, distance], { clamp: true })
@@ -136,10 +143,11 @@ function ScrollStack({ desktop }: { desktop: boolean }) {
   const pinHeight = fit.height * fit.scale
   return (
     <>
+      {phone && <Code />}
       <div ref={trackRef} className={styles.track} style={{ height: pinHeight + distance }}>
         <div className={styles.pin} style={{ top: fit.top, height: pinHeight }}>
           <div ref={innerRef} className={styles.row} style={{ '--fit': fit.scale } as CSSProperties}>
-            <Code />
+            {!phone && <Code />}
             <div className={styles.stackCol}>{stack}</div>
           </div>
         </div>
@@ -152,10 +160,11 @@ export default function DevStack() {
   const isStatic = useStaticMotion()
   const isCaptureMode = useCaptureMode()
   const desktop = useMediaQuery('(min-width: 1200px)')
+  const phone = useMediaQuery('(max-width: 767px)')
 
   let body
   if (!isStatic) {
-    body = <ScrollStack desktop={desktop} />
+    body = <ScrollStack desktop={desktop} phone={phone} />
   } else {
     // Capture mode: the Figma stack. Reduced motion: every tile in full, one after another.
     body = (

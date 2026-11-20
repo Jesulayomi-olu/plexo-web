@@ -1,16 +1,18 @@
 'use client'
 
+import type { CSSProperties } from 'react'
 import { motion, type Variants } from 'framer-motion'
 import { Reveal } from '../../components/Reveal'
 import { ease, useStaticMotion } from '../../lib/motion'
 import styles from './Solutions.module.css'
 
 /**
- * For You "Solutions" (571:12881 and siblings): "We built Plexo for this." over two 345-tall cards,
+ * Solutions pages "Solutions" (571:12881 and siblings): "We built Plexo for this." over two 345-tall cards,
  * gap 40, in a 1018 column — "The problem" (#f5f7ed, minus bullets) and "How Plexo fixes it"
- * (#1d3509, double-check bullets). Each card's content is a centred 324 column.
+ * (#1d3509, double-check bullets). Each card's content is a centred 405 column.
  *
- * E-commerce (734:13459) reuses it with its own heading, "DMs are not for checkout."
+ * E-commerce (734:13459) reuses it with its own heading, "DMs are not for checkout.", and the earlier
+ * 324 column (`column`).
  *
  * Motion: the cards slide in towards each other; their lines follow one by one.
  */
@@ -69,13 +71,22 @@ export default function Solutions({
   title = 'We built Plexo for this.',
   problems,
   fixes,
+  column,
 }: {
   title?: string
   problems: string[]
   fixes: string[]
+  /** Width of the cards' content column where a frame differs from the 405 default (E-commerce: 324). */
+  column?: number
 }) {
   return (
-    <section id="solutions" data-section="solutions" className={styles.section} aria-labelledby="solutions-title">
+    <section
+      id="solutions"
+      data-section="solutions"
+      className={`${styles.section} ${column ? styles.ownColumn : ''}`}
+      style={column ? ({ '--column': `${column}px` } as CSSProperties) : undefined}
+      aria-labelledby="solutions-title"
+    >
       <div className={`container ${styles.inner}`}>
         <Reveal>
           <h2 id="solutions-title" className={styles.title}>

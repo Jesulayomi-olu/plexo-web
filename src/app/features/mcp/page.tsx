@@ -14,7 +14,11 @@ export const metadata: Metadata = {
   description: 'Build from anywhere: your AI chat, your terminal or your own product. Plexo ships from all three.',
 }
 
-// Section order follows Figma "Mcp and AI" (668:27186) → "Main"; its hidden pricing frame is left out.
+/*
+ * Section order follows Figma "Mcp and AI" (668:27186) → "Main"; its hidden pricing frame is left out.
+ * There is no docs site yet: the hero's "Read the Docs" link and the final CTA's "Read the docs" button
+ * and "Get an API key" link are shown as in Figma but have no href, so they go nowhere for now.
+ */
 export default function McpPage() {
   return (
     <>
@@ -25,7 +29,7 @@ export default function McpPage() {
           title={'Build from anywhere.\u00a0'}
           lead="Your AI chat, your terminal or your own product. Plexo ships from all three."
           action={{ label: 'Connect Your AI', href: '#mcp', variant: 'secondary' }}
-          link={{ label: 'Read the Docs', href: '#developers' }}
+          link={{ label: 'Read the Docs' }}
         />
         <Mcp variant="page" />
         <SolSteps
@@ -40,8 +44,8 @@ export default function McpPage() {
         <PricingCta
           title={'Plug Plexo into your stack.\u00a0'}
           sub={null}
-          cta={{ label: 'Read the docs', href: '#developers', variant: 'secondary' }}
-          link={{ label: 'Get an API key', href: '#developers' }}
+          cta={{ label: 'Read the docs', variant: 'secondary' }}
+          link={{ label: 'Get an API key' }}
         />
       </main>
       <Footer />

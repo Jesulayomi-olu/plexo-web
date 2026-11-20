@@ -6,6 +6,7 @@ import { Divider } from '../components/Divider'
 import { EmailField } from '../components/EmailField'
 import { Reveal } from '../components/Reveal'
 import { focusEase, usePreviewMode, useStaticMotion } from '../lib/motion'
+import { DEVELOPERS_HREF, LOGIN_HREF } from './navData'
 import styles from './Footer.module.css'
 
 /**
@@ -14,7 +15,8 @@ import styles from './Footer.module.css'
  * (copyright, policies, social links). The giant Plexo logo is cut by the bottom edge. Below it the
  * page's #0d1a03 band (248px) with the dashed star divider (532:25133) and a soft green glow
  * ("Ellipse 3", 532:25172).
- * Labels are verbatim from Figma. Items without an `href` have no page yet and render as plain text.
+ * Labels are verbatim from Figma, except Solutions (below). Items without an `href` have no page yet and
+ * render as plain text.
  */
 type FooterLink = { label: string; href?: string; /** "Log in": semibold, green. */ accent?: boolean }
 
@@ -23,30 +25,31 @@ const columns: { title: string; links: FooterLink[] }[] = [
     title: 'Product',
     links: [
       { label: 'Pricing', href: '/pricing' },
-      { label: 'Features', href: '/#features' },
+      { label: 'Features', href: '/features/sol' },
       { label: 'Templates', href: '/resources/templates' },
       { label: 'What’s new' },
-      { label: 'Log in', accent: true },
+      { label: 'Log in', href: LOGIN_HREF, accent: true },
     ],
   },
   {
-    // The same five audiences as the home page's "Plexo is for everyone" tabs.
+    // The five solution pages that exist, named as on the home page's "Plexo is for everyone" tabs (Figma's
+    // "Agencies and freelancers", "Growing brands" and "Product teams" have no pages; the design team's call).
     title: 'Solutions',
     links: [
-      { label: 'Small businesses', href: '/for-you/small-business' },
-      { label: 'Coaches and creators', href: '/for-you/coaches' },
-      { label: 'Agencies and freelancers', href: '/for-you/designers' },
-      { label: 'Growing brands', href: '/#for-you' },
-      { label: 'Product teams', href: '/#for-you' },
+      { label: 'Small businesses', href: '/solutions/small-business' },
+      { label: 'Coaches and creators', href: '/solutions/coaches' },
+      { label: 'Designers and agencies', href: '/solutions/designers' },
+      { label: 'Founders', href: '/solutions/founders' },
+      { label: 'Developers', href: DEVELOPERS_HREF },
     ],
   },
   {
     title: 'Developers',
     links: [
-      { label: 'Developer docs', href: '/#developers' },
-      { label: 'MCP setup', href: '/#mcp' },
-      { label: 'API reference', href: '/#developers' },
-      { label: 'SDK guides', href: '/#developers' },
+      { label: 'Developer docs' },
+      { label: 'MCP setup' },
+      { label: 'API reference' },
+      { label: 'SDK guides' },
       { label: 'API status' },
     ],
   },
@@ -95,7 +98,7 @@ function Newsletter() {
       <label htmlFor={inputId} className={styles.newsletterLabel}>
         Get product updates
       </label>
-      <EmailField id={inputId} />
+      <EmailField id={inputId} className={styles.email} />
     </form>
   )
 }

@@ -5,6 +5,7 @@ import { BlurIn } from '../../components/BlurIn'
 import { Button, type ButtonVariant } from '../../components/Button'
 import { PromptBox } from '../../components/PromptBox'
 import { Reveal } from '../../components/Reveal'
+import { SIGNUP_HREF } from '../navData'
 import styles from './PricingCta.module.css'
 
 /**
@@ -19,7 +20,7 @@ import styles from './PricingCta.module.css'
 export default function PricingCta({
   title = 'Your site is one prompt away.',
   sub = 'Start free today. Go live when you are ready',
-  cta = { label: 'Start Free', href: '/#start' },
+  cta = { label: 'Start Free', href: SIGNUP_HREF },
   link,
   prompt,
   titleBox = 596,
@@ -33,9 +34,11 @@ export default function PricingCta({
   titleBox?: number | null
   /** null: no subline. */
   sub?: string | null
-  cta?: { label: string; href: string; large?: boolean; variant?: ButtonVariant }
-  /** Underlined text link beside the button. */
-  link?: { label: string; href: string }
+  /** null: no button (only the heading and the subline). */
+  /** No href: a button that goes nowhere yet (e.g. docs, until there is a docs site). */
+  cta?: { label: string; href?: string; large?: boolean; variant?: ButtonVariant } | null
+  /** Underlined text link beside the button; without an href it is shown but goes nowhere yet. */
+  link?: { label: string; href?: string }
   /** Placeholder of a one-line prompt box shown instead of the button. */
   prompt?: string
 }) {
@@ -65,7 +68,7 @@ export default function PricingCta({
           <Reveal delay={0.18} className={styles.promptSlot}>
             <PromptBox placeholder={prompt} meta={false} />
           </Reveal>
-        ) : (
+        ) : cta && (
           <Reveal delay={0.18} className={styles.actions}>
             <Button
               href={cta.href}
@@ -75,11 +78,14 @@ export default function PricingCta({
             >
               {cta.label}
             </Button>
-            {link && (
-              <a className={styles.link} href={link.href}>
-                {link.label}
-              </a>
-            )}
+            {link &&
+              (link.href ? (
+                <a className={styles.link} href={link.href}>
+                  {link.label}
+                </a>
+              ) : (
+                <span className={styles.link}>{link.label}</span>
+              ))}
           </Reveal>
         )}
       </div>

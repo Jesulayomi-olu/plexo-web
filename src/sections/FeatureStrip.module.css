@@ -1,11 +1,16 @@
 /*
- * Figma "Your business" (532:24051): 1440×121, #d5f490. The next section overlaps its bottom 24px
- * with rounded corners, so 97px of lime shows.
+ * The strip: 1440×121, #d5f490 (the MCP and API page's 669:28982; see `.centred`).
  */
 .strip {
   height: 121px;
   padding-top: 27px;
   background: var(--lime-soft);
+}
+
+/* Home page V2 "Your business" (1166:15107): 1440×98; "Frame 23" is centred, so it sits at y 28. */
+.home {
+  height: 98px;
+  padding-top: 28px;
 }
 
 /* "Frame 23": 1280×42 at (80, 27), row, gap 40, centred, clipped. */
@@ -77,9 +82,22 @@
   background: var(--white);
 }
 
-.iconTile img {
+.iconTile > img {
   width: 14.4px;
   height: 14.4px;
+  max-width: none;
+}
+
+/* Home: the 14.4 icon box; each icon group sits inside it at Figma's offset, at its own size. */
+.iconBox {
+  position: relative;
+  display: block;
+  width: 14.4px;
+  height: 14.4px;
+}
+
+.iconBox img {
+  position: absolute;
   max-width: none;
 }
 
@@ -94,6 +112,11 @@
 
 .moving:hover .track {
   animation-play-state: paused;
+}
+
+/* The home list is longer (1553 vs 1127px a copy), so it takes longer per loop to keep the same speed. */
+.home .moving .track {
+  animation-duration: 44s;
 }
 
 @keyframes strip-scroll {
@@ -121,6 +144,10 @@
 
   .centred {
     padding: 32px 0;
+  }
+
+  .home {
+    padding: 24px 0;
   }
 
   .row {
@@ -156,5 +183,13 @@
     width: auto !important;
     font-size: 12px;
     line-height: 18px;
+  }
+}
+
+/* Home strip on phones: the items at 14/21 (body/md), readable as the row glides past. */
+@media (max-width: 767px) {
+  .home .item {
+    font-size: 14px;
+    line-height: 21px;
   }
 }

@@ -1,20 +1,17 @@
 import Nav from '../sections/Nav'
 import Hero from '../sections/Hero'
 import FeatureStrip from '../sections/FeatureStrip'
-import Steps from '../sections/Steps'
-import Templates from '../sections/Templates'
-import WhoItsFor from '../sections/WhoItsFor'
-import AiSection from '../sections/AiSection'
-import DragDrop from '../sections/DragDrop'
-import Mcp from '../sections/Mcp'
-import Developers from '../sections/Developers'
+import BuildWithAi from '../sections/home/BuildWithAi'
+import CreateModes from '../sections/home/CreateModes'
+import Audiences from '../sections/home/Audiences'
+import WordPress from '../sections/home/WordPress'
+import Stories from '../sections/home/Stories'
 import Pricing from '../sections/Pricing'
-import SocialProof from '../sections/SocialProof'
 import Faq from '../sections/Faq'
 import FinalCta from '../sections/FinalCta'
 import Footer from '../sections/Footer'
 
-// Section order follows Figma "Home page V2" (532:23980) → "Main" (532:23981).
+// Section order follows Figma "Home page V2" (1166:14994) on Page 3.
 export default function Home() {
   return (
     <>
@@ -22,15 +19,12 @@ export default function Home() {
       <main className="page-main">
         <Hero />
         <FeatureStrip />
-        <Steps />
-        <Templates />
-        <WhoItsFor />
-        <AiSection />
-        <DragDrop />
-        <Mcp />
-        <Developers />
+        <BuildWithAi />
+        <CreateModes />
+        <Audiences />
+        <WordPress />
+        <Stories />
         <Pricing />
-        <SocialProof />
         <Faq />
         <FinalCta />
       </main>

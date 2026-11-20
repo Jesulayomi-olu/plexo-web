@@ -220,18 +220,27 @@
     margin-bottom: 40px;
   }
 
-  /* label/sm → 10/11 */
+  /* The pill keeps its 12px label (label/sm's 10px read too small), on a 25px pill. */
   .pill span {
     height: 25px;
     padding: 0 10px;
-    font-size: 10px;
-    line-height: 11px;
+  }
+
+  /* Balanced: "Prompt from / your terminal." rather than "terminal." alone. */
+  .heading {
+    text-wrap: balance;
   }
 
   .row {
     gap: 32px;
   }
 
+  /* Pinned on phones, the tiles stick on their own, 32 under the code window that scrolls by above. */
+  .code + .track {
+    margin-top: 32px;
+  }
+
+  /* 36 above, so a covered tile's text stays hidden under the next one (72 down). */
   .face {
     gap: 8px;
     padding: 36px 16px;
@@ -244,9 +253,11 @@
     letter-spacing: -0.4px;
   }
 
-  /* body/sm → 12/18 */
+  /* Body copy stays 14/21 on phones (body/md), wrapping to two lines where it must. */
   .text {
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 21px;
+    white-space: normal;
+    text-wrap: pretty;
   }
 }

@@ -1,11 +1,11 @@
 /*
- * Figma "Made for you" (575:15548): 1440×744, white, padding 100 top; column gap 40: heading block
- * (630) · preview (686×403). The prompt card overlaps the preview's bottom by 54 and ends 46 above the
- * section's end, so the bottom padding is 46.
+ * Figma "Made for you" (575:15548): 1440×768, white, padding 100 top; column gap 40: heading block
+ * (630) · preview (686×403). The prompt card (placed at y 590) overlaps the preview's bottom by 78 and
+ * ends 70 above the section's end, so the bottom padding is 70.
  */
 .section {
   background: var(--white);
-  padding-block: 100px 46px;
+  padding-block: 100px 70px;
 }
 
 .inner {
@@ -88,7 +88,7 @@
   width: 630px;
   max-width: calc(100% - 32px);
   height: 108px;
-  margin-top: -54px;
+  margin-top: -78px;
   padding: 24px 32px;
   border: 2px solid transparent;
   border-radius: 16px;
@@ -181,6 +181,11 @@
   .lead {
     font-size: 14px;
     line-height: 21px;
+  }
+
+  /* Taller than Figma's 686×403 so more of the site shows above the prompt that covers its foot. */
+  .preview {
+    aspect-ratio: 4 / 3;
   }
 
   .prompt {

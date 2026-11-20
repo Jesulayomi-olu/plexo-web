@@ -1,0 +1,383 @@
+/*
+ * Figma "Who it's for" (1166:15365): 1440×2886, white, padding 80. Heading block (888, centred), then
+ * the four audience cards (1280 wide), 80 below it and 80 apart.
+ */
+.section {
+  padding-block: 80px;
+  background: var(--white);
+}
+
+/* "Frame 13": column, gap 16, centred: heading (888×92) and lead (764×48). */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 888px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* desktop/heading/h3/semibold: 600 40/46, −1, #232323. */
+.title {
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--ink-800);
+}
+
+/* desktop/body/md/regular: 400 16/24, #454543, 764 wide; 1px lower, as Figma draws it. */
+.lead {
+  position: relative;
+  top: 1px;
+  max-width: 764px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--ink-600);
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  margin-top: 80px;
+}
+
+/*
+ * Card: r24, row, centred; the copy column and the photo frame are both 507 tall, and every card centres
+ * its copy with 48 between the title block and the details. The cards differ:
+ * - Small businesses (1166:15372): padding 40/24 (555 tall), space-between.
+ * - Developers (1166:15721): padding 20/29 (565 tall), space-between.
+ * - Coaches and creators (1166:15490): padding 48/29, photo · 67 · copy (565).
+ * - Designers and Agencies (1166:15603): padding 48/29, space-between; the copy fills the rest (701)
+ *   with 42 side padding.
+ */
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  padding: 29px 20px;
+  border-radius: 24px;
+}
+
+.card.small-business {
+  padding: 24px 40px;
+}
+
+/* Packed from the left: the row is reversed (photo first), so that's flex-end. */
+.card.coaches {
+  justify-content: flex-end;
+  gap: 67px;
+  padding: 29px 48px;
+}
+
+.card.designers {
+  gap: 0;
+  padding: 29px 48px;
+}
+
+.card.designers .copy {
+  flex: 1 1 0;
+  padding-inline: 42px;
+}
+
+.card.designers .intro {
+  max-width: 565px;
+}
+
+/* Coaches and creators, Developers: the photo frame comes first. */
+.photoLeft {
+  flex-direction: row-reverse;
+}
+
+/* Dark cards: #0d1a03; title white, subtitle #bebeba, list label #e8e8e4, items #d7d8d3. */
+.dark {
+  background: var(--night);
+  --title: var(--white);
+  --subtitle: var(--text-subtle);
+  --label: var(--surface-200);
+  --item: var(--line);
+}
+
+/* Light cards: color/green-200 #dff5ad; title #1d3509, subtitle #5b5b58, label #333332, items #454543. */
+.light {
+  background: #dff5ad;
+  --title: var(--forest);
+  --subtitle: var(--ink-500);
+  --label: var(--ink-700);
+  --item: var(--ink-600);
+}
+
+/* "Frame 2147239468": 565 wide, full card height, centred: title block, 48 gap, then the details. */
+.copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 48px;
+  flex: 0 1 565px;
+  min-width: 0;
+  align-self: stretch;
+}
+
+/* Title block: column, gap 24. */
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* desktop/heading/h4/semibold: 600 32/38.4 (Figma's box 38), −0.704. */
+.cardTitle {
+  font-size: 32px;
+  line-height: 38px;
+  font-weight: 600;
+  letter-spacing: -0.704px;
+  color: var(--title);
+}
+
+/* desktop/heading/h6/semibold: 600 20/26, −0.4. */
+.subtitle {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: var(--subtitle);
+}
+
+/* Details (430 wide): label · 16 · list · 40 · button. */
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* desktop/body/md/regular: 400 16/24; 1px lower, as Figma draws it. */
+.listLabel {
+  position: relative;
+  top: 1px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--label);
+}
+
+/* Check list: column, gap 12. */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Row: 14px seal check, gap 4, text; centred, so a two-line item keeps its icon in the middle. */
+.item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.check {
+  flex: none;
+}
+
+/* desktop/label/md/regular: 400 14/15.4 (Figma's boxes are 15 a line). */
+.itemText {
+  font-size: 14px;
+  line-height: 15px;
+  font-weight: 400;
+  color: var(--item);
+}
+
+/* Figma fixes the third item's text at 387 wide (the others hug), so it wraps where Figma wraps it. */
+.item:nth-child(3) .itemText {
+  max-width: 387px;
+}
+
+.ctaWrap {
+  display: inline-flex;
+  margin-top: 40px;
+}
+
+/* "Frame 2147239150": 483×507, #fcfcfa, 1px #d7d8d3, r16, padding 24, clipped. */
+.frame {
+  display: flex;
+  flex: none;
+  width: 483px;
+  height: 507px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface-50);
+  overflow: hidden;
+}
+
+/* "Screen": 433×457, rgba(30, 30, 30, 0.1) behind the photo. */
+.screen {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: rgba(30, 30, 30, 0.1);
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Tablet: the photo frame scales with the card and the copy spreads to its height. */
+@media (max-width: 1199px) {
+  .card,
+  .card.small-business,
+  .card.coaches,
+  .card.designers {
+    justify-content: space-between;
+    padding: 24px;
+    gap: 32px;
+  }
+
+  /* .card.designers too: its desktop side padding (42) belongs to the wide card. */
+  .card .copy,
+  .card.designers .copy {
+    flex: 1 1 0;
+    gap: 32px;
+    padding-inline: 0;
+  }
+
+  .frame {
+    flex: 0 1 42%;
+    width: auto;
+    height: auto;
+    padding: 16px;
+  }
+
+  .screen {
+    aspect-ratio: 433 / 457;
+  }
+
+  .item:nth-child(3) .itemText {
+    max-width: none;
+  }
+
+  /* The narrower column wraps more items onto two lines; give those lines room. */
+  .itemText {
+    line-height: 19px;
+  }
+}
+
+/* Phones: one column, the photo above the copy on every card. */
+@media (max-width: 767px) {
+  .section {
+    padding-block: 64px;
+  }
+
+  .header {
+    gap: 12px;
+  }
+
+  /* mobile heading/h3 → 28/33.6; balanced so the last line isn't a lone word. */
+  .title {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
+    text-wrap: balance;
+  }
+
+  /* body/md → 14/21 */
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .cards {
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .card,
+  .card.small-business,
+  .card.coaches,
+  .card.designers,
+  .photoLeft {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 24px;
+    padding: 16px 16px 24px;
+    border-radius: 20px;
+  }
+
+  .card .copy,
+  .card.designers .copy {
+    gap: 24px;
+    padding-inline: 4px;
+  }
+
+  .intro {
+    gap: 8px;
+  }
+
+  .frame {
+    flex: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  /* mobile heading/h4 → 24/28.8 */
+  .cardTitle {
+    font-size: 24px;
+    line-height: 28.8px;
+    letter-spacing: -0.5px;
+  }
+
+  /* heading/h6 → 18/23.4 */
+  .subtitle {
+    font-size: 18px;
+    line-height: 23.4px;
+    letter-spacing: -0.36px;
+  }
+
+  /* body/md → 14/21 */
+  .listLabel {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .list {
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  /* body/md → 14/21: the list is the card's body copy, so it stays at the readable size (12 was too small). */
+  .itemText {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  /* The check sits by the first line of a wrapped item. */
+  .item {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .check {
+    margin-top: 3.5px;
+  }
+
+  .ctaWrap {
+    margin-top: 24px;
+  }
+}
+
+/* Phones: no lone last word in the lead or a card's subtitle. */
+@media (max-width: 767px) {
+  .lead,
+  .subtitle {
+    text-wrap: pretty;
+  }
+}

@@ -247,3 +247,22 @@
     letter-spacing: -0.56px;
   }
 }
+
+/* Phones: Monthly, the switch and Yearly reach about 44px tall for a thumb (the extra is invisible). */
+@media (max-width: 767px) {
+  .billingLabel,
+  .switch {
+    position: relative;
+  }
+
+  .billingLabel::after,
+  .switch::after {
+    content: '';
+    position: absolute;
+    inset: -14px -4px;
+  }
+
+  .switch::after {
+    inset: -12px -4px;
+  }
+}

@@ -50,8 +50,9 @@
   gap: 40px;
 }
 
-/* Figma draws the button label 1px lower than Chrome. */
-.actions a > span {
+/* Figma draws the button label 1px lower than Chrome (a link, or a button with no destination yet). */
+.actions a > span,
+.actions button > span {
   position: relative;
   top: 1px;
 }
@@ -118,9 +119,9 @@
     gap: 24px;
   }
 
+  /* The link (MCP and API) keeps 14px and grows to a 45px tap target (the extra is padding). */
   .link {
-    font-size: 12px;
-    line-height: 18px;
+    padding-block: 12px;
   }
 
   .withPrompt .inner {

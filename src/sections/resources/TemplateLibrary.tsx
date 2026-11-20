@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { audiences, templates, templateKinds, type Audience, type TemplateKind } from './data'
-import { Empty, LoadMore, PageHeader, ShotSlot, Tag } from './parts'
+import { Chips, Empty, LoadMore, PageHeader, ShotSlot, Tag } from './parts'
 import styles from './TemplateLibrary.module.css'
 
 /**
@@ -10,8 +10,13 @@ import styles from './TemplateLibrary.module.css'
  * chips and the 312-wide search, and (gap 48) the gallery: the 220-wide category checklist beside the
  * templates, three to a row (320 wide, gap 32/24). Every filter starts open (Figma ticks "Small
  * businesses" to show the checked style); a chip or a box narrows the list, a second press clears it.
+ * Phones: the checklist becomes a sideways chip row like the Blog's ("All", then the categories).
  */
 const PAGE = 6
+const categoryChips: { id: Audience | 'all'; label: string }[] = [
+  { id: 'all', label: 'All' },
+  ...audiences.map((a) => ({ id: a.id, label: a.chip })),
+]
 
 export default function TemplateLibrary() {
   const [kind, setKind] = useState<TemplateKind | null>(null)
@@ -90,6 +95,20 @@ export default function TemplateLibrary() {
               </label>
             ))}
           </fieldset>
+
+          {/* Phones: the same categories as the Blog's sideways chip row, "All" first; several can be on. */}
+          <Chips
+            label="Filter templates by category"
+            className={styles.categoryChips}
+            options={categoryChips}
+            value={picked.length ? picked : ['all']}
+            onChange={(id) => {
+              if (id === 'all') {
+                setPicked([])
+                setShown(PAGE)
+              } else toggleAudience(id)
+            }}
+          />
 
           <div className={styles.results}>
             {list.length ? (

@@ -403,12 +403,6 @@
     0 12px 40px rgb(13 26 3 / 0.18);
 }
 
-@media (max-width: 767px) {
-  .card .box {
-    height: 120px;
-  }
-}
-
 /* "panel": the card at 630 wide and flat, as on the Build with Sol hero (614:21075). */
 .panel {
   max-width: 630px;
@@ -458,9 +452,112 @@
   display: block;
 }
 
-/* Phones: the cut text stops 8 short of "Build it" (the auto margin above is 0 once space runs out). */
+/*
+ * The card on phones (For You heroes, and the flat panel on Build with Sol): the prompt wraps beside the
+ * attach button, across the box, and "Build it" (Size=Large) sits under it at the right, as in a phone
+ * composer. On one line beside the button the prompt was cut after a few words (the panel's to "A
+ * portfolio …" above an empty box). These follow the panel's own rules so that they win on phones.
+ */
 @media (max-width: 767px) {
-  .panel .submit {
-    margin-left: 8px;
+  .card .box {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    align-items: start;
+    row-gap: 8px;
+    height: 192px; /* four lines of prompt: 6 + 4 × 24, then 8 and the 48px button */
+    padding: 16px;
+  }
+
+  /* The panel's prompt runs to three lines. */
+  .panel .box {
+    height: 168px;
+  }
+
+  .card .attach {
+    margin-top: 0;
+  }
+
+  .card .field {
+    align-self: stretch;
+    align-items: stretch;
+    height: auto;
+    margin: 0;
+    padding-left: 10px;
+  }
+
+  /* The first line centred on the 36px attach button; the text wraps like the textarea. */
+  .card .input {
+    top: 0;
+    padding: 6px 0 0;
+    white-space: normal;
+  }
+
+  /* A prompt longer than the box keeps its newest line in view; the first lines fade out above. */
+  .card .typing {
+    top: 0;
+    left: 10px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding-top: 6px;
+    white-space: pre-wrap;
+  }
+
+  .card .typing[data-overflow='true'] {
+    justify-content: flex-end;
+    mask-image: linear-gradient(to bottom, transparent, #000 18px);
+  }
+
+  .card .typingText {
+    display: block;
+    margin-right: 0;
+  }
+
+  .card .caret {
+    display: inline-block;
+    height: 19px;
+    vertical-align: -4px;
+  }
+
+  .card .submit {
+    grid-column: 1 / -1;
+    justify-self: end;
+  }
+}
+
+/*
+ * The one-line box on phones (E-commerce's final CTA): the prompt wraps over up to three lines beside the
+ * attach button and "Build it" (Size=Large) fills the row under it, as the home final CTA does on phones;
+ * on one line it was cut to "A store for my thrift fashi…". 16px, so phones don't zoom in on focus.
+ */
+@media (max-width: 767px) {
+  .root:not(.hero) .box {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    align-items: start;
+    row-gap: 12px;
+    height: auto;
+    padding: 12px;
+  }
+
+  .root:not(.hero) .field {
+    align-items: stretch;
+    height: 78px; /* three lines of 24, the first centred on the attach button */
+    margin: 0 0 0 10px;
+  }
+
+  .root:not(.hero) .input {
+    padding: 6px 0 0;
+    font-size: 16px;
+    line-height: 24px;
+    resize: none;
+  }
+
+  .root:not(.hero) .submit {
+    grid-column: 1 / -1;
+    width: 100%;
   }
 }

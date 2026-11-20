@@ -5,7 +5,7 @@ import { Reveal } from '../../components/Reveal'
 import styles from './SolSteps.module.css'
 
 /**
- * Build with Sol "Solutions" (575:15516): #e8e8e4, 1440×598. "From sentence to site." (48, two lines)
+ * Build with Sol "Solutions" (575:15516): #e8e8e4, 1440×598. "From sentence to site." (40, two lines)
  * beside three white step cards (r8, padding 16/12, gap 24): a 32px #517a12 circle with a white 20px
  * icon, then title (500 16/17.6) and line (400 14/15.4).
  * The product pages reuse it:
@@ -22,13 +22,17 @@ const FILE_TEXT: StepIcon = { src: 'file-text', w: 15.0833, h: 18.4167, x: 2.585
 const PENCIL: StepIcon = { src: 'pencil', w: 20, h: 20, x: 0, y: 0 }
 
 export const solSteps: Step[] = [
-  { title: 'Tell Sol what you sell', body: 'One sentence is enough.', icon: SEND },
-  { title: 'Sol drafts it', body: 'Pages, copy, images and layout in minutes.', icon: FILE_TEXT },
-  { title: 'Tweak and publish', body: 'Chat to change it or drag it yourself.', icon: PENCIL },
+  { title: 'Tell Sol what you need', body: 'Describe your business, idea or the page you want to create.', icon: SEND },
+  { title: 'Sol drafts it', body: 'Get a first version with your content, layout and design in place.', icon: FILE_TEXT },
+  { title: 'Tweak and publish', body: 'Chat with Sol or make changes yourself using the visual editor.', icon: PENCIL },
 ]
 
-/** Design with a Drag (644:21506): Sol's steps; its second line starts with a space. */
-export const dragSteps: Step[] = solSteps.map((step, i) => (i === 1 ? { ...step, body: `\u00a0${step.body}` } : step))
+/** Design with a Drag (644:21503, cards 1037:16843): the same three steps as Build with Sol. */
+export const dragSteps: Step[] = [
+  { title: 'Tell Sol what you need', body: 'Describe your business, idea or the page you want to create.', icon: SEND },
+  { title: 'Sol drafts it', body: 'Get a first version with your content, layout and design in place.', icon: FILE_TEXT },
+  { title: 'Tweak and publish', body: 'Chat with Sol or make changes yourself using the visual editor.', icon: PENCIL },
+]
 
 export const mcpSteps: Step[] = [
   { title: 'Copy your Plexo MCP link from settings.', icon: SEND },
@@ -38,11 +42,12 @@ export const mcpSteps: Step[] = [
 
 export default function SolSteps({
   variant = 'sol',
+  // Both of Figma's lines end with a space, which counts when centring.
   title = (
     <>
-      From sentence
+      From sentence&nbsp;
       <br />
-      to site.
+      to site.&nbsp;
     </>
   ),
   lead,

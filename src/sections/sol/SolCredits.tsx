@@ -17,7 +17,9 @@ export default function SolCredits() {
           <h2 id="sol-credits-title" className={styles.title}>
             Sol uses AI credits
           </h2>
-          <p className={styles.lead}>Every time Plexo AI builds or edits something, it uses credits. Your plan’s credits refresh monthly.</p>
+          <p className={styles.lead}>
+            Every time Sol generates or edits something, it uses AI credits. Your credits refresh monthly based on your plan.
+          </p>
         </Reveal>
         <Reveal delay={0.1} className={styles.guideSlot}>
           <CreditGuide reassurance="Drag-and-drop edits are always free." />

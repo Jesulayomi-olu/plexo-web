@@ -101,27 +101,51 @@ export function PageHeader({ title, lead, align = 'center', id }: { title: strin
   )
 }
 
-/** "Chip" filters: the chosen one #1d3509 with white text, the rest white with a 1px #d7d8d3 line. */
+/**
+ * Phones: the chip row scrolls sideways, so a chip tapped where the row cuts it off slides fully into view
+ * (a gutter's width from the edge). Where the row fits nothing moves.
+ */
+function revealChip(chip: HTMLElement) {
+  const row = chip.parentElement
+  if (!row || row.scrollWidth <= row.clientWidth) return
+  const edge = 20
+  const r = row.getBoundingClientRect()
+  const c = chip.getBoundingClientRect()
+  const by = c.left < r.left + edge ? c.left - r.left - edge : c.right > r.right - edge ? c.right - r.right + edge : 0
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (by) row.scrollBy({ left: by, behavior: still ? 'auto' : 'smooth' })
+}
+
+/**
+ * "Chip" filters: the chosen one #1d3509 with white text, the rest white with a 1px #d7d8d3 line. `value`
+ * is the chosen chip, or a list of them where several can be on at once (the Templates categories).
+ */
 export function Chips<T extends string>({
   options,
   value,
   onChange,
   label,
+  className,
 }: {
   options: { id: T; label: string }[]
-  value: T | null
+  value: T | null | readonly T[]
   onChange: (id: T) => void
   label: string
+  className?: string
 }) {
+  const isOn = (id: T) => (Array.isArray(value) ? value.includes(id) : value === id)
   return (
-    <div className={styles.chips} role="group" aria-label={label}>
+    <div className={className ? `${styles.chips} ${className}` : styles.chips} role="group" aria-label={label}>
       {options.map((option) => (
         <button
           key={option.id}
           type="button"
           className={styles.chip}
-          aria-pressed={value === option.id}
-          onClick={() => onChange(option.id)}
+          aria-pressed={isOn(option.id)}
+          onClick={(event) => {
+            onChange(option.id)
+            revealChip(event.currentTarget)
+          }}
         >
           {option.label}
         </button>
