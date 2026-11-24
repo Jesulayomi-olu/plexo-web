@@ -1,5 +1,5 @@
 /*
- * Figma "Footer" (814:5666) on the page's #0d1a03 background: the white 1440×584 card (bottom
+ * Figma "Footer" (1355:12399) on the page's #0d1a03 background: the white 1440×584 card (bottom
  * corners r32, clipped), then a 248px dark band to the page end.
  * The card is laid out in flow (content, then the giant logo) so longer link text pushes the logo
  * down instead of running into it; at 1440 the stack adds up to Figma's 584.
@@ -77,12 +77,15 @@
   color: var(--ink-800);
 }
 
-/* "Links": five equal columns, gap 24; each column gap 12: heading · links. */
+/*
+ * "Links": four even columns (201 at 1440), gap 24; each column gap 12: heading · links. None gets
+ * narrower than its longest link ("Designers and agencies", 158.5), so no link wraps.
+ */
 .columns {
   flex: 1;
   min-width: 0;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(max-content, 1fr));
   gap: 24px;
 }
 
@@ -129,13 +132,13 @@ a.accent:hover {
   color: var(--forest-hover);
 }
 
-/* "Legal bar": 1px #d7d8d3 top rule, padding 12 0, space-between: legal text · social. */
+/* "Legal bar": 1px #d7d8d3 top rule, padding 24 0, space-between: legal text · social at the right edge. */
 .legalBar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding-block: 12px;
+  padding-block: 24px;
   border-top: 1px solid var(--line);
 }
 
@@ -187,15 +190,15 @@ a.social:hover {
 }
 
 /*
- * Giant logo "Frame 2147239134": 843×218.69, centred, 25.6 below the legal bar; the card's bottom
- * edge cuts it at 184.39 (Figma: y 399.61 in the 584 card).
+ * Giant logo "Frame 2147239134": 843×218.69, centred, 22.6 below the legal bar (which ends at 377); the
+ * card's bottom edge cuts it at 184.39 (Figma: y 399.61 in the 584 card).
  */
 .giant {
   position: relative;
   width: 843px;
   max-width: 100%;
   height: 184.39px;
-  margin: 25.61px auto 0;
+  margin: 22.61px auto 0;
   overflow: hidden;
 }
 
@@ -312,17 +315,44 @@ a.social:hover {
     line-height: 21px;
   }
 
-  /* label/md → 12/13.2 */
+  /*
+   * Headings and links keep their desktop size (14; the label/md and body/sm steps down to 12 read too
+   * small), and each link gets a 37px tap row: 8px above and below its line, the list's gap moved inside.
+   */
   .heading,
   .newsletterLabel {
-    font-size: 12px;
-    line-height: 13.2px;
+    font-size: 14px;
+    line-height: 15.4px;
   }
 
-  /* body/sm → 12/18 */
+  .column {
+    gap: 4px;
+  }
+
+  .list {
+    gap: 0;
+  }
+
   .link,
   .legal {
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .link {
+    padding-block: 8px;
+  }
+
+  .legal {
+    gap: 0 24px;
+  }
+
+  .legalLink {
+    padding-block: 8px;
+  }
+
+  /* The newsletter field spans the column. */
+  .newsletter .email {
+    width: 100%;
   }
 }

@@ -1,0 +1,215 @@
+/*
+ * The auth screens' left panel (Figma 1296:8211 "Frame 2147239550"): 677×978, r24, #d7d8d3 under the
+ * line artwork "548c1cd2…" (1296:8212: 946×1261 at −104/−21, layer blur 55.9; in Chrome, blur(25px) matches
+ * the Figma render best, measured, rather than the nominal 27.95px). The artwork's blurred top edge lets
+ * the grey through: that is the light band along the panel's top.
+ * Content (1296:8213): 571 wide, 48 from the left, 64 from the top and 55 from the bottom, space-between:
+ * the logo (Figma 156×40.47; here 24 tall, the nav's light logo at 92.44×24, as the design team asked) · 32 · the tagline
+ * (desktop/heading/h5/semibold 600 24/30, −0.48, #fcfcfa, 362 wide), and at the bottom the testimonial.
+ *
+ * Testimonial, Figma "Component 11" (component set 1227:9582, two variants: Ebitimi Jumbo, Rukky): the
+ * quote (desktop/body/sm/medium 500 14/21, #d7d8d3) · 16 · the author row, space-between: avatar (28×28,
+ * or 28×30 for Rukky; r3, exported from Figma at 2×) · 8 · name (500 12/15.6, #bebeba) over role
+ * (400 10/13, #e8e8e4, 2 apart); the arrows (32×32 #f4f5f0 circles, 16px icons, 8 apart). An arrow with
+ * nowhere to go has a grey icon (#7a7b77), as in each variant.
+ */
+.panel {
+  position: sticky;
+  top: 23px;
+  height: calc(100vh - 46px);
+  height: calc(100dvh - 46px);
+  min-height: 440px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--line);
+  isolation: isolate;
+}
+
+/* Sized from the panel's width (946/677) so it scales with the panel; the top stays 21px above it. */
+.art {
+  position: absolute;
+  z-index: -1;
+  left: -15.362%;
+  top: -21px;
+  width: 139.734%;
+  max-width: none;
+  height: auto;
+  min-height: calc(100% + 283px);
+  aspect-ratio: 946 / 1261;
+  object-fit: cover;
+  object-position: 50% 0;
+  filter: blur(25px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 64px 58px 55px 48px;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.logo {
+  display: block;
+  flex: none;
+  height: 24px;
+}
+
+.logoLight {
+  display: block;
+  width: 92.44px;
+  height: 24px;
+}
+
+/* The small-screen logo (dark, for the white page); hidden while the green panel shows. */
+.logoCompact {
+  display: none;
+}
+
+.tagline {
+  width: 362px;
+  max-width: 100%;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 600;
+  letter-spacing: -0.48px;
+  color: var(--surface-50);
+}
+
+/* Testimonial ("Component 11") */
+.testimonial {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+}
+
+.quote {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+  color: var(--line);
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.avatar {
+  flex: none;
+  border-radius: 3px;
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  font-size: 12px;
+  line-height: 15.6px;
+  font-weight: 500;
+  color: var(--text-subtle);
+}
+
+.role {
+  font-size: 10px;
+  line-height: 13px;
+  font-weight: 400;
+  color: var(--surface-200);
+}
+
+.arrows {
+  display: flex;
+  flex: none;
+  gap: 8px;
+}
+
+.arrow {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 40px;
+  background: var(--surface-100);
+  transition: background-color 160ms ease;
+}
+
+.arrow:hover:not([aria-disabled='true']) {
+  background: var(--white);
+}
+
+.arrow:focus-visible {
+  border-radius: 40px;
+}
+
+.arrow[aria-disabled='true'] {
+  cursor: default;
+}
+
+/* The Figma icon for each state, stacked; the button's state picks one (crossfade). */
+.arrowIcon {
+  grid-area: 1 / 1;
+  transition: opacity 160ms ease;
+}
+
+.arrow[aria-disabled='true'] .iconOn,
+.arrow:not([aria-disabled='true']) .iconOff {
+  opacity: 0;
+}
+
+/*
+ * Below 1024 the panel goes: no fill, artwork or corners, just the dark Plexo logo (24 tall, the nav's
+ * size) at the page's top-left edge (the shell's 20px gutter), with the form below it.
+ */
+@media (max-width: 1023px) {
+  .panel {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    border-radius: 0;
+    background: none;
+    isolation: auto;
+  }
+
+  .art,
+  .tagline,
+  .testimonial,
+  .logoLight {
+    display: none;
+  }
+
+  .content {
+    padding: 0;
+  }
+
+  .logoCompact {
+    display: block;
+    width: 93px;
+    height: 24px;
+  }
+}

@@ -80,11 +80,12 @@
     gap: 16px;
   }
 
-  /* mobile heading/h2 → 32/36.8 */
+  /* mobile heading/h2 → 32/36.8; balanced, so "in." isn't left alone on narrow phones. */
   .title {
     font-size: 32px;
     line-height: 36.8px;
     letter-spacing: -0.7px;
+    text-wrap: balance;
   }
 
   .lead {
@@ -92,13 +93,23 @@
     line-height: 21px;
   }
 
+  /*
+   * Edge to edge, with the editor drawn larger (about 0.77 of its size on a 390 phone instead of 0.54):
+   * from the gutter, cut by the right edge just after the canvas toolbar (x 480 of 670), so the insert
+   * button, the layers and the canvas read and the settings panel is left out.
+   */
   .panel {
-    aspect-ratio: 4 / 3;
+    display: block;
+    place-items: normal;
+    aspect-ratio: auto;
     width: calc(100% + var(--gutter) * 2);
     margin-inline: calc(var(--gutter) * -1);
+    padding: 24px 0 24px var(--gutter);
+    overflow: hidden;
   }
 
   .editor {
-    width: 92%;
+    width: 139.58%; /* 670 / 480 */
+    max-width: none;
   }
 }

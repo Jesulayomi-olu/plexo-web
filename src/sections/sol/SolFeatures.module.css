@@ -52,12 +52,16 @@
   color: var(--ink-800);
 }
 
-/* desktop/body/sm/regular: 400 14/21, #232323. "Copy that sells" wraps at 282, as in Figma. */
+/*
+ * desktop/body/sm/regular: 400 14/21, #232323. "Copy that sells" wraps at 282, as in Figma; the last
+ * two keep Figma's line break and the space that starts their second line (pre-wrap).
+ */
 .cardBody {
   max-width: 282px;
   font-size: 14px;
   line-height: 21px;
   color: var(--ink-800);
+  white-space: pre-wrap;
 }
 
 .card:not(:first-child) .cardBody {
@@ -117,6 +121,13 @@
   }
 }
 
+/* Figma's broken lines are ~355 wide: once a card is narrower than that, the lines wrap naturally. */
+@media (max-width: 879px) {
+  .cardBody {
+    white-space: normal;
+  }
+}
+
 @media (max-width: 767px) {
   .section {
     padding-block: 64px;
@@ -145,5 +156,6 @@
 
   .cardBody {
     max-width: none;
+    text-wrap: pretty;
   }
 }

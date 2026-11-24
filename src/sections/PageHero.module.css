@@ -1,0 +1,90 @@
+/* The nav's colour behind the panel's rounded top corners. */
+.section {
+  background: var(--night);
+}
+
+/*
+ * Get in touch "Pricing Hero" (1349:8585): 398 tall, r40 top corners; #1d3509 with the "Background / Lines" tile (8px,
+ * drawn at 6.76) under a 20% black wash, as on the Resources hero (its lime gradient and corner mark sit
+ * underneath, hidden). The 166-tall text block is centred 1px high: its top is 115 down.
+ */
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 398px;
+  padding: 115px var(--gutter) 0;
+  border-radius: 40px 40px 0 0;
+  background:
+    linear-gradient(rgb(0 0 0 / 0.2), rgb(0 0 0 / 0.2)),
+    url('/assets/features/email/lines-tile-campaign.png') 0 0 / 6.763px 6.763px repeat,
+    var(--forest);
+}
+
+/* Heading and line, gap 24, centred; the line wraps at 592 (or the panel's width, if narrower). */
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  text-align: center;
+}
+
+/* desktop/heading/h3/semibold: 600 40/46, −1, white. */
+.title {
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--white);
+}
+
+/* desktop/body/md/regular, #fcfcfa. */
+.lead {
+  width: 592px;
+  max-width: 100%;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--surface-50);
+}
+
+/* Compact (legal pages; not in Figma): the same panel sized to its text, 88 above and 80 below. */
+.compact {
+  height: auto;
+  padding: 88px var(--gutter) 80px;
+}
+
+.compact .copy {
+  gap: 20px;
+}
+
+/* Phones: as the Resources hero's (r28 corners, mobile heading/h3 28/33.6, body 14/21). */
+@media (max-width: 767px) {
+  .panel,
+  .compact {
+    height: auto;
+    padding: 72px var(--gutter) 64px;
+    border-radius: 28px 28px 0 0;
+  }
+
+  .compact {
+    padding-block: 56px 48px;
+  }
+
+  .copy {
+    gap: 16px;
+  }
+
+  .title {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
+  }
+
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+    text-wrap: balance;
+  }
+}

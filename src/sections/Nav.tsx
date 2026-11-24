@@ -6,14 +6,17 @@ import { usePathname } from 'next/navigation'
 import { Button } from '../components/Button'
 import { useCaptureMode } from '../lib/motion'
 import { MobileMenu } from './MobileMenu'
+import { BLOG_HREF, DEVELOPERS_HREF, LOGIN_HREF, SIGNUP_HREF } from './navData'
 import { FeaturesMenu, ForYouMenu, ResourcesMenu, type MenuId } from './NavMenu'
 import styles from './Nav.module.css'
 
 /**
- * Figma "Desktop navigation" (532:25146): 1440×72, #0d1a03, padding 16/80; content row (1280)
- * space-between: logo (123×32) · links (gap 24) · "Start free" (174×40).
- * "Features", "For You" and "Resources" open their menus (Figma 565:2852, 565:2838 + siblings and
- * 942:6996); see NavMenu.
+ * Figma "Navigation" (component 1042:18325; its divider layer is hidden on every page, so it is left out):
+ * 1440×72, #0d1a03, padding 16/80; content row (1280) space-between: logo (92.44×24) · links (gap 24:
+ * Features, For You, Pricing, Developers, Blog, Resources; Figma's empty 32px frame after them is left
+ * out at the design team's request) · "Log in" (500 16) and "Start free" (174×40, 16px label), gap 24.
+ * "Features", "For You" and "Resources" open their menus (Figma 565:2852, the For You dropdown 565:2838
+ * + siblings, and 897:6062); see NavMenu.
  *
  * Phones, Figma "Mobile navigation" (527:2679): 390×64, padding 12/20; logo (104.77×27.2) · "Start free"
  * (Size=Small) and the menu button (40×40, 20px icon), 8 apart. The button opens the full-screen menu
@@ -77,7 +80,10 @@ function useNavMenus() {
 
 export default function Nav() {
   const isCaptureMode = useCaptureMode()
-  const onPricing = usePathname() === '/pricing'
+  const pathname = usePathname()
+  const onPricing = pathname === '/pricing'
+  const onDevelopers = pathname === DEVELOPERS_HREF
+  const onBlog = pathname === BLOG_HREF || pathname.startsWith(`${BLOG_HREF}/`)
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const { menu, controls, closeAll } = useNavMenus()
@@ -147,16 +153,11 @@ export default function Nav() {
     <header ref={headerRef} id="nav" data-section="nav" className={classes}>
       <div className={styles.inner}>
         <a href="/#top" className={styles.logo} aria-label="Plexo, back to top">
-          <img src="/assets/v2/icons/logo-light.svg" width={123.26} height={32} alt="" />
+          <img src="/assets/v2/icons/logo-light.svg" width={92.44} height={24} alt="" />
         </a>
 
         <nav ref={desktopNavRef} className={styles.links} aria-label="Primary">
           <ul className={styles.list}>
-            <li>
-              <a href="/pricing" className={styles.link} aria-current={onPricing ? 'page' : undefined}>
-                Pricing
-              </a>
-            </li>
             <FeaturesMenu
               open={menu === 'features'}
               controls={controls}
@@ -171,6 +172,21 @@ export default function Nav() {
               chevronClassName={styles.chevron}
               onNavigate={closeAll}
             />
+            <li>
+              <a href="/pricing" className={styles.link} aria-current={onPricing ? 'page' : undefined}>
+                Pricing
+              </a>
+            </li>
+            <li>
+              <a href={DEVELOPERS_HREF} className={styles.link} aria-current={onDevelopers ? 'page' : undefined}>
+                Developers
+              </a>
+            </li>
+            <li>
+              <a href={BLOG_HREF} className={styles.link} aria-current={onBlog ? 'page' : undefined}>
+                Blog
+              </a>
+            </li>
             <ResourcesMenu
               open={menu === 'resources'}
               controls={controls}
@@ -181,12 +197,17 @@ export default function Nav() {
           </ul>
         </nav>
 
-        <Button href="/#start" className={styles.cta}>
-          Start free
-        </Button>
+        <div className={styles.actions}>
+          <a href={LOGIN_HREF} className={styles.login}>
+            Log in
+          </a>
+          <Button href={SIGNUP_HREF} className={styles.cta}>
+            Start free
+          </Button>
+        </div>
 
         <div className={styles.mobileActions}>
-          <Button href="/#start" size="small" className={styles.mobileCta} onClick={close}>
+          <Button href={SIGNUP_HREF} size="small" className={styles.mobileCta} onClick={close}>
             Start free
           </Button>
           <button

@@ -12,7 +12,7 @@
   gap: 40px;
 }
 
-/* Heading block: heading (106) + 16 + lead (24) = 146. */
+/* Heading block (Home page V2 1166:16046): heading (92) + 16 + lead (24) = 132. */
 .head {
   width: 100%;
   display: flex;
@@ -21,13 +21,19 @@
   text-align: center;
 }
 
+/* desktop/heading/h3/semibold (1166:16060): 600 40/46, −1 tracking, #232323, two lines in the 888 column. */
 .title {
-  position: relative;
-  top: 1px; /* Figma baseline snap */
   max-width: 888px;
-  min-height: 106px; /* Figma rounds the 2 × 52.8 text box up to 106 */
+  min-height: 92px;
   margin-inline: auto;
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--ink-800);
   text-align: center;
+  /* CSS adds the −1 tracking after the last glyph too; Figma doesn't, so re-centre by half of it. */
+  padding-right: 1px;
 }
 
 .lead {
@@ -167,6 +173,13 @@
 
 .card:hover {
   box-shadow: inset 0 0 0 1px var(--line), var(--shadow-card);
+}
+
+/* Home page V2 cards (1166:16070, master 489:6323): padding 12/12/28 (phones keep their tighter 6/6/18). */
+@media (min-width: 768px) {
+  .cardsRoomy .card {
+    padding: 12px 12px 28px;
+  }
 }
 
 /* Pro: 1px #517a12 stroke included in layout (content inset 9), Figma shadow stack. */
@@ -565,6 +578,13 @@
 
 /* Mobile type scale — design system "mobile/*" text styles, which apply below 768px. */
 @media (max-width: 767px) {
+  /* mobile heading/h3 → 28/33.6 (as the pricing page's 40px headings) */
+  .title {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
+  }
+
   .lead {
     font-size: 14px;
     line-height: 21px;
@@ -820,5 +840,45 @@
 
   .cardsPage .audience {
     align-self: end;
+  }
+}
+
+/*
+ * Phones, readability and touch: Figma's hand-made line breaks ("\n") belong to the wide desktop cards,
+ * so features and taglines flow freely here (a forced break left "from" alone on a line); the badge is
+ * 11 (10 read too small); the pricing page's cards take the home cards' 6px sides, so "From $99 /month"
+ * stays on one line; and the Monthly / Yearly items reach 45px tall for a thumb (the extra is invisible).
+ */
+@media (max-width: 767px) {
+  .feature,
+  .tagline {
+    white-space: normal;
+  }
+
+  /* A tagline that wraps (some run to four lines) needs more than label/lg's 15.4 between lines. */
+  .tagline {
+    line-height: 18px;
+  }
+
+  .badge {
+    font-size: 11px;
+    line-height: 12px;
+  }
+
+  .cardPage {
+    padding-inline: 6px;
+  }
+
+  .switchItem::after {
+    content: '';
+    position: absolute;
+    inset: -8px -1px;
+  }
+}
+
+/* Phones: no lone last word in the lead ("plans"). */
+@media (max-width: 767px) {
+  .lead {
+    text-wrap: pretty;
   }
 }

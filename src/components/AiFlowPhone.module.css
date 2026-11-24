@@ -1,0 +1,150 @@
+/*
+ * The phone diagram (AiFlowPhone): a 298.38×192 grid, centred in its container. Positions are the grid's;
+ * see the component for the layout.
+ */
+.flow {
+  position: relative;
+  width: 298.38px;
+  height: 192px;
+  margin: 0 auto;
+}
+
+.flow > * {
+  position: absolute;
+  max-width: none;
+}
+
+.lines {
+  top: 0;
+  left: 0;
+  overflow: visible;
+}
+
+/* Every label is 28 tall and has a fixed width, so the connectors meet their centres exactly. */
+.claude {
+  top: 0;
+  left: 0;
+  width: 90.08px;
+  height: 28px;
+}
+
+/* Pills: the desktop labels at 0.7; names 600 12/1.1 (17.249 at 0.7). */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  border-radius: 9999px;
+  font-size: 12px;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+.pill img {
+  flex: none;
+  max-width: none;
+}
+
+/* "Label / ChatGPT": 98.08 → 192.28. */
+.chatgpt {
+  top: 0;
+  left: 98.08px;
+  gap: 4.03px;
+  width: 94.2px;
+  padding: 0 13.08px 0 7.04px;
+  background: #000000;
+}
+
+/* "Label / Cursor": 200.28 → 298.38, the stroke inside. */
+.cursor {
+  top: 0;
+  left: 200.28px;
+  gap: 7.04px;
+  width: 98.1px;
+  padding: 0 13.08px 0 7.04px;
+  border: 1px solid #000000;
+  background: var(--white);
+}
+
+/* Plexo, centred on the spine, 4 below the grey line and 4 above the green one. */
+.logo {
+  top: 90px;
+  left: 98.96px;
+  width: 92.44px;
+  height: 24px;
+}
+
+/* The live site pill, centred on the spine, 9.5 below the output dot (13.5 on desktop at 0.7). */
+.liveRow {
+  top: 163.5px;
+  left: 45.18px;
+  display: flex;
+  justify-content: center;
+  width: 200px;
+}
+
+/* "Label / Live site": #1d3509, padding 12.07, gap 6.04, 14px globe. */
+.live {
+  gap: 6.04px;
+  padding: 0 12.07px;
+  background: var(--forest);
+}
+
+/* Flow: each run's dashes travel one period (dash + gap) toward Plexo / the live site, forever. */
+.line {
+  fill: none;
+}
+
+.moving .line {
+  animation: ai-flow-phone 0.9s linear infinite;
+}
+
+@keyframes ai-flow-phone {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: calc(var(--p) * -1);
+  }
+}
+
+/* The output dot sends out a soft ping every 2.4s (as on desktop). */
+.ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ai-flow-phone-ping 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes ai-flow-phone-ping {
+  0% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(3.2);
+  }
+}
+
+/* Wide phones: the grid at 1.15 (pills 32 tall, names 13.8). */
+@media (min-width: 480px) {
+  .flow {
+    zoom: 1.15;
+  }
+}
+
+/* Narrow phones: 0.92 (fits a 360 screen with room to spare), then 0.86. */
+@media (max-width: 374px) {
+  .flow {
+    zoom: 0.92;
+  }
+}
+
+@media (max-width: 339px) {
+  .flow {
+    zoom: 0.86;
+  }
+}

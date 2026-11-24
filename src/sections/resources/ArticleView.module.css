@@ -164,6 +164,17 @@
     letter-spacing: -0.56px;
   }
 
+  /* "Copy Link" reaches 44px tall for a thumb (the extra is invisible). */
+  .copy {
+    position: relative;
+  }
+
+  .copy::after {
+    content: '';
+    position: absolute;
+    inset: -6px 0;
+  }
+
   .pictureSlot {
     height: 220px;
   }
@@ -175,6 +186,7 @@
 
   .body p {
     text-indent: 32px;
+    text-wrap: pretty;
   }
 
   .grid {

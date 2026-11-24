@@ -14,9 +14,12 @@ import styles from './PromptBox.module.css'
  * - "hero": hero "Frame 2147239234" (532:24028) — the 993×238 box on the dark hero, a multi-line
  *   prompt area (one line on phones), with a light helper row.
  * - "card": For You hero (571:12873) — the hero box at 696×143 with a 1px #bebeba stroke, laid over a
- *   photo, with no helper row.
+ *   photo, with no helper row. On phones the prompt wraps across the box and "Build it" sits under it.
  * - "panel": Build with Sol hero (614:21075) — the card at 630 wide, flat (no shadow), on a light panel.
- * Phones: the helper row keeps only "Start with a template →" and the trial note, side by side.
+ *   On phones it wraps like the card, with "Build it" under the prompt.
+ * Phones: the helper row keeps only "Start with a template →" and the trial note, side by side. The
+ * one-line box (E-commerce's final CTA) wraps its prompt over up to three lines, with "Build it" full width
+ * under it.
  */
 type PromptBoxProps = {
   className?: string
@@ -75,16 +78,20 @@ export function PromptBox({
   const card = variant === 'card' || variant === 'panel'
   const hero = variant === 'hero' || card
   const phone = useMediaQuery('(max-width: 767px)')
-  // The hero prompt is a multi-line area on larger screens and a single line on phones.
-  // The flat panel is always one line, cut with "…" (Figma 614:21081).
-  const multiline = hero && !phone && variant !== 'panel'
+  // The hero prompt is a multi-line area on larger screens and a single line on phones; the card stays
+  // multi-line on phones too, with "Build it" under it. The flat panel and the one-line box are one line,
+  // cut with "…" (Figma 614:21081), except on phones, where they wrap like the card.
+  const multiline = variant === 'card' || (variant === 'hero' && !phone) || (phone && (variant === 'panel' || variant === 'default'))
 
-  // When the typed text is wider than the field (phones), flag it so the overlay fades its start.
+  // When the typed text is wider than the field (phones), or taller than the card's prompt area on phones,
+  // flag it so the overlay keeps its end in view and fades its start.
   const typingRef = useRef<HTMLSpanElement>(null)
   useLayoutEffect(() => {
     const el = typingRef.current
     const inner = el?.firstElementChild as HTMLElement | null
-    if (el && inner) el.dataset.overflow = String(inner.offsetWidth > el.clientWidth + 1)
+    if (!el || !inner) return
+    const room = el.clientHeight - parseFloat(getComputedStyle(el).paddingTop)
+    el.dataset.overflow = String(inner.offsetWidth > el.clientWidth + 1 || inner.offsetHeight > room + 1)
   }, [text, showTyping])
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {

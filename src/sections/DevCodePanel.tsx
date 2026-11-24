@@ -36,8 +36,12 @@ function renderCode(count: number, caret: ReactNode) {
  * the "Code window" (title bar, code, status bar). Built live so the code can type itself out when the
  * panel comes into view (once; it pauses while off screen). Scaled as one piece to fit narrower columns.
  * Reduced motion and capture mode show the finished code.
+ *
+ * `phoneCrop` (For Developers hero, MCP and API "Prompt from your terminal."): on phones the panel is
+ * cropped to the code window and a 16px margin (504.43×456.73 of the 717×515), which is then scaled to the
+ * column, so the code reads at about 7.6px on a 390 phone instead of 5.4.
  */
-export function DevCodePanel() {
+export function DevCodePanel({ phoneCrop = false }: { phoneCrop?: boolean }) {
   const isStatic = useStaticMotion()
   const { ref, scale } = useFitScale<HTMLDivElement>(717, 0)
   const inView = useInView(ref, { amount: 0.4 })
@@ -47,7 +51,7 @@ export function DevCodePanel() {
   const caret = isStatic ? null : <span className={`${styles.caret} ${typing ? '' : styles.caretBlink}`} />
 
   return (
-    <div ref={ref} className={styles.fit} style={{ '--s': scale } as CSSProperties}>
+    <div ref={ref} className={phoneCrop ? `${styles.fit} ${styles.fitCrop}` : styles.fit} style={{ '--s': scale } as CSSProperties}>
       <div className={styles.panel} role="img" aria-label={LABEL}>
         <span className={`${styles.glow} ${styles.glowTop}`} />
         <span className={`${styles.glow} ${styles.glowBottom}`} />

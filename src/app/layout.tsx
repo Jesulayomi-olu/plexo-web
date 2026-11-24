@@ -29,7 +29,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${mono.variable}`}>
+    // data-scroll-behavior: Next pauses index.css's smooth scrolling during client-side route changes (the
+    // auth screens link to each other with next/link), so a new page starts at the top at once.
+    <html lang="en" className={`${jakarta.variable} ${mono.variable}`} data-scroll-behavior="smooth">
       <body>
         <Providers>{children}</Providers>
       </body>

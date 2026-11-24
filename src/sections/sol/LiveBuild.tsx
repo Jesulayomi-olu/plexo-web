@@ -7,7 +7,7 @@ import styles from './LiveBuild.module.css'
 /**
  * Build with Sol, "You direct. AI builds it live." (Figma 575:15548): heading and lead, a 686×403
  * preview window showing the Iron & Grain site, and the prompt card (630×108, 2px #95e021, r16) that
- * asked for it, overlapping the preview's bottom by 54. A still: the prompt is cut to two lines with "…".
+ * asked for it, overlapping the preview's bottom by 78. A still: the prompt is cut to two lines with "…".
  */
 // Figma's first line, then the rest, which it cuts mid-word ("bold typograph…").
 const FIRST_LINE = 'Build a premium gym website for Iron & Grain'
@@ -31,7 +31,7 @@ export default function LiveBuild() {
           <h2 id="live-build-title" className={styles.title}>
             You direct. AI builds it live.
           </h2>
-          <p className={styles.lead}>Talk to SOL like a Designer</p>
+          <p className={styles.lead}>Talk to Sol like a designer. Describe what you want changed, and watch your page take shape.</p>
         </Reveal>
 
         <div className={styles.stage}>

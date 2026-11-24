@@ -7,7 +7,7 @@
   padding-block: 65.5px;
 }
 
-/* Row: heading (338) · 146 · the step column (fills the rest, 796). */
+/* Row: heading · 146 · the step column (fills the rest). */
 .inner {
   display: flex;
   align-items: center;
@@ -32,15 +32,17 @@
 }
 
 /*
- * Build with Sol: Figma's heading box is 338 wide (its first line ends with a space), which sets the
- * steps 146 after it; the lines themselves centre on the 329 of text.
+ * Build with Sol: desktop/heading/h3/semibold, 600 40/46, −1. Figma's heading box is 282 wide (both
+ * lines end with a space), which sets the steps 146 after it (852 wide).
  */
 .sol .headSlot {
-  width: 338px;
+  width: 282px;
 }
 
 .sol .title {
-  width: fit-content;
+  font-size: 40px;
+  line-height: 46px;
+  letter-spacing: -1px;
 }
 
 /* desktop/body/md/regular, #232323; 1px lower, as Figma draws it. */
@@ -208,6 +210,11 @@
     align-self: center;
   }
 
+  /* Build with Sol: the centred two-line heading sits over the middle of the cards. */
+  .sol .headSlot {
+    align-self: center;
+  }
+
   .mcp .headSlot {
     width: auto;
   }
@@ -222,11 +229,28 @@
     gap: 28px;
   }
 
-  /* mobile heading/h2 → 32/36.8 */
+  /* mobile heading/h2 → 32/36.8; balanced, so no word is left alone ("You / finish."). */
   .title {
     font-size: 32px;
     line-height: 36.8px;
     letter-spacing: -0.7px;
+    text-wrap: balance;
+  }
+
+  /* mobile heading/h3 → 28/33.6 */
+  .sol .title {
+    font-size: 28px;
+    line-height: 33.6px;
+    letter-spacing: -0.56px;
+  }
+
+  /*
+   * The label style's 1.1 is for one line; Sol's lines (also used on Design with a Drag) wrap to two on
+   * phones, so they get body spacing.
+   */
+  .sol .stepBody,
+  .drag .stepBody {
+    line-height: 19.6px;
   }
 
   .steps {
@@ -241,6 +265,7 @@
   .lead {
     font-size: 14px;
     line-height: 21px;
+    text-wrap: pretty;
   }
 
   .mcp .lead {

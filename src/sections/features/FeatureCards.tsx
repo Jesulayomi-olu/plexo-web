@@ -10,8 +10,9 @@ import styles from './FeatureCards.module.css'
  *   lead, 3 × 2 cards of 400×240, gap 40.
  * - "email": Email & Marketing, "What You get" (736:14851): 48px heading, 3 × 2 cards of 376×240;
  *   padding 80 above, 120 below.
- * - "ecommerce": E-commerce, "What You get" (736:13521): 48px heading; a tall first card (290×512)
- *   beside two rows of three 290×240 cards (column gap 40, row gap 33).
+ * - "ecommerce": E-commerce, "What You get" (736:13521): 48px heading; a tall first card (290×561)
+ *   beside two rows of three 290×264 cards (column gap 40, row gap 33); the copy fills each card's
+ *   240 padding box.
  * Cards: lime (#d5f490 at 80%), grey (#e8e8e4) or dark (#1d3509); padding 24/24/32, a 32px icon tile,
  * 64 below it the title (600 20/26) and 12 below that the body (16/24).
  */
@@ -20,8 +21,11 @@ export type FeatureCard = {
   title: string
   /** Lines of the body; Figma's own line breaks are kept. */
   body: string[]
-  /** Figma's text box width: the copy wraps (or runs past the padding) exactly as in Figma at 1440. */
-  bodyWidth: number
+  /**
+   * Figma's text box width: the copy wraps (or runs past the padding) exactly as in Figma at 1440.
+   * Without it the copy fills the card's padding box (E-commerce).
+   */
+  bodyWidth?: number
   /** The icon artwork and where it sits in its 19.2px frame. */
   icon: { src: string; w?: number; h?: number; x?: number; y?: number }
 }
@@ -61,7 +65,10 @@ export default function FeatureCards({
                 </span>
                 <span className={styles.copy}>
                   <h3 className={styles.cardTitle}>{card.title}</h3>
-                  <p className={styles.body} style={{ '--body-w': `${card.bodyWidth}px` } as CSSProperties}>
+                  <p
+                    className={styles.body}
+                    style={card.bodyWidth ? ({ '--body-w': `${card.bodyWidth}px` } as CSSProperties) : undefined}
+                  >
                     {card.body.map((line, j) => (
                       <Fragment key={j}>
                         {j > 0 && <br className={styles.break} />}

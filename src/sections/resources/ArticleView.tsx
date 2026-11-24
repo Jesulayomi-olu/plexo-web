@@ -52,8 +52,7 @@ export default function ArticleView({ article, related }: { article: Article; re
             <Avatar size={24} round />
             <span className={styles.bylineText}>
               <span>
-                <span className={styles.author}>{articleByline.name}</span>
-                {articleByline.role}
+                <span className={styles.author}>{articleByline.name}</span> {articleByline.role}
               </span>
               <i className={styles.dot} aria-hidden="true" />
               <span>{article.date}</span>

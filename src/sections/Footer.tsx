@@ -6,14 +6,15 @@ import { Divider } from '../components/Divider'
 import { EmailField } from '../components/EmailField'
 import { Reveal } from '../components/Reveal'
 import { focusEase, usePreviewMode, useStaticMotion } from '../lib/motion'
+import { BLOG_HREF, CONTACT_HREF, COOKIES_HREF, DEVELOPERS_HREF, LOGIN_HREF, PRIVACY_HREF, TERMS_HREF } from './navData'
 import styles from './Footer.module.css'
 
 /**
- * Figma "Footer" (814:5666): white, bottom corners r32, clipped. A 1280 column 60 from the top: the
- * brand (logo, tagline, "Get product updates" email field) and five link columns, then the legal bar
- * (copyright, policies, social links). The giant Plexo logo is cut by the bottom edge. Below it the
- * page's #0d1a03 band (248px) with the dashed star divider (532:25133) and a soft green glow
- * ("Ellipse 3", 532:25172).
+ * Figma "Footer" (1355:12399): white, bottom corners r32, clipped. A 1280 column 60 from the top: the
+ * brand (logo, tagline, "Get product updates" email field) and four link columns, then the legal bar
+ * (copyright and policies at the left, the social links at the right). The giant Plexo logo is cut by the
+ * bottom edge. Below it the page's #0d1a03 band (248px) with the dashed star divider (532:25133) and a
+ * soft green glow ("Ellipse 3", 532:25172).
  * Labels are verbatim from Figma. Items without an `href` have no page yet and render as plain text.
  */
 type FooterLink = { label: string; href?: string; /** "Log in": semibold, green. */ accent?: boolean }
@@ -23,50 +24,49 @@ const columns: { title: string; links: FooterLink[] }[] = [
     title: 'Product',
     links: [
       { label: 'Pricing', href: '/pricing' },
-      { label: 'Features', href: '/#features' },
+      { label: 'Features', href: '/features/sol' },
       { label: 'Templates', href: '/resources/templates' },
       { label: 'What’s new' },
-      { label: 'Log in', accent: true },
+      { label: 'Log in', href: LOGIN_HREF, accent: true },
     ],
   },
   {
-    // The same five audiences as the home page's "Plexo is for everyone" tabs.
     title: 'Solutions',
     links: [
-      { label: 'Small businesses', href: '/for-you/small-business' },
-      { label: 'Coaches and creators', href: '/for-you/coaches' },
-      { label: 'Agencies and freelancers', href: '/for-you/designers' },
-      { label: 'Growing brands', href: '/#for-you' },
-      { label: 'Product teams', href: '/#for-you' },
+      { label: 'Small businesses', href: '/solutions/small-business' },
+      { label: 'Coaches and creators', href: '/solutions/coaches' },
+      { label: 'Designers and agencies', href: '/solutions/designers' },
+      { label: 'Founders', href: '/solutions/founders' },
+      { label: 'Developers', href: DEVELOPERS_HREF },
     ],
   },
   {
     title: 'Developers',
     links: [
-      { label: 'Developer docs', href: '/#developers' },
-      { label: 'MCP setup', href: '/#mcp' },
-      { label: 'API reference', href: '/#developers' },
-      { label: 'SDK guides', href: '/#developers' },
+      { label: 'Developer docs' },
+      { label: 'MCP setup' },
+      { label: 'API reference' },
+      { label: 'SDK guides' },
       { label: 'API status' },
     ],
   },
   {
     title: 'Resources',
     links: [
-      { label: 'Blog', href: '/resources/blog' },
-      { label: 'Help center' },
+      { label: 'Blog', href: BLOG_HREF },
+      { label: 'Changelog' },
+      { label: 'Templates', href: '/resources/templates' },
       { label: 'Customer stories', href: '/resources/customer-stories' },
-      { label: 'FAQ', href: '/#faq' },
-      { label: 'Contact support' },
+      { label: 'Contact us', href: CONTACT_HREF },
     ],
-  },
-  {
-    title: 'Company',
-    links: [{ label: 'About' }, { label: 'Careers' }, { label: 'Partners' }, { label: 'Contact us' }],
   },
 ]
 
-const legal: FooterLink[] = [{ label: 'Privacy policy' }, { label: 'Terms of service' }, { label: 'Cookie policy' }]
+const legal: FooterLink[] = [
+  { label: 'Privacy policy', href: PRIVACY_HREF },
+  { label: 'Terms of service', href: TERMS_HREF },
+  { label: 'Cookie policy', href: COOKIES_HREF },
+]
 
 const socials: (FooterLink & { icon: string })[] = [
   { label: 'LinkedIn', icon: '/assets/footer/linkedin.svg' },
@@ -95,7 +95,7 @@ function Newsletter() {
       <label htmlFor={inputId} className={styles.newsletterLabel}>
         Get product updates
       </label>
-      <EmailField id={inputId} />
+      <EmailField id={inputId} className={styles.email} />
     </form>
   )
 }

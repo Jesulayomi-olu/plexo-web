@@ -189,5 +189,23 @@
   .lead {
     font-size: 14px;
     line-height: 21px;
+    text-wrap: pretty;
+  }
+
+  /*
+   * The workspace drawn larger and cut by the card's right edge where desktop cuts it (506.5 of its 727:
+   * the sidebar and the greeting's start), rather than shown whole at under half size. --wc is that crop's
+   * scale (--w is the slot over 727); the slot runs into the card's 12px padding to its edge.
+   */
+  .windowSlot {
+    --wc: calc(var(--w, 1) * 727 / 506.5);
+    width: auto;
+    height: calc(466.672px * var(--wc));
+    margin-right: -12px;
+  }
+
+  .windowScale {
+    margin-inline: 0;
+    transform: scale(var(--wc));
   }
 }

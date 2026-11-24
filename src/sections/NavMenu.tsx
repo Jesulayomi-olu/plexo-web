@@ -164,27 +164,25 @@ export function ForYouMenu(props: Omit<DropdownProps, 'id' | 'label' | 'children
   )
 }
 
-/** The Resources card: 1 + 8 + 12 from its edge to the item text; 562 wide (Figma). */
+/** The Resources card: 1 + 8 + 12 from its edge to the item text; 338 wide (Figma). */
 const MENU_INSET = 21
-const RESOURCES_WIDTH = 562
+const RESOURCES_WIDTH = 338
 const EDGE_MARGIN = 16
 
 /**
- * "Dropdown / Resources" (942:6996): two columns of items (title 600 14, line 400 14 #5b5b58); Changelog
- * and Developer Docs carry the external-link icon. "All resources" with an arrow below a 1px line. Items
- * without a page yet are shown but are not links.
+ * "Dropdown / Resources" (897:6062): one 320 column of items (title 600 14, line 400 14 #5b5b58);
+ * Changelog carries the external-link icon. Items without a page yet are shown but are not links.
  */
 export function ResourcesMenu(props: Omit<DropdownProps, 'id' | 'label' | 'children'> & { onNavigate: () => void }) {
   const { onNavigate, ...rest } = props
-  const columnsRef = useRef<HTMLDivElement>(null)
+  const listRef = useRef<HTMLUListElement>(null)
 
-  // The card starts under the "Resources" label (text aligned, 21px inset), always two columns. Where
-  // that would run past the window's edge (narrower laptops), it moves left just enough to stay on
-  // screen (--shift on the card). Measured while closed too: the hidden card still takes up room, and
-  // unshifted it would widen the page.
+  // The card starts under the "Resources" label (text aligned, 21px inset). Where that would run past
+  // the window's edge, it moves left just enough to stay on screen (--shift on the card). Measured while
+  // closed too: the hidden card still takes up room, and unshifted it would widen the page.
   useLayoutEffect(() => {
     const measure = () => {
-      const card = columnsRef.current?.parentElement
+      const card = listRef.current?.parentElement
       const item = card?.closest('li')
       if (!card || !item) return
       const left = item.getBoundingClientRect().left - MENU_INSET
@@ -200,40 +198,30 @@ export function ResourcesMenu(props: Omit<DropdownProps, 'id' | 'label' | 'child
 
   return (
     <Dropdown id="resources" label="Resources" {...rest}>
-      <div ref={columnsRef} className={styles.columns}>
-        {resourceMenu.columns.map((column, i) => (
-          <ul key={i} className={styles.column}>
-            {column.map((item) => {
-              const content = (
-                <>
-                  <span className={styles.itemTitle}>
-                    {item.label}
-                    {item.external && <img src="/assets/resources/external.svg" width={16} height={16} alt="" />}
-                  </span>
-                  <span className={styles.itemText}>{item.description}</span>
-                </>
-              )
-              return (
-                <li key={item.label}>
-                  {item.href ? (
-                    <a href={item.href} className={styles.resource} onClick={onNavigate}>
-                      {content}
-                    </a>
-                  ) : (
-                    <span className={`${styles.resource} ${styles.inactive}`}>{content}</span>
-                  )}
-                </li>
-              )
-            })}
-          </ul>
-        ))}
-      </div>
-      <div className={styles.menuFoot}>
-        <a href={resourceMenu.all.href} className={styles.allLink} onClick={onNavigate}>
-          {resourceMenu.all.label}
-          <img src="/assets/resources/arrow-right-green.svg" width={16} height={16} alt="" />
-        </a>
-      </div>
+      <ul ref={listRef} className={styles.column}>
+        {resourceMenu.map((item) => {
+          const content = (
+            <>
+              <span className={styles.itemTitle}>
+                {item.label}
+                {item.external && <img src="/assets/resources/external.svg" width={16} height={16} alt="" />}
+              </span>
+              <span className={styles.itemText}>{item.description}</span>
+            </>
+          )
+          return (
+            <li key={item.label}>
+              {item.href ? (
+                <a href={item.href} className={styles.resource} onClick={onNavigate}>
+                  {content}
+                </a>
+              ) : (
+                <span className={`${styles.resource} ${styles.inactive}`}>{content}</span>
+              )}
+            </li>
+          )
+        })}
+      </ul>
     </Dropdown>
   )
 }

@@ -2,6 +2,7 @@
 
 import { useInView } from 'framer-motion'
 import { useRef, type CSSProperties } from 'react'
+import { AiFlowPhone } from '../components/AiFlowPhone'
 import { Button } from '../components/Button'
 import { Reveal } from '../components/Reveal'
 import { useStaticMotion } from '../lib/motion'
@@ -60,12 +61,15 @@ function Connectors({ moving }: { moving: boolean }) {
   )
 }
 
-/** Desktop / tablet: the Figma composition at 1280×508, scaled to fit below 1440. */
-function DesktopDiagram({ moving }: { moving: boolean }) {
+/**
+ * Desktop / tablet: the Figma composition at 1280×508, scaled to fit below 1440. The MCP and API page's
+ * frame (668:28669) hides the dot pattern, so only the home variant draws it.
+ */
+function DesktopDiagram({ moving, grid }: { moving: boolean; grid: boolean }) {
   return (
     <div className={styles.frame}>
       <div className={styles.integration}>
-        <img className={styles.dots} src={dots.src} width={1280} height={711} alt="" />
+        {grid && <img className={styles.dots} src={dots.src} width={1280} height={711} alt="" />}
         <Connectors moving={moving} />
         <img className={styles.logo} src="/assets/v2/icons/logo-dark.svg" width={124} height={32} alt="" />
         <img className={styles.claude} src={claudeLabel.src} width={164} height={56} alt="" />
@@ -78,52 +82,23 @@ function DesktopDiagram({ moving }: { moving: boolean }) {
 }
 
 /*
- * Phones: a vertical flow on a 320×226 grid. The three AI labels sit in a row, all 32px tall and 10px
- * apart; their connectors drop into a junction under ChatGPT, the spine runs down into Plexo and on to
- * the live site. Same parts, colours and flowing dashes as desktop.
+ * Phones: the vertical flow shared with Build with AI (AiFlowPhone): the three AI pills in a row, all 28
+ * tall and evenly spaced, their connectors meeting under ChatGPT, then Plexo and the live site. Same
+ * flowing dashes and ping as desktop. (The desktop labels above are single SVGs of different heights,
+ * 52 to 56, which didn't scale to one size cleanly.)
  */
-const SPINE = 158.28 // x of the ChatGPT label's centre, the junction, Plexo and the live site
-const mobileLines = [
-  { d: `M50.66 32V66H${SPINE}`, color: '#bebeba' },
-  { d: `M267.62 32V66H${SPINE}`, color: '#bebeba' },
-  { d: `M${SPINE} 32V108`, color: '#bebeba' },
-  { d: `M${SPINE} 144V194`, color: '#74a418' },
-]
-
 function MobileDiagram({ moving }: { moving: boolean }) {
   return (
     <div className={styles.mobileWrap}>
-      <div className={styles.mobile}>
-        <svg className={`${styles.mLines} ${moving ? styles.moving : ''}`} viewBox="0 0 320 226" aria-hidden="true">
-          {mobileLines.map((l) => (
-            <path
-              key={l.d}
-              className={styles.line}
-              d={l.d}
-              stroke={l.color}
-              strokeWidth={1.8}
-              strokeDasharray="5 5"
-              strokeDashoffset={2.5}
-              style={{ '--o': '2.5px', '--p': '10px' } as CSSProperties}
-            />
-          ))}
-          <circle cx={SPINE} cy={66} r={4} fill="#ffffff" stroke="#74a418" strokeWidth={1.8} />
-          {moving && <circle className={styles.ping} cx={SPINE} cy={194} r={4.5} fill="#74a418" />}
-          <circle cx={SPINE} cy={194} r={4.5} fill="#74a418" />
-        </svg>
-        <img className={styles.mClaude} src={claudeLabel.src} width={164} height={56} alt="" />
-        <img className={styles.mChatgpt} src={chatgptLabel.src} width={165} height={52} alt="" />
-        <img className={styles.mCursor} src={cursorLabel.src} width={170} height={56} alt="" />
-        <img className={styles.mLogo} src="/assets/v2/icons/logo-dark.svg" width={124} height={32} alt="" />
-        <img className={styles.mLive} src={liveLabel.src} width={159} height={46} alt="" />
-      </div>
+      <AiFlowPhone moving={moving} />
     </div>
   )
 }
 
 /**
- * The MCP and API page (668:28635, 1440×951) uses the same section with a one-line 40px heading
- * ("Ask Claude. Plexo ships.") and a one-line lead, so its header is 203 tall.
+ * The MCP and API page (668:28635, 1440×975) uses the same section with a one-line 40px heading
+ * ("Ask Claude. Plexo ships.") and a two-line lead (Figma's own break, 568 box), so its header is 227
+ * tall; its diagram has no dot pattern.
  */
 const copy = {
   home: {
@@ -131,9 +106,9 @@ const copy = {
     lead: ' Already living in Claude, ChatGPT or Cursor?\n Build your site from there',
   },
   page: {
-    // Figma ends the heading with a space, which counts when centring.
+    // Figma ends the heading and the lead's first line with a space, which counts when centring.
     title: 'Ask Claude. Plexo ships.\u00a0',
-    lead: 'Already living in Claude, ChatGPT or Cursor? Build your site from there.',
+    lead: 'Bring your AI coding tools and Plexo together. Create, edit and publish \nyour projects without leaving the workflow you already use.',
   },
 }
 
@@ -170,7 +145,7 @@ export default function Mcp({ variant = 'home' }: { variant?: 'home' | 'page' })
               style={{ '--s': scale, display: fitted ? undefined : 'none' } as CSSProperties}
             >
               <div className={styles.scale}>
-                <DesktopDiagram moving={moving && fitted} />
+                <DesktopDiagram moving={moving && fitted} grid={variant === 'home'} />
               </div>
             </div>
             {!fitted && <MobileDiagram moving={moving} />}

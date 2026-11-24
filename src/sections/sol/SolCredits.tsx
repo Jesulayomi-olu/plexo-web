@@ -6,8 +6,9 @@ import styles from './SolCredits.module.css'
 
 /**
  * Build with Sol "AI credits" (575:15607 → 614:20325): white, padding 80, row gap 64, centred: the
- * overview (420: 40px heading · 16 · 18px explanation, centred) and the pricing page's credit guide,
- * which here ends "Drag-and-drop edits are always free." Credit costs are still "X Credits" in Figma.
+ * overview (420: 40px heading · 16 · 18px explanation, centred) and the pricing page's credit guide in
+ * its Sol form: a green check at the end of each action (no costs), and "Drag-and-drop edits are always
+ * free." on its own, without an icon.
  */
 export default function SolCredits() {
   return (
@@ -17,10 +18,12 @@ export default function SolCredits() {
           <h2 id="sol-credits-title" className={styles.title}>
             Sol uses AI credits
           </h2>
-          <p className={styles.lead}>Every time Plexo AI builds or edits something, it uses credits. Your plan’s credits refresh monthly.</p>
+          <p className={styles.lead}>
+            Every time Sol generates or edits something, it uses AI credits. Your credits refresh monthly based on your plan.
+          </p>
         </Reveal>
         <Reveal delay={0.1} className={styles.guideSlot}>
-          <CreditGuide reassurance="Drag-and-drop edits are always free." />
+          <CreditGuide reassurance="Drag-and-drop edits are always free." included />
         </Reveal>
       </div>
     </section>

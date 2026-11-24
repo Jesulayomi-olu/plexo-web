@@ -7,10 +7,11 @@ import styles from './StayInCharge.module.css'
 /**
  * MCP and API "AI credits" (668:28232): white, padding 80, column gap 40: "You Stay In Charge" (40,
  * centred in a 420 box) over a 1280 row of three equal columns (padding 15/32, 1px #d7d8d3 dividers),
- * each a 20px icon and two lines of 16/24 (Figma's own line breaks).
+ * each a 20px icon and two lines of 16/24 (Figma's own line breaks). The first point gets the full stop
+ * Figma leaves off, like the other two (the design team's rule).
  */
 const points = [
-  { icon: 'panels-top-left', lines: ['Every AI change shows ', 'up on your canvas'] },
+  { icon: 'panels-top-left', lines: ['Every AI change shows ', 'up on your canvas.'] },
   { icon: 'text-cursor-input', lines: ['Scoped API keys you ', 'can revoke anytime. '] },
   { icon: 'mail', lines: ['Your data stays isolated', ' per workspace. '] },
 ]

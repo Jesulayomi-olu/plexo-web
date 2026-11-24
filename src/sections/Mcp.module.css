@@ -57,9 +57,17 @@
   margin-top: 40px;
 }
 
-/* MCP and API page (668:28637): Figma rounds the 203.2 header to 203. */
+/* MCP and API page (668:28637): Figma rounds the 227.2 header to 227. */
 .page .header {
   margin-bottom: 79.8px;
+}
+
+/*
+ * Its lead (668:28649): 568 wide, Figma's two lines; the first ends with a space, which counts when
+ * centring (white-space: pre keeps it). Phones let it wrap.
+ */
+.page .lead {
+  white-space: pre;
 }
 
 /* desktop/heading/h3/semibold (600 40/46, −1) on one line, drawn where Chrome draws it. */
@@ -105,6 +113,26 @@
   height: 661.7px;
   overflow: hidden;
   background: linear-gradient(180deg, #ffffff -42%, rgb(244 245 240 / 0) 119%);
+}
+
+/*
+ * MCP and API page (668:28668, at (48, −34.39)): the fill is now white (41.5%) → transparent #f4f5f0
+ * (119%) under a 50px background blur, which Figma renders not white but 0–2 levels darker than the
+ * page: page colour at the top of the frame, a shade darker down to the 41.5% stop, two shades below
+ * it, easing off toward the bottom. These #f4f5f0 stops reproduce that render (measured).
+ */
+.page .integration {
+  background: linear-gradient(
+    180deg,
+    rgb(244 245 240 / 0) 5.2%,
+    rgb(244 245 240 / 0.06) 9%,
+    rgb(244 245 240 / 0.09) 22%,
+    rgb(244 245 240 / 0.09) 38%,
+    rgb(244 245 240 / 0.21) 39.5%,
+    rgb(244 245 240 / 0.2) 54%,
+    rgb(244 245 240 / 0.15) 79%,
+    rgb(244 245 240 / 0.08) 82%
+  );
 }
 
 .integration img,
@@ -191,7 +219,7 @@
   }
 }
 
-/* ---------- Phones: vertical flow on a 320×226 grid ---------- */
+/* ---------- Phones: the vertical flow (AiFlowPhone), 36 above and below ---------- */
 
 /* Full-bleed band of the desktop's square dot grid (#e8e8e4), fading out at the top and bottom. */
 .mobileWrap {
@@ -210,62 +238,9 @@
   pointer-events: none;
 }
 
-.mobile {
-  position: relative;
-  width: 320px;
-  height: 226px;
-  margin: 0 auto;
-}
-
-.mobile img,
-.mLines {
-  position: absolute;
-  max-width: none;
-}
-
-.mLines {
-  top: 0;
-  left: 0;
-  width: 320px;
-  height: 226px;
-  overflow: visible;
-}
-
-/* Labels at one height (32px): Claude, ChatGPT and Cursor, 10px apart, centred as a row. */
-.mClaude,
-.mChatgpt,
-.mCursor,
-.mLive {
-  top: 0;
-  width: auto;
-  height: 32px;
-}
-
-.mClaude {
-  left: 3.8px;
-}
-
-.mChatgpt {
-  left: 107.51px;
-}
-
-.mCursor {
-  left: 219.05px;
-}
-
-/* Plexo on its plate, centred on the spine. */
-.mLogo {
-  top: 112px;
-  left: 104.03px;
-  width: 108.5px;
-  height: 28px;
-  background: var(--surface-50);
-}
-
-/* The live site pill sits on the end of the green line (its dot half under the pill, as on desktop). */
-.mLive {
-  top: 194px;
-  left: 102.98px;
+/* The MCP and API page's diagram has no dot pattern (668:28669 is hidden). */
+.page .mobileWrap::before {
+  content: none;
 }
 
 @media (max-width: 767px) {
@@ -289,22 +264,16 @@
     line-height: 33.6px;
     letter-spacing: -0.56px;
   }
-}
 
-@media (max-width: 359px) {
-  .mobile {
-    transform: scale(0.9);
-    transform-origin: top center;
+  .page .lead {
+    white-space: normal;
   }
 }
 
 /* Mobile type scale — design system "mobile/*" text styles, which apply below 768px. */
 @media (max-width: 767px) {
-  /* label/sm → 10/11 */
+  /* The pill keeps its 12px label (label/sm's 10px read too small) with a little less padding. */
   .pill span {
     padding: 7px 10px;
-    font-size: 10px;
-    line-height: 11px;
-    letter-spacing: 0.2px;
   }
 }

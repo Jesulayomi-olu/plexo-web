@@ -52,9 +52,10 @@
   background: var(--white);
 }
 
+/* Centred across the width; 75 down on MCP (its 646 frame, clipped), 61 on Email (--card-top, 736:14786). */
 .single .card {
   left: 359px;
-  top: 75px;
+  top: var(--card-top, 75px);
 }
 
 .split .card {
@@ -62,13 +63,13 @@
   top: 61px;
 }
 
-/* Heading and lead: a 372 column, gap 24, centred text. */
+/* Heading and lead: a 372 column (--text-w; 435 on E-commerce, 731:12647), gap 24, centred text. */
 .text {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  width: 372px;
+  width: var(--text-w, 372px);
   max-width: 100%;
   text-align: center;
 }
@@ -108,6 +109,11 @@
 .actions a > span {
   position: relative;
   top: 1px;
+}
+
+/* A button Figma sets wider than its label (--action-w; Email's "View Templates" is 158). */
+.fixedAction {
+  width: var(--action-w);
 }
 
 /* Text link: padding 8/0; 500 14/21, −0.07, #1e1e1e, underlined. */
@@ -222,7 +228,7 @@
 
   .visual {
     width: 100%;
-    height: calc(496px * var(--v, 1) + 2px);
+    height: calc(496px * var(--v, 1));
   }
 }
 
@@ -243,16 +249,18 @@
     gap: 16px;
   }
 
-  /* mobile heading/h2 → 32/36.8 */
+  /* mobile heading/h2 → 32/36.8; balanced, so no word is left alone ("Bring them back for / more."). */
   .title {
     font-size: 32px;
     line-height: 36.8px;
     letter-spacing: -0.7px;
+    text-wrap: balance;
   }
 
   .lead {
     font-size: 14px;
     line-height: 21px;
+    text-wrap: pretty;
   }
 
   .actions {
@@ -262,12 +270,26 @@
     gap: 16px 24px;
   }
 
+  /* The link keeps 14px and grows to a 45px tap target (the extra is padding). */
   .link {
-    font-size: 12px;
-    line-height: 18px;
+    padding-block: 12px;
   }
 
   .visual {
     border-radius: 32px;
+  }
+
+  /*
+   * phoneCrop: only the crop box (--crop-x/y/w/h, panel coordinates) shows, scaled to the panel's width:
+   * --vc is that scale (--v is the width over 516).
+   */
+  .cropped {
+    --vc: calc(var(--v, 1) * 516 / var(--crop-w));
+    height: calc(var(--crop-h) * 1px * var(--vc));
+    overflow: hidden;
+  }
+
+  .cropped .visualScale {
+    transform: scale(var(--vc)) translate(calc(var(--crop-x) * -1px), calc(var(--crop-y) * -1px));
   }
 }

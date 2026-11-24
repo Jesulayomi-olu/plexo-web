@@ -138,6 +138,15 @@
   text-align: right;
 }
 
+/* Build with Sol: the label takes the row up to the 20px "Included check" at its end. */
+.actionLabelWide {
+  flex: 1 1 auto;
+}
+
+.actionCheck {
+  flex-shrink: 0;
+}
+
 /* "No-credit editing": #f0f6df, padding 20/28, gap 12; 600 16/24. */
 .freeEdits {
   display: flex;

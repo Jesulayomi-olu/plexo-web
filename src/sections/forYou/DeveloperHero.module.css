@@ -1,0 +1,118 @@
+/* Figma "Hero" (1042:19632): 1440×989, white, padding 80. "Frame 32": copy · 80 · code panel, centred. */
+.hero {
+  background: var(--white);
+  padding-block: 80px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+}
+
+/* "Frame 82": pill · 8 · "Frame 81" (the 888 text box · 40 · actions), centred. */
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 888px;
+  text-align: center;
+}
+
+/* "Frame 7": rgba(233,233,233,0.71), r100, padding 8/12; desktop/label/sm/regular 400 12/13.2, black. */
+.tag {
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  border-radius: 100px;
+  background: rgb(233 233 233 / 0.71);
+  font-size: 12px;
+  line-height: 13.2px;
+  color: #000000;
+}
+
+/* desktop/heading/h2/bold: 700 48/52.8, −1.2, #1e1e1e; 1px lower, as Figma draws it (see .baseline-fix). */
+.title {
+  position: relative;
+  top: 1px;
+  font-size: 48px;
+  line-height: 52.8px;
+  font-weight: 700;
+  letter-spacing: -1.2px;
+  color: #1e1e1e;
+}
+
+/* desktop/body/md/regular: 400 16/24, #454543; Figma breaks the line after "publish". */
+.lead {
+  position: relative;
+  top: 1px;
+  margin-top: 16px;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-600);
+}
+
+.line {
+  display: block;
+}
+
+/* "Frame 83": the button and the text link, gap 40. */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+/* "Read the docs": 500 14/21, −0.07, #1e1e1e, underlined, padding 8/0 (not a link until there is a docs site). */
+.link {
+  display: block;
+  padding: 8px 0;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+  letter-spacing: -0.07px;
+  color: #1e1e1e;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+/* The 717×515 panel, centred; it scales down as one piece in narrower columns. */
+.panel {
+  width: 100%;
+  max-width: 717px;
+}
+
+@media (max-width: 767px) {
+  .hero {
+    padding-block: 48px 40px;
+  }
+
+  .inner {
+    gap: 40px;
+  }
+
+  /* mobile heading/h2 → 32/36.8 */
+  .title {
+    font-size: 32px;
+    line-height: 36.8px;
+    letter-spacing: -0.7px;
+  }
+
+  .lead {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .line {
+    display: inline;
+  }
+
+  .actions {
+    gap: 24px;
+    margin-top: 32px;
+  }
+}

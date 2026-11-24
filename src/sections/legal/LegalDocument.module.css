@@ -1,0 +1,371 @@
+/*
+ * Legal page body (no Figma frame; composed from the design system): white, padding 64/100. The tabs,
+ * then 48 below: "On this page" (280) · 80 · the document (up to 760).
+ */
+.section {
+  background: var(--white);
+  padding-block: 64px 100px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* Tabs: the Blog's category chips (padding 8/16, 1px #d7d8d3, round, 500 14/15.4); current: #1d3509, white. */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tab {
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+  background: var(--white);
+  font-size: 14px;
+  line-height: 15.4px;
+  font-weight: 500;
+  color: var(--ink-800);
+  white-space: nowrap;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.tab:hover {
+  border-color: var(--ink-300);
+}
+
+.tab[aria-current='page'] {
+  border-color: var(--forest);
+  background: var(--forest);
+  color: var(--white);
+}
+
+.tab:focus-visible {
+  border-radius: 9999px;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 760px);
+  gap: 80px;
+  align-items: start;
+}
+
+/* "On this page": sticky under the nav; overline (600 12/13.2, #5b5b58), then the sections. */
+.toc {
+  position: sticky;
+  top: calc(var(--nav-height) + 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tocTitle {
+  font-size: 12px;
+  line-height: 13.2px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+}
+
+/* Links: 400 14/21, #5b5b58, a 2px #e8e8e4 rule on the left; the section being read: 600 #365811, lime rule. */
+.tocList {
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid var(--surface-200);
+}
+
+.tocLink {
+  display: flex;
+  gap: 6px;
+  margin-left: -2px;
+  padding: 6px 0 6px 14px;
+  border-left: 2px solid transparent;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--ink-500);
+  transition:
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.tocLink:hover {
+  color: var(--ink-800);
+}
+
+.tocLink[aria-current='location'] {
+  border-left-color: var(--lime-pressed);
+  font-weight: 600;
+  color: var(--green-text);
+}
+
+.tocNumber {
+  flex: none;
+  min-width: 18px;
+  font-variant-numeric: tabular-nums;
+}
+
+.doc {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  min-width: 0;
+}
+
+/* "The short version": #f0f6df, r16, padding 28; heading/h6 (600 20/26, −0.4); lines 16/24 with checks. */
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 28px;
+  border-radius: 16px;
+  background: var(--green-tint);
+}
+
+.summaryTitle {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: var(--ink-800);
+}
+
+.summaryList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.summaryList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-700);
+}
+
+.summaryList img {
+  flex: none;
+  margin-top: 2px;
+}
+
+/* A numbered section: heading/h5 (600 24/30, −0.48, #232323) · 16 · paragraphs and lists, 12 apart. */
+.part {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 40px;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: calc(var(--nav-height) + 24px);
+}
+
+.partTitle {
+  margin-bottom: 4px;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 600;
+  letter-spacing: -0.48px;
+  color: var(--ink-800);
+}
+
+.partNumber {
+  color: var(--moss);
+}
+
+/* desktop/body/md/regular at a reading line height: 400 16/25.6, #454543. */
+.paragraph,
+.list {
+  font-size: 16px;
+  line-height: 25.6px;
+  color: var(--ink-600);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.list li {
+  position: relative;
+  padding-left: 22px;
+}
+
+/* Bullets: 6px #74a418 dots. */
+.list li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lime-pressed);
+}
+
+/* Table: 1px #d7d8d3, r12; header row #f4f5f0 (600 14/21); cells 14/21, padding 14/16. */
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--ink-600);
+  text-align: left;
+}
+
+.table th,
+.table td {
+  padding: 14px 16px;
+  vertical-align: top;
+}
+
+.table thead th {
+  background: var(--surface-100);
+  font-weight: 600;
+  color: var(--ink-800);
+}
+
+.table tbody tr {
+  border-top: 1px solid var(--line);
+}
+
+.table tbody th {
+  font-weight: 600;
+  color: var(--ink-800);
+  white-space: nowrap;
+}
+
+/* Contact card: as the Get in touch cards (white, 1px #d7d8d3, r16, padding 24, gap 12). */
+.contact {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface-50);
+}
+
+.contact img {
+  flex: none;
+}
+
+.contactTitle {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--ink-800);
+}
+
+.contactText {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--ink-500);
+}
+
+.contactLink {
+  color: var(--moss);
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-position: from-font;
+}
+
+.contactLink:hover {
+  color: var(--forest-hover);
+}
+
+/* Below 1024: no side list (the tabs and numbered headings remain); the document takes the width. */
+@media (max-width: 1023px) {
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .toc {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: 40px 72px;
+  }
+
+  .inner {
+    gap: 32px;
+  }
+
+  /* The tabs scroll sideways, edge to edge, as the Blog's chips do on phones. */
+  .tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin: -6px calc(var(--gutter) * -1);
+    padding: 6px var(--gutter);
+    scrollbar-width: none;
+  }
+
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .doc {
+    gap: 32px;
+  }
+
+  .summary {
+    padding: 20px;
+  }
+
+  .summaryTitle {
+    font-size: 18px;
+    line-height: 23.4px;
+  }
+
+  .summaryList li {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .summaryList img {
+    margin-top: 0.5px;
+  }
+
+  .part {
+    padding-top: 32px;
+  }
+
+  /* mobile heading/h5 → 20/26 */
+  .partTitle {
+    font-size: 20px;
+    line-height: 26px;
+    letter-spacing: -0.4px;
+  }
+
+  .paragraph,
+  .list {
+    font-size: 15px;
+    line-height: 24px;
+  }
+
+  .list li::before {
+    top: 9px;
+  }
+
+  .contact {
+    padding: 20px;
+  }
+}

@@ -1,7 +1,6 @@
 /*
- * Figma "Desktop navigation" (532:25146): 1440×72, #0d1a03, padding 16/80; content row "Frame 4"
- * (1280×40) space-between: logo · links · button. It sits on the dark hero, so the bar and the hero
- * read as one surface; the hero's dashed divider runs along the bar's bottom edge.
+ * Figma "Navigation" (1042:18288; instance 1166:14997 on Home page V2): 1440×72, #0d1a03, padding 16/80;
+ * content row (1280×40) space-between: logo · links · actions ("Log in", "Start free").
  */
 .nav {
   position: sticky;
@@ -31,21 +30,23 @@
   padding: 0 var(--gutter);
 }
 
-/* "Frame": 123.26×32 wordmark + mark (#f4f5f0 / #9fd22c). */
+/* "Frame": 92.44×24 wordmark + mark (#f4f5f0 / #9fd22c). */
 .logo {
   flex: none;
   display: block;
 }
 
 .logo img {
-  width: 123.26px;
-  height: 32px;
+  width: 92.44px;
+  height: 24px;
   max-width: none;
 }
 
 /*
- * "Frame 1": row, gap 24, 333 wide. The list and its items span the bar's height (labels stay centred),
- * so the hover area of "Features" / "For You" reaches down to their menus.
+ * "Frame 1": row, gap 24. The list and its items span the bar's height (labels stay centred), so the
+ * hover area of "Features" / "For You" reaches down to their menus. Figma's empty 32px frame at the end
+ * of the row (1355:9638) is left out at the design team's request, so the links sit centred between the
+ * logo and the actions.
  */
 .links {
   align-self: stretch;
@@ -102,30 +103,69 @@
   transform: rotate(180deg);
 }
 
-/* "Button / Start free": fixed 174×40. */
-.cta {
+/* "Frame" (1072:9087): "Log in" · 24 · "Start free". */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* "Log in": desktop/label/lg/medium, 500 16/17.6, #f4f5f0. */
+.login {
+  font-size: 16px;
+  line-height: 17.6px;
+  font-weight: 500;
+  color: var(--surface-100);
+  white-space: nowrap;
+}
+
+a.login {
+  transition: color 160ms ease;
+}
+
+a.login:hover,
+a.login:focus-visible {
+  color: var(--lime);
+}
+
+/* "Button / Start free": fixed 174×40, label desktop/label/lg/semibold (600 16/17.6). */
+.actions .cta {
   flex: none;
   width: 174px;
+  font-size: 16px;
+  line-height: 17.6px;
 }
 
 .mobileActions {
   display: none;
 }
 
-@media (max-width: 899px) {
-  .list {
-    gap: 18px;
+/* Tablets: six links and two actions in 688–944px: tighter gaps, a hugging button, then no "Log in". */
+@media (max-width: 1023px) {
+  .list,
+  .actions {
+    gap: 16px;
   }
 
-  .cta {
+  .actions .cta {
     width: auto;
+  }
+}
+
+@media (max-width: 899px) {
+  .login {
+    display: none;
+  }
+
+  .list {
+    gap: 12px;
   }
 }
 
 /* Phones: "Mobile navigation" (527:2679), 64 tall, padding 12/20 (the gutter). */
 @media (max-width: 767px) {
   .links,
-  .cta {
+  .actions {
     display: none;
   }
 
@@ -142,14 +182,15 @@
 
   /* "Actions": "Start free" (Size=Small) · 8 · menu button. */
   /*
-   * The menu icon's lines end 13.3px inside its 40px button (10 of padding, 3.3 inside the icon), so the
-   * group moves right by that much: the lines then end on the gutter, matching the logo on the left.
+   * The menu icon's lines end 15.3px inside its 44px button (12 of padding, 3.3 inside the icon), so the
+   * group moves right by that much: the lines then end on the gutter, matching the logo on the left. The
+   * 6px gap keeps "Start free" where it sat beside Figma's 40px button (gap 8).
    */
   .mobileActions {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-right: -13.333px;
+    gap: 6px;
+    margin-right: -15.333px;
   }
 
   /* "Button / Start free": Figma hugs its label to a whole 78px. */
@@ -157,12 +198,12 @@
     width: 78px;
   }
 
-  /* "Menu button": 40×40, no fill or ring; 20px white icon. */
+  /* "Menu button": Figma's 40×40 grown to a 44px tap target; no fill or ring; 20px white icon. */
   .menuButton {
     display: grid;
     place-items: center;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 9999px;
     color: var(--white);
     transition: background-color 160ms ease;
