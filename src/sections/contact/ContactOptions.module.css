@@ -1,0 +1,242 @@
+/* "Destinations" (1349:8635): #f4f5f0, padding 80/26; the cards column (291) · 38 · the form (673), centred. */
+.section {
+  padding: 80px 26px;
+  background: var(--surface-100);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 38px;
+}
+
+/* "Frame 2147239554": 291 wide, cards 24 apart. */
+.cards {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 291px;
+}
+
+/* "Card": white, 1px #d7d8d3, r16, padding 20, gap 8, items centred. */
+.card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--white);
+}
+
+.icon {
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+
+/* Title and detail, 8 apart. */
+.text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* desktop/body/md/medium: 500 16/24, #232323. */
+.title {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--ink-800);
+}
+
+/* desktop/body/sm/regular: 400 14/21, #5b5b58; the address underlined (from-font), as in Figma. */
+.detail,
+.email {
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--ink-500);
+  white-space: nowrap;
+  transition: color 160ms ease;
+}
+
+.email {
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-position: from-font;
+}
+
+.detail:hover,
+.email:hover {
+  color: var(--ink-800);
+}
+
+/* "Book a call instead": #fcfcfa, padding 32/20; icon · title (fills the row) · chevron. */
+.bookCard {
+  padding: 32px 20px;
+  background: var(--surface-50);
+}
+
+.bookTitle {
+  flex: 1;
+  min-width: 0;
+}
+
+/* "Frame 2147239461": white, r12, padding 24; Figma's 10px outside stroke as a ring (outer radius 22). */
+.formCard {
+  flex: none;
+  width: 673px;
+  padding: 24px;
+  border-radius: 12px;
+  background: var(--white);
+  box-shadow: 0 0 0 10px rgb(69 69 67 / 0.07);
+}
+
+/* Fields · 40 · Submit. */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Rows of two fields (gap 24 both ways); Message takes a whole row. */
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+/* Label (13 tall) · 12 · box. */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* desktop/label/sm/medium: 500 12/13.2, #333332. */
+.label {
+  font-size: 12px;
+  line-height: 13px;
+  font-weight: 500;
+  color: var(--ink-700);
+}
+
+/* Box: 46 tall, 1px #d7d8d3, r8, padding 12; 400 14/21, placeholder #7a7b77. Focused: #74a418. */
+.input {
+  display: block;
+  width: 100%;
+  height: 46px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--ink-700);
+  outline: none;
+  transition: border-color 160ms ease;
+}
+
+.input::placeholder {
+  color: var(--dash);
+  opacity: 1;
+}
+
+/* The border shows focus (the design system's Focus state), as on the auth forms. */
+.input:focus,
+.input:focus-visible {
+  border-color: var(--lime-pressed);
+  box-shadow: none;
+  border-radius: 8px;
+}
+
+.input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 40px var(--white) inset;
+  -webkit-text-fill-color: var(--ink-700);
+}
+
+/* Message: one line tall, as in Figma, growing with what is typed (no resize grip). */
+.message {
+  height: auto;
+  min-height: 46px;
+  max-height: 240px;
+  padding: 12px;
+  line-height: 20px;
+  resize: none;
+  field-sizing: content;
+}
+
+/* "Button / Start free": Size=Large's 52px height and 16px label. */
+.submit.submit {
+  height: 52px;
+}
+
+/* Below 1080 (the two columns need 1002 + gutters): the cards stacked above the form, 673 wide at most. */
+@media (max-width: 1079px) {
+  .section {
+    padding: 64px var(--gutter);
+  }
+
+  .inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 40px;
+    max-width: 673px;
+    margin: 0 auto;
+  }
+
+  .cards {
+    width: 100%;
+  }
+
+  .formCard {
+    width: 100%;
+  }
+}
+
+/* Phones: one field per row; the ring narrows so the card keeps room inside the gutter. */
+@media (max-width: 767px) {
+  .section {
+    padding-block: 48px;
+  }
+
+  .inner {
+    gap: 32px;
+  }
+
+  .cards {
+    gap: 16px;
+  }
+
+  .formCard {
+    padding: 20px;
+    box-shadow: 0 0 0 6px rgb(69 69 67 / 0.07);
+  }
+
+  .fields {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .form {
+    gap: 32px;
+  }
+
+  /* 16px text, so phones don't zoom in on focus. */
+  .input {
+    font-size: 16px;
+  }
+
+  .submit.submit {
+    height: 48px;
+  }
+}

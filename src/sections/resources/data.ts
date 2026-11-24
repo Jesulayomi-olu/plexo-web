@@ -1,5 +1,5 @@
 /**
- * Resources content: the nav menu (Figma 942:6996), the hub's destinations (718:7942), and the sample
+ * Resources content: the nav menu (Figma 897:6062), the hub's destinations (718:7942), and the sample
  * articles, templates and customer stories from the Figma frames (718:8690, 718:9219, 718:10560,
  * 894:5341). Copy is verbatim from Figma; it is placeholder content until a CMS feeds these pages.
  * Items without an `href` have no page yet and render as plain text.
@@ -13,22 +13,16 @@ export type ResourceLink = {
   external?: boolean
 }
 
-/** "Dropdown / Resources": two columns, in Figma's order. */
-export const resourceMenu: { columns: ResourceLink[][]; all: { label: string; href: string } } = {
-  columns: [
-    [
-      { label: 'Blog', description: 'Ideas to grow your business online.', href: '/resources/blog' },
-      { label: 'Templates', description: 'Start from a proven page.', href: '/resources/templates' },
-      { label: 'Help center', description: 'Answers in under a minute.' },
-    ],
-    [
-      { label: 'Customer stories', description: 'Real prompts. Real sites.', href: '/resources/customer-stories' },
-      { label: 'Changelog', description: 'What is new in Plexo.', external: true },
-      { label: 'Developer Docs', description: 'Build with the API and SDK', external: true },
-    ],
-  ],
-  all: { label: 'All resources', href: '/resources' },
-}
+/**
+ * "Dropdown / Resources" (897:6062): one column, in Figma's order. Blog moved to the nav bar; the hidden
+ * Blog, Developer docs and "What’s new" layers are left out. Changelog has no page yet.
+ */
+export const resourceMenu: ResourceLink[] = [
+  { label: 'Templates', description: 'Start from a proven page.', href: '/resources/templates' },
+  { label: 'Customer stories', description: 'Real prompts. Real sites.', href: '/resources/customer-stories' },
+  { label: 'Changelog', description: 'What is new in Plexo.', external: true },
+  { label: 'Contact', description: 'Answers in under a minute.', href: '/contact' },
+]
 
 /** The hub's six destination cards (718:7942). */
 export const destinations: (ResourceLink & { icon: { src: string; w: number; h: number; x: number; y: number }; detail: string })[] = [

@@ -26,8 +26,21 @@ Add `?capture` to the URL (for example `http://localhost:3000/?capture`) to turn
 | `/features/mcp` | MCP and API (668:27186, "Mcp and AI") |
 | `/features/ecommerce` | E-commerce (731:12626) |
 | `/features/email` | Email & Marketing (736:14779, "Email marketing") |
+| `/contact` | Get in touch (1349:8580, named "Resources" in Figma) |
+| `/privacy`, `/terms`, `/cookies` | No Figma frame: composed from the design system (`sections/legal/*`) |
 
 The Figma frames of these pages still carry the old footer; they use the shared one. Their hidden frames (pricing, social proof and the like) are left out.
+
+Header, footer and Resources menu (November 2026): the nav is the "Navigation" component (1042:18325), now with "For You" (back from "Solution") and a "Blog" link; Figma's empty 32px frame after "Resources" is left out at the design team's request, so the links sit centred. The Resources menu is one column (897:6062): Templates, Customer stories, Changelog (no page yet) and Contact. The footer is 1355:12399: four link columns, and the legal links open the legal pages.
+
+Get in touch (`/contact`, `src/sections/contact/*`, hero `src/sections/PageHero.tsx`), with these deliberate differences, as the design team asked:
+
+- **FAQ:** the home page's FAQ (14 questions, "See more"), not the 9-question one in the frame.
+- **Form placeholders:** Figma's copy-pasted placeholders are replaced with matching ones ("Enter your first name", "Enter your last name", "you@company.com", "Enter your phone number").
+- **Small copy fixes:** "Chat with Sales" has one space, and the email address no leading space; the phone number is a tap-to-call link.
+- **Not connected yet:** the form checks the fields and stops (no inbox is connected), and "Book a call instead" has no booking link, so it isn't a link.
+
+Legal pages (`/privacy`, `/terms`, `/cookies`, copy in `src/sections/legal/content.ts`): drafts written from what the site promises (14-day trial, 7-day money back, export anytime, no AI training without permission). They need a lawyer's review and the company's details (legal name and address, governing law, analytics tools, data retention) before launch. There is no "Last updated" line, at the design team's request.
 
 Solution pages (`src/sections/forYou/*`, content in `audiences.ts`): the copy is Figma's as updated in November 2026, with these deliberate differences, as the design team asked:
 

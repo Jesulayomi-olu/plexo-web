@@ -8,6 +8,17 @@ export type NavItem = { label: string; href: string }
 /** "Developers" in the bar: the For Developers solution page (Figma 1042:19374). */
 export const DEVELOPERS_HREF = '/solutions/developers'
 
+/** "Blog" (nav bar, footer). */
+export const BLOG_HREF = '/resources/blog'
+
+/** "Contact" (Resources menu) and "Contact us" (footer): the Get in touch page (Figma 1349:8580). */
+export const CONTACT_HREF = '/contact'
+
+/** The footer's legal links (pages composed from the design system; no Figma frames). */
+export const PRIVACY_HREF = '/privacy'
+export const TERMS_HREF = '/terms'
+export const COOKIES_HREF = '/cookies'
+
 /** "Log in" (nav bar, footer): the Welcome Back screen (Figma 1048:21566). */
 export const LOGIN_HREF = '/login'
 
@@ -23,7 +34,7 @@ export const featureItems: NavItem[] = [
   { label: 'E-commerce', href: '/features/ecommerce' },
 ]
 
-/** "Solution" (formerly "For you"): each item has its own photo, shown while the item is hovered or focused. */
+/** "For You": each item has its own photo, shown while the item is hovered or focused. */
 export const audienceItems: AudienceItem[] = [
   { label: 'Founders', href: '/solutions/founders', photo: '/assets/v2/nav/for-you-founders.webp' },
   { label: 'Coaches', href: '/solutions/coaches', photo: '/assets/v2/nav/for-you-coaches.webp' },

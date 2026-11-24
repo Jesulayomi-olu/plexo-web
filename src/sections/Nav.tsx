@@ -6,16 +6,17 @@ import { usePathname } from 'next/navigation'
 import { Button } from '../components/Button'
 import { useCaptureMode } from '../lib/motion'
 import { MobileMenu } from './MobileMenu'
-import { DEVELOPERS_HREF, LOGIN_HREF, SIGNUP_HREF } from './navData'
+import { BLOG_HREF, DEVELOPERS_HREF, LOGIN_HREF, SIGNUP_HREF } from './navData'
 import { FeaturesMenu, ForYouMenu, ResourcesMenu, type MenuId } from './NavMenu'
 import styles from './Nav.module.css'
 
 /**
- * Figma "Navigation" (component 1042:18288, instance 1166:14997 on Home page V2): 1440×72, #0d1a03,
- * padding 16/80; content row (1280) space-between: logo (92.44×24) · links (gap 24: Features, Solution,
- * Pricing, Developers, Resources) · "Log in" and "Start free" (174×40, 16px label), gap 24.
- * "Features", "Solution" and "Resources" open their menus (Figma 565:2852, the For You dropdown 565:2838
- * + siblings, and 942:6996); see NavMenu.
+ * Figma "Navigation" (component 1042:18325; its divider layer is hidden on every page, so it is left out):
+ * 1440×72, #0d1a03, padding 16/80; content row (1280) space-between: logo (92.44×24) · links (gap 24:
+ * Features, For You, Pricing, Developers, Blog, Resources; Figma's empty 32px frame after them is left
+ * out at the design team's request) · "Log in" (500 16) and "Start free" (174×40, 16px label), gap 24.
+ * "Features", "For You" and "Resources" open their menus (Figma 565:2852, the For You dropdown 565:2838
+ * + siblings, and 897:6062); see NavMenu.
  *
  * Phones, Figma "Mobile navigation" (527:2679): 390×64, padding 12/20; logo (104.77×27.2) · "Start free"
  * (Size=Small) and the menu button (40×40, 20px icon), 8 apart. The button opens the full-screen menu
@@ -82,6 +83,7 @@ export default function Nav() {
   const pathname = usePathname()
   const onPricing = pathname === '/pricing'
   const onDevelopers = pathname === DEVELOPERS_HREF
+  const onBlog = pathname === BLOG_HREF || pathname.startsWith(`${BLOG_HREF}/`)
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const { menu, controls, closeAll } = useNavMenus()
@@ -178,6 +180,11 @@ export default function Nav() {
             <li>
               <a href={DEVELOPERS_HREF} className={styles.link} aria-current={onDevelopers ? 'page' : undefined}>
                 Developers
+              </a>
+            </li>
+            <li>
+              <a href={BLOG_HREF} className={styles.link} aria-current={onBlog ? 'page' : undefined}>
+                Blog
               </a>
             </li>
             <ResourcesMenu

@@ -6,17 +6,16 @@ import { Divider } from '../components/Divider'
 import { EmailField } from '../components/EmailField'
 import { Reveal } from '../components/Reveal'
 import { focusEase, usePreviewMode, useStaticMotion } from '../lib/motion'
-import { DEVELOPERS_HREF, LOGIN_HREF } from './navData'
+import { BLOG_HREF, CONTACT_HREF, COOKIES_HREF, DEVELOPERS_HREF, LOGIN_HREF, PRIVACY_HREF, TERMS_HREF } from './navData'
 import styles from './Footer.module.css'
 
 /**
- * Figma "Footer" (814:5666): white, bottom corners r32, clipped. A 1280 column 60 from the top: the
- * brand (logo, tagline, "Get product updates" email field) and five link columns, then the legal bar
- * (copyright, policies, social links). The giant Plexo logo is cut by the bottom edge. Below it the
- * page's #0d1a03 band (248px) with the dashed star divider (532:25133) and a soft green glow
- * ("Ellipse 3", 532:25172).
- * Labels are verbatim from Figma, except Solutions (below). Items without an `href` have no page yet and
- * render as plain text.
+ * Figma "Footer" (1355:12399): white, bottom corners r32, clipped. A 1280 column 60 from the top: the
+ * brand (logo, tagline, "Get product updates" email field) and four link columns, then the legal bar
+ * (copyright and policies at the left, the social links at the right). The giant Plexo logo is cut by the
+ * bottom edge. Below it the page's #0d1a03 band (248px) with the dashed star divider (532:25133) and a
+ * soft green glow ("Ellipse 3", 532:25172).
+ * Labels are verbatim from Figma. Items without an `href` have no page yet and render as plain text.
  */
 type FooterLink = { label: string; href?: string; /** "Log in": semibold, green. */ accent?: boolean }
 
@@ -32,8 +31,6 @@ const columns: { title: string; links: FooterLink[] }[] = [
     ],
   },
   {
-    // The five solution pages that exist, named as on the home page's "Plexo is for everyone" tabs (Figma's
-    // "Agencies and freelancers", "Growing brands" and "Product teams" have no pages; the design team's call).
     title: 'Solutions',
     links: [
       { label: 'Small businesses', href: '/solutions/small-business' },
@@ -56,20 +53,20 @@ const columns: { title: string; links: FooterLink[] }[] = [
   {
     title: 'Resources',
     links: [
-      { label: 'Blog', href: '/resources/blog' },
-      { label: 'Help center' },
+      { label: 'Blog', href: BLOG_HREF },
+      { label: 'Changelog' },
+      { label: 'Templates', href: '/resources/templates' },
       { label: 'Customer stories', href: '/resources/customer-stories' },
-      { label: 'FAQ', href: '/#faq' },
-      { label: 'Contact support' },
+      { label: 'Contact us', href: CONTACT_HREF },
     ],
-  },
-  {
-    title: 'Company',
-    links: [{ label: 'About' }, { label: 'Careers' }, { label: 'Partners' }, { label: 'Contact us' }],
   },
 ]
 
-const legal: FooterLink[] = [{ label: 'Privacy policy' }, { label: 'Terms of service' }, { label: 'Cookie policy' }]
+const legal: FooterLink[] = [
+  { label: 'Privacy policy', href: PRIVACY_HREF },
+  { label: 'Terms of service', href: TERMS_HREF },
+  { label: 'Cookie policy', href: COOKIES_HREF },
+]
 
 const socials: (FooterLink & { icon: string })[] = [
   { label: 'LinkedIn', icon: '/assets/footer/linkedin.svg' },

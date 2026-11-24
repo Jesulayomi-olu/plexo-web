@@ -28,8 +28,18 @@ const promises = [
   { icon: 'export', size: 17, title: 'Export anytime', body: 'Your code. No lock-⁠in.' },
 ]
 
-/** "Credit guide" (also on Build with Sol, 614:20334, which ends with its own reassurance line). */
-export function CreditGuide({ reassurance = 'Drag-and-drop edits never use credits.' }: { reassurance?: string }) {
+/**
+ * "Credit guide". Pricing (571:11727): each action ends with its credit cost, and the reassurance line
+ * starts with a check. Build with Sol (614:20334, `included`): each action ends with the green "Included
+ * check" (same artwork as table-check) instead of a cost, and the reassurance line has no icon.
+ */
+export function CreditGuide({
+  reassurance = 'Drag-and-drop edits never use credits.',
+  included = false,
+}: {
+  reassurance?: string
+  included?: boolean
+}) {
   const isStatic = useStaticMotion()
 
   return (
@@ -47,14 +57,18 @@ export function CreditGuide({ reassurance = 'Drag-and-drop edits never use credi
               transition={{ duration: 0.5, ease, delay: 0.15 + i * 0.07 }}
             >
               <img src={`/assets/pricing/${action.icon}.svg`} width={20} height={20} alt="" className={styles.actionIcon} />
-              <span className={styles.actionLabel}>{action.label}</span>
-              <span className={styles.actionCost}>{action.cost}</span>
+              <span className={`${styles.actionLabel} ${included ? styles.actionLabelWide : ''}`}>{action.label}</span>
+              {included ? (
+                <img src="/assets/pricing/table-check.svg" width={20} height={20} alt="" className={styles.actionCheck} />
+              ) : (
+                <span className={styles.actionCost}>{action.cost}</span>
+              )}
             </motion.li>
           ))}
         </ul>
       </div>
       <p className={styles.freeEdits}>
-        <img src="/assets/pricing/table-check.svg" width={20} height={20} alt="" />
+        {!included && <img src="/assets/pricing/table-check.svg" width={20} height={20} alt="" />}
         {reassurance}
       </p>
     </div>

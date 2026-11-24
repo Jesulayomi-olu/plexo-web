@@ -4,21 +4,18 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Button } from '../components/Button'
 import { durations, ease, useStaticMotion } from '../lib/motion'
-import { audienceItems, DEVELOPERS_HREF, featureItems, SIGNUP_HREF } from './navData'
+import { audienceItems, BLOG_HREF, DEVELOPERS_HREF, featureItems, SIGNUP_HREF } from './navData'
 import { resourceMenu } from './resources/data'
 import styles from './MobileMenu.module.css'
 
 /** A submenu link; items with no page yet show as plain text. */
 type SubItem = { label: string; href?: string }
 
-// Resources: the menu's items in reading order, then "All resources".
-const resourceItems: SubItem[] = [...resourceMenu.columns.flat(), resourceMenu.all]
-
 /*
  * Figma "Mobile menu · open (Features)" (555:2757) and "(For You)" (555:2816), as a 320-wide drawer that
  * slides in from the right under the 64px bar (Figma fills the screen; the page shows dimmed beside it),
- * #0d1a03. Rows (500 14/21, white, 57 tall) are split by 12% white lines; Features, For You and Resources
- * open in place to show their links (400 12/18, white at 80%). "Start free" (full width) sits at the
+ * #0d1a03. Rows (500 14/21, white, 57 tall) are split by 12% white lines; the rows follow the desktop bar
+ * (1042:18325). Features, For You and Resources open in place to show their links (400 12/18, white at 80%). "Start free" (full width) sits at the
  * bottom, at Size=Large (48; Figma has Small), as the design system sizes main actions on phones. One
  * submenu is open at a time; all start closed.
  */
@@ -73,13 +70,14 @@ export function MobileMenu({ id, onNavigate }: Props) {
   const isStatic = useStaticMotion()
   const toggle = (next: SectionId) => setSection((current) => (current === next ? null : next))
 
-  // Same items and order as the desktop bar (Figma "Navigation" 1042:18288).
-  const groups = [
-    { label: 'Features', section: 'features' as const, items: featureItems },
-    { label: 'Solution', section: 'for-you' as const, items: audienceItems },
+  // Same items and order as the desktop bar (Figma "Navigation" 1042:18325) and its Resources menu.
+  const groups: ({ label: string; href: string } | { label: string; section: SectionId; items: SubItem[] })[] = [
+    { label: 'Features', section: 'features', items: featureItems },
+    { label: 'For You', section: 'for-you', items: audienceItems },
     { label: 'Pricing', href: '/pricing' },
     { label: 'Developers', href: DEVELOPERS_HREF },
-    { label: 'Resources', section: 'resources' as const, items: resourceItems },
+    { label: 'Blog', href: BLOG_HREF },
+    { label: 'Resources', section: 'resources', items: resourceMenu },
   ]
 
   // A drawer from the right under the bar; the page behind dims, and a tap on it closes the menu.
@@ -113,7 +111,7 @@ export function MobileMenu({ id, onNavigate }: Props) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={isStatic ? { duration: 0 } : { duration: durations.base, ease, delay: 0.04 + index * 0.04 }}
               >
-                {'section' in group && group.section ? (
+                {'section' in group ? (
                   <>
                     <button
                       type="button"

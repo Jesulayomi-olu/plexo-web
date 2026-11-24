@@ -43,8 +43,10 @@
 }
 
 /*
- * "Frame 1": row, gap 24, 333 wide. The list and its items span the bar's height (labels stay centred),
- * so the hover area of "Features" / "For You" reaches down to their menus.
+ * "Frame 1": row, gap 24. The list and its items span the bar's height (labels stay centred), so the
+ * hover area of "Features" / "For You" reaches down to their menus. Figma's empty 32px frame at the end
+ * of the row (1355:9638) is left out at the design team's request, so the links sit centred between the
+ * logo and the actions.
  */
 .links {
   align-self: stretch;
@@ -108,11 +110,11 @@
   gap: 24px;
 }
 
-/* "Log in": desktop/label/md/regular, 400 14/15.4, #f4f5f0. */
+/* "Log in": desktop/label/lg/medium, 500 16/17.6, #f4f5f0. */
 .login {
-  font-size: 14px;
-  line-height: 15.4px;
-  font-weight: 400;
+  font-size: 16px;
+  line-height: 17.6px;
+  font-weight: 500;
   color: var(--surface-100);
   white-space: nowrap;
 }
@@ -138,7 +140,7 @@ a.login:focus-visible {
   display: none;
 }
 
-/* Tablets: five links and two actions in 688–944px: tighter gaps, a hugging button, then no "Log in". */
+/* Tablets: six links and two actions in 688–944px: tighter gaps, a hugging button, then no "Log in". */
 @media (max-width: 1023px) {
   .list,
   .actions {
@@ -153,6 +155,10 @@ a.login:focus-visible {
 @media (max-width: 899px) {
   .login {
     display: none;
+  }
+
+  .list {
+    gap: 12px;
   }
 }
 
